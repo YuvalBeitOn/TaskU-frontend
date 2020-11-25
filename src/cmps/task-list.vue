@@ -1,9 +1,10 @@
 <template>
     <section v-if="tasks" class="task-list">
+      <h2>Task List: </h2>
         <ul class="clean list flex wrap align-center justify-center gap">
             <task-preview
                 v-for="task in tasks"
-                :key="task._id"
+                :key="task.id"
                 :task="task"
             />
         </ul>

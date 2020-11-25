@@ -1,5 +1,6 @@
 <template>
     <li class="group-preview">
+        <h2>Group: {{group.id}}</h2>
        <task-list :tasks="group.tasks"/>
     </li>
 </template>

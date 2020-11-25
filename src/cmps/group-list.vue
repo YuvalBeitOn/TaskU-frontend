@@ -1,6 +1,7 @@
 <template>
     <section v-if="groups.length" class="group-list">
-        <ul class="clean list flex wrap align-center justify-center gap">
+        <h2>Board: {{boardName}}</h2>
+        <ul class="clean list flex column align-center justify-center gap">
             <group-preview
                 v-for="group in groups"
                 :key="group._id"
@@ -15,10 +16,9 @@ import groupPreview from "@/cmps/group-preview.vue";
 
 export default {
     name: "group-list",
-    computed: {
-        groups() {
-            return this.$store.getters.groups
-        }
+    props: {
+        groups: Array,
+        boardName: String
     },
     components: {
         groupPreview,
