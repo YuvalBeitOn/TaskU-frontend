@@ -1,13 +1,15 @@
 <template>
-  <section class="task-preview">
-      <h1>This is task-preview component</h1>
-  </section>
+    <li class="task-preview">
+        <pre>{{ task }}</pre>
+    </li>
 </template>
 
 <script>
 export default {
-    name: "task-preview"
-
-}
+    name: "task-preview",
+    props: {
+        task: Object,
+    },
+};
 </script>
 
