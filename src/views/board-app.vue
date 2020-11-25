@@ -1,6 +1,6 @@
 <template>
   <section class="board-app">
-    <!-- <h1>This is board app page</h1> -->
+    <board-list />
     <group-list v-if="board" :groups="board.groups" :boardName="board.name" />
   </section>
 </template>
