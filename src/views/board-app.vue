@@ -8,7 +8,7 @@
 <script>
 import groupList from "@/cmps/group-list";
 export default {
-  name: "board-app",
+  name: 'board-app',
   computed: {
     board() {
       return this.$store.getters.currBoard;
@@ -16,7 +16,7 @@ export default {
   },
   created() {
     this.$store.dispatch({
-      type: "loadBoard",
+      type: 'loadBoard',
       boardId: this.$route.params.boardId,
     });
   },
