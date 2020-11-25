@@ -1,0 +1,48 @@
+.nav-menu {
+    background-color: #292f4c;
+    min-height: 100vh;
+    width: rem(120px);
+    padding: rem(15px);
+    z-index: 999;
+
+    // The width should change to min-width because the boardAPP should push it aside
+    .nav-logo img{
+        width: rem(70px);
+    }
+    .user-greeting {
+        transform: rotate(270deg);
+        padding: rem(10px) rem(20px);
+        background-color: #00ca73;
+        color: #fefefe;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-left: -60px;
+        border-radius: 0 0 rem(20px) rem(20px);
+        max-width: rem(300px);
+        text-align: center;
+        text-overflow: ellipsis;
+        cursor: default;
+    }
+
+    .nav-icon {
+        cursor: pointer;
+        
+        font-size: rem(30px);
+        color: white;
+        margin: rem(10px);
+        &.logout{
+            transform: rotate(180deg);
+        }
+        &.profile{
+        font-size: rem(40px);
+            color:#f0284e;
+            border:3px solid white;
+            border-radius: 50%;
+            background-color: white;
+        }
+        
+    }
+
+
+
+}
