@@ -35,6 +35,7 @@ export const boardStore = {
             state.searchBoard = searchBoard
             console.log('state.searchBoard:', state.searchBoard)
         }
+        
 
     },
     actions: {
