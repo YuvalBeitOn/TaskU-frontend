@@ -3,7 +3,6 @@
         <main class="board-container flex">
             <template v-if="isNavShowen">
                 <nav-menu />
-                <board-list />
             </template>
             <router-view />
         </main>
@@ -13,7 +12,6 @@
 
 <script>
 import navMenu from "@/cmps/nav-menu";
-import boardList from "@/cmps/board-list.vue";
 
 export default {
     methods: {},
@@ -29,7 +27,6 @@ export default {
     created() {},
     components: {
         navMenu,
-        boardList,
     },
 };
 </script>

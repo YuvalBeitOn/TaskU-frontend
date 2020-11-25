@@ -1,6 +1,7 @@
 <template>
     <section class="board-app">
         <!-- <h1>This is board app page</h1> -->
+        <board-list />
         <group-list
             v-if="board"
             :groups="board.groups"
@@ -11,6 +12,8 @@
 
 <script>
 import groupList from "@/cmps/group-list";
+import boardList from "@/cmps/board-list.vue";
+
 export default {
     name: "board-app",
     methods: {
@@ -31,12 +34,12 @@ export default {
             this.loadBoard();
         },
     },
-
     created() {
         this.loadBoard();
     },
     components: {
         groupList,
+        boardList
     },
 };
 </script>

@@ -1,16 +1,19 @@
 <template>
-    <li class="task-preview">
-        <h3>Task Preview:</h3>
-        <pre>{{ task }}</pre>
-    </li>
+  <li class="task-preview">
+    <pre>{{ task }}</pre>
+    <span>{{ task.name }}</span>
+    <span><i class="far fa-comment"></i></span>
+    <span><i class="far fa-user-circle"></i></span>
+    <span>{{ task.status }}</span>
+    <span>{{ task.priority }}</span>
+  </li>
 </template>
 
 <script>
 export default {
-    name: "task-preview",
-    props: {
-        task: Object,
-    },
+  name: 'task-preview',
+  props: {
+    task: Object,
+  },
 };
 </script>
-
