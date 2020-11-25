@@ -1,0 +1,28 @@
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    /*buuton*/
+    
+    button {
+        cursor: pointer;
+        border-radius: 2px;
+        transition: .3s;
+        background-color: #0085FF;
+        &.hover {
+            background-color: #0071D9;
+        }
+        &.white {
+            border: 1px solid #E6E9EF;
+            color: #323338;
+            padding: 8px 16px;
+            &.hover {
+                background-color: #e6e9ef;
+            }
+        }
+    }
+    
+    img {
+        width: 100%;
+    }
