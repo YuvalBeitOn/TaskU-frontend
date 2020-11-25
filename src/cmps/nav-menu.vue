@@ -4,7 +4,6 @@
       <div class="nav-logo">
          <router-link to="/">
         <img src="img/icons/logo_icon.png"  alt="TaskU" />
-         
          </router-link>
       </div>
       <i class="nav-icon fas fa-bell"></i>
