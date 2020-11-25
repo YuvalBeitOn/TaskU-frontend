@@ -5,7 +5,7 @@
             <input type="text" placeholder="search" />
             <button>Search</button>
         </form>
-        <ul v-if="boards" class="boards-list">
+        <ul v-if="boards" class="boards-list clean-list">
             <li v-for="board in boards" :key="board._id">
                 <button @click="removeBoard(board._id)">X</button>
                 <router-link :to="'/board/' + board._id">{{

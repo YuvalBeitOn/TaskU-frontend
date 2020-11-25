@@ -1,9 +1,5 @@
 <template>
     <section class="board-app">
-<<<<<<< HEAD
-        {{ board }}
-=======
->>>>>>> b8acdcbf2df3eeab7289a7f5228969bc3afc68fd
         <!-- <h1>This is board app page</h1> -->
         <group-list
             v-if="board"
@@ -37,14 +33,7 @@ export default {
     },
 
     created() {
-<<<<<<< HEAD
-        this.$store.dispatch({
-            type: "loadBoard",
-            boardId: this.$route.params.boardId,
-        });
-=======
         this.loadBoard();
->>>>>>> b8acdcbf2df3eeab7289a7f5228969bc3afc68fd
     },
     components: {
         groupList,
