@@ -27,7 +27,6 @@ export const boardStore = {
     removeBoard(state, { boardId }) {
       state.boards = state.boards.filter((board) => board._id !== boardId);
     },
-
   },
   actions: {
     async loadBoards({ commit }) {
@@ -46,9 +45,9 @@ export const boardStore = {
       await boardService.remove(boardId);
       commit({ type: 'removeBoard', boardId });
     },
-    async updateBoard({commit},{board}){
-        const savedBoard = await boardService.save(board);
-        commit({type:'setBoard',board:savedBoard})
+    async updateBoard({ commit }, { board }) {
+      const savedBoard = await boardService.save(board);
+      commit({ type: 'setBoard', board: savedBoard });
     },
     // async saveBoard({ commit }, { board }) {
     //   const actionType = board._id ? 'loadBoard' : 'loadBoards';

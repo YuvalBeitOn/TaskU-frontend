@@ -11,13 +11,13 @@
          <router-link :to="'board/'+board._id">{{board.name}}</router-link>
         </li>
       </ul>
-     {{boards}}
+     
   </section>
 </template>
 
 <script>
 export default {
-    name: "board-list",
+    name: 'board-list',
     computed:{
       boards(){
         return this.$store.getters.boards;
