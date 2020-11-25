@@ -13,21 +13,6 @@ export default {
   name: "board-app",
   computed: {
     board() {
-<<<<<<< HEAD
-      return this.$store.getters.currBoard;
-    }
-  },
-  created() {
-    this.$store.dispatch({
-      type: "loadBoard",
-      boardId: this.$route.params.boardId
-    });
-  },
-  components: {
-    groupList
-  }
-};
-=======
       return this.$store.getters.board
     }
   },
@@ -52,5 +37,4 @@ export default {
     boardList
   }
 }
->>>>>>> 7b84609878a17cacd584019e8a33014af1fdc2ce
 </script>
