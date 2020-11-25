@@ -1,13 +1,11 @@
 <template>
   <section class="board-chat">
-      <h1>This is board-chat component</h1>
+    <h1>This is board-chat component</h1>
   </section>
 </template>
 
 <script>
 export default {
-    name: "board-chat"
-
+  name: 'board-chat',
 }
 </script>
-

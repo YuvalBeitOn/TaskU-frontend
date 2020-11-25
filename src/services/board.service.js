@@ -1,33 +1,33 @@
-import { httpService } from './http.service';
+import { httpService } from "./http.service";
 
 export const boardService = {
-	query,
-	getById,
-	remove,
-	save,
+  query,
+  getById,
+  remove,
+  save
 };
 
 function query() {
-	return httpService.get('board');
+  return httpService.get("board");
 }
 
 function getById(boardId) {
-	return httpService.get(`board/${boardId}`);
+  return httpService.get(`board/${boardId}`);
 }
 
 function remove(boardId) {
-	return httpService.delete(`board/${boardId}`);
+  return httpService.delete(`board/${boardId}`);
 }
 
 function save(board) {
-	const savedBoard = board._id ? _update(board) : _add(board);
-	return savedBoard;
+  const savedBoard = board._id ? _update(board) : _add(board);
+  return savedBoard;
 }
 
 async function _add(board) {
-	return httpService.post(`board/`, board);
+  return httpService.post(`board/`, board);
 }
 
 async function _update(board) {
-	return httpService.put(`board/${board._id}`, board);
+  return httpService.put(`board/${board._id}`, board);
 }

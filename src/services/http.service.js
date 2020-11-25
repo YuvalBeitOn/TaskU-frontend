@@ -1,39 +1,39 @@
-import router from '@/router';
+import router from "@/router";
 
 const BASE_URL =
-  process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3000/';
+  process.env.NODE_ENV === "production" ? "/api/" : "//localhost:3000/";
 
-import Axios from 'axios';
+import Axios from "axios";
 var axios = Axios.create({
-  withCredentials: true,
+  withCredentials: true
 });
 
 export const httpService = {
   get(endpoint, data) {
-    return ajax(endpoint, 'GET', data);
+    return ajax(endpoint, "GET", data);
   },
   post(endpoint, data) {
-    return ajax(endpoint, 'POST', data);
+    return ajax(endpoint, "POST", data);
   },
   put(endpoint, data) {
-    return ajax(endpoint, 'PUT', data);
+    return ajax(endpoint, "PUT", data);
   },
   delete(endpoint, data) {
-    return ajax(endpoint, 'DELETE', data);
-  },
+    return ajax(endpoint, "DELETE", data);
+  }
 };
 
-async function ajax(endpoint, method = 'get', data = null) {
+async function ajax(endpoint, method = "get", data = null) {
   try {
     const res = await axios({
       url: `${BASE_URL}${endpoint}`,
       method,
-      data,
+      data
     });
     return res.data;
   } catch (err) {
     if (err.response.status === 401) {
-      router.push('/');
+      router.push("/");
     }
     console.log(`Had issues ${method}ing to server`, err);
     throw err;
