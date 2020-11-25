@@ -1,4 +1,4 @@
-<template>
+go<template>
     <section class="board-app">
         <!-- <h1>This is board app page</h1> -->
         <group-list v-if="board" :groups="board.groups" :boardName="board.name" /> 
