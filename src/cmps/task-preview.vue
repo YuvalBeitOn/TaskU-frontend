@@ -1,7 +1,11 @@
 <template>
   <li class="task-preview">
-    <h3>Task Preview:</h3>
     <pre>{{ task }}</pre>
+    <span>{{ task.name }}</span>
+    <span><i class="far fa-comment"></i></span>
+    <span><i class="far fa-user-circle"></i></span>
+    <span>{{ task.status }}</span>
+    <span>{{ task.priority }}</span>
   </li>
 </template>
 
