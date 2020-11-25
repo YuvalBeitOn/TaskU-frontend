@@ -22,6 +22,6 @@ export default {
     },
     components: {
         groupPreview,
-    },
+    }
 };
 </script>
