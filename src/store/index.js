@@ -1,4 +1,4 @@
-import { from } from "core-js/fn/array";
+
 import Vue from "vue";
 import Vuex from "vuex";
 import {boardStore} from '@/modules/board.store.js'
