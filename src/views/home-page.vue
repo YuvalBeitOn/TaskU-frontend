@@ -1,6 +1,7 @@
 <template>
   <section class="home-page">
       <h1>This is home page</h1>
+
       <router-link to="/login">login</router-link>
           <router-link to="/board/123">Get Started!</router-link>
 
@@ -8,9 +9,12 @@
 </template>
 
 <script>
-export default {
-    name: "home-page"
 
+export default {
+    name: "home-page",
+    components:{
+
+    }
 }
 </script>
 
