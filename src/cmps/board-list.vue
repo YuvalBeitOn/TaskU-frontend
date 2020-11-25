@@ -1,6 +1,6 @@
 <template>
   <section class="board-list">
-    <h1>Boards: <span><button @click="addBoard">+</button></span></h1>
+    <h1>Boards: <span><button @click="addNewBoard">+</button></span></h1>
     <form @submit.prevent="emitSearch">
       <input type="text" @input="emitSearch" v-model="searchBoard" placeholder="Search" />
       <button>Search</button>
@@ -39,8 +39,8 @@ export default {
     removeCurrBoard(boardId) {
       this.$emit('removeBoard',boardId)
     },
-    addBoard(){
-      this.$emit('addNewBoard')
+    addNewBoard(){
+      this.$emit('addBoard')
     },
   },
   created(){

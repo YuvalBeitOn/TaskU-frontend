@@ -35,8 +35,7 @@ async function _update(board) {
 
 function getEmptyBoard(){
  return {
-    '_id': 'u102',
-    'name': 'sprint2',
+    'name': 'myBoard',
     'creator': {
         '_id': '304',
         'fullname': 'Nuki Ben David',

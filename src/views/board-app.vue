@@ -3,7 +3,7 @@
     <board-list
       @searchBoard="setSearch"
       @removeBoard="removeCurrBoard"
-      @addNewBoard="addBoard"
+      @addBoard="addNewBoard"
       :boards="boards"
     />
     <group-list v-if="board" :groups="board.groups" :boardName="board.name" />
@@ -13,7 +13,7 @@
 <script>
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
-
+import {boardService} from '@/services/board.service';
 export default {
   name: 'board-app',
   computed: {
@@ -30,11 +30,12 @@ export default {
       this.$store.dispatch({ type: 'loadBoards' })
     },
     removeCurrBoard(boardId) {
-      this.$stroe.dispatch({ type: 'removeBoard', boardId })
+      this.$store.dispatch({ type: 'removeBoard', boardId })
     },
-    addBoard() {
-      //TODO: ADD NEW OBJECT OF BOARD FROM HERE  OR FROM BOARD LIST?
-      this.$stroe.dispatch({ type: 'saveBoard' })
+    addNewBoard() {
+      const board = boardService.getEmptyBoard();
+      console.log('board:', board)
+     this.$store.dispatch({ type: 'saveBoard', board })
     },
 
     loadBoard() {
