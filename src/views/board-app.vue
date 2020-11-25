@@ -6,7 +6,7 @@
 </template>
 
 <script>
-
+import groupList from '@/cmps/group-list'
 export default {
     name: "board-app",
     computed: {
