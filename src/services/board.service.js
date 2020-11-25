@@ -1,13 +1,13 @@
 import { httpService } from './http.service'
 
 export const boardService = {
-    getBoards,
+    query,
     getById,
     remove,
     save
 }
 
-function getBoards() {
+function query() {
     return httpService.get('board')
 }
 
@@ -20,8 +20,8 @@ function remove(boardId) {
 }
 
 function save(board) {
-    const savedboard = (board._id) ? _update(board) : _add(board)
-    return savedboard;
+    const savedBoard = (board._id) ? _update(board) : _add(board)
+    return savedBoard;
 }
 
 async function _add(board) {

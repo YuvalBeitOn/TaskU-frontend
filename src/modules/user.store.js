@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { userService } from '@/services/user.service.js'
 
 export const userStore = {
@@ -48,5 +49,19 @@ export const userStore = {
             commit({ type: 'addUser', user: savedUser })
             return savedUser
         }
+=======
+export const userStore = {
+    state:{
+
+    },
+    getters:{
+
+    },
+    mutations:{
+
+    },
+    actions:{
+        
+>>>>>>> ec4c790e468f0c2e0bcd8e4940756988ac3490fb
     }
 }
