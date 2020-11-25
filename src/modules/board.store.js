@@ -3,11 +3,14 @@ export const boardStore = {
     state: {
         boards: [],
         currBoard: null,
+        searchBoard:null,
         filterBy: null,
     },
     getters: {
         boards(state) {
-            return state.boards;
+            if(!state.searchBoard) return state.boards;
+            return state.boards.filter(board=>board.name.toLowerCase().includes(state.searchBoard.toLowerCase()))
+            
         },
         board(state) {
             return state.currBoard;
@@ -27,6 +30,11 @@ export const boardStore = {
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter((board) => board._id !== boardId);
         },
+        setSearch(state,{searchBoard}){
+            console.log('searchBoard:', searchBoard)
+            state.searchBoard = searchBoard
+            console.log('state.searchBoard:', state.searchBoard)
+        }
 
     },
     actions: {
@@ -36,7 +44,6 @@ export const boardStore = {
         },
         async loadBoard({ commit }, { boardId }) {
             const board = await boardService.getById(boardId);
-            console.log(board, 'wired')
             commit({ type: 'setBoard', board });
         },
         async removeBoard({ commit }, { boardId }) {
