@@ -29,7 +29,9 @@ export default {
       console.log('boardId:', boardId)
       }
     },
-
+  created(){
+    this.$store.dispatch({type:'loadBoards'})
+  }
 }
 </script>
 
