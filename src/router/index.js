@@ -9,42 +9,44 @@ import appSignup from "@/views/app-signup";
 
 Vue.use(VueRouter);
 
-const routes = [{
-        path: "/",
-        name: "homePage",
-        component: homePage
-    },
-    {
-        path: "/login",
-        name: "appLogin",
-        component: appLogin
-    },
-    {
-        path: "/signup",
-        name: "appSignup",
-        component: appSignup
-    },
-    {
-        path: "/board/:boardId",
-        name: "boradApp",
-        component: boardApp,
-        children: [{
-            path: '/task/:taskId',
-            component: taskDetails,
-        }]
-    },
-    {
-        path: "/user/:userId",
-        name: "userDetails",
-        component: userDetails
-    },
-
+const routes = [
+  {
+    path: "/",
+    name: "homePage",
+    component: homePage
+  },
+  {
+    path: "/login",
+    name: "appLogin",
+    component: appLogin
+  },
+  {
+    path: "/signup",
+    name: "appSignup",
+    component: appSignup
+  },
+  {
+    path: "/board/:boardId",
+    name: "boradApp",
+    component: boardApp,
+    children: [
+      {
+        path: "/task/:taskId",
+        component: taskDetails
+      }
+    ]
+  },
+  {
+    path: "/user/:userId",
+    name: "userDetails",
+    component: userDetails
+  }
 ];
 
 const router = new VueRouter({
-    mode: "hash",
-    base: process.env.BASE_URL,
-    routes
+  mode: "hash",
+  base: process.env.BASE_URL,
+  routes
 });
 
 export default router;

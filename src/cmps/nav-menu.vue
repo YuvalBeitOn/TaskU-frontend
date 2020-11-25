@@ -20,7 +20,6 @@
 
 <script>
 export default {
-  name: "nav-menu",
+  name: "nav-menu"
 };
 </script>
-

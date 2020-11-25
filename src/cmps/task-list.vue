@@ -1,6 +1,5 @@
 <template>
     <section v-if="tasks" class="task-list">
-      <h2>Task List: </h2>
         <ul class="clean list flex wrap align-center justify-center gap">
             <task-preview
                 v-for="task in tasks"
@@ -11,19 +10,17 @@
     </section>
 </template>
 
-
 <script>
 import taskPreview from "@/cmps/task-preview.vue";
 
 export default {
-    name: "task-list",
-    props: {
-        tasks: Array,
-    },
-    methods: {
-    },
-    components: {
-        taskPreview,
-    },
+  name: "task-list",
+  props: {
+    tasks: Array
+  },
+  methods: {},
+  components: {
+    taskPreview
+  }
 };
 </script>
