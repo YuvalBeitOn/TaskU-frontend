@@ -10,7 +10,6 @@ export const boardStore = {
         boards(state) {
             if(!state.searchBoard) return state.boards;
             return state.boards.filter(board=>board.name.toLowerCase().includes(state.searchBoard.toLowerCase()))
-            
         },
         board(state) {
             return state.currBoard;
@@ -38,9 +37,10 @@ export const boardStore = {
 
     },
     actions: {
-        async loadBoards({ commit }) {
+        async loadBoards(context) {
+            console.log('context:', context)
             const boards = await boardService.query();
-            commit({ type: 'setBoards', boards });
+            context.commit({ type: 'setBoards', boards });
         },
         async loadBoard({ commit }, { boardId }) {
             const board = await boardService.getById(boardId);
@@ -55,8 +55,9 @@ export const boardStore = {
             if (board._id) {
                 commit({ type: 'setBoard', board: savedBoard })
             } else {
+                console.log('savedBoard:', savedBoard)
                 dispatch({ type: 'loadBoards' })
             }
         },
-    },
+    }
 };
