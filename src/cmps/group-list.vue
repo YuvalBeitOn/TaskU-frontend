@@ -8,7 +8,7 @@
 </template>
 
 <script>
-// import groupPreview from "@/cmps/group-preview.vue";
+import groupPreview from "@/cmps/group-preview.vue";
 
 export default {
   name: "group-list",
@@ -17,7 +17,7 @@ export default {
     boardName: String,
   },
   components: {
-    // groupPreview,
+    groupPreview,
   },
 };
 </script>
