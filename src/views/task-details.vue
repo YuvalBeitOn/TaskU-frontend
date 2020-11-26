@@ -6,6 +6,9 @@
 
 <script>
 export default {
-  name: "task-details"
+  name: "task-details",
+  created(){
+    console.log('Task details created')
+  }
 };
 </script>

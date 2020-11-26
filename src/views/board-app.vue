@@ -42,11 +42,6 @@ export default {
             this.$store.commit({ type: 'setSearch', searchBoard })
             this.$store.dispatch({ type: 'loadBoards' })
         },
-        watch: {
-            '$route.params.boardId'() {
-                this.loadBoard()
-            },
-        },
         addBoard() {
             const board = boardService.getEmptyBoard()
             this.$store.dispatch({ type: 'saveBoard', board })
