@@ -27,13 +27,8 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import taskPreview from '@/cmps/task-preview'
 import { boardService } from '@/services/board.service'
-=======
-import taskPreview from '@/cmps/task-preview.vue'
-import boardService from '@/services/board.service.js'
->>>>>>> 1aafa4a11112f79d44c1d7366eb2e8e243c2d3f2
 
 export default {
   name: 'task-list',
