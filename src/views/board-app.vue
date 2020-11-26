@@ -8,11 +8,16 @@
     />
     <div>
       <div v-if="board" class="board-control">
-          <h2>{{ board.name }}</h2>
+        <h2>{{ board.name }}</h2>
         <!-- <board-filter /> -->
-        <!-- <button @click="addGroup">New Group</button> -->
+        <button @click="addGroup">New Group</button>
       </div>
-      <group-list v-if="board" :groups="board.groups" :boardName="board.name" />
+      <group-list
+        v-if="board"
+        :groups="board.groups"
+        :boardName="board.name"
+        @deleteGroup="deleteGroup"
+      />
     </div>
   </section>
 </template>
@@ -21,6 +26,7 @@
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
 import { boardService } from '@/services/board.service'
+
 // import boardFilter from '@/cmps/board-filter.vue'
 
 export default {
@@ -51,6 +57,22 @@ export default {
       this.$store.dispatch({
         type: 'loadBoard',
         boardId: this.$route.params.boardId
+      })
+    },
+    addGroup() {
+      const newGroup = boardService.getEmptyGroup()
+      this.board.groups.push(newGroup)
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+    },
+    deleteGroup(groupId) {
+      const idx = this.board.groups.findIndex(group => group.id === groupId)
+      this.board.groups.splice(idx, 1)
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
       })
     }
   },
