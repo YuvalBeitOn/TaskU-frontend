@@ -7,6 +7,11 @@
 @import 'basics/helpers';
 @import 'basics/base';
 @import 'basics/layout';
+@import 'basics/fonts';
+
 // COMPONENTS
 @import 'cmps/nav-menu';
-@import 'cmps/board-list';
+@import 'cmps/task-preview';
+@import 'cmps/group-list';
+@import 'cmps/group-preview';
+

@@ -1,6 +1,6 @@
 <template>
-    <section v-if="tasks" class="task-list">
-        <ul class="clean list flex wrap align-center justify-center gap">
+    <section v-if="tasks" class="task-list width100">
+        <ul class="clean-list flex wrap align-center justify-center gap">
             <task-preview
                 v-for="task in tasks"
                 :key="task.id"
