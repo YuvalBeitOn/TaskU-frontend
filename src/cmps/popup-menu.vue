@@ -1,7 +1,7 @@
 <template>
     <section class="popup-menu" v-if="menuItems">
         <div
-            class="menu-item" style="position: absolute; top: 0; right: 0;"
+            class="menu-item"
             @click="itemClicked(menuitem.func)"
             v-for="(menuitem, idx) in menuItems"
             :key="idx"

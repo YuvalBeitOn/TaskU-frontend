@@ -18,17 +18,26 @@
                 :boardName="board.name"
             />
         </div>
+        <task-details v-if="this.$route.params.taskId" :task="currTask" />
     </section>
 </template>
 
 <script>
+import taskDetails from '../views/task-details'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
 import { boardService } from '@/services/board.service'
+import { eventBus } from '@/services/event-bus.service'
+
 // import boardFilter from '@/cmps/board-filter.vue'
 
 export default {
     name: 'board-app',
+    data() {
+        return {
+            currTask: null,
+        }
+    },
     computed: {
         board() {
             return this.$store.getters.board
@@ -42,8 +51,8 @@ export default {
             this.$store.commit({ type: 'setSearch', searchBoard })
             this.$store.dispatch({ type: 'loadBoards' })
         },
-     
-        removeCurrBoard(boardId){
+
+        removeCurrBoard(boardId) {
             this.$store.dispatch({ type: 'removeBoard', boardId })
         },
         addBoard() {
@@ -57,6 +66,27 @@ export default {
                 boardId: this.$route.params.boardId,
             })
         },
+        addGroup() {
+            const newGroup = boardService.getEmptyGroup()
+            this.board.groups.push(newGroup)
+            this.$store.dispatch({
+                type: 'saveBoard',
+                board: this.board,
+            })
+        },
+        deleteGroup(groupId) {
+            const idx = this.board.groups.findIndex(
+                (group) => group.id === groupId
+            )
+            this.board.groups.splice(idx, 1)
+            this.$store.dispatch({
+                type: 'saveBoard',
+                board: this.board,
+            })
+        },
+        setCurrTask(task) {
+            this.currTask = task
+        },
     },
     watch: {
         '$route.params.boardId'() {
@@ -64,12 +94,14 @@ export default {
         },
     },
     created() {
+        eventBus.$on('taskDetails', this.setCurrTask)
         this.$store.dispatch({ type: 'loadBoards' })
         this.loadBoard()
     },
     components: {
         groupList,
         boardList,
+        taskDetails,
         // boardFilter
     },
 }

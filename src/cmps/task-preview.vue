@@ -4,10 +4,9 @@
             <span>{{ task.txt }}</span>
         </div>
         <div class="task-details flex">
-            <router-link
-                :to="'/board/' + $route.params.boardId + '/task/' + task.id"
-                ><span><i class="far fa-comment fa-icon"></i></span
-            ></router-link>
+            <span @click="sendToTaskDetails"
+                ><i class="far fa-comment fa-icon"></i
+            ></span>
             <div class="headers flex">
                 <span><i class="far fa-user-circle fa-icon"></i></span>
                 <span class="status">{{ task.status.txt }}</span>
@@ -27,10 +26,25 @@
 </template>
 
 <script>
+import { eventBus } from '@/services/event-bus.service'
 export default {
     name: 'task-preview',
     props: {
         task: Object,
+    },
+    methods: {
+        sendToTaskDetails() {
+            if (
+                this.$route.params.taskId &&
+                this.$route.params.taskId === this.task.id
+            ) {
+                return
+            }
+            eventBus.$emit('taskDetails', this.task)
+            this.$router.push(
+                `/board/${this.$route.params.boardId}/${this.task.id}`
+            )
+        },
     },
 }
 </script>
