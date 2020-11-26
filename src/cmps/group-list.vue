@@ -1,11 +1,10 @@
 <template>
-  <section v-if="groups.length" class="group-list container">
+  <section v-if="groups.length" class="group-list">
     <ul class="clean-list flex column align-center justify-center gap width100">
       <group-preview v-for="group in groups" :key="group._id" :group="group" :deleteGroup="emitDelete"/>
     </ul>
   </section>
 </template>
-
 <script>
 import groupPreview from "@/cmps/group-preview.vue";
 
