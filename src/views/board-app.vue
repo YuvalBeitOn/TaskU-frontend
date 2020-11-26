@@ -12,13 +12,14 @@
         <button @click="isAddMembers = !isAddMembers">+</button>
         <members v-if="isAddMembers">
           <h2 slot="title-members">Members board</h2>
-          <ul v-if="board.members" class="clean-list" slot="members">
+          <ul v-if="board.members" class="clean-list list-member-board" slot="members">
             <li v-for="member in board.members" :key="member._id">
-              {{ member.fullName }} {{ member._id }} <button @click="removeUserFromBoard(member._id)">-</button>
+              {{ member.fullName }} {{ member._id }}
+              <button @click="removeUserFromBoard(member._id)">-</button>
             </li>
           </ul>
           <h2 slot="title-all-members">site users</h2>
-          <ul class="clean-list" slot="all-members">
+          <ul class="clean-list list-user-site" slot="all-members">
             <li v-for="user in usersSite" :key="user._id">
               {{ user.fullName }}{{ user._id }}
               <button @click="addUserToBoard(user)">+</button>
@@ -64,21 +65,21 @@ export default {
           return boardMember._id !== siteUser._id
         })
       })
-      console.log('filteredSiteUsers:', filteredSiteUsers)
       return filteredSiteUsers
     },
   },
   methods: {
-      addUserToBoard(user){
-         this.board.members.unshift(user)
-        this.$store.dispatch({ type: 'saveBoard', board:this.board })
-      },
-      removeUserFromBoard(userId){
-         const idx= this.board.members.findIndex(bMember=> bMember._id === userId )
-        this.board.members.splice(idx,1)
-        this.$store.dispatch({ type: 'saveBoard', board:this.board })
-
-      },
+    addUserToBoard(user) {
+      this.board.members.unshift(user)
+      this.$store.dispatch({ type: 'saveBoard', board: this.board })
+    },
+    removeUserFromBoard(userId) {
+      const idx = this.board.members.findIndex(
+        (bMember) => bMember._id === userId
+      )
+      this.board.members.splice(idx, 1)
+      this.$store.dispatch({ type: 'saveBoard', board: this.board })
+    },
     setSearch(searchBoard) {
       this.$store.commit({ type: 'setSearch', searchBoard })
       this.$store.dispatch({ type: 'loadBoards' })
@@ -92,11 +93,10 @@ export default {
       this.$store.dispatch({ type: 'saveBoard', board })
     },
 
-
     loadBoard() {
       this.$store.dispatch({
         type: 'loadBoard',
-        boardId: this.$route.params.boardId
+        boardId: this.$route.params.boardId,
       })
     },
     addGroup() {
@@ -104,22 +104,22 @@ export default {
       this.board.groups.push(newGroup)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board
+        board: this.board,
       })
     },
     deleteGroup(groupId) {
-      const idx = this.board.groups.findIndex(group => group.id === groupId)
+      const idx = this.board.groups.findIndex((group) => group.id === groupId)
       this.board.groups.splice(idx, 1)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board
+        board: this.board,
       })
-    }
-   },
+    },
+  },
   watch: {
     '$route.params.boardId'() {
       this.loadBoard()
-    }
+    },
   },
   created() {
     this.$store.dispatch({ type: 'loadUsers' })
@@ -132,6 +132,5 @@ export default {
     // boardFilter,
     members,
   },
-
 }
 </script>
