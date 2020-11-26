@@ -1,8 +1,10 @@
 .group-list {
     padding: 3rem;
+    height: 100%;
+
     ul {
         >*:not(:last-child) {
-            margin-bottom: rem(30px);
+            margin-bottom: rem(3px);
         }
     }
 }

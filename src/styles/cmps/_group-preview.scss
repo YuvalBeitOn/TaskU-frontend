@@ -1,6 +1,30 @@
 .group-preview {
-    .headers>* {
-        width: 120px;
-        text-align: center;
+  background: #d3d3d347;
+  border-radius: 4px;
+  padding: 0 1rem 0 1rem;
+  flex-wrap: wrap;
+  min-height: 40px;
+  cursor: pointer;
+  .group-headers {
+    padding-bottom: 1rem;
+  }
+  &.expanded {
+    background-color: transparent;
+  }
+  .group-name {
+    color: rgb(87, 155, 252);
+    display: inline-block;
+  }
+  .expand-btn {
+    background-color: transparent;
+    margin-right: 5px;
+    border: none;
+    outline: none;
+    .fa-icon {
     }
+  }
+  .headers > * {
+    width: 120px;
+    text-align: center;
+  }
 }

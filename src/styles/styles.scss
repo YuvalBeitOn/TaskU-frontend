@@ -1,5 +1,4 @@
 // SETUP
-@import 'setup/typography';
 @import 'setup/variables';
 @import 'setup/mixins';
 @import 'setup/functions';
@@ -17,5 +16,9 @@
 @import 'cmps/group-preview';
 @import 'cmps/user-details';
 @import 'cmps/board-app';
+@import 'cmps/popup-menu';
+@import 'cmps/task-list';
+@import 'cmps/label-picker';
+
 
 
