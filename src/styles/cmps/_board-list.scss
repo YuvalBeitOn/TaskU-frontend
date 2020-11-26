@@ -22,6 +22,7 @@
             font-size: rem(20px);
         }
         .btn-add {
+            cursor: pointer;
             color: #0085ff;
             font-size: 2rem;
         }
@@ -30,7 +31,7 @@
 
     .boards-list{
         overflow-y:auto ;
-        min-height: 800px;
+        max-height: 400px;
         .board-item {
             position: relative;
             margin-bottom: 10px;
@@ -59,6 +60,7 @@
                 color: rgb(77, 77, 77);
                 padding-top: 4px;
                  padding-left: 8px;
+                 z-index: 5;
                 font-size: rem(15px);
             }
         }
