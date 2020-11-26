@@ -7,15 +7,28 @@
   box-shadow: 0 3px 4px -5px #484444;
   transition: background-color 0.3s;
   text-align: center;
+
   &:hover {
     cursor: pointer;
     background-color: #f3f3f3;
   }
+  .task-txt{
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  span {
+    display: flex;
+    align-items: center;
+  }
   span,
   input {
     width: 120px;
-    height: 40px;
-    &.status, &.priority{
+    display: flex;
+    justify-content: center;
+    &.status,
+    &.priority {
       &:hover {
         cursor: pointer;
         box-shadow: inset 0 0 100px 100px hsla(0, 0%, 100%, 0.3);
@@ -24,7 +37,7 @@
   }
   .task-details {
     .fa-icon {
-      font-size: 2rem;
+      font-size: 1rem;
       color: #a8a8a8;
       transition: 0.3s;
       &:hover {

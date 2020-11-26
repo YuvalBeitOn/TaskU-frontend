@@ -1,24 +1,25 @@
 <template>
-    <section class="board-app flex">
-        <board-list
-            @searchBoard="setSearch"
-            @removeBoard="removeCurrBoard"
-            @addNewBoard="addBoard"
-            :boards="boards"
-        />
-        <div>
-            <div v-if="board" class="board-control">
-                <h2>{{ board.name }}</h2>
-                <!-- <board-filter /> -->
-                <!-- <button @click="addGroup">New Group</button> -->
-            </div>
-            <group-list
-                v-if="board"
-                :groups="board.groups"
-                :boardName="board.name"
-            />
-        </div>
-    </section>
+  <section class="board-app flex">
+    <board-list
+      @searchBoard="setSearch"
+      @removeBoard="removeCurrBoard"
+      @addNewBoard="addBoard"
+      :boards="boards"
+    />
+    <div class="width100">
+      <div v-if="board" class="board-control">
+        <h2>{{ board.name }}</h2>
+        <!-- <board-filter /> -->
+        <button @click="addGroup">New Group</button>
+      </div>
+      <group-list
+        v-if="board"
+        :groups="board.groups"
+        :boardName="board.name"
+        @deleteGroup="deleteGroup"
+      />
+    </div>
+  </section>
 </template>
 
 <script>
@@ -29,49 +30,27 @@ import { boardService } from '@/services/board.service'
 // import boardFilter from '@/cmps/board-filter.vue'
 
 export default {
-    name: 'board-app',
-    computed: {
-        board() {
-            return this.$store.getters.board
-        },
-        boards() {
-            return this.$store.getters.boards
-        },
+  name: 'board-app',
+  computed: {
+    board() {
+      return this.$store.getters.board
     },
-    methods: {
-        setSearch(searchBoard) {
-            this.$store.commit({ type: 'setSearch', searchBoard })
-            this.$store.dispatch({ type: 'loadBoards' })
-        },
-     
-        removeCurrBoard(boardId){
-            this.$store.dispatch({ type: 'removeBoard', boardId })
-        },
-        addBoard() {
-            const board = boardService.getEmptyBoard()
-            this.$store.dispatch({ type: 'saveBoard', board })
-        },
+    boards() {
+      return this.$store.getters.boards
+    }
+  },
+  methods: {
+    setSearch(searchBoard) {
+      this.$store.commit({ type: 'setSearch', searchBoard })
+      this.$store.dispatch({ type: 'loadBoards' })
+    },
 
-        loadBoard() {
-            this.$store.dispatch({
-                type: 'loadBoard',
-                boardId: this.$route.params.boardId,
-            })
-        },
+    removeCurrBoard(boardId) {
+      this.$store.dispatch({ type: 'removeBoard', boardId })
     },
-    watch: {
-        '$route.params.boardId'() {
-            this.loadBoard()
-        },
-    },
-    created() {
-        this.$store.dispatch({ type: 'loadBoards' })
-        this.loadBoard()
-    },
-    components: {
-        groupList,
-        boardList,
-        // boardFilter
+    addBoard() {
+      const board = boardService.getEmptyBoard()
+      this.$store.dispatch({ type: 'saveBoard', board })
     },
 
     loadBoard() {

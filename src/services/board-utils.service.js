@@ -125,7 +125,7 @@ function getEmptyBoard(){
 function getEmptyGroup() {
     return {
         'color': '#FFFFFF',
-        'name': 'BackEnd',
+        'name': 'New Group',
         'tasks': [{
            
             'txt': 'txt',
