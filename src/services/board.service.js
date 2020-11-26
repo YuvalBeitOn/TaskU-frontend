@@ -1,11 +1,14 @@
 import { httpService } from './http.service';
-
+import {boardUtils} from './board-utils.service';
+import {utilService} from './util.service'
 export const boardService = {
     query,
     getById,
     remove,
     save,
-    getEmptyBoard
+    getEmptyBoard,
+    getEmptyGroup,
+    getEmptyTask
 };
 
 function query() {
@@ -33,123 +36,36 @@ async function _update(board) {
     return httpService.put(`board/${board._id}`, board);
 }
 
-function getEmptyBoard() {
-    return {
-        'name': 'myBoard',
-        'creator': {
-            '_id': '304',
-            'fullname': 'Nuki Ben David',
-            'imgUrl': 'https://www.img.com/101.png'
-        },
-        'statuses': [{
-            'id': '801',
-            'color': 'gray',
-            'txt': ''
-        },
-        {
-            'id': '803',
-            'color': 'yellow',
-            'txt': 'Working on it'
-        },
-        {
-            'id': '804',
-            'color': 'red',
-            'txt': 'Stuck'
-        },
-        {
-            'id': '805',
-            'color': 'green',
-            'txt': 'Done'
-        }
-        ],
-        'priorities': [{
-            'id': '704',
-            'color': 'gray',
-            'txt': ''
-        },
-        {
-            'id': '701',
-            'color': 'lightblue',
-            'txt': 'Low'
-        },
-        {
-            'id': '702',
-            'color': 'purple',
-            'txt': 'Medium'
-        },
-        {
-            'id': '703',
-            'color': 'red',
-            'txt': 'High'
-        }
-        ],
-        'activities': [],
-        'members': [],
-        'groups': [{
-            'id': '401',
-            'color': '#ffffff',
-            'name': 'BackEnd',
-            'tasks': [{
-                'id': '840',
-                'txt': 'txt',
-                'members': [
-                ],
-                'dueDate': '',
-                'status': {
-                    'id': '801',
-                    'color': 'gray',
-                    'txt': ''
-                },
-                'priority': {
-                    'id': '704',
-                    'color': 'gray',
-                    'txt': ''
-                },
-                'posts': []
-            },
-            {
-                'id': '842',
-                'txt': 'txt',
-                'members': [
-                ],
-                'dueDate': '',
-                'status': {
-                    'id': '801',
-                    'color': 'gray',
-                    'txt': ''
-                },
-                'priority': {
-                    'id': '704',
-                    'color': 'gray',
-                    'txt': ''
-                },
-                'posts': []
-            }
-            ]
-        },
-        {
-            'id': '402',
-            'color': '#ffffff',
-            'name': 'Frontend',
-            'tasks': [{
-                'id': '920',
-                'txt': 'txt',
-                'members': [
-                ],
-                'dueDate': '',
-                'status': {
-                    'id': '801',
-                    'color': 'gray',
-                    'txt': ''
-                },
-                'priority': {
-                    'id': '704',
-                    'color': 'gray',
-                    'txt': ''
-                },
-                'posts': []
-            }]
-        }
-        ]
+function getEmptyBoard(){
+    const board = boardUtils.getEmptyBoard()
+    board.statuses.forEach(status=>status.id=utilService.makeId())
+    board.priorities.forEach(priority=>priority.id=utilService.makeId())
+    board.groups.forEach(group=>{
+        group.id=utilService.makeId()
+        group.tasks.forEach(task=>{
+            task.id = utilService.makeId()
+            task.status.id =utilService.makeId()
+            task.priority.id =utilService.makeId()
+        })
     }
+        )
+    return board
+}
+function getEmptyTask(){
+   const task =  boardUtils.getEmptyTask()
+   task.id = utilService.makeId()
+   task.status.id =utilService.makeId()
+   task.priority.id =utilService.makeId()
+   return task
+}
+
+function getEmptyGroup(){
+    const group = boardUtils.getEmptyGroup()
+    group.id = utilService.makeId()
+    group.tasks.forEach(task => {
+        task.id = utilService.makeId()
+        task.status.id =utilService.makeId()
+        task.priority.id =utilService.makeId()
+    });
+    return group
 }

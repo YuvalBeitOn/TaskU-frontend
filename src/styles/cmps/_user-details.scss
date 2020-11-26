@@ -1,0 +1,18 @@
+.user-details{
+.header-user-profile{
+    min-height: rem(200px);
+    background-color: $clr1;
+    .img-profile{
+        margin-bottom: rem(30px);
+        .profile-img{
+            border: 3px solid white;
+            border-radius: 50%;
+        }
+    }
+    .mail{
+        color:white;
+        font-size: rem(25px);
+    }
+}
+   
+}
