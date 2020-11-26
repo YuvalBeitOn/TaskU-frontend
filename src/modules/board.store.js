@@ -14,6 +14,9 @@ export const boardStore = {
         board(state) {
             return state.currBoard;
         },
+        defaultBoardId(state){
+            return state.boards[0]._id
+        }
     },
     mutations: {
         setBoards(state, { boards }) {
