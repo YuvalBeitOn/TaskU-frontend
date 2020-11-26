@@ -1,7 +1,14 @@
 <template>
   <section v-if="user" class="user-details">
-    <section class="header-user-profile flex colum justify-center align-center">
-      <!-- <avatar  v-if="user" :username="user.fullName"></avatar> -->
+    <section class="header-user-profile flex column justify-center align-center">
+      <div class="img-profile">
+
+      <avatar class="profile-img"  v-if="user" :username="user.fullName"></avatar>
+      </div>
+             
+             <h3 class="mail">{{ user.email }}</h3>   
+
+
     </section>
     <section class="user-content flex wrap">
       <div class="user-details-info flex column wrap">
@@ -22,7 +29,7 @@
 </template>
 
 <script>
-// import Avatar from 'vue-avatar'
+import Avatar from 'vue-avatar'
 
 export default {
   name: 'user-details',
@@ -37,7 +44,7 @@ export default {
         this.$store.dispatch({type:'loadUser',userId})
   },
   components:{
-    // Avatar
+    Avatar
   }
 }
 </script>
