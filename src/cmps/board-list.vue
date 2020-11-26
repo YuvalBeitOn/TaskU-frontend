@@ -1,9 +1,12 @@
 <template>
     <section class="board-list flex column">
-        <div class="top-bar">
-            <h1 class="top-line flex space-between">
-                Boards <span @click="addBoard"><i class="fas fa-plus-octagon"></i></span>
+        <div class="top-bar flex space-around align-center">
+            <h1 class="title-board-list">
+                Boards 
             </h1>
+            <div  @click="addBoard">
+            <i class="btn-add fas fa-plus-circle"></i>
+            </div>
         </div>
             <input class="board-list-search"
                 type="text"
@@ -14,8 +17,11 @@
 
         <ul v-if="boards" class="boards-list clean-list">
             <li class="board-item" v-for="board in boards" :key="board._id">
-<i @click="removeCurrBoard(board._id)" class="board-list-icon fal fa-trash"></i>
-                <router-link :to="'/board/' + board._id">{{
+<div @click="removeCurrBoard(board._id)">
+  
+<i class="trash-icon fas fa-trash"></i>
+</div>
+                <router-link  :to="'/board/' + board._id">{{
                     board.name
                 }}</router-link>
             </li>
@@ -43,9 +49,11 @@ export default {
             this.$emit('searchBoard', searchBoard)
         },
         removeCurrBoard(boardId) {
+            console.log('boardId:', boardId)
             this.$emit('removeBoard', boardId)
         },
         addBoard() {
+        
             this.$emit('addNewBoard')
         },
     },

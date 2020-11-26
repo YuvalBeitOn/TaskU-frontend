@@ -1,0 +1,69 @@
+.board-list {
+    background-color: #f7f7f7;
+    min-height: 100vh;
+    width: rem(255px);
+    border-top-left-radius: rem(15px);
+    margin-left: rem(-15px);
+    padding: 0 rem(15px);
+    z-index: 2;
+
+    .board-list-search {
+        outline: none;
+        margin: rem(20px);
+        border: 0;
+        border-bottom: 2px solid hsla(0, 0%, 42.7%, .419608);
+        background-color: transparent;
+    }
+
+    .top-bar {
+        margin-top: 35px;
+        .title-board-list {
+            margin-left: rem(20px);
+            font-size: rem(20px);
+        }
+        .btn-add {
+            color: #0085ff;
+            font-size: 2rem;
+        }
+    }
+
+
+    .boards-list{
+        overflow-y:auto ;
+        min-height: 800px;
+        .board-item {
+            position: relative;
+            margin-bottom: 10px;
+            margin-left: rem(8px);
+            a {
+                transition: .3s;
+                position: relative;
+                padding-left: 30px;
+                min-height: 30px;
+                display: block;
+                text-transform: capitalize;
+                font-size: 1.25rem;
+                text-decoration: none;
+                color: #0085ff;
+            }
+            .router-link-active{
+                border-radius: 5px;
+                background-color: rgba(136,205,237,.24);
+            }
+            &:hover{
+                border-radius: 5px;
+                background-color: rgba(136,205,237,.24);
+            }
+            .trash-icon{
+                position: absolute;
+                color: rgb(77, 77, 77);
+                padding-top: 4px;
+                 padding-left: 8px;
+                font-size: rem(15px);
+            }
+        }
+    }
+
+
+
+}

@@ -1,9 +1,9 @@
 <template>
-  <section class="board-app">
+  <section class="board-app  flex ">
     <board-list
       @searchBoard="setSearch"
       @removeBoard="removeCurrBoard"
-      @addBoard="addNewBoard"
+      @addNewBoard="addBoard"
       :boards="boards"
     />
     <group-list v-if="board" :groups="board.groups" :boardName="board.name" />
@@ -32,7 +32,7 @@ export default {
     removeCurrBoard(boardId) {
       this.$store.dispatch({ type: 'removeBoard', boardId })
     },
-    addNewBoard() {
+    addBoard() {
       const board = boardService.getEmptyBoard();
       console.log('board:', board)
      this.$store.dispatch({ type: 'saveBoard', board })
