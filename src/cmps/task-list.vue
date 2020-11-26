@@ -10,17 +10,19 @@
     </section>
 </template>
 
+
 <script>
 import taskPreview from "@/cmps/task-preview.vue";
 
 export default {
-  name: "task-list",
-  props: {
-    tasks: Array
-  },
-  methods: {},
-  components: {
-    taskPreview
-  }
+    name: "task-list",
+    props: {
+        tasks: Array,
+    },
+    methods: {
+    },
+    components: {
+        taskPreview,
+    },
 };
 </script>

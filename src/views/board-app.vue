@@ -1,19 +1,28 @@
 <template>
-  <section class="board-app  flex ">
+  <section class="board-app flex">
     <board-list
       @searchBoard="setSearch"
       @removeBoard="removeCurrBoard"
       @addNewBoard="addBoard"
       :boards="boards"
     />
-    <group-list v-if="board" :groups="board.groups" :boardName="board.name" />
+    <div>
+      <div v-if="board" class="board-control">
+          <h2>{{ board.name }}</h2>
+        <!-- <board-filter /> -->
+        <!-- <button @click="addGroup">New Group</button> -->
+      </div>
+      <group-list v-if="board" :groups="board.groups" :boardName="board.name" />
+    </div>
   </section>
 </template>
 
 <script>
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
-import {boardService} from '@/services/board.service';
+import { boardService } from '@/services/board.service'
+// import boardFilter from '@/cmps/board-filter.vue'
+
 export default {
   name: 'board-app',
   computed: {
@@ -22,7 +31,7 @@ export default {
     },
     boards() {
       return this.$store.getters.boards
-    },
+    }
   },
   methods: {
     setSearch(searchBoard) {
@@ -40,14 +49,14 @@ export default {
     loadBoard() {
       this.$store.dispatch({
         type: 'loadBoard',
-        boardId: this.$route.params.boardId,
+        boardId: this.$route.params.boardId
       })
-    },
+    }
   },
   watch: {
     '$route.params.boardId'() {
       this.loadBoard()
-    },
+    }
   },
   created() {
     this.$store.dispatch({ type: 'loadBoards' })
@@ -55,7 +64,8 @@ export default {
   },
   components: {
     groupList,
-    boardList,
+    boardList
+    // boardFilter
   }
 }
 </script>
