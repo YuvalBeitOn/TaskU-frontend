@@ -56,6 +56,7 @@ function getEmptyTask(){
    task.id = utilService.makeId()
    task.status.id =utilService.makeId()
    task.priority.id =utilService.makeId()
+   return task
 }
 
 function getEmptyGroup(){
