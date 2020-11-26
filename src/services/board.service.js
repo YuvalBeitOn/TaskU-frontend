@@ -1,11 +1,14 @@
 import { httpService } from './http.service';
 import {boardUtils} from './board-utils.service';
+import {utilService} from './util.service'
 export const boardService = {
     query,
     getById,
     remove,
     save,
-    getEmptyBoard
+    getEmptyBoard,
+    getEmptyGroup,
+    getEmptyTask
 };
 
 function query() {
@@ -35,5 +38,33 @@ async function _update(board) {
 
 function getEmptyBoard(){
     const board = boardUtils.getEmptyBoard()
+    board.statuses.forEach(status=>status.id=utilService.makeId())
+    board.priorities.forEach(priority=>priority.id=utilService.makeId())
+    board.groups.forEach(group=>{
+        group.id=utilService.makeId()
+        group.tasks.forEach(task=>{
+            task.id = utilService.makeId()
+            task.status.id =utilService.makeId()
+            task.priority.id =utilService.makeId()
+        })
+    }
+        )
     return board
+}
+function getEmptyTask(){
+   const task =  boardUtils.getEmptyTask()
+   task.id = utilService.makeId()
+   task.status.id =utilService.makeId()
+   task.priority.id =utilService.makeId()
+}
+
+function getEmptyGroup(){
+    const group = boardUtils.getEmptyGroup()
+    group.id = utilService.makeId()
+    group.tasks.forEach(task => {
+        task.id = utilService.makeId()
+        task.status.id =utilService.makeId()
+        task.priority.id =utilService.makeId()
+    });
+    return group
 }

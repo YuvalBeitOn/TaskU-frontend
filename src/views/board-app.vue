@@ -43,6 +43,7 @@ export default {
     },
     addBoard() {
       const board = boardService.getEmptyBoard();
+      console.log('board:', board)
      this.$store.dispatch({ type: 'saveBoard', board })
     },
 
