@@ -15,7 +15,11 @@
     </div>
     <div class="bottom-nav flex column align-center">
       <i class="nav-icon fal fa-calendar-check"></i>
+         <router-link to="/user/301">
+
       <i class="nav-icon profile fas fa-user-circle"></i>
+         </router-link >
+      
       <i class="nav-icon logout fad fa-sign-out"></i>
 
     </div>
