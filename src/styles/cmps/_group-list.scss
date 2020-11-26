@@ -1,5 +1,8 @@
-ul {
-    >*:not(:last-child) {
-        margin-bottom: rem(30px);
+.group-list {
+    padding: 3rem;
+    ul {
+        >*:not(:last-child) {
+            margin-bottom: rem(30px);
+        }
     }
 }

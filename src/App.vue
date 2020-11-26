@@ -2,7 +2,7 @@
   <div id="app">
     <main class="main-container flex">
       <nav-menu v-if="isNavShowen" />
-      <router-view />
+      <router-view class="grow" />
     </main>
   </div>
 </template>

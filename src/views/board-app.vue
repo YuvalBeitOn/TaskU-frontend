@@ -1,16 +1,23 @@
 <template>
-    <section v-if="board" class="board-app flex">
+    <section class="board-app flex">
         <board-list
             @searchBoard="setSearch"
             @removeBoard="removeCurrBoard"
             @addNewBoard="addBoard"
             :boards="boards"
         />
-        <group-list
-            v-if="board"
-            :groups="board.groups"
-            :boardName="board.name"
-        />
+        <div>
+            <div v-if="board" class="board-control">
+                <h2>{{ board.name }}</h2>
+                <!-- <board-filter /> -->
+                <!-- <button @click="addGroup">New Group</button> -->
+            </div>
+            <group-list
+                v-if="board"
+                :groups="board.groups"
+                :boardName="board.name"
+            />
+        </div>
     </section>
 </template>
 
@@ -18,6 +25,8 @@
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
 import { boardService } from '@/services/board.service'
+// import boardFilter from '@/cmps/board-filter.vue'
+
 export default {
     name: 'board-app',
     computed: {
@@ -33,12 +42,13 @@ export default {
             this.$store.commit({ type: 'setSearch', searchBoard })
             this.$store.dispatch({ type: 'loadBoards' })
         },
-        removeCurrBoard(boardId) {
-            this.$store.dispatch({ type: 'removeBoard', boardId })
+        watch: {
+            '$route.params.boardId'() {
+                this.loadBoard()
+            },
         },
         addBoard() {
             const board = boardService.getEmptyBoard()
-            console.log('board:', board)
             this.$store.dispatch({ type: 'saveBoard', board })
         },
 
@@ -55,16 +65,13 @@ export default {
         },
     },
     created() {
-        console.log('BOARDAPP DEBUG: Created')
         this.$store.dispatch({ type: 'loadBoards' })
         this.loadBoard()
-    },
-    destroyed() {
-        console.log('BOARDAPP DEBUG: Destroyed')
     },
     components: {
         groupList,
         boardList,
+        // boardFilter
     },
 }
 </script>
