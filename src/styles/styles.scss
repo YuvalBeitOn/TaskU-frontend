@@ -3,11 +3,11 @@
 @import 'setup/variables';
 @import 'setup/mixins';
 @import 'setup/functions';
+@import 'basics/fonts';
 // BASICS
 @import 'basics/helpers';
 @import 'basics/base';
 @import 'basics/layout';
-@import 'basics/fonts';
 
 // COMPONENTS
 @import 'cmps/nav-menu';
