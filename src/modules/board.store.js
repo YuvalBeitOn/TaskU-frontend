@@ -12,7 +12,7 @@ export const boardStore = {
             return state.boards.filter(board=>board.name.toLowerCase().includes(state.searchBoard.toLowerCase()))
         },
         board(state) {
-            return state.currBoard;
+            return JSON.parse(JSON.stringify(state.currBoard));
         },
         defaultBoardId(state){
             return state.boards[0]._id

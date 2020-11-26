@@ -2,6 +2,9 @@
   <li class="group-preview width100">
     <div class="flex space-between align-center">
       <div class="group-header align-center flex relative">
+        <button @click.stop="deleteGroup(group.id)">
+          <i class="fas fa-trash-alt fa-icon"></i>
+        </button>
         <h2>{{ group.name }}</h2>
       </div>
       <div class="headers flex">
@@ -11,7 +14,7 @@
         <h3>Due Date</h3>
       </div>
     </div>
-    <task-list :tasks="group.tasks" />
+    <task-list :tasks="group.tasks" :groupId="group.id" />
   </li>
 </template>
 
@@ -20,7 +23,13 @@ import taskList from './task-list.vue'
 export default {
   name: 'group-preview',
   props: {
-    group: Object
+    group: Object,
+    deleteGroup: Function
+  },
+  methods: {
+    emitDelete(groupId) {
+      this.$emit('deleteGroup', groupId)
+    }
   },
   components: { taskList }
 }

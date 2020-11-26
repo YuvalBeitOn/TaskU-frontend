@@ -15,7 +15,6 @@ export const userStore = {
   },
   mutations: {
     setUsers(state, { users }) {
-        
       state.users = users
     },
     setUser(state, { user }) {

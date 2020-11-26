@@ -39,6 +39,7 @@ import members from '@/cmps/members'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
 import { boardService } from '@/services/board.service'
+
 // import boardFilter from '@/cmps/board-filter.vue'
 
 export default {
@@ -50,7 +51,7 @@ export default {
   },
   computed: {
     board() {
-      return JSON.parse(JSON.stringify(this.$store.getters.board))
+      return this.$store.getters.board
     },
     boards() {
       return this.$store.getters.boards
@@ -63,6 +64,7 @@ export default {
           return boardMember._id !== siteUser._id
         })
       })
+      console.log('filteredSiteUsers:', filteredSiteUsers)
       return filteredSiteUsers
     },
   },
@@ -73,9 +75,8 @@ export default {
       },
       removeUserFromBoard(userId){
          const idx= this.board.members.findIndex(bMember=> bMember._id === userId )
-         console.log('idx:', idx)
-        //  const board = this.board.members.splice(idx,1)
-        // this.$store.dispatch({ type: 'saveBoard', board:board })
+        this.board.members.splice(idx,1)
+        this.$store.dispatch({ type: 'saveBoard', board:this.board })
 
       },
     setSearch(searchBoard) {
@@ -91,21 +92,38 @@ export default {
       this.$store.dispatch({ type: 'saveBoard', board })
     },
 
+
     loadBoard() {
       this.$store.dispatch({
         type: 'loadBoard',
-        boardId: this.$route.params.boardId,
+        boardId: this.$route.params.boardId
       })
     },
-  },
+    addGroup() {
+      const newGroup = boardService.getEmptyGroup()
+      this.board.groups.push(newGroup)
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+    },
+    deleteGroup(groupId) {
+      const idx = this.board.groups.findIndex(group => group.id === groupId)
+      this.board.groups.splice(idx, 1)
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+    }
+   },
   watch: {
     '$route.params.boardId'() {
       this.loadBoard()
-    },
+    }
   },
   created() {
-    this.$store.dispatch({ type: 'loadBoards' })
     this.$store.dispatch({ type: 'loadUsers' })
+    this.$store.dispatch({ type: 'loadBoards' })
     this.loadBoard()
   },
   components: {
@@ -114,5 +132,6 @@ export default {
     // boardFilter,
     members,
   },
+
 }
 </script>
