@@ -42,6 +42,10 @@ export default {
             this.$store.commit({ type: 'setSearch', searchBoard })
             this.$store.dispatch({ type: 'loadBoards' })
         },
+     
+        removeCurrBoard(boardId){
+            this.$store.dispatch({ type: 'removeBoard', boardId })
+        },
         addBoard() {
             const board = boardService.getEmptyBoard()
             this.$store.dispatch({ type: 'saveBoard', board })
