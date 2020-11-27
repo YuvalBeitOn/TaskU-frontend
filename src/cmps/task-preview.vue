@@ -86,7 +86,7 @@ export default {
             }
             eventBus.$emit('taskDetails', this.task)
             this.$router.push(
-                `/board/${this.$route.params.boardId}/${this.task.id}`
+                `/board/task/${this.task.id}`
             )
         },
     },

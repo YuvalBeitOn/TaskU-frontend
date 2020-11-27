@@ -6,7 +6,7 @@
             @addNewBoard="addBoard"
             :boards="boards"
         />
-        <div class="width100">
+        <div class="board-app-container width100">
             <div v-if="board" class="board-control">
                 <h2>{{ board.name }}</h2>
                 <!-- <board-filter /> -->
@@ -48,8 +48,15 @@
                 :boardName="board.name"
                 @deleteGroup="deleteGroup"
             />
+            <div v-if="isRouterViewHover" class="backdrop-layer"></div>
         </div>
-        <task-details v-if="this.$route.params.taskId" :task="currTask" />
+        <router-view
+            class="boardapp-nested"
+            @mouseover.native="isRouterViewHover = true"
+            @mouseleave.native="isRouterViewHover = false"
+            :task="currTask"
+        />
+        <!-- <task-details v-if="this.$route.params.taskId" :task="currTask" /> -->
     </section>
 </template>
 
@@ -57,7 +64,7 @@
 import members from '@/cmps/members'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
-import taskDetails from '../views/task-details'
+// import taskDetails from '../views/task-details'
 import { boardService } from '@/services/board.service'
 import { eventBus } from '@/services/event-bus.service'
 
@@ -69,6 +76,7 @@ export default {
         return {
             isAddMembers: false,
             currTask: null,
+            isRouterViewHover: false,
         }
     },
     computed: {
@@ -144,8 +152,10 @@ export default {
         },
     },
     watch: {
-        '$route.params.boardId'() {
-            this.loadBoard()
+        '$route.params.boardId'(val) {
+            if (val) {
+                this.loadBoard()
+            }
         },
     },
     created() {
@@ -159,7 +169,7 @@ export default {
         boardList,
         // boardFilter,
         members,
-        taskDetails
+        // taskDetails
     },
 }
 </script>
