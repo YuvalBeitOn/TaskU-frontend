@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import homePage from '@/views/home-page'
 import boardApp from '@/views/board-app'
-// import taskDetails from '@/views/task-details'
+import taskDetails from '@/views/task-details'
 import userDetails from '@/views/user-details'
 import appLogin from '@/views/app-login'
 import appSignup from '@/views/app-signup'
@@ -26,15 +26,15 @@ const routes = [
     component: appSignup
   },
   {
-    path: '/board/:boardId/:taskId?',
+    path: '/board/:boardId/',
     name: 'boradApp',
-    component: boardApp
-    // children: [
-    //   {
-    //     path: "/task/:taskId",
-    //     component: taskDetails
-    //   }
-    // ]
+    component: boardApp,
+    children: [
+      {
+        path: "/board/task/:taskId?",
+        component: taskDetails
+      }
+    ]
   },
   {
     path: '/user/:userId',

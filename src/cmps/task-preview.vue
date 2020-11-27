@@ -75,8 +75,36 @@ export default {
     toggleStatuses() {
       this.isStatusesShowen = !this.isStatusesShowen
     },
-    togglePriors() {
-      this.isPriorsShowen = !this.isPriorsShowen
+    methods: {
+        toggleStatuses() {
+            this.isStatusesShowen = !this.isStatusesShowen
+        },
+        togglePriors() {
+            this.isPriorsShowen = !this.isPriorsShowen
+        },
+        deleteTask() {
+            this.$emit('deleteTask', this.task.id)
+        },
+        updateTaskTxt(ev) {
+            console.log(ev.target.innerText)
+            this.taskCopy.txt = ev.target.innerText
+            this.updateTask()
+        },
+        updateTask() {
+            this.$emit('updateTask', this.taskCopy)
+        },
+        sendToTaskDetails() {
+            if (
+                this.$route.params.taskId &&
+                this.$route.params.taskId === this.task.id
+            ) {
+                return
+            }
+            eventBus.$emit('taskDetails', this.task)
+            this.$router.push(
+                `/board/task/${this.task.id}`
+            )
+        },
     },
     deleteTask() {
       this.$emit('deleteTask', this.task.id)
