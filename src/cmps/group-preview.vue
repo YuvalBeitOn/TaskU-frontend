@@ -102,7 +102,7 @@ export default {
       return this.isExpanded ? true : false
     },
     groupColor(){
-      return {color:this.group.color}
+      return {color:this.groupCopy.color}
     }
   },
   created() {
