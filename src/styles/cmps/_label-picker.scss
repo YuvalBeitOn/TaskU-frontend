@@ -1,17 +1,31 @@
 .label-picker {
-    position: absolute;
-    border: 1px solid white;
-    border-radius: 4px;
-    width: 140px;
-    min-height: 230px;
-    background-color: #ffffffd4;
-    z-index: 1;
-    top: 33px;
-    right: 12px;
-    >* {
-        height: 40px;
-        padding: 1rem;
-        margin: 1rem;
-        border-radius: 4px;
-    }
+  position: absolute;
+  width: 150px;
+  background-color: #fff;
+  box-shadow: 0 3px 10px -5px #484444;
+  border-radius: 4px;
+  min-height: 230px;
+  z-index: 1;
+  top: 33px;
+  right: 12px;
+  padding: 5px 5px 0;
+  word-break: break-all;
+  transition: 0.3s;
+  > * {
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    margin-bottom: 5px;
+    border-radius: 1px;
+    cursor: pointer;
+    background-color: #a8a8a8;
+    color: #f1f1f1;
+  }
 }
+
+// red: #e44258
+// orange: #fdab3d
+// green : #00ca72
+// light blue: #9acddeb3
+// purple: #c137c1ba
+// gray : #a8a8a8

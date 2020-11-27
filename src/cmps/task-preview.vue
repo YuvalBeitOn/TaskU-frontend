@@ -4,17 +4,19 @@
     class="task-preview flex space-between align-center width100"
   >
     <!-- <button @click="deleteTask">X</button> -->
-    <span
-      class="task-txt"
-      @blur="updateTaskTxt"
-      @keyup.enter.prevent.stop="updateTaskTxt"
-      contenteditable
-      >{{ taskCopy.txt }}</span
-    >
-    <div class="task-details flex">
+    <div class="flex space-between width100">
+      <span
+        class="task-txt"
+        @blur="updateTaskTxt"
+        @keyup.enter="updateTaskTxt"
+        contenteditable
+        >{{ taskCopy.txt }}</span
+      >
       <span @click="sendToTaskDetails"
         ><i class="far fa-comment fa-icon"></i
       ></span>
+    </div>
+    <div class="task-details flex">
       <div class="headers flex">
         <span><i class="far fa-user-circle fa-icon"></i></span>
         <span
@@ -39,7 +41,7 @@
             type="priority"
             @updateTaskPriority="updateTaskPriority"
         /></span>
-        <label class="date-label" for="date">
+        <!-- <label class="date-label" for="date">
           <input
             @change="updateTask"
             id="date"
@@ -48,7 +50,15 @@
             type="date"
             v-model="taskCopy.dueDate"
           />
-        </label>
+        </label> -->
+          <el-date-picker
+            class="date-input"
+            @change="updateTask"	
+            v-model="taskCopy.dueDate"
+            type="date"
+            placeholder="Pick a date"
+          >
+          </el-date-picker>
       </div>
     </div>
   </li>
@@ -107,10 +117,12 @@ export default {
     updateTaskPriority(opt) {
       this.taskCopy.priority = opt
       this.updateTask()
+      this.isStatusesShowen = false
     },
     updateTaskStatus(opt) {
       this.taskCopy.status = opt
       this.updateTask()
+      this.isPriorsShowen = false
     }
   },
   created() {
