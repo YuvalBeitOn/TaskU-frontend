@@ -7,24 +7,27 @@
       <button class="add-group-btn" @click="addGroup">New Group</button>
       <span
         ><i class="far fa-search"></i
-        ><input class="search-input" type="text" placeholder="Search"
+        ><input
+          @input="updateFilterSearch"
+          class="search-input"
+          type="text"
+          placeholder="Search"
+          v-model="filterBy.searchTerm"
       /></span>
       <div class="filter">
         <i class="fas fa-filter"></i>
         <span @click="toggleFilter">Filter</span>
         <div class="filters flex" v-if="isFilterShowen">
-          <form @submit.prevent="updateFilter" class="filter-status flex column justify-center">
-            <h4>Status</h4>
-            <button type="submit">Done</button>
-            <button type="submit">Working on it</button>
-            <button type="submit">Stuck</button>
-          </form>
-          <form class="filter-priority flex column justify-center">
-            <h4>Priority</h4>
-            <button>Low</button>
-            <button>Medium</button>
-            <button>High</button>
-          </form>
+          <filter-form
+            title="Status"
+            :opts="statuses"
+            @updateFilter="updateFilter"
+          />
+          <filter-form
+            title="Priority"
+            :opts="priorities"
+            @updateFilter="updateFilter"
+          />
         </div>
       </div>
     </div>
@@ -32,15 +35,23 @@
 </template>
 
 <script>
+import filterForm from './filter-form'
 export default {
   name: 'board-filter',
   props: {
-    creator: Object
+    creator: Object,
+    priorities: Array,
+    statuses: Array
   },
   data() {
     return {
-      // filterBy: {status: },
       isFilterShowen: false
+    }
+  },
+  computed: {
+    filterBy() {
+      console.log(this.$store.getters.filterBy)
+      return this.$store.getters.filterBy
     }
   },
   methods: {
@@ -50,16 +61,20 @@ export default {
     toggleFilter() {
       this.isFilterShowen = !this.isFilterShowen
     },
-    updateFilter(ev){
-      console.log(ev.submitter.innerText);
-      // this.$store.dispatch({
-      //           type: "setFilterBy",
-      //           filterBy: ev.target.innerText,
-      //       });
+    updateFilterSearch() {
+      this.$store.commit({ type: 'setFilterBy', filterBy: this.filterBy })
+      this.$emit('forceRerender')
+    },
+    updateFilter(filterObj) {
+      this.filterBy[filterObj.title] = filterObj.opt
+      // this.$emit('updateFilter', this.filterBy)
+      this.$store.commit({ type: 'setFilterBy', filterBy: this.filterBy })
+      this.$emit('forceRerender')
     }
   },
-  created() {
-    console.log('creator:')
+  components: {
+    filterForm
   }
 }
 </script>
+FilterForm

@@ -41,16 +41,7 @@
             type="priority"
             @updateTaskPriority="updateTaskPriority"
         /></span>
-        <!-- <label class="date-label" for="date">
-          <input
-            @change="updateTask"
-            id="date"
-            class="date-input"
-            name="date"
-            type="date"
-            v-model="taskCopy.dueDate"
-          />
-        </label> -->
+        <span class="date-picker">
           <el-date-picker
             class="date-input"
             @change="updateTask"	
@@ -59,6 +50,7 @@
             placeholder="Pick a date"
           >
           </el-date-picker>
+        </span>
       </div>
     </div>
   </li>

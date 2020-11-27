@@ -5,6 +5,32 @@
   flex-wrap: wrap;
   min-height: 40px;
   cursor: pointer;
+  button {
+    background-color: transparent;
+    border: none;
+  }
+  .fa-icon {
+    font-size: 1.1rem;
+    padding: 5px;
+    color: gray;
+    &:hover {
+      color: #333;
+    }
+  }
+  .group-actions {
+    position: absolute;
+    background-color: white;
+    z-index: 5;
+    > * {
+      background-color: white;
+      padding: 10px;
+      border-radius: 4px;
+      border: none;
+      &:hover {
+        background-color: #c7c7c79c;
+      }
+    }
+  }
   .group-headers {
     padding-bottom: 1rem;
   }
@@ -12,7 +38,7 @@
     background-color: transparent;
   }
   .group-name {
-    color: rgb(87, 155, 252);
+    color: rgb(17, 21, 27);
     display: inline-block;
   }
   .expand-btn {
@@ -20,11 +46,14 @@
     margin-right: 5px;
     border: none;
     outline: none;
-    .fa-icon {
-    }
   }
-  .headers > * {
-    width: 120px;
-    text-align: center;
+  .headers {
+    .list-title {
+      width: 120px;
+      text-align: center;
+      &.date {
+        width: 135px;
+      }
+    }
   }
 }

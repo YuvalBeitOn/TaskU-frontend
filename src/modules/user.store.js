@@ -25,7 +25,7 @@ export const userStore = {
       state.users.splice(idx, 1, user)
     },
     deleteUser(state, { userId }) {
-      const idx = state.users.findIndex(user => user._id === userId)
+       const idx = state.users.findIndex(user => user._id === userId)
       state.users.splice(idx, 1)
     },
     addUser(state, { user }) {
