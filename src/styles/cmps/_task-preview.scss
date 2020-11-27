@@ -1,7 +1,7 @@
 .task-preview {
   display: flex;
   background-color: #f1f1f1;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
   height: 40px;
   border-radius: 1px;
   box-shadow: 0 3px 4px -5px #484444;
@@ -12,56 +12,49 @@
     cursor: pointer;
     background-color: #f3f3f3;
   }
-  .task-txt {
-    text-align: left;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
+
   span {
     display: flex;
     align-items: center;
+    // width: 100%;
   }
   span,
   input {
     width: 120px;
+    min-height: 42px;
     display: flex;
     justify-content: center;
+    border: 0.5px solid white;
     &.status,
     &.priority {
-      margin: rem(2px);
+      // margin: rem(2px);
       &:hover {
         cursor: pointer;
         box-shadow: inset 0 0 100px 100px hsla(0, 0%, 100%, 0.3);
       }
     }
   }
-  .task-details {
-    .fa-icon {
-      font-size: 1rem;
-      color: #a8a8a8;
-      transition: 0.3s;
-      &:hover {
-        color: #0085ff;
-        cursor: pointer;
-      }
-    }
-    // .date-label {
-    //   width: 120px;
-    //   height: 100%;
-    // }
-    .date-input {
+  .task-txt {
+    width: 100%;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    justify-content: end;
+    padding-left: 10px;
+  }
+
+  .fa-icon {
+    font-size: 1.2rem;
+    color: #a8a8a8;
+    transition: 0.3s;
+    &:hover {
+      color: #0085ff;
       cursor: pointer;
-      width: 100%;
-      background-color: transparent;
-      border: 0;
-      padding-top: 7.5px;
-      padding-bottom: 7.5px;
-      border-radius: 1px;
-      text-align: center;
-      color: #4d4b4b;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
+  }
+  .date-input {
+    width: 200px;
+    border: none;
   }
 }
