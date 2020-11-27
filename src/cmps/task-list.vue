@@ -7,6 +7,7 @@
         :task="task"
         :statuses="board.statuses"
         :priorities="board.priorities"
+        :groupId="groupId"
         @deleteTask="deleteTask"
         @updateTask="updateTask"
       />
@@ -19,9 +20,7 @@
         type="text"
         placeholder="+ Add Task"
       />
-      <button v-show="isAddBtnShowen" type="submit">
-        Add
-      </button>
+      <button v-show="isAddBtnShowen" type="submit">Add</button>
     </form>
   </section>
 </template>
@@ -35,18 +34,17 @@ export default {
   data() {
     return {
       txt: '',
-      isAddBtnShowen: false
+      isAddBtnShowen: false,
     }
   },
   props: {
     tasks: Array,
     groupId: String,
-
   },
   computed: {
     board() {
       return this.$store.getters.board
-    }
+    },
   },
   methods: {
     showAddBtn() {
@@ -54,7 +52,7 @@ export default {
     },
     getGroupById() {
       const idx = this.board.groups.findIndex(
-        group => group.id === this.groupId
+        (group) => group.id === this.groupId
       )
       return this.board.groups[idx]
     },
@@ -66,32 +64,32 @@ export default {
       group.tasks.push(newTask)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board
+        board: this.board,
       })
       this.txt = ''
       this.isAddBtnShowen = false
     },
     deleteTask(taskId) {
       const group = this.getGroupById()
-      const taskIdx = group.tasks.findIndex(task => task.id === taskId)
+      const taskIdx = group.tasks.findIndex((task) => task.id === taskId)
       group.tasks.splice(taskIdx, 1)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board
+        board: this.board,
       })
     },
     updateTask(newTask) {
       const group = this.getGroupById()
-      const taskIdx = group.tasks.findIndex(task => task.id === newTask.id)
+      const taskIdx = group.tasks.findIndex((task) => task.id === newTask.id)
       group.tasks.splice(taskIdx, 1, newTask)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board
+        board: this.board,
       })
-    }
+    },
   },
   components: {
-    taskPreview
-  }
+    taskPreview,
+  },
 }
 </script>
