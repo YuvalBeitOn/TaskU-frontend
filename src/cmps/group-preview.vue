@@ -17,7 +17,7 @@
     </div>
     <span v-if="!isExpanded">{{ tasksCount }}</span>
     <div v-if="isExpanded" class="flex space-between align-center">
-      <div class="group-headers headers  flex">
+      <div class="group-headers headers flex">
         <h4>Members</h4>
         <h4>Status</h4>
         <h4>Priority</h4>
@@ -47,9 +47,11 @@ export default {
     },
     toggleGroup() {
       this.isExpanded = !this.isExpanded
+      console.log('toggleGroup')
     },
     expandGroup() {
       this.isExpanded = true;
+      console.log('expandGroup')
     }
   },
   computed: {
