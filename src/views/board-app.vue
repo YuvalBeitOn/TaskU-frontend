@@ -1,11 +1,12 @@
 <template>
     <section class="board-app flex">
         <board-list
-            @searchBoard="setSearch"
             @removeBoard="removeCurrBoard"
             @addNewBoard="addBoard"
-            :boards="boards"
-        />
+            :boards="boards" title="Board"
+        >
+<board-search @searchBoard="setSearch" slot="search" />
+        </board-list>
         <div class="board-app-container width100">
             <div v-if="board" class="board-control">
                 <h2>{{ board.name }}</h2>
@@ -49,7 +50,7 @@ import { boardService } from '@/services/board.service'
 import { eventBus } from '@/services/event-bus.service'
 
 import boardFilter from '@/cmps/board-filter.vue'
-
+import boardSearch from '@/cmps/board-search'
 export default {
     name: 'board-app',
     data() {
@@ -166,6 +167,7 @@ export default {
   created() {
     eventBus.$on('taskDetails', this.setCurrTask)
     this.$store.dispatch({ type: 'loadUsers' })
+    this.$store.dispatch({ type: 'loadUser',userId:'301' })
     this.$store.dispatch({ type: 'loadBoards' })
     this.loadBoard()
   },
@@ -175,6 +177,7 @@ export default {
     boardFilter,
     addMembers,
     taskDetails,
+    boardSearch
   }
 }
 </script>
