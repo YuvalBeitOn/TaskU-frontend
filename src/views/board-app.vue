@@ -9,7 +9,11 @@
         <div class="board-app-container width100">
             <div v-if="board" class="board-control">
                 <h2>{{ board.name }}</h2>
-                <board-filter v-if="board.creator" :creator="board.creator" @addGroup="addGroup" />
+                <board-filter
+                    v-if="board.creator"
+                    :creator="board.creator"
+                    @addGroup="addGroup"
+                />
                 <!-- <button @click="addGroup">New Group</button> -->
                 <div>
                     <button @click="isAddMembers = !isAddMembers">+</button>
@@ -51,10 +55,14 @@
             <div v-if="isRouterViewHover" class="backdrop-layer"></div>
         </div>
         <router-view
+            v-if="currTaskDetails"
+            @updateTaskTxt="updateTaskTxt"
+            @close="isRouterViewHover = false"
             class="boardapp-nested"
             @mouseover.native="isRouterViewHover = true"
             @mouseleave.native="isRouterViewHover = false"
-            :task="currTask"
+            :task="currTaskDetails.task"
+            :groupId="currTaskDetails.groupId"
         />
         <!-- <task-details v-if="this.$route.params.taskId" :task="currTask" /> -->
     </section>
@@ -75,7 +83,7 @@ export default {
     data() {
         return {
             isAddMembers: false,
-            currTask: null,
+            currTaskDetails: null,
             isRouterViewHover: false,
         }
     },
@@ -147,8 +155,30 @@ export default {
                 board: this.board,
             })
         },
-        setCurrTask(task) {
-            this.currTask = task
+        setCurrTaskDetails(currTaskDetails) {
+            console.log(currTaskDetails, 'Setting currTaskDetails')
+            this.currTaskDetails = currTaskDetails
+        },
+        // getGroupById(groupId) {
+        //     const idx = this.board.groups.findIndex(
+        //         (group) => group.id === groupId
+        //     )
+        //     return this.board.groups[idx]
+        // },
+        updateTaskTxt(taskDetails) {
+            const newTask = taskDetails.task
+            const groupIdx = this.board.groups.findIndex(
+                (group) => group.id === taskDetails.groupId
+            )
+            const group = this.board.groups[groupIdx]
+            const taskIdx = group.tasks.findIndex(
+                (task) => task.id === newTask.id
+            )
+            group.tasks.splice(taskIdx, 1, newTask)
+            this.$store.dispatch({
+                type: 'saveBoard',
+                board: this.board,
+            })
         },
     },
     watch: {
@@ -159,7 +189,7 @@ export default {
         },
     },
     created() {
-        eventBus.$on('taskDetails', this.setCurrTask)
+        eventBus.$on('taskDetails', this.setCurrTaskDetails)
         this.$store.dispatch({ type: 'loadUsers' })
         this.$store.dispatch({ type: 'loadBoards' })
         this.loadBoard()
