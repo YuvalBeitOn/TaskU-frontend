@@ -89,6 +89,9 @@ export default {
     boards() {
       return this.$store.getters.boards
     },
+    user(){
+      return this.$store.getters.user 
+    },
     usersSite() {
       const siteUsers = this.$store.getters.users
       const boardMembers = this.board.members
@@ -135,6 +138,8 @@ export default {
     },
     addBoard() {
       const board = boardService.getEmptyBoard()
+      board.creator = this.user
+      console.log('board:', board.creator)
       this.$store.dispatch({ type: 'saveBoard', board })
     },
 
