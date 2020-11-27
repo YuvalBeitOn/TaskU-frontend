@@ -35,8 +35,8 @@
       </h4>
     </div>
     <span v-if="!isExpanded">{{ tasksCount }}</span>
-    <div v-if="isExpanded" class="flex space-between align-center">
-      <div class="group-headers headers flex" :style="groupColor">
+    <div v-if="isExpanded" class="flex space-between align-center" >
+        <div class="group-headers headers flex" :style="groupColor">
         <h4 class="list-title">Members</h4>
         <h4 class="list-title">Status</h4>
         <h4 class="list-title">Priority</h4>
@@ -44,6 +44,7 @@
       </div>
     </div>
     <task-list
+    :taskColor="group.color"
       v-if="isExpanded"
       :tasks="groupCopy.tasks"
       :groupId="groupCopy.id"
