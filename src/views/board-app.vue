@@ -9,7 +9,7 @@
     <div class="width100">
       <div v-if="board" class="board-control">
         <h2>{{ board.name }}</h2>
-        <!-- <board-filter /> -->
+        <board-filter />
         <button @click="addGroup">New Group</button>
         <div>
           <button @click="toggleMembers">+</button>
@@ -46,7 +46,7 @@
 import members from '@/cmps/members'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
-// import taskDetails from '../views/task-details'
+import taskDetails from '../views/task-details'
 import { boardService } from '@/services/board.service'
 import { eventBus } from '@/services/event-bus.service'
 
@@ -152,7 +152,7 @@ export default {
   components: {
     groupList,
     boardList,
-    // boardFilter,
+    boardFilter,
     members,
     taskDetails,
   }
