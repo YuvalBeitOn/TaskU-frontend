@@ -8,16 +8,20 @@
 <board-search @searchBoard="setSearch" slot="search" />
         </board-list>
         <div class="board-app-container width100">
-            <div v-if="board" class="board-control">
+            <div v-if="board" class="board-up">
+                <div class="board-up-header flex space-between">
                 <h2>{{ board.name }}</h2>
+                <i @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
+       <add-members class="right" v-if="isMembersShowen" firstTitle="Board Member" secondTitle="Users Site" :members="board.members" :allMembers="usersSite" @removeMember="removeUserFromBoard" @addMember="addUserToBoard"/>
+                </div>
+                <div class="board-control">
                 <board-filter
                     v-if="board.creator"
                     :creator="board.creator"
                     @addGroup="addGroup"
                 />
+                </div>
                 <!-- <button @click="addGroup">New Group</button> -->
-                <i @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
-       <add-members v-if="isMembersShowen" firstTitle="Board Member" secondTitle="Users Site" :members="board.members" :allMembers="usersSite" @removeMember="removeUserFromBoard" @addMember="addUserToBoard"/>
             </div>
             <group-list
                 v-if="board"
