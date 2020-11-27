@@ -9,7 +9,7 @@
         <div class="board-app-container width100">
             <div v-if="board" class="board-control">
                 <h2>{{ board.name }}</h2>
-                <board-filter :creator="board.creator" @addGroup="addGroup" />
+                <board-filter v-if="board.creator" :creator="board.creator" @addGroup="addGroup" />
                 <!-- <button @click="addGroup">New Group</button> -->
                 <div>
                     <button @click="isAddMembers = !isAddMembers">+</button>

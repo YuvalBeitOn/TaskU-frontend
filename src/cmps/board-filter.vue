@@ -13,12 +13,15 @@
 export default {
   name: 'board-filter',
   props: {
-    creator: String
+    creator: Object
   },
   methods: {
     addGroup() {
       this.$emit('addGroup')
     }
+  },
+  created() {
+    console.log('creator:',   );
   }
 }
 </script>

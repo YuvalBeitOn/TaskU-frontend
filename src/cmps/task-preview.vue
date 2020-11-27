@@ -4,9 +4,13 @@
     class="task-preview flex space-between align-center width100"
   >
     <!-- <button @click="deleteTask">X</button> -->
-    <span class="task-txt" @blur="updateTaskTxt"  @keyup.enter="updateTaskTxt" contenteditable>{{
-      taskCopy.txt
-    }}</span>
+    <span
+      class="task-txt"
+      @blur="updateTaskTxt"
+      @keyup.enter="updateTaskTxt"
+      contenteditable
+      >{{ taskCopy.txt }}</span
+    >
     <div class="task-details flex">
       <span @click="sendToTaskDetails"
         ><i class="far fa-comment fa-icon"></i
@@ -75,47 +79,11 @@ export default {
     toggleStatuses() {
       this.isStatusesShowen = !this.isStatusesShowen
     },
-    methods: {
-        toggleStatuses() {
-            this.isStatusesShowen = !this.isStatusesShowen
-        },
-        togglePriors() {
-            this.isPriorsShowen = !this.isPriorsShowen
-        },
-        deleteTask() {
-            this.$emit('deleteTask', this.task.id)
-        },
-        updateTaskTxt(ev) {
-            console.log(ev.target.innerText)
-            this.taskCopy.txt = ev.target.innerText
-            this.updateTask()
-        },
-        updateTask() {
-            this.$emit('updateTask', this.taskCopy)
-        },
-        sendToTaskDetails() {
-            if (
-                this.$route.params.taskId &&
-                this.$route.params.taskId === this.task.id
-            ) {
-                return
-            }
-            eventBus.$emit('taskDetails', this.task)
-            this.$router.push(
-                `/board/task/${this.task.id}`
-            )
-        },
+    togglePriors() {
+      this.isPriorsShowen = !this.isPriorsShowen
     },
     deleteTask() {
       this.$emit('deleteTask', this.task.id)
-    },
-    updateTaskPriority(opt) {
-      this.taskCopy.priority = opt
-      this.updateTask()
-    },
-    updateTaskStatus(opt) {
-      this.taskCopy.status = opt
-      this.updateTask()
     },
     updateTaskTxt(ev) {
       console.log(ev.target.innerText)
@@ -133,7 +101,15 @@ export default {
         return
       }
       eventBus.$emit('taskDetails', this.task)
-      this.$router.push(`/board/${this.$route.params.boardId}/${this.task.id}`)
+      this.$router.push(`/board/task/${this.task.id}`)
+    },
+    updateTaskPriority(opt) {
+      this.taskCopy.priority = opt
+      this.updateTask()
+    },
+    updateTaskStatus(opt) {
+      this.taskCopy.status = opt
+      this.updateTask()
     }
   },
   created() {
