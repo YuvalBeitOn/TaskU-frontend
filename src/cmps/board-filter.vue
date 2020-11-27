@@ -1,7 +1,7 @@
 <template>
   <section class="board-filter flex space-between">
     <span class="creator flex align-center" v-if="creator"
-      >By: {{ creator.fullname }}</span
+      >By: {{ creator.fullName }}</span
     >
     <div class="filter-actions flex space-between">
       <button class="add-group-btn" @click="addGroup">New Group</button>

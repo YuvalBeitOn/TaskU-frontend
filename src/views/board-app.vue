@@ -1,36 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <section class="board-app flex">
-    <board-list
-      @searchBoard="setSearch"
-      @removeBoard="removeCurrBoard"
-      @addNewBoard="addBoard"
-      :boards="boards"
-    />
-    <div class="width100">
-      <div v-if="board" class="board-control">
-        <h2>{{ board.name }}</h2>
-        <board-filter />
-        <button @click="addGroup">New Group</button>
-        <div>
-          <button @click="toggleMembers">+</button>
-          <members v-if="isMembersShowen">
-            <h2 slot="title-members">Members board</h2>
-            <ul v-if="board.members" class="clean-list" slot="members">
-              <li v-for="member in board.members" :key="member._id">
-                {{ member.fullName }} {{ member._id }}
-                <button @click="removeUserFromBoard(member._id)">-</button>
-              </li>
-            </ul>
-            <h2 slot="title-all-members">site users</h2>
-            <ul class="clean-list" slot="all-members">
-              <li v-for="user in usersSite" :key="user._id">
-                {{ user.fullName }}{{ user._id }}
-                <button @click="addUserToBoard(user)">+</button>
-              </li>
-            </ul>
-          </members>
-=======
     <section class="board-app flex">
         <board-list
             @searchBoard="setSearch"
@@ -85,7 +53,6 @@
                 @deleteGroup="deleteGroup"
             />
             <div v-if="isRouterViewHover" class="backdrop-layer"></div>
->>>>>>> 7073f1dcd9fc8ebf094b606aa11da09e3ea59006
         </div>
         <router-view
             v-if="currTaskDetails"
@@ -97,7 +64,7 @@
             :task="currTaskDetails.task"
             :groupId="currTaskDetails.groupId"
         />
-        <!-- <task-details v-if="this.$route.params.taskId" :task="currTask" /> -->
+        <task-details v-if="this.$route.params.taskId" :task="currTask" />
     </section>
 </template>
 
@@ -219,7 +186,6 @@ export default {
             if (val) {
                 this.loadBoard()
             }
-<<<<<<< HEAD
         },},
         
   created() {
@@ -235,22 +201,5 @@ export default {
     members,
     taskDetails,
   }
-=======
-        },
-    },
-    created() {
-        eventBus.$on('taskDetails', this.setCurrTaskDetails)
-        this.$store.dispatch({ type: 'loadUsers' })
-        this.$store.dispatch({ type: 'loadBoards' })
-        this.loadBoard()
-    },
-    components: {
-        groupList,
-        boardList,
-        boardFilter,
-        members,
-        // taskDetails
-    },
->>>>>>> 7073f1dcd9fc8ebf094b606aa11da09e3ea59006
 }
 </script>
