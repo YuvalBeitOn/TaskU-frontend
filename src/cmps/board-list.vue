@@ -1,16 +1,11 @@
 <template>
     <section class="board-list flex column">
         <div class="top-bar flex space-around align-center">
-            <h1 class="title-board-list">Boards</h1>
+            <h1 class="title-board-list">{{title}}</h1>
             <i @click="addBoard" class="btn-add fas fa-plus-circle"></i>
         </div>
-        <input
-            class="board-list-search"
-            type="text"
-            @input="emitSearch"
-            v-model="searchBoard"
-            placeholder="Search"
-        />
+        <slot name="search"></slot>
+  
 
         <ul v-if="boards" class="boards-list clean-list">
             <li class="board-item" v-for="board in boards" :key="board._id">
@@ -33,16 +28,17 @@
 </template>
 
 <script>
-import lodash from 'lodash'
+
 import popupMenu from '../cmps/popup-menu'
 export default {
     name: 'board-list',
     props: {
         boards: [Array, Object],
+        title:String
     },
     data() {
         return {
-            searchBoard: '',
+           
             isPopupShowen: false,
             popupOptions: [
                 {
@@ -56,10 +52,7 @@ export default {
     },
     computed: {},
     methods: {
-        emitSearch() {
-            const searchBoard = JSON.parse(JSON.stringify(this.searchBoard))
-            this.$emit('searchBoard', searchBoard)
-        },
+
         removeCurrBoard() {
             console.log('boardId:', this.currBoardId)
             this.$emit('removeBoard', this.currBoardId)
@@ -73,7 +66,7 @@ export default {
         },
     },
     created() {
-        this.emitSearch = lodash.debounce(this.emitSearch, 500)
+        
     },
     components: {
         popupMenu,

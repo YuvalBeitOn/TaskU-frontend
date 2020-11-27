@@ -7,6 +7,11 @@
   box-shadow: 0 3px 4px -5px #484444;
   transition: background-color 0.3s;
   text-align: center;
+  .task-color {
+    width: 7px;
+    margin-right: 1px;
+    height: 100%;
+  }
   &:hover {
     cursor: pointer;
     background-color: #f3f3f3;

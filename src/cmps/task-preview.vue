@@ -1,11 +1,12 @@
 <template>
-  <li
+  <li @click="isTaskMembersShowen=false"
     v-if="taskCopy"
     class="task-preview flex space-between align-center width100"
   >
     <!-- <button @click="deleteTask">X</button> -->
     <div class="flex space-between width100">
-      <span
+      
+      <span class="task-color" :style="taskBgc"></span><span
         class="task-txt"
         @blur="updateTaskTxt"
         @keyup.enter="updateTaskTxt"
@@ -18,7 +19,8 @@
     </div>
     <div class="task-details flex">
       <div class="headers flex">
-        <span><i class="far fa-user-circle fa-icon"></i></span>
+        <span><i @click.stop="toggleMember" class="far fa-user-circle fa-icon"></i></span>
+        <add-members v-if="isTaskMembersShowen" firstTitle="Task Members" secondTitle="Board Members" :members="taskCopy.members" :allMembers="filteredBoardMembers" @addMember="addTaskMember" @removeMember="removeTaskMember" />
         <span
           @click="toggleStatuses"
           class="status relative"
@@ -57,25 +59,66 @@
 </template>
 
 <script>
+import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
 import labelPicker from './label-picker'
 export default {
-  components: { labelPicker },
+  components: { labelPicker,addMembers },
   name: 'task-preview',
   data() {
     return {
+      
       taskCopy: null,
       isStatusesShowen: false,
-      isPriorsShowen: false
+      isPriorsShowen: false,
+      isTaskMembersShowen:false,
     }
   },
   props: {
+    taskColor:String,
     task: Object,
     statuses: Array,
     priorities: Array,
-    groupId: String
+    groupId: String,
+    boardMembers:[Array,Object]
+  },
+  computed:{
+    taskBgc(){
+      return {backgroundColor:this.taskColor}
+    },
+    filteredBoardMembers(){
+      const boardMembers = this.boardMembers
+      const taskMembers = this.taskCopy.members
+      if(taskMembers){
+     const filteredBoardMembers = boardMembers.filter(bMember=>{
+        return taskMembers.every(tMember=>{
+          return tMember._id !== bMember._id
+        })
+
+      })
+      return filteredBoardMembers
+      }else {
+        return boardMembers
+      }
+ 
+    }
   },
   methods: {
+    toggleMember(){
+      this.isTaskMembersShowen = !this.isTaskMembersShowen
+    },
+    addTaskMember(member){
+      console.log('member:', member)
+      this.taskCopy.members.unshift(member)
+      console.log('this.taskCopy.members:', this.taskCopy.members)
+      this.updateTask()
+      
+    },
+    removeTaskMember(memberId){
+      const idx = this.taskCopy.members.findIndex(tMember=>tMember._id === memberId)
+      this.taskCopy.members.splice(idx,1)
+      this.updateTask()
+    },
     getStyleStr(colorStr) {
       return `backgroundColor:${colorStr}`
     },
@@ -103,6 +146,7 @@ export default {
       ) {
         return
       }
+      
       eventBus.$emit('taskDetails', {task: this.taskCopy, groupId: this.groupId})
       this.$router.push(`/board/task/${this.task.id}`)
     },

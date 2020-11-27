@@ -26,6 +26,7 @@
       </div>
       <h4
         class="group-headers group-name"
+        :style="groupColor"
         @blur="updateGroupName"
         @keyup.enter="updateGroupName"
         contenteditable
@@ -35,7 +36,7 @@
     </div>
     <span v-if="!isExpanded">{{ tasksCount }}</span>
     <div v-if="isExpanded" class="flex space-between align-center">
-      <div class="group-headers headers flex">
+      <div class="group-headers headers flex" :style="groupColor">
         <h4 class="list-title">Members</h4>
         <h4 class="list-title">Status</h4>
         <h4 class="list-title">Priority</h4>
@@ -98,6 +99,9 @@ export default {
     },
     expanded() {
       return this.isExpanded ? true : false
+    },
+    groupColor(){
+      return {color:this.group.color}
     }
   },
   created() {
@@ -109,4 +113,4 @@ export default {
   }
 }
 </script>,
-    ColorsMenu
+    
