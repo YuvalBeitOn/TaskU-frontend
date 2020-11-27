@@ -15,36 +15,8 @@
                     @addGroup="addGroup"
                 />
                 <!-- <button @click="addGroup">New Group</button> -->
-                <div>
-                    <button @click="isAddMembers = !isAddMembers">+</button>
-                    <members v-if="isAddMembers">
-                        <h2 slot="title-members">Members board</h2>
-                        <ul
-                            v-if="board.members"
-                            class="clean-list"
-                            slot="members"
-                        >
-                            <li
-                                v-for="member in board.members"
-                                :key="member._id"
-                            >
-                                {{ member.fullName }} {{ member._id }}
-                                <button
-                                    @click="removeUserFromBoard(member._id)"
-                                >
-                                    -
-                                </button>
-                            </li>
-                        </ul>
-                        <h2 slot="title-all-members">site users</h2>
-                        <ul class="clean-list" slot="all-members">
-                            <li v-for="user in usersSite" :key="user._id">
-                                {{ user.fullName }}{{ user._id }}
-                                <button @click="addUserToBoard(user)">+</button>
-                            </li>
-                        </ul>
-                    </members>
-                </div>
+                <i @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
+       <add-members v-if="isMembersShowen" firstTitle="Board Member" secondTitle="Users Site" :members="board.members" :allMembers="usersSite" @removeMember="removeUserFromBoard" @addMember="addUserToBoard"/>
             </div>
             <group-list
                 v-if="board"
@@ -69,7 +41,7 @@
 </template>
 
 <script>
-import members from '@/cmps/members'
+import addMembers from '@/cmps/add-members'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
 import taskDetails from '../views/task-details'
@@ -82,7 +54,7 @@ export default {
     name: 'board-app',
     data() {
         return {
-            isAddMembers: false,
+            isMembersShowen:false,
             currTaskDetails: null,
             isRouterViewHover: false,
         }
@@ -102,12 +74,15 @@ export default {
                     return boardMember._id !== siteUser._id
                 })
             })
-            console.log('filteredSiteUsers:', filteredSiteUsers)
             return filteredSiteUsers
         },
     },
     methods: {
+        toggleMembers(){
+            this.isMembersShowen = !this.isMembersShowen
+        },
         addUserToBoard(user) {
+            console.log('user:', user)
             this.board.members.unshift(user)
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
         },
@@ -198,7 +173,7 @@ export default {
     groupList,
     boardList,
     boardFilter,
-    members,
+    addMembers,
     taskDetails,
   }
 }

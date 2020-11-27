@@ -4,6 +4,7 @@
             <h1 class="title-board-list">Boards</h1>
             <i @click="addBoard" class="btn-add fas fa-plus-circle"></i>
         </div>
+        <slot name="search"></slot>
         <input
             class="board-list-search"
             type="text"

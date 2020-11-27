@@ -7,13 +7,7 @@
     padding: 0 rem(15px);
     z-index: 2;
 
-    .board-list-search {
-        outline: none;
-        margin: rem(20px);
-        border: 0;
-        border-bottom: 2px solid hsla(0, 0%, 42.7%, .419608);
-        background-color: transparent;
-    }
+  
 
     .top-bar {
         margin-top: 35px;
@@ -77,4 +71,11 @@
 
 
 
+}
+.board-list-search {
+    outline: none;
+    margin: rem(20px);
+    border: 0;
+    border-bottom: 2px solid hsla(0, 0%, 42.7%, .419608);
+    background-color: transparent;
 }

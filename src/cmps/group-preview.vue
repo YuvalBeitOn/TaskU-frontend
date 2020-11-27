@@ -10,21 +10,22 @@
       <i class="fas fa-trash-alt fa-icon"></i>
     </button> -->
     <div class="flex align-center">
+      <div class="group-color"></div>
       <button class="expand-btn" @click.stop="toggleGroup">
         <i @click.stop="toggleGroup" class="fas fa-chevron-down fa-icon"></i>
       </button>
-      <h4 class="group-headers group-name">{{ group.name }}</h4>
+      <h4 :style="groupColor" class="group-headers group-name">{{ group.name }}</h4>
     </div>
     <span v-if="!isExpanded">{{ tasksCount }}</span>
     <div v-if="isExpanded" class="flex space-between align-center">
-      <div class="group-headers headers flex">
+      <div class="group-headers headers flex" :style="groupColor">
         <h4>Members</h4>
         <h4>Status</h4>
         <h4>Priority</h4>
         <h4>Due Date</h4>
       </div>
     </div>
-    <task-list v-if="isExpanded" :tasks="group.tasks" :groupId="group.id" />
+    <task-list :taskColor="group.color" v-if="isExpanded" :tasks="group.tasks" :groupId="group.id" />
   </li>
 </template>
 
@@ -60,6 +61,9 @@ export default {
     },
     expanded() {
       return this.isExpanded ? true : false
+    },
+    groupColor(){
+      return {color:this.group.color}
     }
   },
   components: {
