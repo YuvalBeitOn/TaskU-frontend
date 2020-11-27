@@ -7,6 +7,7 @@
         :task="task"
         :statuses="board.statuses"
         :priorities="board.priorities"
+        :groupId="groupId"
         @deleteTask="deleteTask"
         @updateTask="updateTask"
       />

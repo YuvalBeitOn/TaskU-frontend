@@ -7,7 +7,7 @@
     <span
       class="task-txt"
       @blur="updateTaskTxt"
-      @keyup.enter="updateTaskTxt"
+      @keyup.enter.prevent.stop="updateTaskTxt"
       contenteditable
       >{{ taskCopy.txt }}</span
     >
@@ -70,7 +70,8 @@ export default {
   props: {
     task: Object,
     statuses: Array,
-    priorities: Array
+    priorities: Array,
+    groupId: String
   },
   methods: {
     getStyleStr(colorStr) {
@@ -100,7 +101,7 @@ export default {
       ) {
         return
       }
-      eventBus.$emit('taskDetails', this.task)
+      eventBus.$emit('taskDetails', {task: this.taskCopy, groupId: this.groupId})
       this.$router.push(`/board/task/${this.task.id}`)
     },
     updateTaskPriority(opt) {
