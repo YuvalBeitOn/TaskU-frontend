@@ -46,11 +46,11 @@
 import members from '@/cmps/members'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
-import taskDetails from '../views/task-details'
+// import taskDetails from '../views/task-details'
 import { boardService } from '@/services/board.service'
 import { eventBus } from '@/services/event-bus.service'
 
-// import boardFilter from '@/cmps/board-filter.vue'
+import boardFilter from '@/cmps/board-filter.vue'
 
 export default {
   name: 'board-app',
@@ -58,6 +58,7 @@ export default {
     return {
       isMembersShowen: false,
       currTask: null,
+       isRouterViewHover: false,
     }
   },
   computed: {
@@ -133,11 +134,15 @@ export default {
       this.isMembersShowen = !this.isMembersShowen
     },
   },
+  
+
   watch: {
-    '$route.params.boardId'() {
-      this.loadBoard()
-    },
-  },
+        '$route.params.boardId'(val) {
+            if (val) {
+                this.loadBoard()
+            }
+        },},
+        
   created() {
     eventBus.$on('taskDetails', this.setCurrTask)
     this.$store.dispatch({ type: 'loadUsers' })
@@ -150,6 +155,6 @@ export default {
     // boardFilter,
     members,
     taskDetails,
-  },
+  }
 }
 </script>

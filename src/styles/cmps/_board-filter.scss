@@ -1,0 +1,23 @@
+.board-filter {
+  .filter-actions {
+    width: 360px;
+    > * {
+      text-align: center;
+      padding: 1rem;
+    }
+    .add-group-btn,
+    .filter {
+      margin-right: rem(5px);
+    }
+    .add-group-btn {
+        border: none;
+        outline: none;
+    }
+    .search-input {
+      width: 80px;
+      outline: none;
+      border: none;
+      border-bottom: 1px solid gray;
+    }
+  }
+}

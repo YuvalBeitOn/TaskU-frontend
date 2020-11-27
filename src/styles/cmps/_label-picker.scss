@@ -2,10 +2,12 @@
     position: absolute;
     border: 1px solid white;
     border-radius: 4px;
-    width: 130px;
+    width: 140px;
     min-height: 230px;
     background-color: #ffffffd4;
     z-index: 1;
+    top: 33px;
+    right: 12px;
     >* {
         height: 40px;
         padding: 1rem;
