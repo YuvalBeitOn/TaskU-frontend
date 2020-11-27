@@ -14,14 +14,14 @@
         <button class="expand-btn" @click.stop="toggleGroup">
           <i @click.stop="toggleGroup" class="fas fa-expand-arrows-alt fa-icon"></i>
         </button>
-        <div class="flex column group-actions" v-if="isActionsShowen">
+        <div class="flex column group-actions " v-if="isActionsShowen">
           <button @click.stop="deleteGroup(groupCopy.id)">
             <i class="fas fa-trash"></i> Delete
           </button>
           <button @click="toggleColorsMenu">
             <i class="fas fa-paint-brush"></i> Change color
           </button>
-          <colors-menu v-if="isColorsShowen"/>
+          <colors-menu v-if="isColorsShowen" @setColor="setGroupColor" />
         </div>
       </div>
       <h4
@@ -84,6 +84,13 @@ export default {
     },
     expandGroup() {
       this.isExpanded = true
+    },
+    setGroupColor(color){
+
+       this.groupCopy.color = color
+      this.toggleGroupActions()
+      this.toggleColorsMenu()
+      this.$emit('updateGroup', this.groupCopy)
     },
     updateGroupName(ev) {
       console.log(ev.target.innerText)

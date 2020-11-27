@@ -30,8 +30,9 @@
             position: relative;
             margin-bottom: 10px;
             margin-left: rem(8px);
+
+            transition-duration: .3s;
             a {
-                transition: .3s;
                 position: relative;
                 padding-left: 30px;
                 min-height: 30px;

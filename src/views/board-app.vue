@@ -1,5 +1,5 @@
 <template>
-  <section class="board-app flex">
+  <section class="board-app flex" >
     <board-list
       @removeBoard="removeCurrBoard"
       @addNewBoard="addBoard"
@@ -11,8 +11,10 @@
     <div class="board-app-container width100">
       <div v-if="board" class="board-up">
         <div class="board-up-header flex space-between">
-          <h2>{{ board.name }}</h2>
-          <i @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
+          <h2 class="board-name-title"   @blur="updateBoardName"
+        @keyup.enter="updateBoardName"
+        contenteditable>{{ board.name }}</h2>
+          <i  @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
           <add-members
             class="right"
             v-if="isMembersShowen"
@@ -22,6 +24,7 @@
             :allMembers="usersSite"
             @removeMember="removeUserFromBoard"
             @addMember="addUserToBoard"
+            
           />
         </div>
         <div class="board-control">
@@ -34,7 +37,6 @@
             @forceRerender="forceRerender"
           />
         </div>
-        <!-- <button @click="addGroup">New Group</button> -->
       </div>
       <group-list
         v-if="board"
@@ -101,6 +103,12 @@ export default {
   methods: {
     forceRerender() {
       this.componentKey += 1
+    },
+    updateBoardName(ev){
+        console.log(ev.target.innerText,'target')
+        this.board.name =  ev.target.innerText
+      this.$store.dispatch({ type: 'saveBoard', board: this.board })
+
     },
     toggleMembers() {
       this.isMembersShowen = !this.isMembersShowen

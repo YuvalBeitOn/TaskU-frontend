@@ -6,7 +6,7 @@
         v-for="(color, idx) in colors"
         :key="idx"
         :style="{ backgroundColor: color }"
-        @click="setGroupColor(color)"
+        @click="emitColor(color)"
       ></li>
     </ul>
   </section>
@@ -30,8 +30,8 @@ export default {
     }
   },
   methods: {
-    setGroupColor(color) {
-      this.$emit('setGroupColor', color)
+    emitColor(color) {
+      this.$emit('setColor', color)
     }
   }
 }

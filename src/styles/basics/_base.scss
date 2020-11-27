@@ -32,3 +32,8 @@ button {
 img {
   width: 100%;
 }
+[contenteditable]:focus {
+  outline: none;
+  border: 1px dashed black;
+  z-index: 55;
+}
