@@ -8,7 +8,7 @@
     <router-link to="/">home</router-link>
     <router-link to="/login">login</router-link>
     <router-link to="/signup">sign up</router-link>
-    <router-link to="/board/u102">Get Started!</router-link>
+    <router-link to="/board">Get Started!</router-link>
     </nav>
      </div>
 

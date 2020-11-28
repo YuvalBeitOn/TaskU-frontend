@@ -12,17 +12,20 @@
           <i class="fas fa-arrow-down fa-icon"></i>
         </button>
         <button class="expand-btn" @click.stop="toggleGroup">
-          <i @click.stop="toggleGroup" class="fas fa-expand-arrows-alt fa-icon"></i>
+          <i
+            @click.stop="toggleGroup"
+            class="fas fa-expand-arrows-alt fa-icon"
+          ></i>
         </button>
-        <div class="flex column group-actions " v-if="isActionsShowen">
+        <div class="flex column group-actions" v-if="isActionsShowen">
           <button @click.stop="deleteGroup(groupCopy.id)">
             <i class="fas fa-trash"></i> Delete
           </button>
           <button @click="toggleColorsMenu">
             <i class="fas fa-paint-brush"></i> Change color
           </button>
-          <colors-menu v-if="isColorsShowen" @setColor="setGroupColor" />
         </div>
+        <colors-menu v-if="isColorsShowen" @setColor="setGroupColor" />
       </div>
       <h4
         class="group-headers group-name"
@@ -35,8 +38,8 @@
       </h4>
     </div>
     <span v-if="!isExpanded">{{ tasksCount }}</span>
-    <div v-if="isExpanded" class="flex space-between align-center" >
-        <div class="group-headers headers flex" :style="groupColor">
+    <div v-if="isExpanded" class="flex space-between align-center">
+      <div class="group-headers headers flex" :style="groupColor">
         <h4 class="list-title">Members</h4>
         <h4 class="list-title">Status</h4>
         <h4 class="list-title">Priority</h4>
@@ -44,10 +47,11 @@
       </div>
     </div>
     <task-list
-    :taskColor="group.color"
+      :taskColor="group.color"
       v-if="isExpanded"
       :tasks="groupCopy.tasks"
       :groupId="groupCopy.id"
+      @forceRender="emitForceRender"
     />
   </li>
 </template>
@@ -70,8 +74,11 @@ export default {
     }
   },
   methods: {
+    emitForceRender() {
+      this.$emit('emitForceRender')
+    },
     toggleColorsMenu() {
-      this.isColorsShowen =!this.isColorsShowen;
+      this.isColorsShowen = !this.isColorsShowen
     },
     toggleGroupActions() {
       this.isActionsShowen = !this.isActionsShowen
@@ -85,9 +92,8 @@ export default {
     expandGroup() {
       this.isExpanded = true
     },
-    setGroupColor(color){
-
-       this.groupCopy.color = color
+    setGroupColor(color) {
+      this.groupCopy.color = color
       this.toggleGroupActions()
       this.toggleColorsMenu()
       this.$emit('updateGroup', this.groupCopy)
@@ -108,8 +114,8 @@ export default {
     expanded() {
       return this.isExpanded ? true : false
     },
-    groupColor(){
-      return {color:this.groupCopy.color}
+    groupColor() {
+      return { color: this.groupCopy.color }
     }
   },
   created() {
@@ -120,5 +126,5 @@ export default {
     colorsMenu
   }
 }
-</script>,
-    
+</script>
+,

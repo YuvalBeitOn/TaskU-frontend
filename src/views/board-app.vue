@@ -1,5 +1,5 @@
 <template>
-  <section class="board-app flex" >
+  <section class="board-app flex">
     <board-list
       @removeBoard="removeCurrBoard"
       @addNewBoard="addBoard"
@@ -11,10 +11,8 @@
     <div class="board-app-container width100">
       <div v-if="board" class="board-up">
         <div class="board-up-header flex space-between">
-          <h2 class="board-name-title"   @blur="updateBoardName"
-        @keyup.enter="updateBoardName"
-        contenteditable>{{ board.name }}</h2>
-          <i  @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
+          <h2>{{ board.name }}</h2>
+          <i @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
           <add-members
             class="right"
             v-if="isMembersShowen"
@@ -24,7 +22,6 @@
             :allMembers="usersSite"
             @removeMember="removeUserFromBoard"
             @addMember="addUserToBoard"
-            
           />
         </div>
         <div class="board-control">
@@ -37,6 +34,7 @@
             @forceRerender="forceRerender"
           />
         </div>
+        <!-- <button @click="addGroup">New Group</button> -->
       </div>
       <group-list
         v-if="board"
@@ -45,20 +43,18 @@
         :boardName="board.name"
         @deleteGroup="deleteGroup"
         @updateGroup="updateGroup"
+        @forceRender="forceRerender"
       />
-      <div v-if="isRouterViewHover" class="backdrop-layer"></div>
+      <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
     </div>
-    <router-view
-      v-if="currTaskDetails"
-      @updateTaskTxt="updateTaskTxt"
-      @close="isRouterViewHover = false"
-      class="boardapp-nested"
-      @mouseover.native="isRouterViewHover = true"
-      @mouseleave.native="isRouterViewHover = false"
-      :task="currTaskDetails.task"
-      :groupId="currTaskDetails.groupId"
-    />
-    <task-details v-if="this.$route.params.taskId" :task="currTask" />
+      <task-details
+        v-if="currTaskDetails && this.$route.params.taskId"
+        @close="isTaskDetailsHover = false"
+        @mouseover.native="isTaskDetailsHover = true"
+        @mouseleave.native="isTaskDetailsHover = false"
+        :task="currTaskDetails.task"
+        :groupId="currTaskDetails.groupId"
+      />
   </section>
 </template>
 
@@ -69,16 +65,16 @@ import boardList from '@/cmps/board-list.vue'
 import taskDetails from '../views/task-details'
 import { boardService } from '@/services/board.service'
 import { eventBus } from '@/services/event-bus.service'
-
 import boardFilter from '@/cmps/board-filter.vue'
 import boardSearch from '@/cmps/board-search'
+
 export default {
   name: 'board-app',
   data() {
     return {
       isMembersShowen: false,
       currTaskDetails: null,
-      isRouterViewHover: false,
+      isTaskDetailsHover: false,
       componentKey: 0
     }
   },
@@ -88,9 +84,6 @@ export default {
     },
     boards() {
       return this.$store.getters.boards
-    },
-    user(){
-      return this.$store.getters.user 
     },
     usersSite() {
       const siteUsers = this.$store.getters.users
@@ -106,12 +99,6 @@ export default {
   methods: {
     forceRerender() {
       this.componentKey += 1
-    },
-    updateBoardName(ev){
-        console.log(ev.target.innerText,'target')
-        this.board.name =  ev.target.innerText
-      this.$store.dispatch({ type: 'saveBoard', board: this.board })
-
     },
     toggleMembers() {
       this.isMembersShowen = !this.isMembersShowen
@@ -138,8 +125,6 @@ export default {
     },
     addBoard() {
       const board = boardService.getEmptyBoard()
-      board.creator = this.user
-      console.log('board:', board.creator)
       this.$store.dispatch({ type: 'saveBoard', board })
     },
 
@@ -176,39 +161,29 @@ export default {
         board: this.board
       })
     },
-    setCurrTaskDetails(currTaskDetails) {
-      console.log(currTaskDetails, 'Setting currTaskDetails')
-      this.currTaskDetails = currTaskDetails
-    },
-    // getGroupById(groupId) {
-    //     const idx = this.board.groups.findIndex(
-    //         (group) => group.id === groupId
-    //     )
-    //     return this.board.groups[idx]
-    // },
-    updateTaskTxt(taskDetails) {
-      const newTask = taskDetails.task
-      const groupIdx = this.board.groups.findIndex(
-        group => group.id === taskDetails.groupId
-      )
-      const group = this.board.groups[groupIdx]
-      const taskIdx = group.tasks.findIndex(task => task.id === newTask.id)
-      group.tasks.splice(taskIdx, 1, newTask)
+    updateGroups(groups) {
+      this.board.groups = groups
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
+      this.forceRerender()
+    },
+    setCurrTaskDetails(currTaskDetails) {
+      console.log(currTaskDetails, 'Setting currTaskDetails')
+      this.currTaskDetails = currTaskDetails
     }
   },
   watch: {
     '$route.params.boardId'(val) {
       if (val) {
         this.loadBoard()
+        this.forceRerender()
       }
     }
   },
   created() {
-    eventBus.$on('taskDetails', this.setCurrTask)
+    eventBus.$on('taskDetails', this.setCurrTaskDetails)
     this.$store.dispatch({ type: 'loadUsers' })
     this.$store.dispatch({ type: 'loadUser', userId: '301' })
     this.$store.dispatch({ type: 'loadBoards' })

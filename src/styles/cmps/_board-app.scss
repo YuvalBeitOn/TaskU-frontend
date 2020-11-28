@@ -2,7 +2,7 @@
     .board-control {
         height: 80px;
         border-bottom: 1px solid rgba(165, 165, 165, 0.714);
-        padding: 15px 30px 0px 30px;
+        padding: rem(15px) rem(30px) rem(0px) rem(30px);
     }
     .board-up{
         background-color: #f7f7f7;
@@ -30,20 +30,18 @@
         bottom: 0;
         z-index: 5;
         background-color: black;
-        opacity: 0.6;
+        opacity: 0.4;
+        transition: 0.4;
     }
-.task-details-section{
-    .top-bar{
-        text-align: left;
-        margin: 20px 20px 6px 24px;
-    }
-}
-    .boardapp-nested{
+    
+    .boardapp-nested {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
         z-index: 10;
-        // position: fixed;
-        z-index: 1000;
         background-color: white;
-        width: 550px;
         box-shadow: 0px 0px 10px 0px #999;
     }
+
 }

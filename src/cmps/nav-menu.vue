@@ -2,7 +2,7 @@
   <section class="nav-menu flex column align-center space-between">
     <div class="top-nav flex column space-between align-center">
       <div class="nav-logo">
-         <!-- <router-link :to="'/board/' + defaultBoardId"> --> 
+         <!-- <router-link :to="'/board/' + defaultBoardId">  -->
         <img src="img/icons/logo_icon.png"  alt="TaskU" />
          <!-- </router-link> -->
       </div>
@@ -11,11 +11,11 @@
     </div>
 
     <div class="middle-nav">
-      <div class="user-greeting">Hello-Guest!</div>
+      <div class="user-greeting">Hello Guest</div>
     </div>
     <div class="bottom-nav flex column align-center">
       <i class="nav-icon fal fa-calendar-check"></i>
-         <router-link to="'/user/301'">
+         <router-link to="/user/301">
       <i class="nav-icon profile fas fa-user-circle"></i>
          </router-link >
          <router-link to="/"> 
