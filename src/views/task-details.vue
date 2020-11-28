@@ -81,7 +81,7 @@ export default {
             var task
             const taskId = this.$route.params.taskId
             this.board.groups.forEach((group) => {
-                task = group.tasks.find((task) => task.id === taskId)
+                tgroup.tasks.find((task) => task.id === taskId)
             })
             return task
         },
