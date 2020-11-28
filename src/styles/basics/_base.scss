@@ -34,7 +34,7 @@ img {
 }
 [contenteditable]:focus {
   outline: none;
-  border: 1px dashed black;
+  border: 1px dashed black !important;
   z-index: 55;
 }
 

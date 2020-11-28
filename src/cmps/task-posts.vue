@@ -11,7 +11,16 @@
                 v-for="post in copiedPosts"
                 :key="post.id"
             >
-                <pre>{{ post }}</pre>
+                <div class="user-info-container flex space-between">
+                    <avatar
+                        class="profile-img"
+                        v-if="post.byUser"
+                        :username="post.byUser.fullName"
+                    ></avatar>
+                    <h2 v-if="post.byUser">{{post.byUser.fullName}}</h2>
+                </div>
+                    <el-divider/>
+                <span class="task-post-txt">{{post.txt}}</span>
             </div>
         </div>
     </section>
@@ -19,11 +28,18 @@
 
 <script>
 import { boardService } from '../services/board.service'
+import Avatar from 'vue-avatar'
+
 export default {
     name: 'task-posts',
     props: {
         posts: {
             type: Array,
+        },
+    },
+    computed: {
+        loggedInUser() {
+            return this.$store.getters.loggedInUser
         },
     },
     data() {
@@ -42,10 +58,14 @@ export default {
             }
             const post = boardService.getEmptyPost()
             post.txt = this.newPost
+            post.byUser = this.loggedInUser
             this.copiedPosts.unshift(post)
             this.$emit('updatePosts', this.copiedPosts)
             this.newPost = ''
         },
+    },
+    components: {
+        Avatar,
     },
 }
 </script>

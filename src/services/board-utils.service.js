@@ -54,59 +54,13 @@ function getEmptyBoard() {
       {
         color: '#ffffff',
         name: 'BackEnd',
-        tasks: [
-          {
-            txt: 'txt',
-            members: [],
-            dueDate: '',
-            status: {
-              color: 'gray',
-              txt: ''
-            },
-            priority: {
-              color: 'gray',
-              txt: ''
-            },
-            posts: [],
-            activities: []
-          },
-          {
-            txt: 'txt',
-            members: [],
-            dueDate: '',
-            status: {
-              color: 'gray',
-              txt: ''
-            },
-            priority: {
-              color: 'gray',
-              txt: ''
-            },
-            posts: [],
-            activities: []
-          }
-        ]
+        tasks: [getEmptyTask(),getEmptyTask()]
+        
       },
       {
         color: '#ffffff',
         name: 'Frontend',
-        tasks: [
-          {
-            txt: 'txt',
-            members: [],
-            dueDate: '',
-            status: {
-              color: 'gray',
-              txt: ''
-            },
-            priority: {
-              color: 'gray',
-              txt: ''
-            },
-            posts: [],
-            activities: []
-          }
-        ]
+        tasks: [getEmptyTask(),getEmptyTask()]
       }
     ]
   }

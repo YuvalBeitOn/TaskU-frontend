@@ -1,72 +1,77 @@
 <template>
-  <li
-    class="task-preview flex space-between align-center width100"
-    v-if="taskCopy"
-    @click="isTaskMembersShowen = false"
-  >
-    <div class="flex space-between width100">
-      <span class="task-color" :style="taskBgc"></span>
-      <button @click="deleteTask">X</button>
-      <span
-        class="task-txt"
-        @blur="updateTaskTxt"
-        @keyup.enter="updateTaskTxt"
-        contenteditable
-        >{{ taskCopy.txt }}</span
-      >
-      <span @click="sendToTaskDetails"
-        ><i class="far fa-comment fa-icon"></i
-      ></span>
-    </div>
-    <div class="task-details flex">
-      <div class="headers flex">
-        <span
-          ><i @click.stop="toggleMember" class="far fa-user-circle fa-icon"></i
-        ></span>
-        <add-members
-          v-if="isTaskMembersShowen"
-          firstTitle="Task Members"
-          secondTitle="Board Members"
-          :members="taskCopy.members"
-          :allMembers="filteredBoardMembers"
-          @addMember="addTaskMember"
-          @removeMember="removeTaskMember"
-        />
-        <span
-          @click="toggleStatuses"
-          class="status relative"
-          :style="getStyleStr(taskCopy.status.color)"
-          >{{ taskCopy.status.txt }}
-          <label-picker
-            v-if="isStatusesShowen"
-            :opts="statuses"
-            type="status"
-            @updateTaskStatus="updateTaskStatus"
-        /></span>
-        <span
-          @click="togglePriors"
-          class="priority relative"
-          :style="getStyleStr(taskCopy.priority.color)"
-          >{{ taskCopy.priority.txt }}
-          <label-picker
-            v-if="isPriorsShowen"
-            :opts="priorities"
-            type="priority"
-            @updateTaskPriority="updateTaskPriority"
-        /></span>
-        <span class="date-picker">
-          <el-date-picker
-            class="date-input"
-            @change="updateTask"
-            v-model="taskCopy.dueDate"
-            type="date"
-            placeholder="Pick a date"
-          >
-          </el-date-picker>
-        </span>
-      </div>
-    </div>
-  </li>
+    <li
+        @click="isTaskMembersShowen = false"
+        v-if="taskCopy"
+        class="task-preview flex space-between align-center width100"
+    >
+        <div class="flex space-between width100">
+            <span class="task-color" :style="taskBgc"></span>
+                  <button @click="deleteTask">X</button>
+
+            <div class="task-txt">
+                <span
+                    @blur="updateTaskTxt"
+                    @keyup.enter="updateTaskTxt"
+                    contenteditable
+                    >{{ taskCopy.txt }}</span
+                >
+            </div>
+            <span @click="sendToTaskDetails"
+                ><i class="far fa-comment fa-icon"></i
+            ></span>
+        </div>
+        <div class="task-details flex">
+            <div class="headers flex">
+                <span
+                    ><i
+                        @click.stop="toggleMember"
+                        class="far fa-user-circle fa-icon"
+                    ></i
+                ></span>
+                <add-members
+                    v-if="isTaskMembersShowen"
+                    firstTitle="Task Members"
+                    secondTitle="Board Members"
+                    :members="taskCopy.members"
+                    :allMembers="filteredBoardMembers"
+                    @addMember="addTaskMember"
+                    @removeMember="removeTaskMember"
+                />
+                <span
+                    @click="toggleStatuses"
+                    class="status relative"
+                    :style="getStyleStr(taskCopy.status.color)"
+                    >{{ taskCopy.status.txt }}
+                    <label-picker
+                        v-if="isStatusesShowen"
+                        :opts="statuses"
+                        type="status"
+                        @updateTaskStatus="updateTaskStatus"
+                /></span>
+                <span
+                    @click="togglePriors"
+                    class="priority relative"
+                    :style="getStyleStr(taskCopy.priority.color)"
+                    >{{ taskCopy.priority.txt }}
+                    <label-picker
+                        v-if="isPriorsShowen"
+                        :opts="priorities"
+                        type="priority"
+                        @updateTaskPriority="updateTaskPriority"
+                /></span>
+                <span class="date-picker">
+                    <el-date-picker
+                        class="date-input"
+                        @change="updateTask"
+                        v-model="taskCopy.dueDate"
+                        type="date"
+                        placeholder="Pick a date"
+                    >
+                    </el-date-picker>
+                </span>
+            </div>
+        </div>
+    </li>
 </template>
 <script>
 import addMembers from '@/cmps/add-members'
@@ -170,13 +175,9 @@ export default {
       ) {
         return
       }
-      eventBus.$emit('taskDetails', {
-        task: this.taskCopy,
-        groupId: this.groupId
-      })
-      this.$router.push(
-        `/board/${this.$route.params.boardId}/task/${this.task.id}`
-      )
+      
+      eventBus.$emit('taskDetails', {task: this.taskCopy, groupId: this.groupId})
+      this.$router.push(`/board/${this.$route.params.boardId}/task/${this.task.id}`)
     },
     updateTaskPriority(opt) {
       let newActivity = boardService.getEmptyActivity()

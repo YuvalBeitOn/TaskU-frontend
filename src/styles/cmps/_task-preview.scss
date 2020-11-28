@@ -1,8 +1,10 @@
+
 .task-preview {
+  width: 100%;
   display: flex;
   background-color: #f1f1f1;
   margin-bottom: 1px;
-  height: 40px;
+  height: 35px;
   border-radius: 1px;
   box-shadow: 0 3px 4px -5px #484444;
   transition: background-color 0.3s;
@@ -37,6 +39,9 @@
     white-space: nowrap;
     justify-content: end;
     padding-left: 10px;
+    span{
+      border: none;
+    }
   }
 
   .fa-icon {

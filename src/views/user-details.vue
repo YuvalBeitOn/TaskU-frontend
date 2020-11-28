@@ -47,7 +47,7 @@ export default {
 
   computed: {
     user() {
-      return this.$store.getters.user
+      return this.$store.getters.loggedInUser
     },
     boards(){
       return this.$store.getters.boards

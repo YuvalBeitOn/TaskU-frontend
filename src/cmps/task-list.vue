@@ -1,19 +1,24 @@
 <template>
-  <section class="task-list width100">
-    <ul  v-if="tasks.length" class="clean-list flex wrap align-center justify-center gap">
-      <task-preview
-        v-for="task in tasks"
-        :user="user"
-        :taskColor="taskColor"
-        :key="task.id"
-        :task="task"
-        :statuses="board.statuses"
-        :priorities="board.priorities"
-        :groupId="groupId"
-        @deleteTask="deleteTask"
-        @updateTask="updateTask"
-        :boardMembers="board.members"
-      />
+  <section v-if="clonedTasks" class="task-list width100">
+    <ul class="clean-list flex wrap align-center justify-center gap">
+      <draggable
+        class="width100"
+        v-model="clonedTasks"
+        @end="updateTasks"
+      >
+        <task-preview
+          v-for="task in clonedTasks"
+          :taskColor="taskColor"
+          :key="task.id"
+          :task="task"
+          :statuses="board.statuses"
+          :priorities="board.priorities"
+          :groupId="groupId"
+          @deleteTask="deleteTask"
+          @updateTask="updateTask"
+          :boardMembers="board.members"
+        />
+      </draggable>
     </ul>
     <form class="flex" @submit.prevent="addTask">
       <input
@@ -31,20 +36,21 @@
 <script>
 import taskPreview from './task-preview'
 import { boardService } from '@/services/board.service'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'task-list',
-  data() {
-    return {
-      txt: '',
-      isAddBtnShowen: false
-      // activity: null
-    }
-  },
   props: {
     tasks: Array,
     groupId: String,
     taskColor: String
+  },
+  data() {
+    return {
+      txt: '',
+      isAddBtnShowen: false,
+      clonedTasks: null
+    }
   },
 
   computed: {
@@ -85,6 +91,7 @@ export default {
     deleteTask(taskId) {
       const group = this.getGroupById()
       const taskIdx = group.tasks.findIndex(task => task.id === taskId)
+      console.log()
       group.tasks.splice(taskIdx, 1)
       this.$store.dispatch({
         type: 'saveBoard',
@@ -101,13 +108,23 @@ export default {
         board: this.board
       })
       this.$emit('forceRender')
+    },
+    updateTasks() {
+      const group = this.getGroupById()
+      group.tasks = this.clonedTasks
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+      this.$emit('forceRender')
     }
   },
-  created() {
-    console.log('tasks:', this.tasks)
-  },
   components: {
-    taskPreview
+    taskPreview,
+    draggable
+  },
+  created() {
+    this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
   }
 }
 </script>

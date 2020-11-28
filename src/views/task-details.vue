@@ -77,13 +77,31 @@ export default {
                 board: this.board,
             })
         },
+        // getTaskById() {
+        //     let task
+        //     const taskId = this.$route.params.taskId
+        //     this.board.groups.forEach((group) => {
+    
+        //         task = group.tasks.find((task) => task.id === taskId)
+        //     })
+        //     return task
+        // },
     },
     computed: {
         board() {
             return this.$store.getters.board
         },
+        loggedInUser() {
+            return this.$store.getters.loggedInUser
+        },
     },
-    created() {},
+    // watch: {
+    //     '$route.params.taskId'() {
+    //         console.log(this.$route.params.taskId)
+    //         const task = this.getTaskById()
+    //         console.log('task', task)
+    //     },
+    // },
     components: {
         taskPosts,
         taskActivities,

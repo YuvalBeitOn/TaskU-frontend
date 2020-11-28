@@ -1,8 +1,8 @@
 <template>
-  <ul class="task-activities">
+  <ul v-if="activities.length" class="task-activities">
     <li class="activity" v-for="activity in activities" :key="activity.id">
       <div>{{ activity.txt }}</div>
-      <div>By: {{ activity.byUser.fullName }}</div>
+      <div v-if="activity.byUser">By: {{ activity.byUser.fullName }}</div>
       <div>At: {{ activity.createdAt | moment('calendar', 'July 10 2011') }}</div>
     </li>
   </ul>
@@ -15,7 +15,8 @@ export default {
     activities: {
       type: Array
     }
-  }
+  },
+
 }
 </script>
 

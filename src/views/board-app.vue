@@ -45,17 +45,16 @@
         @updateGroup="updateGroup"
         @forceRender="forceRerender"
       />
-      <div v-if="isRouterViewHover" class="backdrop-layer"></div>
+      <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
     </div>
-    <task-details
-            v-if="currTaskDetails && this.$route.params.taskId"
-            @close="isRouterViewHover = false"
-            class="boardapp-nested"
-            @mouseover.native="isRouterViewHover = true"
-            @mouseleave.native="isRouterViewHover = false"
-            :task="currTaskDetails.task"
-            :groupId="currTaskDetails.groupId"
-        />
+      <task-details
+        v-if="currTaskDetails && this.$route.params.taskId"
+        @close="isTaskDetailsHover = false"
+        @mouseover.native="isTaskDetailsHover = true"
+        @mouseleave.native="isTaskDetailsHover = false"
+        :task="currTaskDetails.task"
+        :groupId="currTaskDetails.groupId"
+      />
   </section>
 </template>
 
@@ -66,16 +65,16 @@ import boardList from '@/cmps/board-list.vue'
 import taskDetails from '../views/task-details'
 import { boardService } from '@/services/board.service'
 import { eventBus } from '@/services/event-bus.service'
-
 import boardFilter from '@/cmps/board-filter.vue'
 import boardSearch from '@/cmps/board-search'
+
 export default {
   name: 'board-app',
   data() {
     return {
       isMembersShowen: false,
       currTaskDetails: null,
-      isRouterViewHover: false,
+      isTaskDetailsHover: false,
       componentKey: 0
     }
   },
@@ -162,6 +161,14 @@ export default {
         board: this.board
       })
     },
+    updateGroups(groups) {
+      this.board.groups = groups
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+      this.forceRerender()
+    },
     setCurrTaskDetails(currTaskDetails) {
       console.log(currTaskDetails, 'Setting currTaskDetails')
       this.currTaskDetails = currTaskDetails
@@ -191,5 +198,4 @@ export default {
     boardSearch
   }
 }
-
 </script>
