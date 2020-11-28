@@ -52,15 +52,15 @@
                 :boardName="board.name"
                 @deleteGroup="deleteGroup"
                 @updateGroup="updateGroup"
+                @updateGroups="updateGroups"
             />
-            <div v-if="isRouterViewHover" class="backdrop-layer"></div>
+            <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
         </div>
         <task-details
             v-if="currTaskDetails && this.$route.params.taskId"
-            @close="isRouterViewHover = false"
-            class="boardapp-nested"
-            @mouseover.native="isRouterViewHover = true"
-            @mouseleave.native="isRouterViewHover = false"
+            @close="isTaskDetailsHover = false"
+            @mouseover.native="isTaskDetailsHover = true"
+            @mouseleave.native="isTaskDetailsHover = false"
             :task="currTaskDetails.task"
             :groupId="currTaskDetails.groupId"
         />
@@ -83,7 +83,7 @@ export default {
         return {
             isMembersShowen: false,
             currTaskDetails: null,
-            isRouterViewHover: false,
+            isTaskDetailsHover: false,
             componentKey: 0,
         }
     },
@@ -92,10 +92,10 @@ export default {
             return this.$store.getters.board
         },
         boards() {
-            return this.$store.getters. boards
+            return this.$store.getters.boards
         },
         user() {
-            return this.$store.getters.user
+            return this.$store.getters.loggedInUser
         },
         usersSite() {
             const siteUsers = this.$store.getters.users
@@ -182,6 +182,14 @@ export default {
                 board: this.board,
             })
         },
+        updateGroups(groups) {
+            this.board.groups = groups
+            this.$store.dispatch({
+                type: 'saveBoard',
+                board: this.board
+            })
+            this.forceRerender()
+        },
         setCurrTaskDetails(currTaskDetails) {
             console.log(currTaskDetails, 'Setting currTaskDetails')
             this.currTaskDetails = currTaskDetails
@@ -190,6 +198,7 @@ export default {
     watch: {
         '$route.params.boardId'(val) {
             if (val) {
+                console.log('lalalaa', val)
                 this.loadBoard()
             }
         },
@@ -210,5 +219,4 @@ export default {
         boardSearch,
     },
 }
-
 </script>

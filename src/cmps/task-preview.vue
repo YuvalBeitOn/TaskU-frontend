@@ -6,14 +6,15 @@
     >
         <!-- <button @click="deleteTask">X</button> -->
         <div class="flex space-between width100">
-            <span class="task-color" :style="taskBgc"></span
-            ><span
-                class="task-txt"
-                @blur="updateTaskTxt"
-                @keyup.enter="updateTaskTxt"
-                contenteditable
-                >{{ taskCopy.txt }}</span
-            >
+            <span class="task-color" :style="taskBgc"></span>
+            <div class="task-txt">
+                <span
+                    @blur="updateTaskTxt"
+                    @keyup.enter="updateTaskTxt"
+                    contenteditable
+                    >{{ taskCopy.txt }}</span
+                >
+            </div>
             <span @click="sendToTaskDetails"
                 ><i class="far fa-comment fa-icon"></i
             ></span>

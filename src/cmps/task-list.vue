@@ -1,8 +1,9 @@
 <template>
-    <section v-if="tasks" class="task-list width100">
+    <section v-if="clonedTasks" class="task-list width100">
         <ul class="clean-list flex wrap align-center justify-center gap">
+            <draggable class="clean-list flex wrap align-center justify-center gap" v-model="clonedTasks" @end="updateTasks">
             <task-preview
-                v-for="task in tasks"
+                v-for="task in clonedTasks"
                 :taskColor="taskColor"
                 :key="task.id"
                 :task="task"
@@ -13,6 +14,7 @@
                 @updateTask="updateTask"
                 :boardMembers="board.members"
             />
+            </draggable>
         </ul>
         <form class="flex" @submit.prevent="addTask">
             <input
@@ -30,6 +32,8 @@
 <script>
 import taskPreview from '@/cmps/task-preview'
 import { boardService } from '@/services/board.service'
+  import draggable from 'vuedraggable'
+
 
 export default {
     name: 'task-list',
@@ -37,6 +41,7 @@ export default {
         return {
             txt: '',
             isAddBtnShowen: false,
+            clonedTasks: null
         }
     },
     props: {
@@ -63,7 +68,7 @@ export default {
             const newTask = boardService.getEmptyTask()
             newTask.txt = this.txt
             const group = this.getGroupById()
-            group.tasks.push(newTask)
+            group.clonedTasks.push(newTask)
             this.$store.dispatch({
                 type: 'saveBoard',
                 board: this.board,
@@ -73,8 +78,8 @@ export default {
         },
         deleteTask(taskId) {
             const group = this.getGroupById()
-            const taskIdx = group.tasks.findIndex((task) => task.id === taskId)
-            group.tasks.splice(taskIdx, 1)
+            const taskIdx = group.clonedTasks.findIndex((task) => task.id === taskId)
+            group.clonedTasks.splice(taskIdx, 1)
             this.$store.dispatch({
                 type: 'saveBoard',
                 board: this.board,
@@ -91,9 +96,21 @@ export default {
                 board: this.board,
             })
         },
+        updateTasks(){
+            const group = this.getGroupById()
+            group.tasks = this.clonedTasks;
+            this.$store.dispatch({
+                type:'saveBoard',
+                board: this.board
+            })
+        },
     },
     components: {
         taskPreview,
+    draggable
     },
+    created(){
+        this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
+    }
 }
 </script>

@@ -9,6 +9,7 @@
             <i :class="getIconClass(idx)"> </i>
             {{ menuitem.txt }}
         </div>
+        <el-divider/>
     </section>
 </template>
 

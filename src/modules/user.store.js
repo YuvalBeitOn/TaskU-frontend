@@ -9,7 +9,7 @@ export const userStore = {
     users(state) {
       return state.users
     },
-    user(state) {
+    loggedInUser(state) {
       return state.currUser
     }
   },

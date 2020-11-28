@@ -1,34 +1,51 @@
 <template>
-  <section v-if="groups.length" class="group-list">
-    <ul class="clean-list flex column align-center justify-center gap width100">
-      <group-preview
-        v-for="group in groups"
-        :key="group._id"
-        :group="group"
-        :deleteGroup="emitDelete"
-        @updateGroup="updateGroup"
-      />
-    </ul>
-  </section>
+    <section v-if="clonedGroups.length" class="group-list">
+        <ul
+            class="clean-list flex column align-center justify-center gap width100"
+        >
+            <draggable v-model="clonedGroups" @end="emitUpdateGroups">
+                <group-preview
+                    v-for="group in clonedGroups"
+                    :key="group._id"
+                    :group="group"
+                    :deleteGroup="emitDelete"
+                    @updateGroup="updateGroup"
+                />
+            </draggable>
+        </ul>
+    </section>
 </template>
 <script>
 import groupPreview from '@/cmps/group-preview.vue'
+import draggable from 'vuedraggable'
 
 export default {
-  name: 'group-list',
-  props: {
-    groups: Array
-  },
-  components: {
-    groupPreview
-  },
-  methods: {
-    emitDelete(groupId) {
-      this.$emit('deleteGroup', groupId)
+    name: 'group-list',
+    props: {
+        groups: Array,
     },
-    updateGroup(group) {
-      this.$emit('updateGroup', group)
-    }
-  }
+    data() {
+        return {
+            clonedGroups: null,
+        }
+    },
+    created() {
+        this.clonedGroups = JSON.parse(JSON.stringify(this.groups))
+    },
+    components: {
+        groupPreview,
+        draggable,
+    },
+    methods: {
+        emitDelete(groupId) {
+            this.$emit('deleteGroup', groupId)
+        },
+        updateGroup(group) {
+            this.$emit('updateGroup', group)
+        },
+        emitUpdateGroups() {
+            this.$emit('updateGroups', this.clonedGroups)
+        },
+    },
 }
 </script>
