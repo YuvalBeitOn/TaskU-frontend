@@ -1,6 +1,5 @@
 <template>
     <li
-        @click="isTaskMembersShowen = false"
         v-if="taskCopy"
         class="task-preview flex space-between align-center width100"
     >
