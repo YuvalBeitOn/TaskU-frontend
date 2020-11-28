@@ -47,14 +47,14 @@
       />
       <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
     </div>
-      <task-details
-        v-if="currTaskDetails && this.$route.params.taskId"
-        @close="isTaskDetailsHover = false"
-        @mouseover.native="isTaskDetailsHover = true"
-        @mouseleave.native="isTaskDetailsHover = false"
-        :task="currTaskDetails.task"
-        :groupId="currTaskDetails.groupId"
-      />
+    <task-details
+      v-if="currTaskDetails && this.$route.params.taskId"
+      @close="isTaskDetailsHover = false"
+      @mouseover.native="isTaskDetailsHover = true"
+      @mouseleave.native="isTaskDetailsHover = false"
+      :task="currTaskDetails.task"
+      :groupId="currTaskDetails.groupId"
+    />
   </section>
 </template>
 
@@ -141,6 +141,7 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      this.forceRerender()
     },
     deleteGroup(groupId) {
       const idx = this.board.groups.findIndex(group => group.id === groupId)
@@ -149,6 +150,7 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      this.forceRerender()
     },
     updateGroup(updatedGroup) {
       console.log(updatedGroup.name)
@@ -160,6 +162,7 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      this.forceRerender()
     },
     updateGroups(groups) {
       this.board.groups = groups

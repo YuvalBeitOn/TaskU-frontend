@@ -29,6 +29,11 @@
             @updateFilter="updateFilter"
           />
         </div>
+          <div
+            class="back-drop-layer"
+            v-if="isFilterShowen"
+            @click="toggleFilter"
+          ></div>
       </div>
     </div>
   </section>
@@ -51,8 +56,7 @@ export default {
   computed: {
     filterBy() {
       return this.$store.getters.filterBy
-    },
-
+    }
   },
   methods: {
     addGroup() {

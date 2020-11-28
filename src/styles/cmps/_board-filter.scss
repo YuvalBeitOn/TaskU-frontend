@@ -2,19 +2,21 @@
   .filter-actions {
     width: 360px;
     > * {
-      padding: 1rem;
+      padding: 0.5rem;
     }
     .add-group-btn,
     .filter {
       margin-right: rem(5px);
+      cursor: pointer;
+
       .filters {
         position: absolute;
-        z-index: 999;
+        z-index: 6;
         top: 105px;
         right: 0;
         background-color: #fff;
         border-radius: 5px;
-        padding: 0 10px 10px;
+        padding: 10px;
         cursor: auto;
         box-shadow: 0 3px 10px -5px #484444;
         &:hover {
@@ -22,21 +24,31 @@
           transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
         }
         button {
-            padding: 8px;
-            margin: 5px;
-            background-color: transparent;
-            border: 1px solid black;
+          padding: 8px;
+          margin: 5px;
+          background-color: transparent;
+          border: 1px solid black;
         }
+      }
+      .back-drop-layer {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.082);
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 5;
       }
     }
     .add-group-btn {
+      height: 32px;
       border: none;
       outline: none;
-      border-radius: 10px;
+      border-radius: 4px;
       color: white;
       font-family: 'roboto-regular';
       transition-duration: 0.3s;
-      &:hover{
+      &:hover {
         background-color: #1574cb;
       }
     }

@@ -1,4 +1,3 @@
-
 .task-preview {
   width: 100%;
   display: flex;
@@ -22,7 +21,7 @@
     display: flex;
     align-items: center;
     width: 120px;
-    min-height: 42px;
+    height: 35px;
     display: flex;
     justify-content: center;
     border: 0.5px solid white;
@@ -39,7 +38,7 @@
     white-space: nowrap;
     justify-content: end;
     padding-left: 10px;
-    span{
+    span {
       border: none;
     }
   }
@@ -59,6 +58,14 @@
       width: 160px;
       border: none;
       justify-content: left;
+    }
+    .el-input__inner{
+      height: 35px;
+      border-radius: 0;
+      border: inherit;
+    }
+    .el-input__icon {
+      opacity: 0;
     }
   }
 }

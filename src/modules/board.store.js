@@ -4,7 +4,7 @@ export const boardStore = {
     boards: [],
     currBoard: null,
     searchBoard: null,
-    filterBy: { status: 'all', priority: 'all', searchTerm: '' }
+    filterBy: { status: 'All', priority: 'All', searchTerm: '' }
   },
   getters: {
     boards(state) {
@@ -16,14 +16,14 @@ export const boardStore = {
     board(state) {
       const filterBy = state.filterBy;
       let filteredBoard = JSON.parse(JSON.stringify(state.currBoard))
-      if (filterBy.status !== 'all') {
+      if (filterBy.status !== 'All') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
             return task.status.txt === filterBy.status
           })
         })
       }
-      if (filterBy.priority !== 'all') {
+      if (filterBy.priority !== 'All') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
             return task.priority.txt === filterBy.priority
