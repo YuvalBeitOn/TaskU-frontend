@@ -77,109 +77,106 @@ import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
 import labelPicker from './label-picker'
 export default {
-    components: { labelPicker, addMembers },
-    name: 'task-preview',
-    data() {
-        return {
-            taskCopy: null,
-            isStatusesShowen: false,
-            isPriorsShowen: false,
-            isTaskMembersShowen: false,
-        }
+  components: { labelPicker,addMembers },
+  name: 'task-preview',
+  data() {
+    return {
+      
+      taskCopy: null,
+      isStatusesShowen: false,
+      isPriorsShowen: false,
+      isTaskMembersShowen:false,
+    }
+  },
+  props: {
+    taskColor:String,
+    task: Object,
+    statuses: Array,
+    priorities: Array,
+    groupId: String,
+    boardMembers:[Array,Object]
+  },
+  computed:{
+    taskBgc(){
+      return {backgroundColor:this.taskColor}
     },
-    props: {
-        taskColor: String,
-        task: Object,
-        statuses: Array,
-        priorities: Array,
-        groupId: String,
-        boardMembers: [Array, Object],
-    },
-    computed: {
-        taskBgc() {
-            return { backgroundColor: this.taskColor }
-        },
-        filteredBoardMembers() {
-            const boardMembers = this.boardMembers
-            const taskMembers = this.taskCopy.members
-            if (taskMembers) {
-                const filteredBoardMembers = boardMembers.filter((bMember) => {
-                    return taskMembers.every((tMember) => {
-                        return tMember._id !== bMember._id
-                    })
-                })
-                return filteredBoardMembers
-            } else {
-                return boardMembers
-            }
-        },
-    },
-    methods: {
-        toggleMember() {
-            this.isTaskMembersShowen = !this.isTaskMembersShowen
-        },
-        addTaskMember(member) {
-            console.log('member:', member)
-            this.taskCopy.members.unshift(member)
-            console.log('this.taskCopy.members:', this.taskCopy.members)
-            this.updateTask()
-        },
-        removeTaskMember(memberId) {
-            const idx = this.taskCopy.members.findIndex(
-                (tMember) => tMember._id === memberId
-            )
-            this.taskCopy.members.splice(idx, 1)
-            this.updateTask()
-        },
-        getStyleStr(colorStr) {
-            return `backgroundColor:${colorStr}`
-        },
-        toggleStatuses() {
-            this.isStatusesShowen = !this.isStatusesShowen
-        },
-        togglePriors() {
-            this.isPriorsShowen = !this.isPriorsShowen
-        },
-        deleteTask() {
-            this.$emit('deleteTask', this.task.id)
-        },
-        updateTaskTxt(ev) {
-            console.log(ev.target.innerText)
-            this.taskCopy.txt = ev.target.innerText
-            this.updateTask()
-        },
-        updateTask() {
-            this.$emit('updateTask', this.taskCopy)
-        },
-        sendToTaskDetails() {
-            if (
-                this.$route.params.taskId &&
-                this.$route.params.taskId === this.task.id
-            ) {
-                return
-            }
+    filteredBoardMembers(){
+      const boardMembers = this.boardMembers
+      const taskMembers = this.taskCopy.members
+      if(taskMembers){
+     const filteredBoardMembers = boardMembers.filter(bMember=>{
+        return taskMembers.every(tMember=>{
+          return tMember._id !== bMember._id
+        })
 
-            eventBus.$emit('taskDetails', {
-                task: this.taskCopy,
-                groupId: this.groupId,
-            })
-            this.$router.push(
-                `/board/${this.$route.params.boardId}/task/${this.task.id}`
-            )
-        },
-        updateTaskPriority(opt) {
-            this.taskCopy.priority = opt
-            this.updateTask()
-            this.isStatusesShowen = false
-        },
-        updateTaskStatus(opt) {
-            this.taskCopy.status = opt
-            this.updateTask()
-            this.isPriorsShowen = false
-        },
+      })
+      return filteredBoardMembers
+      }else {
+        return boardMembers
+      }
+ 
+    }
+  },
+  methods: {
+    toggleMember(){
+      this.isTaskMembersShowen = !this.isTaskMembersShowen
     },
-    created() {
-        this.taskCopy = this.task
+    addTaskMember(member){
+      console.log('member:', member)
+      this.taskCopy.members.unshift(member)
+      console.log('this.taskCopy.members:', this.taskCopy.members)
+      this.updateTask()
+      
     },
+    removeTaskMember(memberId){
+      const idx = this.taskCopy.members.findIndex(tMember=>tMember._id === memberId)
+      this.taskCopy.members.splice(idx,1)
+      this.updateTask()
+    },
+    getStyleStr(colorStr) {
+      return `backgroundColor:${colorStr}`
+    },
+    toggleStatuses() {
+      this.isStatusesShowen = !this.isStatusesShowen
+    },
+    togglePriors() {
+      this.isPriorsShowen = !this.isPriorsShowen
+    },
+    deleteTask() {
+      this.$emit('deleteTask', this.task.id)
+    },
+    updateTaskTxt(ev) {
+      console.log(ev.target.innerText)
+      this.taskCopy.txt = ev.target.innerText
+      this.updateTask()
+    },
+    updateTask() {
+      this.$emit('updateTask', this.taskCopy)
+    },
+    sendToTaskDetails() {
+      if (
+        this.$route.params.taskId &&
+        this.$route.params.taskId === this.task.id
+      ) {
+        return
+      }
+      
+      eventBus.$emit('taskDetails', {task: this.taskCopy, groupId: this.groupId})
+      this.$router.push(`/board/${this.$route.params.boardId}/task/${this.task.id}`)
+    },
+    updateTaskPriority(opt) {
+      this.taskCopy.priority = opt
+      this.updateTask()
+      this.isStatusesShowen = false
+    },
+    updateTaskStatus(opt) {
+      this.taskCopy.status = opt
+      this.updateTask()
+      this.isPriorsShowen = false
+    }
+  },
+  created() {
+    this.taskCopy = this.task
+  }
 }
 </script>

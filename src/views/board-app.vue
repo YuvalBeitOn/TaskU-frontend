@@ -11,14 +11,7 @@
         <div class="board-app-container width100">
             <div v-if="board" class="board-up">
                 <div class="board-up-header flex space-between">
-                    <h2
-                        class="board-name-title"
-                        @blur="updateBoardName"
-                        @keyup.enter="updateBoardName"
-                        contenteditable
-                    >
-                        {{ board.name }}
-                    </h2>
+                    <h2>{{ board.name }}</h2>
                     <i
                         @click="toggleMembers"
                         class="far fa-user-circle fa-icon"
@@ -44,6 +37,7 @@
                         @forceRerender="forceRerender"
                     />
                 </div>
+                <!-- <button @click="addGroup">New Group</button> -->
             </div>
             <group-list
                 v-if="board"
@@ -52,7 +46,6 @@
                 :boardName="board.name"
                 @deleteGroup="deleteGroup"
                 @updateGroup="updateGroup"
-                @updateGroups="updateGroups"
             />
             <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
         </div>
@@ -94,9 +87,6 @@ export default {
         boards() {
             return this.$store.getters.boards
         },
-        user() {
-            return this.$store.getters.loggedInUser
-        },
         usersSite() {
             const siteUsers = this.$store.getters.users
             const boardMembers = this.board.members
@@ -111,11 +101,6 @@ export default {
     methods: {
         forceRerender() {
             this.componentKey += 1
-        },
-        updateBoardName(ev) {
-            console.log(ev.target.innerText, 'target')
-            this.board.name = ev.target.innerText
-            this.$store.dispatch({ type: 'saveBoard', board: this.board })
         },
         toggleMembers() {
             this.isMembersShowen = !this.isMembersShowen
@@ -142,8 +127,6 @@ export default {
         },
         addBoard() {
             const board = boardService.getEmptyBoard()
-            board.creator = this.user
-            console.log('board:', board.creator)
             this.$store.dispatch({ type: 'saveBoard', board })
         },
 
@@ -186,7 +169,7 @@ export default {
             this.board.groups = groups
             this.$store.dispatch({
                 type: 'saveBoard',
-                board: this.board
+                board: this.board,
             })
             this.forceRerender()
         },
@@ -198,7 +181,6 @@ export default {
     watch: {
         '$route.params.boardId'(val) {
             if (val) {
-                console.log('lalalaa', val)
                 this.loadBoard()
             }
         },

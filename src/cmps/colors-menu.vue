@@ -1,6 +1,6 @@
 <template>
   <section class="colors-menu">
-    <ul class="colors-container clean-list flex wrap">
+    <ul class="colors-container clean-list flex wrap justify-center align-center">
       <li
         class="color"
         v-for="(color, idx) in colors"
