@@ -77,6 +77,7 @@ export default {
                 board: this.board,
             })
         },
+<<<<<<< HEAD
         getTaskById() {
             var task
             const taskId = this.$route.params.taskId
@@ -85,6 +86,17 @@ export default {
             })
             return task
         },
+=======
+        // getTaskById() {
+        //     let task
+        //     const taskId = this.$route.params.taskId
+        //     this.board.groups.forEach((group) => {
+    
+        //         task = group.tasks.find((task) => task.id === taskId)
+        //     })
+        //     return task
+        // },
+>>>>>>> b85eac79e430e17cfefefe4e18e49703c7cdabcc
     },
     computed: {
         board() {
@@ -94,13 +106,13 @@ export default {
             return this.$store.getters.loggedInUser
         },
     },
-    watch: {
-        '$route.params.taskId'() {
-            console.log(this.$route.params.taskId)
-            const task = this.getTaskById()
-            console.log('task', task)
-        },
-    },
+    // watch: {
+    //     '$route.params.taskId'() {
+    //         console.log(this.$route.params.taskId)
+    //         const task = this.getTaskById()
+    //         console.log('task', task)
+    //     },
+    // },
     components: {
         taskPosts,
         taskActivities,

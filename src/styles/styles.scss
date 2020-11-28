@@ -4,10 +4,12 @@
 @import 'setup/functions';
 @import 'basics/fonts';
 // BASICS
-@import 'basics/helpers';
 @import 'basics/base';
+@import 'basics/buttons';
+@import 'basics/helpers';
 @import 'basics/layout';
-
+//PAGES
+@import 'pages/home-page';
 // COMPONENTS
 @import 'cmps/nav-menu';
 @import 'cmps/board-list';

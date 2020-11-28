@@ -26,7 +26,7 @@ const routes = [
     component: appSignup
   },
   {
-    path: '/board/:boardId/:task?/:taskId?',
+    path: '/board/:boardId?/:task?/:taskId?',
     name: 'boradApp',
     component: boardApp
   },

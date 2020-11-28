@@ -1,18 +1,7 @@
-.group-list {
+.group-container {
   padding: 3rem;
-//   ul {
-//     height: 500px;
-//     overflow-y: auto;
-//     &::-webkit-scrollbar {
-//       width: 12px;
-//       margin-left: 5px;
-//     }
-//     &::-webkit-scrollbar-track {
-//       background: transparent;
-//     }
-//     &::-webkit-scrollbar-thumb {
-//       background-color: rgb(0, 0, 0);
-//       border-radius: 20px;
-//     }
-//   }
+  height: 81.8vh;
+    overflow-y: auto;
+    background-color: #f7f7f7;
+
 }

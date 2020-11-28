@@ -7,7 +7,9 @@ import './styles/styles.scss'
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale'
 
+
 Vue.use(ElementUI, { locale })
+Vue.use(require('vue-moment'));
 Vue.config.productionTip = false
 
 new Vue({

@@ -20,14 +20,13 @@ export default {
   },
   data() {
       return {
-
+        
       }
   },
   methods: {
     updateFilter(ev) {
       const txt = ev.target.innerText
       const filterObj = { title: this.title.toLowerCase(), opt: txt }
-      //   console.log('filterObj:', filterObj);
       this.$emit('updateFilter', filterObj)
     }
   }
