@@ -50,9 +50,9 @@ export default {
   },
   computed: {
     filterBy() {
-      console.log(this.$store.getters.filterBy)
       return this.$store.getters.filterBy
-    }
+    },
+
   },
   methods: {
     addGroup() {

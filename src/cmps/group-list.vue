@@ -1,6 +1,6 @@
 <template>
-  <section v-if="groups.length" class="group-list">
-    <ul class="clean-list flex column align-center justify-center gap width100">
+  <section v-if="groups.length" class="group-container">
+    <ul class="group-list clean-list flex column align-center justify-center gap width100">
       <group-preview
         v-for="group in groups"
         :key="group._id"

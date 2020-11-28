@@ -13,43 +13,44 @@ function getEmptyBoard(){
         },
         'statuses': [{
                 
-                'color': 'gray',
+            "color": "#a8a8a8",
                 'txt': ''
             },
             {
                 
-                'color': 'yellow',
+                "color": "#fdab3d",
                 'txt': 'Working on it'
             },
             {
                 
-                'color': 'red',
+                "color": "#e44258",
                 'txt': 'Stuck'
             },
             {
                 
-                'color': 'green',
+                "color": "#00ca72",
                 'txt': 'Done'
             }
         ],
         'priorities': [{
                 
-                'color': 'gray',
+            "color": "#a8a8a8",
+
                 'txt': ''
             },
             {
                 
-                'color': 'lightblue',
+                "color": " #90d5ffd9",
                 'txt': 'Low'
             },
             {
                 
-                'color': 'purple',
+                "color": "#c137c1ba",
                 'txt': 'Medium'
             },
             {
                 
-                'color': 'red',
+                "color": "#e44258",
                 'txt': 'High'
             }
         ],
@@ -57,7 +58,7 @@ function getEmptyBoard(){
         'members': [ ],
         'groups': [{
                 
-                'color': '#ffffff',
+                'color': 'rgb(174, 203, 250)',
                 'name': 'BackEnd',
                 'tasks': [{
                        
@@ -67,12 +68,12 @@ function getEmptyBoard(){
                         'dueDate': '',
                         'status': {
                            
-                            'color': 'gray',
+                            'color': '#a8a8a8',
                             'txt': ''
                         },
                         'priority': {
                           
-                            'color': 'gray',
+                            'color': '#a8a8a8',
                             'txt': ''
                         },
                         'posts': []
@@ -83,11 +84,11 @@ function getEmptyBoard(){
                         ],
                         'dueDate': '',
                         'status': {
-                            'color': 'gray',
+                            'color': '#a8a8a8',
                             'txt': ''
                         },
                         'priority': {
-                            'color': 'gray',
+                            'color': '#a8a8a8',
                             'txt': ''
                         },
                         'posts': []
@@ -96,7 +97,7 @@ function getEmptyBoard(){
             },
             {
                 
-                'color': '#ffffff',
+                'color': 'rgb(174, 203, 250)',
                 'name': 'Frontend',
                 'tasks': [{
                   
@@ -106,12 +107,12 @@ function getEmptyBoard(){
                     'dueDate': '',
                     'status': {
                        
-                        'color': 'gray',
+                        'color': '#a8a8a8',
                         'txt': ''
                     },
                     'priority': {
                        
-                        'color': 'gray',
+                        'color': '#a8a8a8',
                         'txt': ''
                     },
                     'posts': []
@@ -124,7 +125,7 @@ function getEmptyBoard(){
 
 function getEmptyGroup() {
     return {
-        'color': '#FFFFFF',
+        'color': 'rgb(242, 139, 130)',
         'name': 'New Group',
         'tasks': [{
            
@@ -134,12 +135,12 @@ function getEmptyGroup() {
             'dueDate': '',
             'status': {
                 
-                'color': 'gray',
+                'color': '#a8a8a8',
                 'txt': ''
             },
             'priority': {
                 
-                'color': 'gray',
+                'color': '#a8a8a8',
                 'txt': ''
             },
             'posts': []
@@ -151,11 +152,11 @@ function getEmptyGroup() {
             ],
             'dueDate': '',
             'status': {
-                'color': 'gray',
+                'color': '#a8a8a8',
                 'txt': ''
             },
             'priority': {
-                'color': 'gray',
+                'color': '#a8a8a8',
                 'txt': ''
             },
             'posts': []
@@ -172,12 +173,12 @@ function getEmptyTask(){
             'dueDate': '',
             'status': {
                 
-                'color': 'gray',
+                'color': '#a8a8a8',
                 'txt': ''
             },
             'priority': {
                 
-                'color': 'gray',
+                'color': '#a8a8a8',
                 'txt': ''
             },
             'posts': []
