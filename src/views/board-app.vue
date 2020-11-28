@@ -11,7 +11,10 @@
     <div class="board-app-container width100">
       <div v-if="board" class="board-up">
         <div class="board-up-header flex space-between">
-          <h2>{{ board.name }}</h2>
+            <h2 class="board-name-title"   @blur="updateBoardName"
+        @keyup.enter="updateBoardName"
+        contenteditable>
+          {{ board.name }}</h2>
           <i @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
           <add-members
             class="right"
@@ -97,6 +100,12 @@ export default {
     }
   },
   methods: {
+    updateBoardName(ev){
+        console.log(ev.target.innerText,'target')
+        this.board.name =  ev.target.innerText
+      this.$store.dispatch({ type: 'saveBoard', board: this.board })
+      this.forceRerender()
+    },
     forceRerender() {
       this.componentKey += 1
     },
