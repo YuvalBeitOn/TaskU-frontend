@@ -28,10 +28,21 @@
         opacity: 0.4;
         transition: 0.4;
     }
+    
+    .boardapp-nested {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        z-index: 10;
+        background-color: white;
+        box-shadow: 0px 0px 10px 0px #999;
+    }
 
     .task-details-section {
         padding-right: rem(20px);
         padding-left: rem(24px);
+        width: 500px;
 
         .top-bar {
             text-align: left;
@@ -39,12 +50,4 @@
         }
     }
 
-    .boardapp-nested {
-        z-index: 10;
-        // position: fixed;
-        z-index: 1000;
-        background-color: white;
-        width: 550px;
-        box-shadow: 0px 0px 10px 0px #999;
-    }
 }

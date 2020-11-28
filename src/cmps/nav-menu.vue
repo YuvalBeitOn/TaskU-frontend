@@ -11,7 +11,7 @@
     </div>
 
     <div class="middle-nav">
-      <div class="user-greeting">Hello-Guest!</div>
+      <div class="user-greeting">Hello Guest</div>
     </div>
     <div class="bottom-nav flex column align-center">
       <i class="nav-icon fal fa-calendar-check"></i>

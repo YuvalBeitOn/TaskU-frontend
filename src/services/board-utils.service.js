@@ -2,7 +2,8 @@ export const boardUtils = {
   getEmptyBoard,
   getEmptyGroup,
   getEmptyTask,
-  getEmptyPost
+  getEmptyPost,
+  getEmptyActivity
 }
 function getEmptyBoard() {
   return {
@@ -172,6 +173,15 @@ function getEmptyPost() {
   return {
     id: null,
     txt: 'txt',
+    byUser: null
+  }
+}
+
+function getEmptyActivity() {
+  return {
+    id: null,
+    txt: 'txt',
+    createdAt: null,
     byUser: null
   }
 }

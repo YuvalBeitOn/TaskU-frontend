@@ -43,20 +43,19 @@
         :boardName="board.name"
         @deleteGroup="deleteGroup"
         @updateGroup="updateGroup"
+        @forceRender="forceRerender"
       />
       <div v-if="isRouterViewHover" class="backdrop-layer"></div>
     </div>
-    <router-view
-      v-if="currTaskDetails"
-      @updateTaskTxt="updateTaskTxt"
-      @close="isRouterViewHover = false"
-      class="boardapp-nested"
-      @mouseover.native="isRouterViewHover = true"
-      @mouseleave.native="isRouterViewHover = false"
-      :task="currTaskDetails.task"
-      :groupId="currTaskDetails.groupId"
-    />
-    <task-details v-if="this.$route.params.taskId" :task="currTask" />
+    <task-details
+            v-if="currTaskDetails && this.$route.params.taskId"
+            @close="isRouterViewHover = false"
+            class="boardapp-nested"
+            @mouseover.native="isRouterViewHover = true"
+            @mouseleave.native="isRouterViewHover = false"
+            :task="currTaskDetails.task"
+            :groupId="currTaskDetails.groupId"
+        />
   </section>
 </template>
 
@@ -166,31 +165,13 @@ export default {
     setCurrTaskDetails(currTaskDetails) {
       console.log(currTaskDetails, 'Setting currTaskDetails')
       this.currTaskDetails = currTaskDetails
-    },
-    // getGroupById(groupId) {
-    //     const idx = this.board.groups.findIndex(
-    //         (group) => group.id === groupId
-    //     )
-    //     return this.board.groups[idx]
-    // },
-    updateTaskTxt(taskDetails) {
-      const newTask = taskDetails.task
-      const groupIdx = this.board.groups.findIndex(
-        group => group.id === taskDetails.groupId
-      )
-      const group = this.board.groups[groupIdx]
-      const taskIdx = group.tasks.findIndex(task => task.id === newTask.id)
-      group.tasks.splice(taskIdx, 1, newTask)
-      this.$store.dispatch({
-        type: 'saveBoard',
-        board: this.board
-      })
     }
   },
   watch: {
     '$route.params.boardId'(val) {
       if (val) {
         this.loadBoard()
+        this.forceRerender()
       }
     }
   },

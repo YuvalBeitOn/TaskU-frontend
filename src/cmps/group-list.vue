@@ -7,6 +7,7 @@
         :group="group"
         :deleteGroup="emitDelete"
         @updateGroup="updateGroup"
+        @emitForceRender="emitForceRender"
       />
     </ul>
   </section>
@@ -23,6 +24,9 @@ export default {
     groupPreview
   },
   methods: {
+    emitForceRender() {
+      this.$emit('forceRender')
+    },
     emitDelete(groupId) {
       this.$emit('deleteGroup', groupId)
     },
