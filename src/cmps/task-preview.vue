@@ -71,7 +71,6 @@
         </div>
     </li>
 </template>
-
 <script>
 import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
@@ -148,19 +147,17 @@ export default {
             this.taskCopy.txt = ev.target.innerText
             this.updateTask()
         },
-        props: {
-            task: Object,
-            statuses: Array,
-            priorities: Array,
-            groupId: String,
+        updateTask() {
+            this.$emit('updateTask', this.taskCopy)
         },
         sendToTaskDetails() {
-            // if (
-            //   this.$route.params.taskId &&
-            //   this.$route.params.taskId === this.task.id
-            // ) {
-            //   return
-            // }
+            if (
+                this.$route.params.taskId &&
+                this.$route.params.taskId === this.task.id
+            ) {
+                return
+            }
+
             eventBus.$emit('taskDetails', {
                 task: this.taskCopy,
                 groupId: this.groupId,
@@ -169,9 +166,19 @@ export default {
                 `/board/${this.$route.params.boardId}/task/${this.task.id}`
             )
         },
-        created() {
-            this.taskCopy = this.task
+        updateTaskPriority(opt) {
+            this.taskCopy.priority = opt
+            this.updateTask()
+            this.isStatusesShowen = false
         },
+        updateTaskStatus(opt) {
+            this.taskCopy.status = opt
+            this.updateTask()
+            this.isPriorsShowen = false
+        },
+    },
+    created() {
+        this.taskCopy = this.task
     },
 }
 </script>

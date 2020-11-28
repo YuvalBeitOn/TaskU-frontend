@@ -92,7 +92,7 @@ export default {
             return this.$store.getters.board
         },
         boards() {
-            return this.$store.getters.boards
+            return this.$store.getters. boards
         },
         user() {
             return this.$store.getters.user
@@ -195,7 +195,7 @@ export default {
         },
     },
     created() {
-        eventBus.$on('taskDetails', this.setCurrTask)
+        eventBus.$on('taskDetails', this.setCurrTaskDetails)
         this.$store.dispatch({ type: 'loadUsers' })
         this.$store.dispatch({ type: 'loadUser', userId: '301' })
         this.$store.dispatch({ type: 'loadBoards' })
@@ -210,4 +210,5 @@ export default {
         boardSearch,
     },
 }
+
 </script>
