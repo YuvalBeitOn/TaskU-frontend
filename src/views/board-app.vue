@@ -210,4 +210,5 @@ export default {
     boardSearch
   }
 }
+
 </script>

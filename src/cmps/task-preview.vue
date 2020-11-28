@@ -57,7 +57,6 @@
     </div>
   </li>
 </template>
-
 <script>
 import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
@@ -148,7 +147,7 @@ export default {
       }
       
       eventBus.$emit('taskDetails', {task: this.taskCopy, groupId: this.groupId})
-      this.$router.push(`/board/task/${this.task.id}`)
+      this.$router.push(`/board/${this.$route.params.boardId}task/${this.task.id}`)
     },
     updateTaskPriority(opt) {
       this.taskCopy.priority = opt
