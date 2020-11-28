@@ -1,5 +1,5 @@
 <template>
-  <section class="board-app flex">
+  <section v-if="!isLoading" class="board-app flex">
     <board-list
       @removeBoard="removeCurrBoard"
       @addNewBoard="addBoard"
@@ -11,8 +11,13 @@
     <div class="board-app-container width100">
       <div v-if="board" class="board-up">
         <div class="board-up-header flex space-between">
-          <h2>{{ board.name }}</h2>
+            <h2 class="board-name-title"   @blur="updateBoardName"
+        @keyup.enter="updateBoardName"
+        contenteditable>
+          {{ board.name }}</h2>
+          
           <i @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
+    <div class="close-popup" v-if="isMembersShowen" @click.prevent="isMembersShowen=false"></div>
           <add-members
             class="right"
             v-if="isMembersShowen"
@@ -24,7 +29,11 @@
             @addMember="addUserToBoard"
           />
         </div>
+        <h3 v-if="board.description" @blur="updateBoardDescription"
+        @keyup.enter="updateBoardDescription"
+        contenteditable>{{board.description}}</h3>
         <div class="board-control">
+          
           <board-filter
             v-if="board"
             :creator="board.creator"
@@ -43,19 +52,24 @@
         :boardName="board.name"
         @deleteGroup="deleteGroup"
         @updateGroup="updateGroup"
+        @updateGroups="updateGroups"
         @forceRender="forceRerender"
       />
       <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
     </div>
-    <task-details
-      v-if="currTaskDetails && this.$route.params.taskId"
-      @close="isTaskDetailsHover = false"
-      @mouseover.native="isTaskDetailsHover = true"
-      @mouseleave.native="isTaskDetailsHover = false"
-      :task="currTaskDetails.task"
-      :groupId="currTaskDetails.groupId"
-    />
-  </section>
+      <task-details
+        v-if="currTaskDetails && this.$route.params.taskId"
+        @close="isTaskDetailsHover = false"
+        @mouseover.native="isTaskDetailsHover = true"
+        @mouseleave.native="isTaskDetailsHover = false"
+        :task="currTaskDetails.task"
+        :groupId="currTaskDetails.groupId"
+      />
+    </section>
+    <div v-else class="flex justify-center align-center">
+    <img  src="@/assets/imgs/loader.gif" class="loader-app">
+
+    </div>
 </template>
 
 <script>
@@ -79,6 +93,9 @@ export default {
     }
   },
   computed: {
+    isLoading(){
+      return this.$store.getters.isLoading
+    },
     board() {
       return this.$store.getters.board
     },
@@ -97,6 +114,19 @@ export default {
     }
   },
   methods: {
+    updateBoardName(ev){
+        console.log(ev.target.innerText,'target')
+        this.board.name =  ev.target.innerText
+      this.$store.dispatch({ type: 'saveBoard', board: this.board })
+      this.forceRerender()
+    },
+        updateBoardDescription(ev){
+        console.log(ev.target.innerText,'target')
+        this.board.description =  ev.target.innerText
+      this.$store.dispatch({ type: 'saveBoard', board: this.board })
+      this.forceRerender()
+    },
+
     forceRerender() {
       this.componentKey += 1
     },

@@ -6,8 +6,8 @@
         <img src="img/icons/logo_icon.png"  alt="TaskU" />
          <!-- </router-link> -->
       </div>
-      <i class="nav-icon fas fa-bell"></i>
-      <i class="nav-icon fas fa-inbox-in"></i>
+      <i class="nav-icon far fa-bell"></i>
+      <i class="nav-icon far fa-inbox-in"></i>
     </div>
 
     <div class="middle-nav">

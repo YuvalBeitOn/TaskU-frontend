@@ -1,9 +1,9 @@
 <template>
     <li
-        @click="isTaskMembersShowen = false"
         v-if="taskCopy"
         class="task-preview flex space-between align-center width100"
     >
+    <div class="close-popup" v-if="isTaskMembersShowen" @click.prevent="isTaskMembersShowen=false"></div>
         <div class="flex space-between width100">
             <span class="task-color" :style="taskBgc"></span>
                   <button @click="deleteTask">X</button>
@@ -22,7 +22,10 @@
         </div>
         <div class="task-details flex">
             <div class="headers flex">
+              
                 <span
+                
+                
                     ><i
                         @click.stop="toggleMember"
                         class="far fa-user-circle fa-icon"
@@ -48,6 +51,8 @@
                         type="status"
                         @updateTaskStatus="updateTaskStatus"
                 /></span>
+    <div class="close-popup" v-if="isStatusesShowen" @click.prevent="isStatusesShowen=false"></div>
+
                 <span
                     @click="togglePriors"
                     class="priority relative"
@@ -59,6 +64,8 @@
                         type="priority"
                         @updateTaskPriority="updateTaskPriority"
                 /></span>
+    <div class="close-popup" v-if="isPriorsShowen" @click.prevent="isPriorsShowen=false"></div>
+
                 <span class="date-picker">
                     <el-date-picker
                         class="date-input"
@@ -202,9 +209,7 @@ export default {
     }
   },
   created() {
-    console.log('hereeeeeeeeeee')
     this.taskCopy = this.task
-    console.log('taskCopy in task preview:', this.taskCopy)
   }
 }
 </script>

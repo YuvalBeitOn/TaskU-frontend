@@ -1,5 +1,5 @@
 <template>
-  <section v-if="user" class="user-details flex column">
+  <section v-if="user && !isLoading" class="user-details flex column">
     <section
       class="header-user-profile flex column justify-center align-center"
     >
@@ -23,12 +23,12 @@
         <h2><strong class="title-details">Full name:</strong>{{ user.fullName }}</h2>
         <h2><strong class="title-details">Email:</strong>{{ user.email }}</h2>
       </div>
-      <div class="list-board flex column wrap clean-list align-center">
+      <div  class="list-boards flex column wrap clean-list align-center">
           <board-list
             @removeBoard="removeCurrBoard"
             @addNewBoard="addBoard"
             :boards="boards" title="Your Board"
-            class="list-board"
+           
          />
       </div>
       <div class="left-task">
@@ -36,6 +36,10 @@
       </div>
     </section>
   </section>
+      <div v-else class="flex justify-center align-center">
+    <img  src="@/assets/imgs/loader.gif" class="loader-app">
+
+    </div>
 </template>
 
 <script>
@@ -46,6 +50,9 @@ export default {
   name: 'user-details',
 
   computed: {
+        isLoading(){
+      return this.$store.getters.isLoading
+    },
     user() {
       return this.$store.getters.loggedInUser
     },
@@ -72,3 +79,4 @@ export default {
   },
 }
 </script>
+
