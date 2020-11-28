@@ -8,7 +8,8 @@ export const boardService = {
     save,
     getEmptyBoard,
     getEmptyGroup,
-    getEmptyTask
+    getEmptyTask,
+    getEmptyPost
 };
 
 function query() {
@@ -68,4 +69,10 @@ function getEmptyGroup(){
         task.priority.id =utilService.makeId()
     });
     return group
+}
+
+function getEmptyPost(){
+    const post = boardUtils.getEmptyPost()
+    post.id = utilService.makeId()
+    return post
 }

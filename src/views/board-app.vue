@@ -54,9 +54,8 @@
             />
             <div v-if="isRouterViewHover" class="backdrop-layer"></div>
         </div>
-        <router-view
-            v-if="currTaskDetails"
-            @updateTaskTxt="updateTaskTxt"
+        <task-details
+            v-if="currTaskDetails && this.$route.params.taskId"
             @close="isRouterViewHover = false"
             class="boardapp-nested"
             @mouseover.native="isRouterViewHover = true"
@@ -72,7 +71,7 @@
 import members from '@/cmps/members'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
-// import taskDetails from '../views/task-details'
+import taskDetails from '../views/task-details'
 import { boardService } from '@/services/board.service'
 import { eventBus } from '@/services/event-bus.service'
 
@@ -159,27 +158,6 @@ export default {
             console.log(currTaskDetails, 'Setting currTaskDetails')
             this.currTaskDetails = currTaskDetails
         },
-        // getGroupById(groupId) {
-        //     const idx = this.board.groups.findIndex(
-        //         (group) => group.id === groupId
-        //     )
-        //     return this.board.groups[idx]
-        // },
-        updateTaskTxt(taskDetails) {
-            const newTask = taskDetails.task
-            const groupIdx = this.board.groups.findIndex(
-                (group) => group.id === taskDetails.groupId
-            )
-            const group = this.board.groups[groupIdx]
-            const taskIdx = group.tasks.findIndex(
-                (task) => task.id === newTask.id
-            )
-            group.tasks.splice(taskIdx, 1, newTask)
-            this.$store.dispatch({
-                type: 'saveBoard',
-                board: this.board,
-            })
-        },
     },
     watch: {
         '$route.params.boardId'(val) {
@@ -199,7 +177,7 @@ export default {
         boardList,
         boardFilter,
         members,
-        // taskDetails
+        taskDetails
     },
 }
 </script>

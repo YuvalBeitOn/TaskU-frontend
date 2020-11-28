@@ -1,186 +1,177 @@
 export const boardUtils = {
-    getEmptyBoard,
-    getEmptyGroup,
-    getEmptyTask
+  getEmptyBoard,
+  getEmptyGroup,
+  getEmptyTask,
+  getEmptyPost
 }
-function getEmptyBoard(){
-    return {
-        'name': 'myBoard',
-        'creator': {
-            '_id': '304',
-            'fullName': 'Muki Ben David',
-            'imgUrl': 'https://www.img.com/101.png'
-        },
-        'statuses': [{
-                
-                'color': 'gray',
-                'txt': ''
+function getEmptyBoard() {
+  return {
+    name: 'myBoard',
+    creator: {
+      _id: '304',
+      fullName: 'Muki Ben David',
+      imgUrl: 'https://www.img.com/101.png'
+    },
+    statuses: [
+      {
+        color: 'gray',
+        txt: ''
+      },
+      {
+        color: 'yellow',
+        txt: 'Working on it'
+      },
+      {
+        color: 'red',
+        txt: 'Stuck'
+      },
+      {
+        color: 'green',
+        txt: 'Done'
+      }
+    ],
+    priorities: [
+      {
+        color: 'gray',
+        txt: ''
+      },
+      {
+        color: 'lightblue',
+        txt: 'Low'
+      },
+      {
+        color: 'purple',
+        txt: 'Medium'
+      },
+      {
+        color: 'red',
+        txt: 'High'
+      }
+    ],
+    members: [],
+    groups: [
+      {
+        color: '#ffffff',
+        name: 'BackEnd',
+        tasks: [
+          {
+            txt: 'txt',
+            members: [],
+            dueDate: '',
+            status: {
+              color: 'gray',
+              txt: ''
             },
-            {
-                
-                'color': 'yellow',
-                'txt': 'Working on it'
+            priority: {
+              color: 'gray',
+              txt: ''
             },
-            {
-                
-                'color': 'red',
-                'txt': 'Stuck'
+            posts: [],
+            activities: []
+          },
+          {
+            txt: 'txt',
+            members: [],
+            dueDate: '',
+            status: {
+              color: 'gray',
+              txt: ''
             },
-            {
-                
-                'color': 'green',
-                'txt': 'Done'
-            }
-        ],
-        'priorities': [{
-                
-                'color': 'gray',
-                'txt': ''
+            priority: {
+              color: 'gray',
+              txt: ''
             },
-            {
-                
-                'color': 'lightblue',
-                'txt': 'Low'
-            },
-            {
-                
-                'color': 'purple',
-                'txt': 'Medium'
-            },
-            {
-                
-                'color': 'red',
-                'txt': 'High'
-            }
-        ],
-        'activities': [],
-        'members': [ ],
-        'groups': [{
-                
-                'color': '#ffffff',
-                'name': 'BackEnd',
-                'tasks': [{
-                       
-                        'txt': 'txt',
-                        'members': [
-                        ],
-                        'dueDate': '',
-                        'status': {
-                           
-                            'color': 'gray',
-                            'txt': ''
-                        },
-                        'priority': {
-                          
-                            'color': 'gray',
-                            'txt': ''
-                        },
-                        'posts': []
-                    },
-                    {
-                        'txt': 'txt',
-                        'members': [
-                        ],
-                        'dueDate': '',
-                        'status': {
-                            'color': 'gray',
-                            'txt': ''
-                        },
-                        'priority': {
-                            'color': 'gray',
-                            'txt': ''
-                        },
-                        'posts': []
-                    }
-                ]
-            },
-            {
-                
-                'color': '#ffffff',
-                'name': 'Frontend',
-                'tasks': [{
-                  
-                    'txt': 'txt',
-                    'members': [
-                    ],
-                    'dueDate': '',
-                    'status': {
-                       
-                        'color': 'gray',
-                        'txt': ''
-                    },
-                    'priority': {
-                       
-                        'color': 'gray',
-                        'txt': ''
-                    },
-                    'posts': []
-                }]
-            }
+            posts: [],
+            activities: []
+          }
         ]
-    }
+      },
+      {
+        color: '#ffffff',
+        name: 'Frontend',
+        tasks: [
+          {
+            txt: 'txt',
+            members: [],
+            dueDate: '',
+            status: {
+              color: 'gray',
+              txt: ''
+            },
+            priority: {
+              color: 'gray',
+              txt: ''
+            },
+            posts: [],
+            activities: []
+          }
+        ]
+      }
+    ]
+  }
 }
-
 
 function getEmptyGroup() {
-    return {
-        'color': '#FFFFFF',
-        'name': 'New Group',
-        'tasks': [{
-           
-            'txt': 'txt',
-            'members': [
-            ],
-            'dueDate': '',
-            'status': {
-                
-                'color': 'gray',
-                'txt': ''
-            },
-            'priority': {
-                
-                'color': 'gray',
-                'txt': ''
-            },
-            'posts': []
+  return {
+    color: '#FFFFFF',
+    name: 'New Group',
+    tasks: [
+      {
+        txt: 'txt',
+        members: [],
+        dueDate: '',
+        status: {
+          color: 'gray',
+          txt: ''
         },
-        {
-          
-            'txt': 'txt',
-            'members': [
-            ],
-            'dueDate': '',
-            'status': {
-                'color': 'gray',
-                'txt': ''
-            },
-            'priority': {
-                'color': 'gray',
-                'txt': ''
-            },
-            'posts': []
-        }
-        ]
-    }
+        priority: {
+          color: 'gray',
+          txt: ''
+        },
+        posts: [],
+        activities: []
+      },
+      {
+        txt: 'txt',
+        members: [],
+        dueDate: '',
+        status: {
+          color: 'gray',
+          txt: ''
+        },
+        priority: {
+          color: 'gray',
+          txt: ''
+        },
+        posts: [],
+        activities: []
+      }
+    ]
+  }
 }
 
-function getEmptyTask(){
-    return {
-            'txt': 'txt',
-            'members': [
-            ],
-            'dueDate': '',
-            'status': {
-                
-                'color': 'gray',
-                'txt': ''
-            },
-            'priority': {
-                
-                'color': 'gray',
-                'txt': ''
-            },
-            'posts': []
-        }
-    
+function getEmptyTask() {
+  return {
+    txt: 'txt',
+    members: [],
+    dueDate: '',
+    status: {
+      color: 'gray',
+      txt: ''
+    },
+    priority: {
+      color: 'gray',
+      txt: ''
+    },
+    posts: [],
+    activities: []
+  }
+}
+
+function getEmptyPost() {
+  return {
+    id: null,
+    txt: 'txt',
+    byUser: null
+  }
 }
