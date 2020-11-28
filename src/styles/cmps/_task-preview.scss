@@ -7,31 +7,26 @@
   box-shadow: 0 3px 4px -5px #484444;
   transition: background-color 0.3s;
   text-align: center;
-
+  .task-color {
+    width: 7px;
+    margin-right: 1px;
+    height: 100%;
+  }
   &:hover {
     cursor: pointer;
     background-color: #f3f3f3;
   }
-
   span {
     display: flex;
     align-items: center;
-    // width: 100%;
-  }
-  span,
-  input {
     width: 120px;
     min-height: 42px;
     display: flex;
     justify-content: center;
     border: 0.5px solid white;
-    &.status,
-    &.priority {
-      // margin: rem(2px);
-      &:hover {
-        cursor: pointer;
-        box-shadow: inset 0 0 100px 100px hsla(0, 0%, 100%, 0.3);
-      }
+    &:hover {
+      cursor: pointer;
+      box-shadow: inset 0 0 100px 100px hsla(0, 0%, 100%, 0.3);
     }
   }
   .task-txt {
@@ -53,8 +48,12 @@
       cursor: pointer;
     }
   }
-  .date-input {
-    width: 200px;
-    border: none;
+  .task-details .date-picker {
+    width: 135px;
+    .el-input__prefix {
+      width: 160px;
+      border: none;
+      justify-content: left;
+    }
   }
 }

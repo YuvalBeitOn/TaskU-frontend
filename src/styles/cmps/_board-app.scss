@@ -2,9 +2,25 @@
     .board-control {
         height: rem(120px);
         border-bottom: 1px solid gray;
+<<<<<<< HEAD
         padding: rem(30px) rem(30px) rem(0px) rem(30px);
+=======
+        padding: 15px 30px 0px 30px;
+>>>>>>> 3641f725d5d5d4c1c8db3bcc825c63cde9f1d0c6
     }
-
+.board-up-header{
+    padding:20px ;
+    
+        .right{
+            z-index: 55;
+            top:10px;
+            right:30px;
+        }
+        .board-name-title{
+            font-weight:bolder ;
+            text-transform: capitalize;
+        }
+}
     .backdrop-layer {
         position: absolute;
         top: 0;

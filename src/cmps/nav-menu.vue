@@ -15,12 +15,13 @@
     </div>
     <div class="bottom-nav flex column align-center">
       <i class="nav-icon fal fa-calendar-check"></i>
-         <router-link to="/user/301">
-
+         <router-link to="'/user/301'">
       <i class="nav-icon profile fas fa-user-circle"></i>
          </router-link >
+         <router-link to="/"> 
       
       <i class="nav-icon logout fad fa-sign-out"></i>
+         </router-link >
 
     </div>
   </section>
@@ -30,9 +31,11 @@
 export default {
   name: 'nav-menu',
   computed:{
+
     defaultBoardId(){
       return this.$store.getters.defaultBoardId
     }
-  }
+  },
+
 }
 </script>

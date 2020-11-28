@@ -5,6 +5,41 @@
   flex-wrap: wrap;
   min-height: 40px;
   cursor: pointer;
+  button {
+    background-color: transparent;
+    border: none;
+  }
+  .fa-icon {
+    font-size: 1.1rem;
+    padding: 5px;
+    color: gray;
+    &:hover {
+      color: #333;
+    }
+  }
+  .group-actions {
+    position: absolute;
+    background-color: white;
+    z-index: 5;
+    border-radius: rem(10px);
+    box-shadow: 0 3px 10px -5px #484444;
+    padding: 5px;
+    > * {
+    text-transform: capitalize;
+
+      background-color: white;
+      padding: 10px;
+      margin: rem(5px);
+      border: none;
+      &:hover {
+        background-color: #c7c7c79c;
+      }
+    }
+    >*:not(:last-child){
+      border-bottom: 1px solid #96969698;
+
+    }
+  }
   .group-headers {
     padding-bottom: 1rem;
   }
@@ -12,7 +47,7 @@
     background-color: transparent;
   }
   .group-name {
-    color: rgb(87, 155, 252);
+    color: rgb(17, 21, 27);
     display: inline-block;
   }
   .expand-btn {
@@ -20,11 +55,14 @@
     margin-right: 5px;
     border: none;
     outline: none;
-    .fa-icon {
-    }
   }
-  .headers > * {
-    width: 120px;
-    text-align: center;
+  .headers {
+    .list-title {
+      width: 120px;
+      text-align: center;
+      &.date {
+        width: 135px;
+      }
+    }
   }
 }

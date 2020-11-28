@@ -4,7 +4,7 @@ export const boardStore = {
     boards: [],
     currBoard: null,
     searchBoard: null,
-    filterBy: null
+    filterBy: { status: 'all', priority: 'all', searchTerm: '' }
   },
   getters: {
     boards(state) {
@@ -14,10 +14,36 @@ export const boardStore = {
       )
     },
     board(state) {
-      return JSON.parse(JSON.stringify(state.currBoard))
+      const filterBy = state.filterBy;
+      let filteredBoard = JSON.parse(JSON.stringify(state.currBoard))
+      if (filterBy.status !== 'all') {
+        filteredBoard.groups.forEach(group => {
+          group.tasks = group.tasks.filter(task => {
+            return task.status.txt === filterBy.status
+          })
+        })
+      }
+      if (filterBy.priority !== 'all') {
+        filteredBoard.groups.forEach(group => {
+          group.tasks = group.tasks.filter(task => {
+            return task.priority.txt === filterBy.priority
+          })
+        })
+      }
+      if (filterBy.searchTerm !== '') {
+        filteredBoard.groups.forEach(group => {
+          group.tasks = group.tasks.filter(task => {
+            return task.txt.toLowerCase().includes(filterBy.searchTerm.toLowerCase())
+          })
+        })
+      }
+      return filteredBoard;
     },
     defaultBoardId(state) {
       return state.boards[0]._id
+    },
+    filterBy(state) {
+      return JSON.parse(JSON.stringify(state.filterBy))
     }
   },
   mutations: {
@@ -38,7 +64,11 @@ export const boardStore = {
       console.log('searchBoard:', searchBoard)
       state.searchBoard = searchBoard
       console.log('state.searchBoard:', state.searchBoard)
-    }
+    },
+    setFilterBy(state, { filterBy }) {
+      console.log('filterBy in store:', filterBy);
+      state.filterBy = filterBy;
+    },
   },
   actions: {
     async loadBoards(context) {
@@ -62,6 +92,7 @@ export const boardStore = {
         console.log('savedBoard:', savedBoard)
         dispatch({ type: 'loadBoards' })
       }
-    }
+    },
+
   }
 }

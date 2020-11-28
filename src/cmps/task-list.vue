@@ -1,15 +1,17 @@
 <template>
   <section v-if="tasks" class="task-list width100">
     <ul class="clean-list flex wrap align-center justify-center gap">
+      
       <task-preview
         v-for="task in tasks"
+        :taskColor="taskColor"
         :key="task.id"
         :task="task"
         :statuses="board.statuses"
         :priorities="board.priorities"
         :groupId="groupId"
         @deleteTask="deleteTask"
-        @updateTask="updateTask"
+        @updateTask="updateTask" :boardMembers="board.members"
       />
     </ul>
     <form class="flex" @submit.prevent="addTask">
@@ -40,11 +42,13 @@ export default {
   props: {
     tasks: Array,
     groupId: String,
+    taskColor:String
   },
   computed: {
     board() {
       return this.$store.getters.board
     },
+    
   },
   methods: {
     showAddBtn() {
@@ -57,7 +61,7 @@ export default {
       return this.board.groups[idx]
     },
     addTask() {
-      console.log('kkkkkkkkk')
+      
       const newTask = boardService.getEmptyTask()
       newTask.txt = this.txt
       const group = this.getGroupById()

@@ -23,13 +23,14 @@
         <h2><strong class="title-details">Full name:</strong>{{ user.fullName }}</h2>
         <h2><strong class="title-details">Email:</strong>{{ user.email }}</h2>
       </div>
-      <ul class="list-board flex column wrap clean-list align-center">
-        <li><h2>Your board list</h2></li>
-        <li>board</li>
-        <li>board</li>
-        <li>board</li>
-        <li>board</li>
-      </ul>
+      <div class="list-board flex column wrap clean-list align-center">
+          <board-list
+            @removeBoard="removeCurrBoard"
+            @addNewBoard="addBoard"
+            :boards="boards" title="Your Board"
+            class="list-board"
+         />
+      </div>
       <div class="left-task">
         <p>You have  left 4 tasks to compolete</p>
       </div>
@@ -39,7 +40,8 @@
 
 <script>
 import Avatar from 'vue-avatar'
-
+import boardList from '@/cmps/board-list'
+import {boardService} from '@/services/board.service'
 export default {
   name: 'user-details',
 
@@ -47,6 +49,18 @@ export default {
     user() {
       return this.$store.getters.user
     },
+    boards(){
+      return this.$store.getters.boards
+    }
+  },
+  methods:{
+            removeCurrBoard(boardId) {
+            this.$store.dispatch({ type: 'removeBoard', boardId })
+        },
+        addBoard() {
+            const board = boardService.getEmptyBoard()
+            this.$store.dispatch({ type: 'saveBoard', board })
+        },
   },
   created() {
     const { userId } = this.$route.params
@@ -54,6 +68,7 @@ export default {
   },
   components: {
     Avatar,
+    boardList
   },
 }
 </script>

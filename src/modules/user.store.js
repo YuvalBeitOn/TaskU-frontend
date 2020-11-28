@@ -19,13 +19,14 @@ export const userStore = {
     },
     setUser(state, { user }) {
       state.currUser = user
+      console.log('state.currUser:', state.currUser)
     },
     updateUser(state, { user }) {
       const idx = state.users.findIndex(currUser => user._id === currUser._id)
       state.users.splice(idx, 1, user)
     },
     deleteUser(state, { userId }) {
-      const idx = state.users.findIndex(user => user._id === userId)
+       const idx = state.users.findIndex(user => user._id === userId)
       state.users.splice(idx, 1)
     },
     addUser(state, { user }) {

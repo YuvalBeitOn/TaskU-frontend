@@ -1,56 +1,57 @@
 <template>
     <section class="board-app flex">
         <board-list
-            @searchBoard="setSearch"
             @removeBoard="removeCurrBoard"
             @addNewBoard="addBoard"
             :boards="boards"
-        />
+            title="Board"
+        >
+            <board-search @searchBoard="setSearch" slot="search" />
+        </board-list>
         <div class="board-app-container width100">
-            <div v-if="board" class="board-control">
-                <h2>{{ board.name }}</h2>
-                <board-filter
-                    v-if="board.creator"
-                    :creator="board.creator"
-                    @addGroup="addGroup"
-                />
-                <!-- <button @click="addGroup">New Group</button> -->
-                <div>
-                    <button @click="isAddMembers = !isAddMembers">+</button>
-                    <members v-if="isAddMembers">
-                        <h2 slot="title-members">Members board</h2>
-                        <ul
-                            v-if="board.members"
-                            class="clean-list"
-                            slot="members"
-                        >
-                            <li
-                                v-for="member in board.members"
-                                :key="member._id"
-                            >
-                                {{ member.fullName }} {{ member._id }}
-                                <button
-                                    @click="removeUserFromBoard(member._id)"
-                                >
-                                    -
-                                </button>
-                            </li>
-                        </ul>
-                        <h2 slot="title-all-members">site users</h2>
-                        <ul class="clean-list" slot="all-members">
-                            <li v-for="user in usersSite" :key="user._id">
-                                {{ user.fullName }}{{ user._id }}
-                                <button @click="addUserToBoard(user)">+</button>
-                            </li>
-                        </ul>
-                    </members>
+            <div v-if="board" class="board-up">
+                <div class="board-up-header flex space-between">
+                    <h2
+                        class="board-name-title"
+                        @blur="updateBoardName"
+                        @keyup.enter="updateBoardName"
+                        contenteditable
+                    >
+                        {{ board.name }}
+                    </h2>
+                    <i
+                        @click="toggleMembers"
+                        class="far fa-user-circle fa-icon"
+                    ></i>
+                    <add-members
+                        class="right"
+                        v-if="isMembersShowen"
+                        firstTitle="Board Member"
+                        secondTitle="Users Site"
+                        :members="board.members"
+                        :allMembers="usersSite"
+                        @removeMember="removeUserFromBoard"
+                        @addMember="addUserToBoard"
+                    />
+                </div>
+                <div class="board-control">
+                    <board-filter
+                        v-if="board"
+                        :creator="board.creator"
+                        :statuses="board.statuses"
+                        :priorities="board.priorities"
+                        @addGroup="addGroup"
+                        @forceRerender="forceRerender"
+                    />
                 </div>
             </div>
             <group-list
                 v-if="board"
+                :key="componentKey"
                 :groups="board.groups"
                 :boardName="board.name"
                 @deleteGroup="deleteGroup"
+                @updateGroup="updateGroup"
             />
             <div v-if="isRouterViewHover" class="backdrop-layer"></div>
         </div>
@@ -63,12 +64,11 @@
             :task="currTaskDetails.task"
             :groupId="currTaskDetails.groupId"
         />
-        <!-- <task-details v-if="this.$route.params.taskId" :task="currTask" /> -->
     </section>
 </template>
 
 <script>
-import members from '@/cmps/members'
+import addMembers from '@/cmps/add-members'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
 import taskDetails from '../views/task-details'
@@ -76,14 +76,15 @@ import { boardService } from '@/services/board.service'
 import { eventBus } from '@/services/event-bus.service'
 
 import boardFilter from '@/cmps/board-filter.vue'
-
+import boardSearch from '@/cmps/board-search'
 export default {
     name: 'board-app',
     data() {
         return {
-            isAddMembers: false,
+            isMembersShowen: false,
             currTaskDetails: null,
             isRouterViewHover: false,
+            componentKey: 0,
         }
     },
     computed: {
@@ -93,6 +94,9 @@ export default {
         boards() {
             return this.$store.getters.boards
         },
+        user() {
+            return this.$store.getters.user
+        },
         usersSite() {
             const siteUsers = this.$store.getters.users
             const boardMembers = this.board.members
@@ -101,12 +105,23 @@ export default {
                     return boardMember._id !== siteUser._id
                 })
             })
-            console.log('filteredSiteUsers:', filteredSiteUsers)
             return filteredSiteUsers
         },
     },
     methods: {
+        forceRerender() {
+            this.componentKey += 1
+        },
+        updateBoardName(ev) {
+            console.log(ev.target.innerText, 'target')
+            this.board.name = ev.target.innerText
+            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+        },
+        toggleMembers() {
+            this.isMembersShowen = !this.isMembersShowen
+        },
         addUserToBoard(user) {
+            console.log('user:', user)
             this.board.members.unshift(user)
             this.$store.dispatch({ type: 'saveBoard', board: this.board })
         },
@@ -127,6 +142,8 @@ export default {
         },
         addBoard() {
             const board = boardService.getEmptyBoard()
+            board.creator = this.user
+            console.log('board:', board.creator)
             this.$store.dispatch({ type: 'saveBoard', board })
         },
 
@@ -154,6 +171,17 @@ export default {
                 board: this.board,
             })
         },
+        updateGroup(updatedGroup) {
+            console.log(updatedGroup.name)
+            const idx = this.board.groups.findIndex(
+                (group) => group.id === updatedGroup.id
+            )
+            this.board.groups.splice(idx, 1, updatedGroup)
+            this.$store.dispatch({
+                type: 'saveBoard',
+                board: this.board,
+            })
+        },
         setCurrTaskDetails(currTaskDetails) {
             console.log(currTaskDetails, 'Setting currTaskDetails')
             this.currTaskDetails = currTaskDetails
@@ -167,8 +195,9 @@ export default {
         },
     },
     created() {
-        eventBus.$on('taskDetails', this.setCurrTaskDetails)
+        eventBus.$on('taskDetails', this.setCurrTask)
         this.$store.dispatch({ type: 'loadUsers' })
+        this.$store.dispatch({ type: 'loadUser', userId: '301' })
         this.$store.dispatch({ type: 'loadBoards' })
         this.loadBoard()
     },
@@ -176,8 +205,9 @@ export default {
         groupList,
         boardList,
         boardFilter,
-        members,
-        taskDetails
+        addMembers,
+        taskDetails,
+        boardSearch,
     },
 }
 </script>
