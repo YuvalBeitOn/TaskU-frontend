@@ -8,7 +8,6 @@
     <router-link to="/">home</router-link>
     <router-link to="/login">login</router-link>
     <router-link to="/signup">sign up</router-link>
-    <router-link to="/board">Get Started!</router-link>
     </nav>
      </div>
 
@@ -18,7 +17,7 @@
       <div class="content-container flex column  align-center wrap">
 <h1>Work its easy with us</h1>
       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt dolore modi numquam nostrum voluptatem deleniti harum dicta odio eveniet adipisci magni cupiditate doloribus quae mollitia soluta itaque nemo, deserunt quia!</p>
-    <button @click="$router.push('/board/u102')" class="btn-app">Get Started</button>
+    <button   @click="getStarted" class="btn-app">Get Started</button>
       </div>
       <div class="img-hero">
         <img src="@/assets/imgs/img-hero1.svg" class="img-home-page" alt="" srcset="">
@@ -26,13 +25,27 @@
       </div>
     </section>
     </main>
-
   </section>
 </template>
 
 <script>
 export default {
   name: "home-page",
-  components: {}
+  components: {},
+  computed:{
+    firstBoardId(){
+      const boards = this.$store.getters.boards
+      console.log('boards[0]._id:', boards[0]._id)
+      return boards[0]._id
+    }
+  },
+  methods:{
+    getStarted(){
+      this.$router.push('/board/'+this.firstBoardId)
+    }
+  },
+  created(){
+    this.$store.dispatch({type:'loadBoards'})
+  }
 };
 </script>

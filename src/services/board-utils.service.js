@@ -8,6 +8,7 @@ export const boardUtils = {
 function getEmptyBoard() {
   return {
     name: 'myBoard',
+    description:'myBoard is the Best',
     creator: {
       _id: '304',
       fullName: 'Muki Ben David',
@@ -15,93 +16,52 @@ function getEmptyBoard() {
     },
     statuses: [
       {
-        color: 'gray',
+        color: '#a8a8a8',
         txt: ''
       },
       {
-        color: 'yellow',
+        color: '#fdab3d',
         txt: 'Working on it'
       },
       {
-        color: 'red',
+        color: '#e44258',
         txt: 'Stuck'
       },
       {
-        color: 'green',
+        color: '#00ca72',
         txt: 'Done'
       }
     ],
     priorities: [
       {
-        color: 'gray',
+        color: '#a8a8a8',
         txt: ''
       },
       {
-        color: 'lightblue',
+        color: ' #90d5ffd9',
         txt: 'Low'
       },
       {
-        color: 'purple',
+        color: '#c137c1ba',
         txt: 'Medium'
       },
       {
-        color: 'red',
+        color: '#e44258',
         txt: 'High'
       }
     ],
+    activities:[]
+    ,
     members: [],
-    groups: [
-      {
-        color: '#000000',
-        name: 'BackEnd',
-        tasks: [getEmptyTask(),getEmptyTask()]
-        
-      },
-      {
-        color: '#000000',
-        name: 'Frontend',
-        tasks: [getEmptyTask(),getEmptyTask()]
-      }
-    ]
+    groups: [getEmptyGroup(), getEmptyGroup()]
   }
 }
 
 function getEmptyGroup() {
   return {
-    color: '#FFFFFF',
+    color: 'rgb(174, 203, 250)',
     name: 'New Group',
-    tasks: [
-      {
-        txt: 'txt',
-        members: [],
-        dueDate: '',
-        status: {
-          color: 'gray',
-          txt: ''
-        },
-        priority: {
-          color: 'gray',
-          txt: ''
-        },
-        posts: [],
-        activities: []
-      },
-      {
-        txt: 'txt',
-        members: [],
-        dueDate: '',
-        status: {
-          color: 'gray',
-          txt: ''
-        },
-        priority: {
-          color: 'gray',
-          txt: ''
-        },
-        posts: [],
-        activities: []
-      }
-    ]
+    tasks: [getEmptyTask(), getEmptyTask()]
   }
 }
 
@@ -111,11 +71,11 @@ function getEmptyTask() {
     members: [],
     dueDate: '',
     status: {
-      color: 'gray',
+      color: '#a8a8a8',
       txt: ''
     },
     priority: {
-      color: 'gray',
+      color: '#a8a8a8',
       txt: ''
     },
     posts: [],

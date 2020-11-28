@@ -9,7 +9,6 @@
 
         <ul v-if="boards" class="boards-list clean-list">
             <li class="board-item" v-for="board in boards" :key="board._id">
-                <!-- <i @click="removeCurrBoard(board._id)" class="trash-icon fas fa-trash"></i> -->
                 <i
                     @click="togglePopup(board._id)"
                     class="minimenu-icon fas fa-ellipsis-h"
