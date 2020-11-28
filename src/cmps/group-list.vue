@@ -1,5 +1,5 @@
 <template>
-  <section v-if="clonedGroups.length" class="group-list">
+  <section v-if="clonedGroups.length" class="group-container">
     <ul class="clean-list flex column align-center justify-center gap width100">
       <draggable v-model="clonedGroups" @end="emitUpdateGroups">
         <group-preview
