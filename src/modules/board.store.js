@@ -65,22 +65,17 @@ export const boardStore = {
       state.boards = state.boards.filter(board => board._id !== boardId)
     },
     setSearch(state, { searchBoard }) {
-      console.log('searchBoard:', searchBoard)
       state.searchBoard = searchBoard
-      console.log('state.searchBoard:', state.searchBoard)
     },
     setFilterBy(state, { filterBy }) {
-      console.log('filterBy in store:', filterBy);
       state.filterBy = filterBy;
     },
     toggleIsLoading(state){
-      console.log('state.isLoading:', state.isLoading)
       state.isLoading = !state.isLoading
     }
   },
   actions: {
     async loadBoards(context) {
-      console.log('context:', context)
       const boards = await boardService.query()
       context.commit({ type: 'setBoards', boards })
     },
@@ -101,7 +96,6 @@ export const boardStore = {
       if (board._id) {
         commit({ type: 'setBoard', board: savedBoard })
       } else {
-        console.log('savedBoard:', savedBoard)
         dispatch({ type: 'loadBoards' })
       }
     },

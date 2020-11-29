@@ -12,6 +12,7 @@
         />
       </draggable>
     </ul>
+    
   </section>
 </template>
 <script>

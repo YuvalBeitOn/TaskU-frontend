@@ -3,15 +3,9 @@
         v-if="taskCopy"
         class="task-preview flex space-between align-center width100"
     >
-        <div
-            class="close-popup"
-            v-if="isTaskMembersShowen"
-            @click.prevent="isTaskMembersShowen = false"
-        ></div>
-        <div class="flex space-between width100">
+        <div class="flex space-between align-center width100">
             <span class="task-color" :style="taskBgc"></span>
             <button class="btn-close" @click="deleteTask">X</button>
-
             <div class="task-txt">
                 <span
                     @blur="updateTaskTxt"
@@ -20,7 +14,6 @@
                     >{{ taskCopy.txt }}</span
                 >
             </div>
-
             <i @click="sendToTaskDetails" class="far fa-comment fa-icon"></i>
         </div>
         <div class="task-details flex">
@@ -31,6 +24,11 @@
                         class="far fa-user-circle fa-icon"
                     ></i
                 ></span>
+                <div
+                    class="close-popup"
+                    v-if="isTaskMembersShowen"
+                    @click.prevent.stop="isTaskMembersShowen = false"
+                ></div>
                 <add-members
                     v-if="isTaskMembersShowen"
                     firstTitle="Task Members"
@@ -56,7 +54,6 @@
                     v-if="isStatusesShowen"
                     @click.prevent="isStatusesShowen = false"
                 ></div>
-
                 <span
                     @click="togglePriors"
                     class="priority relative"
@@ -73,7 +70,6 @@
                     v-if="isPriorsShowen"
                     @click.prevent="isPriorsShowen = false"
                 ></div>
-
                 <span class="date-picker">
                     <el-date-picker
                         class="date-input"
@@ -93,7 +89,6 @@ import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
 import labelPicker from './label-picker'
 import { boardService } from '@/services/board.service'
-
 export default {
     components: { labelPicker, addMembers },
     name: 'task-preview',
@@ -140,7 +135,6 @@ export default {
         },
         addTaskMember(member) {
             let newActivity = boardService.getEmptyActivity()
-            console.log('member:', member)
             this.taskCopy.members.unshift(member)
             newActivity.txt = `Member ${member.fullName} was added to task`
             newActivity.byUser = this.user
@@ -171,7 +165,6 @@ export default {
             this.$emit('deleteTask', this.taskCopy.id)
         },
         updateTaskTxt(ev) {
-            console.log(ev.target.innerText)
             let newActivity = boardService.getEmptyActivity()
             const prevTxt = this.taskCopy.txt
             this.taskCopy.txt = ev.target.innerText
@@ -191,10 +184,18 @@ export default {
                 `/board/${this.$route.params.boardId}/task/${this.task.id}`
             )
         },
+        updateComponentTask(task) {
+            if (this.taskCopy.id === this.$route.params.taskId) {
+                this.taskCopy = task
+            }
+        },
         updateTaskPriority(opt) {
+            console.log('opt:', opt)
             let newActivity = boardService.getEmptyActivity()
-            const prevPrior = this.taskCopy.priority
-            this.taskCopy.priority = opt
+            const prevPrior = this.taskCopy.priority.txt
+            console.log('prevPrior:', prevPrior)
+            this.taskCopy.priority.txt = opt.txt
+            this.taskCopy.priority.color = opt.color
             newActivity.txt = `Task priority was updated from '${prevPrior}' to '${opt}`
             newActivity.byUser = this.user
             this.taskCopy.activities.push(newActivity)
@@ -203,19 +204,14 @@ export default {
         },
         updateTaskStatus(opt) {
             let newActivity = boardService.getEmptyActivity()
-            const prevStatus = this.taskCopy.status
-            this.taskCopy.status = opt
+            const prevStatus = this.taskCopy.status.txt
+            this.taskCopy.status.txt = opt.txt
+            this.taskCopy.status.color = opt.color
             newActivity.txt = `Task status was updated from '${prevStatus}' to '${opt}`
             newActivity.byUser = this.user
-            console.log('newActivity:', newActivity)
             this.taskCopy.activities.push(newActivity)
             this.updateTask()
             this.isPriorsShowen = false
-        },
-        updateComponentTask(task) {
-            if (this.taskCopy.id === this.$route.params.taskId) {
-                this.taskCopy = task
-            }
         },
     },
     created() {

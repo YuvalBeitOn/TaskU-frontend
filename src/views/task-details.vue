@@ -12,7 +12,7 @@
         </div>
         <el-tabs>
             <el-tab-pane label="Task posts">
-                <task-posts @updatePosts="updatePosts" :posts="posts"/>
+                <task-posts @updatePosts="updatePosts" :posts="posts" />
             </el-tab-pane>
             <el-tab-pane label="Task activities">
                 <task-activities :activities="task.activities" />
@@ -20,12 +20,10 @@
         </el-tabs>
     </section>
 </template>
-
 <script>
 import taskPosts from '@/cmps/task-posts'
 import taskActivities from '@/cmps/task-activities'
 import { eventBus } from '@/services/event-bus.service'
-
 export default {
     name: 'task-details',
     data() {
@@ -65,7 +63,6 @@ export default {
             })
             eventBus.$emit('updateTaskPreview', this.task)
         },
-
         updatePosts(posts) {
             const tasks = this.getTasksPath()
             const taskIdx = tasks.findIndex((task) => task.id === this.task.id)

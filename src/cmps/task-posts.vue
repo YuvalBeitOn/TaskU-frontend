@@ -24,7 +24,6 @@
         </div>
     </section>
 </template>
-
 <script>
 import { boardService } from '../services/board.service'
 import Avatar from 'vue-avatar'

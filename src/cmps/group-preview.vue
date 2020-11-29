@@ -1,30 +1,29 @@
 <template>
+  <section>
     <li
       :class="{
-        'group-preview width100 flex space-between align-center': true,
-        expanded: expanded
+        'group-preview width100 flex space-between align-center ': true,
+        expanded: expanded,
       }"
       @click="expandGroup"
     >
-      <div class="flex">
-        <div>
-          <button @click="toggleGroupActions">
-            <i class="fas fa-arrow-down fa-icon"></i>
+      <div class="flex relative">
+        <button class="btn-close" @click.stop="toggleGroupActions">
+          <i class="fas fa-arrow-down fa-icon"></i>
+        </button>
+        <button class="expand-btn btn-close" @click.stop="toggleGroup">
+          <i
+            @click.stop="toggleGroup"
+            class="fas fa-expand-arrows-alt fa-icon"
+          ></i>
+        </button>
+        <div class="flex column group-actions" v-if="isActionsShowen">
+          <button @click.stop="deleteGroup(groupCopy.id)">
+            <i class="fas fa-trash"></i> Delete
           </button>
-          <button class="expand-btn" @click.stop="toggleGroup">
-            <i
-              @click.stop="toggleGroup"
-              class="fas fa-expand-arrows-alt fa-icon"
-            ></i>
+          <button @click.stop="toggleColorsMenu">
+            <i class="fas fa-paint-brush"></i> Change color
           </button>
-          <div class="flex column group-actions" v-if="isActionsShowen">
-            <button @click.stop="deleteGroup(groupCopy.id)">
-              <i class="fas fa-trash"></i> Delete
-            </button>
-            <button @click="toggleColorsMenu">
-              <i class="fas fa-paint-brush"></i> Change color
-            </button>
-          </div>
           <colors-menu v-if="isColorsShowen" @setColor="setGroupColor" />
         </div>
         <h4
@@ -54,6 +53,12 @@
         @forceRender="emitForceRender"
       />
     </li>
+    <div
+      class="back-drop-layer"
+      v-if="isActionsShowen"
+      @click="toggleGroupActions"
+    ></div>
+  </section>
 </template>
 
 <script>
@@ -63,14 +68,14 @@ export default {
   name: 'group-preview',
   props: {
     group: Object,
-    deleteGroup: Function
+    deleteGroup: Function,
   },
   data() {
     return {
       isExpanded: true,
       groupCopy: null,
       isActionsShowen: false,
-      isColorsShowen: false
+      isColorsShowen: false,
     }
   },
   methods: {
@@ -94,15 +99,14 @@ export default {
     },
     setGroupColor(color) {
       this.groupCopy.color = color
-      this.toggleGroupActions()
+      // this.toggleGroupActions()
       this.toggleColorsMenu()
       this.$emit('updateGroup', this.groupCopy)
     },
     updateGroupName(ev) {
-      console.log(ev.target.innerText)
       this.groupCopy.name = ev.target.innerText
       this.$emit('updateGroup', this.groupCopy)
-    }
+    },
   },
   computed: {
     tasksCount() {
@@ -113,7 +117,7 @@ export default {
     },
     groupColor() {
       return { color: this.groupCopy.color }
-    }
+    },
   },
   created() {
     this.groupCopy = this.group
@@ -121,7 +125,7 @@ export default {
   components: {
     taskList,
     colorsMenu,
-  }
+  },
 }
 </script>
 ,
