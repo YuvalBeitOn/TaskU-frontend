@@ -1,15 +1,13 @@
 <template>
     <section class="board-list flex column">
         <div class="top-bar flex space-around align-center">
-            <h1 class="title-board-list">{{title}}</h1>
+            <h1 class="title-board-list">{{ title }}</h1>
             <i @click="addBoard" class="btn-add fas fa-plus-circle"></i>
         </div>
         <slot name="search"></slot>
 
-
         <ul v-if="boards" class="boards-list clean-list">
             <li class="board-item" v-for="board in boards" :key="board._id">
-                <!-- <i @click="removeCurrBoard(board._id)" class="trash-icon fas fa-trash"></i> -->
                 <i
                     @click="togglePopup(board._id)"
                     class="minimenu-icon fas fa-ellipsis-h"
@@ -28,17 +26,15 @@
 </template>
 
 <script>
-
 import popupMenu from '../cmps/popup-menu'
 export default {
     name: 'board-list',
     props: {
         boards: [Array, Object],
-        title:String
+        title: String,
     },
     data() {
         return {
-           
             isPopupShowen: false,
             popupOptions: [
                 {
@@ -50,9 +46,7 @@ export default {
             currBoardId: null,
         }
     },
-    computed: {},
     methods: {
-
         removeCurrBoard() {
             console.log('boardId:', this.currBoardId)
             this.$emit('removeBoard', this.currBoardId)
@@ -66,7 +60,9 @@ export default {
         },
     },
     created() {
-        
+        if (!this.boards) {
+            this.$store.dispatch({ type: 'loadBoards' })
+        }
     },
     components: {
         popupMenu,

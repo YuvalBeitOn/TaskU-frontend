@@ -1,9 +1,11 @@
 <template>
-  <section class="filter-status flex column justify-center">
-    <h4>{{ title }}</h4>
+  <section class="filter-form flex column justify-center">
+    <h4 class="filter-title">{{ title }}</h4>
+    <button @click="updateFilter">All</button>
     <button
+      :style="getStyleStr(opt.color)"
       @click="updateFilter"
-      v-for="opt in opts"
+      v-for="opt in filteredOpts"
       :key="opt.id"
       type="submit"
     >
@@ -19,16 +21,22 @@ export default {
     title: String
   },
   data() {
-      return {
-        
-      }
+    return {
+      filteredOpts: null
+    }
   },
   methods: {
     updateFilter(ev) {
       const txt = ev.target.innerText
       const filterObj = { title: this.title.toLowerCase(), opt: txt }
       this.$emit('updateFilter', filterObj)
-    }
+    },
+    getStyleStr(colorStr) {
+      return `backgroundColor:${colorStr}`
+    },
+  },
+  created() {
+    this.filteredOpts = this.opts.filter(opt => opt.txt)
   }
 }
 </script>

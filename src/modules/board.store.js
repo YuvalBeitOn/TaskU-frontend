@@ -4,7 +4,8 @@ export const boardStore = {
     boards: [],
     currBoard: null,
     searchBoard: null,
-    filterBy: { status: 'all', priority: 'all', searchTerm: '' }
+    filterBy: { status: 'All', priority: 'All', searchTerm: '' },
+    isLoading:false,
   },
   getters: {
     boards(state) {
@@ -16,14 +17,14 @@ export const boardStore = {
     board(state) {
       const filterBy = state.filterBy;
       let filteredBoard = JSON.parse(JSON.stringify(state.currBoard))
-      if (filterBy.status !== 'all') {
+      if (filterBy.status !== 'All') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
             return task.status.txt === filterBy.status
           })
         })
       }
-      if (filterBy.priority !== 'all') {
+      if (filterBy.priority !== 'All') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
             return task.priority.txt === filterBy.priority
@@ -44,6 +45,9 @@ export const boardStore = {
     },
     filterBy(state) {
       return JSON.parse(JSON.stringify(state.filterBy))
+    },
+    isLoading(state){
+      return state.isLoading
     }
   },
   mutations: {
@@ -69,6 +73,10 @@ export const boardStore = {
       console.log('filterBy in store:', filterBy);
       state.filterBy = filterBy;
     },
+    toggleIsLoading(state){
+      console.log('state.isLoading:', state.isLoading)
+      state.isLoading = !state.isLoading
+    }
   },
   actions: {
     async loadBoards(context) {
@@ -77,8 +85,12 @@ export const boardStore = {
       context.commit({ type: 'setBoards', boards })
     },
     async loadBoard({ commit }, { boardId }) {
+      commit({type:'toggleIsLoading'})
       const board = await boardService.getById(boardId)
       commit({ type: 'setBoard', board })
+      setTimeout(()=>{
+        commit({type:'toggleIsLoading'})
+      },2000)
     },
     async removeBoard({ commit }, { boardId }) {
       await boardService.remove(boardId)

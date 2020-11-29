@@ -4,7 +4,11 @@ button {
     border-radius: 2px;
     transition: 0.3s;
     background-color: #0085ff;
-    &.hover {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    &:hover {
       background-color: #0071d9;
     }
     &.white {
@@ -35,4 +39,8 @@ button {
         filter: brightness(85%);
     }
 
-}  
+} 
+.btn-close{
+  margin-left: 5px;
+  padding: 0;
+}
