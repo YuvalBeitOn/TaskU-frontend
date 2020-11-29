@@ -1,8 +1,7 @@
 .task-activities {
-//   height: 80vh;
   overflow: auto;
   > *:not(:last-child) {
-    // margin-bottom: 1rem;
+    margin-bottom: 1rem;
     border-bottom: 1px solid gray;
     position: relative;
     text-align: left;
@@ -31,14 +30,5 @@
         border: 1px solid whitesmoke;
       }
     }
-  }
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.3s;
-  }
-
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
   }
 }

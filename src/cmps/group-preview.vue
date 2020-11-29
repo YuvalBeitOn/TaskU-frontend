@@ -2,39 +2,74 @@
   <section>
     <li
       :class="{
-        'group-preview width100 flex space-between align-center ': true,
-        expanded: expanded,
+        'group-preview width100 flex space-between align-center': true,
+        expanded: expanded
       }"
       @click="expandGroup"
     >
-      <div class="flex relative">
-        <button class="btn-close" @click.stop="toggleGroupActions">
-          <i class="fas fa-arrow-down fa-icon"></i>
+      <div class="group-actions-container flex relative align-center">
+        <button
+          :style="getStyleStr(group.color)"
+          class="expand-btn"
+          @click.stop="toggleGroupActions"
+        >
+          <i class="expand-arrow fas fa-arrow-down"></i>
         </button>
-        <button class="expand-btn btn-close" @click.stop="toggleGroup">
-          <i
-            @click.stop="toggleGroup"
-            class="fas fa-expand-arrows-alt fa-icon"
-          ></i>
-        </button>
-        <div class="flex column group-actions" v-if="isActionsShowen">
-          <button @click.stop="deleteGroup(groupCopy.id)">
-            <i class="fas fa-trash"></i> Delete
-          </button>
-          <button @click.stop="toggleColorsMenu">
-            <i class="fas fa-paint-brush"></i> Change color
-          </button>
-          <colors-menu v-if="isColorsShowen" @setColor="setGroupColor" />
-        </div>
         <h4
-          class="group-headers group-name"
+          class="group-headers group-name editable"
+          ref="groupName"
           :style="groupColor"
           @blur="updateGroupName"
-          @keyup.enter="updateGroupName"
+          @keydown.enter="updateGroupName"
           contenteditable
         >
           {{ groupCopy.name }}
         </h4>
+        <div class="flex column group-actions" v-if="isActionsShowen">
+          <div class="group-action flex align-center" @click.stop="toggleGroup">
+            <button class="act-btn">
+              <i class="fas fa-expand-alt fa-icon-act"></i>
+            </button>
+            <span class="act-txt">Expand</span>
+          </div>
+          <div
+            class="group-action flex align-center"
+            @click.stop="deleteGroup(groupCopy.id)"
+          >
+            <button class="act-btn">
+              <i class="fas fa-trash fa-icon-act"></i>
+            </button>
+            <span class="act-txt">Delete</span>
+          </div>
+          <div
+            class="group-action flex align-center"
+            @click.stop="toggleColorsMenu"
+          >
+            <button class="act-btn">
+              <i class="fas fa-paint-brush fa-icon-act"></i>
+            </button>
+            <span class="act-txt">Change Color</span>
+          </div>
+          <div
+            class="group-action flex align-center"
+            @click.stop="duplicateGroup"
+          >
+            <button class="act-btn">
+              <i class="far fa-copy fa-icon-act"></i>
+            </button>
+            <span class="act-txt">Duplicate</span>
+          </div>
+          <div
+            class="group-action flex align-center"
+            @click.stop="focusGroupName"
+          >
+            <button class="act-btn">
+              <i class="far fa-edit fa-icon-act"></i>
+            </button>
+            <span class="act-txt">Change name</span>
+          </div>
+          <colors-menu v-if="isColorsShowen" @setColor="setGroupColor" />
+        </div>
       </div>
       <span v-if="!isExpanded">{{ tasksCount }}</span>
       <div v-if="isExpanded" class="flex space-between align-center">
@@ -68,17 +103,27 @@ export default {
   name: 'group-preview',
   props: {
     group: Object,
-    deleteGroup: Function,
+    deleteGroup: Function
   },
   data() {
     return {
       isExpanded: true,
       groupCopy: null,
       isActionsShowen: false,
-      isColorsShowen: false,
+      isColorsShowen: false
     }
   },
   methods: {
+    focusGroupName() {
+      this.$refs.groupName.focus()
+      this.isActionsShowen = false
+    },
+    getStyleStr(colorStr) {
+      return `backgroundColor:${colorStr}`
+    },
+    duplicateGroup() {
+      this.$emit('duplicateGroup', this.groupCopy)
+    },
     emitForceRender() {
       this.$emit('emitForceRender')
     },
@@ -90,23 +135,26 @@ export default {
     },
     emitDelete(groupId) {
       this.$emit('deleteGroup', groupId)
+      this.isExpanded = false
     },
     toggleGroup() {
       this.isExpanded = !this.isExpanded
+      this.isActionsShowen = false
     },
     expandGroup() {
       this.isExpanded = true
+      this.isActionsShowen = false
     },
     setGroupColor(color) {
+      this.isActionsShowen = false
       this.groupCopy.color = color
-      // this.toggleGroupActions()
-      this.toggleColorsMenu()
+      this.isColorsShowen = false
       this.$emit('updateGroup', this.groupCopy)
     },
     updateGroupName(ev) {
       this.groupCopy.name = ev.target.innerText
       this.$emit('updateGroup', this.groupCopy)
-    },
+    }
   },
   computed: {
     tasksCount() {
@@ -117,15 +165,15 @@ export default {
     },
     groupColor() {
       return { color: this.groupCopy.color }
-    },
+    }
   },
   created() {
     this.groupCopy = this.group
   },
   components: {
     taskList,
-    colorsMenu,
-  },
+    colorsMenu
+  }
 }
 </script>
 ,

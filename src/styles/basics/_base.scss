@@ -24,7 +24,6 @@ img {
   outline: none;
   border: 1px dashed black !important;
   z-index: 55;
-
   width: fit-content;
 }
 
@@ -32,6 +31,7 @@ a {
   text-decoration: none;
   color: #333333;
 }
+
 
 // scroll-bar:
 ::-webkit-scrollbar {
@@ -76,3 +76,12 @@ a {
   background: transparent;
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}

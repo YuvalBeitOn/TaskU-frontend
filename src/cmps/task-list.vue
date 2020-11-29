@@ -1,11 +1,7 @@
 <template>
   <section v-if="clonedTasks" class="task-list width100">
     <ul class="clean-list flex wrap align-center justify-center gap">
-      <draggable
-        class="width100"
-        v-model="clonedTasks"
-        @end="updateTasks"
-      >
+      <draggable class="width100" v-model="clonedTasks" @end="updateTasks">
         <task-preview
           v-for="task in clonedTasks"
           :user="loggedInUser"
@@ -22,6 +18,7 @@
       </draggable>
     </ul>
     <form class="flex" @submit.prevent="addTask">
+    <span class="task-color" :style="taskBgc"></span>
       <input
         class="add-task-input"
         @focus="showAddBtn"
@@ -60,6 +57,9 @@ export default {
     },
     loggedInUser() {
       return this.$store.getters.loggedInUser
+    },
+    taskBgc() {
+      return { backgroundColor: this.taskColor }
     }
   },
   methods: {

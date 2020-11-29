@@ -9,8 +9,9 @@
 
       <div class="task-txt">
         <span
+        class="editable"
           @blur="updateTaskTxt"
-          @keyup.enter="updateTaskTxt"
+          @keydown.enter="updateTaskTxt"
           contenteditable
           >{{ taskCopy.txt }}</span
         >
@@ -194,7 +195,7 @@ export default {
       this.taskCopy.priority.txt = opt.txt
       this.taskCopy.priority.color = opt.color
       console.log('prevPrior:', prevPrior)
-      newActivity.txt = `Task priority was updated from ${prevPrior} to '${opt.txt}'`
+      newActivity.txt = `Task priority was updated from ${prevPrior} to ${opt.txt}`
       newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
@@ -205,7 +206,7 @@ export default {
       const prevStatus = this.taskCopy.status.txt
       this.taskCopy.status.txt = opt.txt
       this.taskCopy.status.color = opt.color
-      newActivity.txt = `Task status was updated from ${prevStatus} to '${opt.txt}'`
+      newActivity.txt = `Task status was updated from ${prevStatus} to ${opt.txt}`
       newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()

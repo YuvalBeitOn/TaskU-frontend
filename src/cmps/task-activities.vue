@@ -25,9 +25,9 @@
         </div>
         <div class="activity-txt">{{ activity.txt }}</div>
       </section>
-      <div class="activity-date">
+      <small class="activity-date">
         > {{ activity.createdAt | moment('calendar', 'July 10 2011') }}
-      </div>
+      </small>
     </li>
   </ul>
 </template>

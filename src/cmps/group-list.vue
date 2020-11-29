@@ -9,10 +9,10 @@
           :deleteGroup="emitDelete"
           @updateGroup="updateGroup"
           @emitForceRender="emitForceRender"
+          @duplicateGroup="duplicateGroup"
         />
       </draggable>
     </ul>
-    
   </section>
 </template>
 <script>
@@ -37,6 +37,9 @@ export default {
     draggable
   },
   methods: {
+    duplicateGroup(group) {
+      this.$emit('duplicateGroup', group)
+    },
     emitDelete(groupId) {
       this.$emit('deleteGroup', groupId)
     },

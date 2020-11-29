@@ -9,39 +9,69 @@
   margin-bottom: 20px;
   cursor: pointer;
   button {
+    position: relative;
     background-color: transparent;
     border: none;
     padding: 0;
   }
-  .fa-icon {
-    font-size: 1.1rem;
+  .group-actions-container .expand-btn {
+    position: relative;
+    padding: 3px;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    .expand-arrow {
+      position: absolute;
+      color: white;
+      font-size: 0.6rem;
+      right: 3.5px;
+      top: 4px;
+    }
+  }
+  .fa-icon-act {
+    font-size: 0.6rem;
     padding: 5px;
-    color: gray;
+    color: #ffffff;
+    position: absolute;
+    top: 0px;
+    left: 0px;
     &:hover {
-      color: #333;
+      color: rgb(77, 77, 77);
     }
   }
   .group-actions {
     position: absolute;
     background-color: white;
-    z-index: 10;
+    z-index: 5;
     border-radius: rem(10px);
     box-shadow: 0 3px 10px -5px #484444;
-    padding: 5px;
+    padding: 8px;
+    width: 180px;
+    bottom: -170px;
     > * {
-      text-transform: capitalize;
-
-      background-color: white;
-      padding: 10px;
-      margin: rem(5px);
-      border: none;
+      padding: 1px;
       &:hover {
-        background-color: #c7c7c79c;
+        background-color: #e6e9ef;
+        border-radius: 5px;
       }
     }
-    > *:not(:last-child) {
-      border-bottom: 1px solid #96969698;
+    .act-btn {
+      background-color: #706f6f;
+      border-radius: 50%;
+      color: white;
+      width: 20px;
+      height: 20px;
     }
+    .act-txt {
+      font-family: roboto-light;
+      color: #323338;
+      margin-left: 5px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    // > *:not(:last-child) {
+    //   border-bottom: 1px solid #96969698;
+    // }
   }
   .group-headers {
     padding-bottom: 1rem;
@@ -54,12 +84,6 @@
   }
   &.expanded {
     background-color: transparent;
-  }
-  .expand-btn {
-    background-color: transparent;
-    margin-right: 5px;
-    border: none;
-    outline: none;
   }
   .headers {
     .list-title {
