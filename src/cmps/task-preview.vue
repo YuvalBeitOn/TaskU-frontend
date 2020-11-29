@@ -190,6 +190,7 @@ export default {
       let newActivity = boardService.getEmptyActivity()
       const prevPrior = this.taskCopy.priority
       this.taskCopy.priority = opt
+      console.log('prevPrior:', prevPrior, 'opt:', opt );
       newActivity.txt = `Task priority was updated from '${prevPrior}' to '${opt}`
       newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)

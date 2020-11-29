@@ -8,6 +8,7 @@
       >
         <task-preview
           v-for="task in clonedTasks"
+          :user="loggedInUser"
           :taskColor="taskColor"
           :key="task.id"
           :task="task"
@@ -57,7 +58,7 @@ export default {
     board() {
       return this.$store.getters.board
     },
-    user() {
+    loggedInUser() {
       return this.$store.getters.loggedInUser
     }
   },

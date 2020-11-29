@@ -2,9 +2,9 @@
   <section class="nav-menu flex column align-center space-between">
     <div class="top-nav flex column space-between align-center">
       <div class="nav-logo">
-         <!-- <router-link :to="'/board/' + defaultBoardId">  -->
-        <img src="img/icons/logo_icon.png"  alt="TaskU" />
-         <!-- </router-link> -->
+        <router-link :to="'/'">
+          <img src="img/icons/logo_icon.png" alt="TaskU" />
+        </router-link>
       </div>
       <i class="nav-icon far fa-bell"></i>
       <i class="nav-icon far fa-inbox-in"></i>
@@ -15,14 +15,12 @@
     </div>
     <div class="bottom-nav flex column align-center">
       <i class="nav-icon fal fa-calendar-check"></i>
-         <router-link to="/user/301">
-      <i class="nav-icon profile fas fa-user-circle"></i>
-         </router-link >
-         <router-link to="/"> 
-      
-      <i class="nav-icon logout fad fa-sign-out"></i>
-         </router-link >
-
+      <router-link to="/user/301">
+        <i class="nav-icon profile fas fa-user-circle"></i>
+      </router-link>
+      <router-link to="/">
+        <i class="nav-icon logout fad fa-sign-out"></i>
+      </router-link>
     </div>
   </section>
 </template>
@@ -30,12 +28,10 @@
 <script>
 export default {
   name: 'nav-menu',
-  computed:{
-
-    defaultBoardId(){
+  computed: {
+    defaultBoardId() {
       return this.$store.getters.defaultBoardId
     }
-  },
-
+  }
 }
 </script>
