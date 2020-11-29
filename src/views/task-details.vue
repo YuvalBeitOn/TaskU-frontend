@@ -77,16 +77,6 @@ export default {
                 board: this.board,
             })
         },
-<<<<<<< HEAD
-        getTaskById() {
-            var task
-            const taskId = this.$route.params.taskId
-            this.board.groups.forEach((group) => {
-                tgroup.tasks.find((task) => task.id === taskId)
-            })
-            return task
-        },
-=======
         // getTaskById() {
         //     let task
         //     const taskId = this.$route.params.taskId
@@ -96,7 +86,6 @@ export default {
         //     })
         //     return task
         // },
->>>>>>> b85eac79e430e17cfefefe4e18e49703c7cdabcc
     },
     computed: {
         board() {
