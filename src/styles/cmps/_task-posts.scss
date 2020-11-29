@@ -1,8 +1,33 @@
-.task-post-card {
-    border-radius: rem(8px);
-    border: 1px solid;
-    border-color: #e6e9ef;
-    width: 350px;
-    padding: 15px;
-    margin-top: 10px;
+.task-posts{
+    form{
+        .text-edit-post{
+           font-family: Arial, Helvetica, sans-serif;
+        }
+        .el-textarea__inner{
+           font-family: Arial, Helvetica, sans-serif;
+        }
+        button{
+            color:white;
+            transition-duration: 0.3s;
+        }
+    }
+    .task-post-card {
+   background-color: white;
+        border-radius: rem(8px);
+        border: 1px solid;
+        border-color: #e6e9ef;
+        width: 99%;
+        padding: 15px;
+        margin-top: 10px;
+        height: rem(180px);
+       .by-user{
+           font-family: 'roboto-regular';
+            margin-left: 3px;
+        }
+    }
+    .posts-list{
+        
+        border-top:1px solid rgb(233, 232, 230) ;
+       
+    }
 }

@@ -14,6 +14,7 @@
         >
           <avatar
             class="profile-img"
+            size="20"
             v-if="activity.byUser"
             :username="activity.byUser.fullName"
           ></avatar>
@@ -26,7 +27,7 @@
         <div class="activity-txt">{{ activity.txt }}</div>
       </section>
       <div class="activity-date">
-        > {{ activity.createdAt | moment('calendar', 'July 10 2011') }}
+        <h6><i class="far fa-clock"></i> {{getTime(activity.createdAt)}}</h6>
       </div>
     </li>
   </ul>
@@ -34,7 +35,7 @@
 
 <script>
 import Avatar from 'vue-avatar'
-
+import moment from 'moment'
 export default {
   name: 'task-activities',
   props: {
@@ -45,6 +46,11 @@ export default {
   data() {
     return {
       isHovering: false
+    }
+  },
+  methods:{
+    getTime(time){
+      return moment(time).calendar()
     }
   },
   components: {

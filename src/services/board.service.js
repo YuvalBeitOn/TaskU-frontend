@@ -75,6 +75,7 @@ function getEmptyGroup() {
 function getEmptyPost() {
     const post = boardUtils.getEmptyPost()
     post.id = utilService.makeId()
+    post.createdAt = Date.now()
     return post
 }
 

@@ -28,6 +28,7 @@
 <script>
 export default {
   name: 'nav-menu',
-  computed: {},
+  computed: {
+  },
 }
 </script>

@@ -1,13 +1,20 @@
 <template>
     <section v-if="!isLoading" class="board-app flex">
-        <board-list
+       
+        <board-list  v-if="isExpendedList"
             @removeBoard="removeCurrBoard"
             @addNewBoard="addBoard"
             :boards="boards"
-            title="Board"
+            title="Boards"
         >
             <board-search @searchBoard="setSearch" slot="search" />
         </board-list>
+         <div class="expend-btn-container" :style="expendStyle" >
+             
+        <i @click="isExpendedList = !isExpendedList" :class="expendBtnStyle"></i>
+
+         </div>
+        
         <div class="board-app-container width100">
             <div v-if="board" class="board-up">
                 <div class="board-header-top flex space-between">
@@ -15,7 +22,7 @@
                         <h2
                             class="board-name-title"
                             @blur="updateBoardName"
-                            @keyup.enter="updateBoardName"
+                            @keydown.enter="updateBoardName"
                             contenteditable
                         >
                             {{ board.name }}
@@ -24,7 +31,7 @@
                             class="board-descriotion"
                             v-if="board.description"
                             @blur="updateBoardDescription"
-                            @keyup.enter="updateBoardDescription"
+                            @keydown.enter="updateBoardDescription"
                             contenteditable
                         >
                             {{ board.description }}
@@ -54,7 +61,7 @@
                 </div>
 
                 <div class="board-control flex space-between">
-                    <h4>By: {{ board.creator.fullName }}</h4>
+                    <h4 class="board-creator">By: {{ board.creator.fullName }}</h4>
                     <board-filter
                         v-if="board"
                         :statuses="board.statuses"
@@ -63,7 +70,6 @@
                         @forceRerender="forceRerender"
                     />
                 </div>
-                <!-- <button @click="addGroup">New Group</button> -->
             </div>
             <group-list
                 v-if="board"
@@ -100,6 +106,7 @@ export default {
     name: 'board-app',
     data() {
         return {
+            isExpendedList:true,
             isMembersShowen: false,
             currTaskDetails: null,
             isTaskDetailsHover: false,
@@ -107,6 +114,12 @@ export default {
         }
     },
     computed: {
+        expendStyle(){
+            return this.isExpendedList ? {borderLeft:1+'px'+' solid ' + 'rgb(228, 228, 228)'} : {marginLeft:15+'px'}
+        },
+        expendBtnStyle(){
+            return this.isExpendedList ? 'expend-btn fas fa-chevron-left':'expend-btn fas fa-chevron-right' 
+        },
         isLoading() {
             return this.$store.getters.isLoading
         },

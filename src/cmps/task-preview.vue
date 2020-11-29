@@ -5,7 +5,7 @@
   >
     <div class="flex space-between align-center width100">
       <span class="task-color" :style="taskBgc"></span>
-      <button class="btn-close" @click="deleteTask">X</button>
+      <button class="btn-close" @click="deleteTask"><i class="task-icon fa-icon far fa-trash-alt"></i></button>
 
       <div class="task-txt">
         <span
@@ -16,14 +16,14 @@
         >
       </div>
 
-      <i @click="sendToTaskDetails" class="far fa-comment fa-icon"></i>
+      <i @click="sendToTaskDetails" class="task-icon far fa-comment fa-icon"></i>
     </div>
     <div class="task-details flex">
       <div class="headers flex">
         <span
           ><i
             @click.stop="openMemberPopup"
-            class="far fa-user-circle fa-icon"
+            class="task-icon far fa-user-circle fa-icon"
           ></i
         ></span>
 

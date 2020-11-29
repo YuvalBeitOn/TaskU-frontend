@@ -3,7 +3,7 @@ export const boardUtils = {
   getEmptyGroup,
   getEmptyTask,
   getEmptyPost,
-  getEmptyActivity
+getEmptyActivity
 }
 function getEmptyBoard() {
   return {
@@ -16,19 +16,19 @@ function getEmptyBoard() {
     },
     statuses: [
       {
-        color: '#a8a8a8',
+        color: '#c4c4c4',
         txt: ''
       },
       {
-        color: '#fdab3d',
+        color: '#f6c27f',
         txt: 'Working on it'
       },
       {
-        color: '#e44258',
+        color: '#d2505f',
         txt: 'Stuck'
       },
       {
-        color: '#00ca72',
+        color: '#5ac47d',
         txt: 'Done'
       }
     ],
@@ -59,7 +59,7 @@ function getEmptyBoard() {
 
 function getEmptyGroup() {
   return {
-    color: 'rgb(174, 203, 250)',
+    color: 'rgb(0, 134, 192)',
     name: 'New Group',
     tasks: [getEmptyTask(), getEmptyTask()]
   }
@@ -71,11 +71,11 @@ function getEmptyTask() {
     members: [],
     dueDate: '',
     status: {
-      color: '#a8a8a8',
+      color: '#c4c4c4',
       txt: ''
     },
     priority: {
-      color: '#a8a8a8',
+      color: '#c4c4c4',
       txt: ''
     },
     posts: [],
@@ -87,6 +87,7 @@ function getEmptyPost() {
   return {
     id: null,
     txt: 'txt',
+    createdAt:'',
     byUser: null
   }
 }

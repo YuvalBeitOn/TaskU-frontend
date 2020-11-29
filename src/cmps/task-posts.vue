@@ -1,8 +1,8 @@
 <template>
     <section class="task-posts">
-        <form @submit.prevent="addPost">
-            <el-input type="textarea" v-model="newPost" />
-            <button>Post</button>
+        <form  @submit.prevent="addPost">
+            <el-input  rows="3" placeholder="Write a massge..." resize="none" type="textarea" v-model="newPost" />
+            <button >Post</button>
         </form>
         <div class="posts-list flex column align-center">
             <div
@@ -11,15 +11,23 @@
                 :key="post.id"
             >
                 <div class="user-info-container flex space-between">
-                    <avatar
+                    <div class="flex align-center">
+                           <avatar
+                           size="30"
+                           color="white"
                         class="profile-img"
                         v-if="post.byUser"
                         :username="post.byUser.fullName"
                     ></avatar>
-                    <h2 v-if="post.byUser">{{ post.byUser.fullName }}</h2>
+ <span class="by-user" v-if="post.byUser">{{ post.byUser.fullName }}</span>
+                    </div>
+                 
+                   
+                    <h5><i class="far fa-clock"></i> {{getTime(post.createdAt)}}</h5>
                 </div>
                 <el-divider />
                 <span class="task-post-txt">{{ post.txt }}</span>
+                
             </div>
         </div>
     </section>
@@ -27,6 +35,7 @@
 <script>
 import { boardService } from '../services/board.service'
 import Avatar from 'vue-avatar'
+import moment from 'moment'
 
 export default {
     name: 'task-posts',
@@ -51,6 +60,9 @@ export default {
         this.copiedPosts = JSON.parse(JSON.stringify(this.posts))
     },
     methods: {
+        getTime(time){
+            return moment(time).calendar()
+        },
         addPost() {
             if (!this.newPost) {
                 return

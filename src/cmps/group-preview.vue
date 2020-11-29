@@ -9,7 +9,7 @@
     >
       <div class="flex relative">
         <button class="btn-close" @click.stop="toggleGroupActions">
-          <i class="fas fa-arrow-down fa-icon"></i>
+          <i :style="groupColor" class="fas fa-arrow-down fa-icon"></i>
         </button>
         <button class="expand-btn btn-close" @click.stop="toggleGroup">
           <i
@@ -38,7 +38,7 @@
       </div>
       <span v-if="!isExpanded">{{ tasksCount }}</span>
       <div v-if="isExpanded" class="flex space-between align-center">
-        <div class="group-headers headers flex" :style="groupColor">
+        <div class="group-headers headers flex" >
           <h4 class="list-title">Members</h4>
           <h4 class="list-title">Status</h4>
           <h4 class="list-title">Priority</h4>

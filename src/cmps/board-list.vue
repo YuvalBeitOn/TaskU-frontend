@@ -1,5 +1,6 @@
 <template>
   <section class="board-list flex column">
+    
     <div class="top-bar flex space-around align-center">
       <h1 class="title-board-list">{{ title }}</h1>
       <i @click="addBoard" class="btn-add fas fa-plus-circle"></i>
@@ -12,7 +13,7 @@
           @click="togglePopup(board._id)"
           class="minimenu-icon fas fa-ellipsis-h"
         ></i>
-        <router-link :to="'/board/' + board._id">{{ board.name }}</router-link>
+        <router-link :to="'/board/' + board._id">{{titleBoardToShow(board.name)}}</router-link>
         <popupMenu
           v-if="isPopupShowen && currBoardId === board._id"
           :menuItems="popupOptions"
@@ -51,6 +52,13 @@ export default {
   },
   computed: {},
   methods: {
+    titleBoardToShow(title){
+      if(title.length>10){
+        return title.substr(0,8)+'..'
+      }else{
+        return title
+      }
+    },
     removeCurrBoard() {
       this.$emit('removeBoard', this.currBoardId)
     },

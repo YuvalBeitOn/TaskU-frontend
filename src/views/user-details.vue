@@ -17,7 +17,7 @@
     <h2>Hello,{{ user.fullName }}</h2>
 
     </div>
-    <section class="user-content flex space-around align-center">
+    <section class="user-content flex justify-center ">
       <div class="user-details-info flex column wrap align-center">
         <h2>Details</h2>
         <h2><strong class="title-details">Full name:</strong>{{ user.fullName }}</h2>
