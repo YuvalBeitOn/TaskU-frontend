@@ -21,13 +21,8 @@
     <div class="task-details flex">
       <div class="headers flex">
         <span
-          ><i @click.stop="toggleMember" class="far fa-user-circle fa-icon"></i
+          ><i @click.stop="openMemberPopup" class="far fa-user-circle fa-icon"></i
         ></span>
-        <div
-          class="close-popup"
-          v-if="isTaskMembersShowen"
-          @click.prevent.stop="isTaskMembersShowen = false"
-        ></div>
 
         <add-members
           v-if="isTaskMembersShowen"
@@ -49,11 +44,6 @@
             type="status"
             @updateTaskStatus="updateTaskStatus"
         /></span>
-        <div
-          class="close-popup"
-          v-if="isStatusesShowen"
-          @click.prevent="isStatusesShowen = false"
-        ></div>
 
         <span
           @click="togglePriors"
@@ -66,11 +56,6 @@
             type="priority"
             @updateTaskPriority="updateTaskPriority"
         /></span>
-        <div
-          class="close-popup"
-          v-if="isPriorsShowen"
-          @click.prevent="isPriorsShowen = false"
-        ></div>
 
         <span class="date-picker">
           <el-date-picker
@@ -84,6 +69,11 @@
         </span>
       </div>
     </div>
+    <div
+      class="back-drop-layer"
+      v-if="isTaskMembersShowen || isStatusesShowen || isPriorsShowen"
+      @click.stop="closePopups"
+    ></div>
   </li>
 </template>
 <script>
@@ -100,7 +90,7 @@ export default {
       taskCopy: null,
       isStatusesShowen: false,
       isPriorsShowen: false,
-      isTaskMembersShowen: false
+      isTaskMembersShowen: false,
     }
   },
   props: {
@@ -111,7 +101,7 @@ export default {
     groupId: String,
     boardMembers: [Array, Object],
     activity: Object,
-    user: Object
+    user: Object,
   },
   computed: {
     taskBgc() {
@@ -121,8 +111,8 @@ export default {
       const boardMembers = this.boardMembers
       const taskMembers = this.taskCopy.members
       if (taskMembers) {
-        const filteredBoardMembers = boardMembers.filter(bMember => {
-          return taskMembers.every(tMember => {
+        const filteredBoardMembers = boardMembers.filter((bMember) => {
+          return taskMembers.every((tMember) => {
             return tMember._id !== bMember._id
           })
         })
@@ -130,11 +120,11 @@ export default {
       } else {
         return boardMembers
       }
-    }
+    },
   },
   methods: {
-    toggleMember() {
-      this.isTaskMembersShowen = !this.isTaskMembersShowen
+    openMemberPopup() {
+      this.isTaskMembersShowen = true
     },
     addTaskMember(member) {
       let newActivity = boardService.getEmptyActivity()
@@ -146,7 +136,7 @@ export default {
     },
     removeTaskMember(member) {
       const idx = this.taskCopy.members.findIndex(
-        tMember => tMember._id === member._id
+        (tMember) => tMember._id === member._id
       )
       let newActivity = boardService.getEmptyActivity()
       this.taskCopy.members.splice(idx, 1)
@@ -189,7 +179,7 @@ export default {
 
       eventBus.$emit('taskDetails', {
         task: this.taskCopy,
-        groupId: this.groupId
+        groupId: this.groupId,
       })
       this.$router.push(
         `/board/${this.$route.params.boardId}/task/${this.task.id}`
@@ -218,10 +208,16 @@ export default {
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
       this.isPriorsShowen = false
-    }
+    },
+    closePopups() {
+      console.log('pooopup');
+      this.isStatusesShowen = false
+      this.isPriorsShowen = false
+      this.isTaskMembersShowen = false
+    },
   },
   created() {
     this.taskCopy = this.task
-  }
+  },
 }
 </script>

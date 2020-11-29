@@ -66,25 +66,27 @@
   border-bottom: 2px solid hsla(0, 0%, 42.7%, 0.419608);
   background-color: transparent;
 }
-.close-popup {
-  opacity: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  left: 0;
-}
+// .close-popup {
+//   background-color: rgba(148, 150, 147, 0.474);
+//   opacity: 0;
+//   position: absolute;
+//   right: 0;
+//   top: 0;
+//   bottom: 0;
+//   left: 0;
+// }
 .loader-app {
   height: 90px;
   width: 90px;
 }
 
 .back-drop-layer {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.034);
+background-color: rgba(0, 255, 255, 0.221);
+  position: fixed;
   top: 0;
-  right: 0;
   left: 0;
-  bottom: 0;
-  z-index: 5;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
 }
+
