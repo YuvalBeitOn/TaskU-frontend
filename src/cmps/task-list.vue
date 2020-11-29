@@ -77,7 +77,7 @@ export default {
       const newTask = boardService.getEmptyTask()
       newTask.txt = this.txt
       newActivity.txt = `Task '${newTask.txt}' added`
-      newActivity.byUser = this.user
+      newActivity.byUser = this.loggedInUser
       newTask.activities.push(newActivity)
       const group = this.getGroupById()
       group.tasks.push(newTask)

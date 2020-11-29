@@ -36,9 +36,9 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    justify-content: end;
     padding-left: 10px;
     span {
+      justify-content: end;
       border: none;
     }
   }

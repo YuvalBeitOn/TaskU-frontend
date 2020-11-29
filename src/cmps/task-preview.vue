@@ -199,25 +199,25 @@ export default {
       console.log('opt:', opt)
       let newActivity = boardService.getEmptyActivity()
       const prevPrior = this.taskCopy.priority.txt
-      console.log('prevPrior:', prevPrior)
       this.taskCopy.priority.txt = opt.txt
       this.taskCopy.priority.color = opt.color
-      newActivity.txt = `Task priority was updated from '${prevPrior}' to '${opt}`
+      console.log('prevPrior:', prevPrior)
+      newActivity.txt = `Task priority was updated from ${prevPrior} to '${opt.txt}'`
       newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
-      this.isStatusesShowen = false
+      this.isPriorsShowen = false
     },
     updateTaskStatus(opt) {
       let newActivity = boardService.getEmptyActivity()
       const prevStatus = this.taskCopy.status.txt
       this.taskCopy.status.txt = opt.txt
       this.taskCopy.status.color = opt.color
-      newActivity.txt = `Task status was updated from '${prevStatus}' to '${opt}`
+      newActivity.txt = `Task status was updated from ${prevStatus} to '${opt.txt}'`
       newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
-      this.isPriorsShowen = false
+      this.isStatusesShowen = false
     }
   },
   created() {
