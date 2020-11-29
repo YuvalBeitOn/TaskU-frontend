@@ -21,7 +21,10 @@
     <div class="task-details flex">
       <div class="headers flex">
         <span
-          ><i @click.stop="openMemberPopup" class="far fa-user-circle fa-icon"></i
+          ><i
+            @click.stop="openMemberPopup"
+            class="far fa-user-circle fa-icon"
+          ></i
         ></span>
 
         <add-members
@@ -81,7 +84,6 @@ import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
 import labelPicker from './label-picker'
 import { boardService } from '@/services/board.service'
-
 export default {
   components: { labelPicker, addMembers },
   name: 'task-preview',
@@ -125,6 +127,9 @@ export default {
   methods: {
     openMemberPopup() {
       this.isTaskMembersShowen = true
+    },
+    toggleMember() {
+      this.isTaskMembersShowen = !this.isTaskMembersShowen
     },
     addTaskMember(member) {
       let newActivity = boardService.getEmptyActivity()
@@ -170,20 +175,17 @@ export default {
       this.$emit('updateTask', this.taskCopy)
     },
     sendToTaskDetails() {
-      if (
-        this.$route.params.taskId &&
-        this.$route.params.taskId === this.task.id
-      ) {
+      if (this.$route.params.taskId === this.task.id) {
         return
       }
-
-      eventBus.$emit('taskDetails', {
-        task: this.taskCopy,
-        groupId: this.groupId,
-      })
       this.$router.push(
         `/board/${this.$route.params.boardId}/task/${this.task.id}`
       )
+    },
+    updateComponentTask(task) {
+      if (this.taskCopy.id === this.$route.params.taskId) {
+        this.taskCopy = task
+      }
     },
     updateTaskPriority(opt) {
       console.log('opt:', opt)
@@ -210,13 +212,13 @@ export default {
       this.isPriorsShowen = false
     },
     closePopups() {
-      console.log('pooopup');
+      this.isTaskMembersShowen = false
       this.isStatusesShowen = false
       this.isPriorsShowen = false
-      this.isTaskMembersShowen = false
     },
   },
   created() {
+    eventBus.$on('updateTaskPreview', this.updateComponentTask)
     this.taskCopy = this.task
   },
 }
