@@ -37,7 +37,7 @@
         </div>
        
         <div class="board-control flex space-between">
-          <h4>By:{{board.creator.fullName}}</h4>
+          <h4>By: {{board.creator.fullName}}</h4>
           <board-filter
             v-if="board"
             :statuses="board.statuses"
