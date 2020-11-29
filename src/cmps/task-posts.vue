@@ -4,7 +4,6 @@
             <el-input type="textarea" v-model="newPost" />
             <button>Post</button>
         </form>
-        <!-- <el-divider /> -->
         <div class="posts-list flex column align-center">
             <div
                 class="task-post-card"
@@ -17,15 +16,14 @@
                         v-if="post.byUser"
                         :username="post.byUser.fullName"
                     ></avatar>
-                    <h2 v-if="post.byUser">{{post.byUser.fullName}}</h2>
+                    <h2 v-if="post.byUser">{{ post.byUser.fullName }}</h2>
                 </div>
-                    <el-divider/>
-                <span class="task-post-txt">{{post.txt}}</span>
+                <el-divider />
+                <span class="task-post-txt">{{ post.txt }}</span>
             </div>
         </div>
     </section>
 </template>
-
 <script>
 import { boardService } from '../services/board.service'
 import Avatar from 'vue-avatar'
@@ -46,6 +44,7 @@ export default {
         return {
             newPost: null,
             copiedPosts: null,
+            componentKey: 0,
         }
     },
     created() {
@@ -66,6 +65,11 @@ export default {
     },
     components: {
         Avatar,
+    },
+    watch: {
+        '$route.params.taskId'() {
+            this.copiedPosts = this.posts
+        },
     },
 }
 </script>

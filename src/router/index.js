@@ -2,10 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import homePage from '@/views/home-page'
 import boardApp from '@/views/board-app'
-// import taskDetails from '@/views/task-details'
 import userDetails from '@/views/user-details'
 import appLogin from '@/views/app-login'
 import appSignup from '@/views/app-signup'
+// import taskDetails from '@/views/task-details'
 
 Vue.use(VueRouter)
 
@@ -25,10 +25,21 @@ const routes = [
     name: 'appSignup',
     component: appSignup
   },
+  // {
+  //   path: '/board/:boardId?/:task?/:taskId?',
+  //   name: 'boradApp',
+  //   component: boardApp
+  // },
   {
     path: '/board/:boardId?/:task?/:taskId?',
-    name: 'boradApp',
-    component: boardApp
+    name: 'boardApp',
+    component: boardApp,
+    // children: [
+    //   {
+    //     path: '/task/:taskId?',
+    //     component: taskDetails
+    //   }
+    // ]
   },
   {
     path: '/user/:userId',

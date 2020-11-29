@@ -21,13 +21,11 @@
     <div class="task-details flex">
       <div class="headers flex">
         <span
-          ><i @click.stop="toggleMember" class="far fa-user-circle fa-icon"></i
+          ><i
+            @click.stop="openMemberPopup"
+            class="far fa-user-circle fa-icon"
+          ></i
         ></span>
-        <div
-          class="close-popup"
-          v-if="isTaskMembersShowen"
-          @click.prevent.stop="isTaskMembersShowen = false"
-        ></div>
 
         <add-members
           v-if="isTaskMembersShowen"
@@ -49,11 +47,6 @@
             type="status"
             @updateTaskStatus="updateTaskStatus"
         /></span>
-        <div
-          class="close-popup"
-          v-if="isStatusesShowen"
-          @click.prevent="isStatusesShowen = false"
-        ></div>
 
         <span
           @click="togglePriors"
@@ -66,11 +59,6 @@
             type="priority"
             @updateTaskPriority="updateTaskPriority"
         /></span>
-        <div
-          class="close-popup"
-          v-if="isPriorsShowen"
-          @click.prevent="isPriorsShowen = false"
-        ></div>
 
         <span class="date-picker">
           <el-date-picker
@@ -84,6 +72,11 @@
         </span>
       </div>
     </div>
+    <div
+      class="back-drop-layer"
+      v-if="isTaskMembersShowen || isStatusesShowen || isPriorsShowen"
+      @click.stop="closePopups"
+    ></div>
   </li>
 </template>
 <script>
@@ -91,7 +84,6 @@ import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
 import labelPicker from './label-picker'
 import { boardService } from '@/services/board.service'
-
 export default {
   components: { labelPicker, addMembers },
   name: 'task-preview',
@@ -100,7 +92,7 @@ export default {
       taskCopy: null,
       isStatusesShowen: false,
       isPriorsShowen: false,
-      isTaskMembersShowen: false
+      isTaskMembersShowen: false,
     }
   },
   props: {
@@ -111,7 +103,7 @@ export default {
     groupId: String,
     boardMembers: [Array, Object],
     activity: Object,
-    user: Object
+    user: Object,
   },
   computed: {
     taskBgc() {
@@ -121,8 +113,8 @@ export default {
       const boardMembers = this.boardMembers
       const taskMembers = this.taskCopy.members
       if (taskMembers) {
-        const filteredBoardMembers = boardMembers.filter(bMember => {
-          return taskMembers.every(tMember => {
+        const filteredBoardMembers = boardMembers.filter((bMember) => {
+          return taskMembers.every((tMember) => {
             return tMember._id !== bMember._id
           })
         })
@@ -130,9 +122,12 @@ export default {
       } else {
         return boardMembers
       }
-    }
+    },
   },
   methods: {
+    openMemberPopup() {
+      this.isTaskMembersShowen = true
+    },
     toggleMember() {
       this.isTaskMembersShowen = !this.isTaskMembersShowen
     },
@@ -146,7 +141,7 @@ export default {
     },
     removeTaskMember(member) {
       const idx = this.taskCopy.members.findIndex(
-        tMember => tMember._id === member._id
+        (tMember) => tMember._id === member._id
       )
       let newActivity = boardService.getEmptyActivity()
       this.taskCopy.members.splice(idx, 1)
@@ -180,20 +175,17 @@ export default {
       this.$emit('updateTask', this.taskCopy)
     },
     sendToTaskDetails() {
-      if (
-        this.$route.params.taskId &&
-        this.$route.params.taskId === this.task.id
-      ) {
+      if (this.$route.params.taskId === this.task.id) {
         return
       }
-
-      eventBus.$emit('taskDetails', {
-        task: this.taskCopy,
-        groupId: this.groupId
-      })
       this.$router.push(
         `/board/${this.$route.params.boardId}/task/${this.task.id}`
       )
+    },
+    updateComponentTask(task) {
+      if (this.taskCopy.id === this.$route.params.taskId) {
+        this.taskCopy = task
+      }
     },
     updateTaskPriority(opt) {
       console.log('opt:', opt)
@@ -217,11 +209,17 @@ export default {
       newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
+      this.isPriorsShowen = false
+    },
+    closePopups() {
+      this.isTaskMembersShowen = false
       this.isStatusesShowen = false
-    }
+      this.isPriorsShowen = false
+    },
   },
   created() {
+    eventBus.$on('updateTaskPreview', this.updateComponentTask)
     this.taskCopy = this.task
-  }
+  },
 }
 </script>

@@ -56,8 +56,8 @@ export default {
     },
     addBoard() {
       this.$emit('addNewBoard')
-    },togglePopup
-    (boardId) {
+    },
+    togglePopup(boardId) {
       this.currBoardId = this.isPopupShowen ? '' : boardId
       this.isPopupShowen = !this.isPopupShowen
     }
