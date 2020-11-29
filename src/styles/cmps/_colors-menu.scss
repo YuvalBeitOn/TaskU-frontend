@@ -1,12 +1,12 @@
 .colors-container {
     position: absolute;
-    width: 100px;
-    bottom: 265px;
+    width: 170px;
+    bottom: 0;
+    right: 0;
     padding: 0.5rem;
     background-color: white;
     border-radius: rem(10px);
     z-index: 1500;
-    left: 26%;
     box-shadow: 0 3px 10px -5px #484444;
   .color {
     cursor: pointer;

@@ -41,7 +41,6 @@ export default {
             this.$router.push(`/board/${this.$route.params.boardId}`)
         },
         updateTaskTxt(ev) {
-            console.log('this group id task details', this.groupId)
             this.task.txt = ev.target.innerText
             const groupIdx = this.getGroupIdxById()
             const group = this.board.groups[groupIdx]
@@ -95,13 +94,6 @@ export default {
             return this.$store.getters.loggedInUser
         },
     },
-    // watch: {
-    //     '$route.params.taskId'() {
-    //         console.log(this.$route.params.taskId)
-    //         const task = this.getTaskById()
-    //         console.log('task', task)
-    //     },
-    // },
     components: {
         taskPosts,
         taskActivities,

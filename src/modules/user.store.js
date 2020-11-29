@@ -19,7 +19,6 @@ export const userStore = {
     },
     setUser(state, { user }) {
       state.currUser = user
-      console.log('state.currUser:', state.currUser)
     },
     updateUser(state, { user }) {
       const idx = state.users.findIndex(currUser => user._id === currUser._id)
@@ -36,7 +35,6 @@ export const userStore = {
   actions: {
     async loadUsers({commit}) {
       const users = await userService.getUsers()
-      console.log('users:', users)
       commit({ type: 'setUsers', users })
     },
     async loadUser({commit},{ userId }) {

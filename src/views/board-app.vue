@@ -123,7 +123,6 @@ export default {
       this.forceRerender()
     },
         updateBoardDescription(ev){
-        console.log(ev.target.innerText,'target')
         this.board.description =  ev.target.innerText
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.forceRerender()
@@ -136,7 +135,6 @@ export default {
       this.isMembersShowen = !this.isMembersShowen
     },
     addUserToBoard(user) {
-      console.log('user:', user)
       this.board.members.unshift(user)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
     },
@@ -185,7 +183,6 @@ export default {
       this.forceRerender()
     },
     updateGroup(updatedGroup) {
-      console.log(updatedGroup.name)
       const idx = this.board.groups.findIndex(
         group => group.id === updatedGroup.id
       )
@@ -205,7 +202,6 @@ export default {
       this.forceRerender()
     },
     setCurrTaskDetails(currTaskDetails) {
-      console.log(currTaskDetails, 'Setting currTaskDetails')
       this.currTaskDetails = currTaskDetails
     }
   },

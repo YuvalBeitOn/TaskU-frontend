@@ -1,4 +1,5 @@
 .group-preview {
+  position: relative;
   background: #d3d3d347;
   border-radius: 4px;
   padding: 0 1rem 0 1rem;
@@ -10,6 +11,7 @@
   button {
     background-color: transparent;
     border: none;
+    padding: 0;
   }
   .fa-icon {
     font-size: 1.1rem;
@@ -22,12 +24,12 @@
   .group-actions {
     position: absolute;
     background-color: white;
-    z-index: 5;
+    z-index: 10;
     border-radius: rem(10px);
     box-shadow: 0 3px 10px -5px #484444;
     padding: 5px;
     > * {
-    text-transform: capitalize;
+      text-transform: capitalize;
 
       background-color: white;
       padding: 10px;
@@ -37,20 +39,21 @@
         background-color: #c7c7c79c;
       }
     }
-    >*:not(:last-child){
+    > *:not(:last-child) {
       border-bottom: 1px solid #96969698;
-
     }
   }
   .group-headers {
     padding-bottom: 1rem;
+    &.group-name {
+      color: rgb(17, 21, 27);
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
   }
   &.expanded {
     background-color: transparent;
-  }
-  .group-name {
-    color: rgb(17, 21, 27);
-    display: inline-block;
   }
   .expand-btn {
     background-color: transparent;

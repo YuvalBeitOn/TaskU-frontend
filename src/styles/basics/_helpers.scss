@@ -41,7 +41,7 @@
 }
 
 .relative {
-    position: relative;
+  position: relative;
 }
 
 /* Ul */
@@ -63,10 +63,10 @@
   outline: none;
   margin: rem(20px);
   border: 0;
-  border-bottom: 2px solid hsla(0, 0%, 42.7%, .419608);
+  border-bottom: 2px solid hsla(0, 0%, 42.7%, 0.419608);
   background-color: transparent;
 }
-.close-popup{
+.close-popup {
   opacity: 0;
   position: absolute;
   right: 0;
@@ -74,8 +74,17 @@
   bottom: 0;
   left: 0;
 }
-.loader-app{
+.loader-app {
   height: 90px;
   width: 90px;
- 
+}
+
+.back-drop-layer {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.034);
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 5;
 }
