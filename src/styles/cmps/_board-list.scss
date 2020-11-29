@@ -25,7 +25,8 @@
 
     .boards-list{
         overflow-y: auto;
-        max-height: 82.5vh;
+        overflow-x: hidden;
+        height: 82.5vh;
         .board-item {
             position: relative;
             margin-bottom: 10px;
@@ -41,7 +42,7 @@
                 font-size: 1.25rem;
                 text-decoration: none;
                 color: #0085ff;
-                max-width: 150px;
+                max-width: 170px;
             }
             .router-link-active{
                 border-radius: 5px;

@@ -1,7 +1,7 @@
 <template>
     <li
       :class="{
-        'group-preview width100 flex space-between align-center': true,
+        'group-preview width100 flex space-between align-center ': true,
         expanded: expanded
       }"
       @click="expandGroup"
@@ -17,7 +17,7 @@
               class="fas fa-expand-arrows-alt fa-icon"
             ></i>
           </button>
-          <div class="flex column group-actions" v-if="isActionsShowen">
+          <div class="flex column group-actions " v-if="isActionsShowen">
             <button @click.stop="deleteGroup(groupCopy.id)">
               <i class="fas fa-trash"></i> Delete
             </button>
@@ -53,6 +53,7 @@
         :groupId="groupCopy.id"
         @forceRender="emitForceRender"
       />
+      <h2>{{task}}</h2>
     </li>
 </template>
 

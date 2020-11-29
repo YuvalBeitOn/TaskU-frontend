@@ -1,8 +1,5 @@
 <template>
   <section class="board-filter flex space-between">
-    <span class="creator flex align-center" v-if="creator"
-      >By: {{ creator.fullName }}</span
-    >
     <div class="filter-actions flex space-between">
       <button class="add-group-btn" @click="addGroup">New Group</button>
       <span
@@ -44,7 +41,6 @@ import filterForm from './filter-form'
 export default {
   name: 'board-filter',
   props: {
-    creator: Object,
     priorities: Array,
     statuses: Array
   },

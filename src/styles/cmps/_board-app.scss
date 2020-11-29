@@ -1,13 +1,16 @@
 .board-app {
+  background-color: #f7f7f7;
+
   .board-control {
     border-bottom: 1px solid rgba(165, 165, 165, 0.714);
-    padding: rem(15px) rem(30px) rem(0px) rem(30px);
+    padding: rem(15px) rem(30px) rem(0px) rem(20px);
   }
   .board-up {
     background-color: #f7f7f7;
+    
     padding: 30px 30px 0px 30px;
   }
-  .board-up-header {
+  .board-header-top {
     padding: 0px 20px 0px 20px;
 
     .right {
@@ -18,7 +21,9 @@
     .board-name-title {
       font-weight: bolder;
       text-transform: capitalize;
+      margin-bottom: rem(16px);
     }
+  
   }
   .backdrop-layer {
     position: absolute;

@@ -3,7 +3,6 @@
         v-if="taskCopy"
         class="task-preview flex space-between align-center width100"
     >
-    <div class="close-popup" v-if="isTaskMembersShowen" @click.prevent="isTaskMembersShowen=false"></div>
         <div class="flex space-between width100">
             <span class="task-color" :style="taskBgc"></span>
                   <button class="btn-close" @click="deleteTask">X</button>
@@ -31,6 +30,8 @@
                         class="far fa-user-circle fa-icon"
                     ></i
                 ></span>
+    <div class="close-popup" v-if="isTaskMembersShowen" @click.prevent.stop="isTaskMembersShowen=false"></div>
+
                 <add-members
                     v-if="isTaskMembersShowen"
                     firstTitle="Task Members"
