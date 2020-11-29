@@ -6,7 +6,7 @@
     <div class="close-popup" v-if="isTaskMembersShowen" @click.prevent="isTaskMembersShowen=false"></div>
         <div class="flex space-between width100">
             <span class="task-color" :style="taskBgc"></span>
-                  <button @click="deleteTask">X</button>
+                  <button class="btn-close" @click="deleteTask">X</button>
 
             <div class="task-txt">
                 <span
@@ -16,9 +16,9 @@
                     >{{ taskCopy.txt }}</span
                 >
             </div>
-            <span @click="sendToTaskDetails"
-                ><i class="far fa-comment fa-icon"></i
-            ></span>
+           
+                <i @click="sendToTaskDetails" class="far fa-comment fa-icon"></i>
+           
         </div>
         <div class="task-details flex">
             <div class="headers flex">
