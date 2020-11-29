@@ -8,10 +8,10 @@
     >
       <div class="flex">
         <div>
-          <button @click="toggleGroupActions">
-            <i class="fas fa-arrow-down fa-icon"></i>
+          <button class="btn-close" >
+            <i @click="toggleGroupActions" class="fas fa-arrow-down fa-icon"></i>
           </button>
-          <button class="expand-btn" @click.stop="toggleGroup">
+          <button class="expand-btn btn-close" @click.stop="toggleGroup">
             <i
               @click.stop="toggleGroup"
               class="fas fa-expand-arrows-alt fa-icon"

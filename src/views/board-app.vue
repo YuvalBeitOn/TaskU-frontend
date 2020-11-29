@@ -22,7 +22,7 @@
           </div>
     <div class="board-header-nav flex wrap"> 
     <div class="close-popup" v-if="isMembersShowen" @click.prevent="isMembersShowen=false"></div>
-          <i @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
+          <i @click="toggleMembers" class="icon-nav-hader far fa-user-circle fa-icon"></i>
           <add-members
             class="right"
             v-if="isMembersShowen"

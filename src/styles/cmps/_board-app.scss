@@ -12,7 +12,11 @@
   }
   .board-header-top {
     padding: 0px 20px 0px 20px;
-
+    .board-header-nav{
+      .icon-nav-hader {
+        font-size: rem(20px);
+      }
+    }
     .right {
       z-index: 55;
       top: 10px;
