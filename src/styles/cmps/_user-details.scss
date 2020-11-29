@@ -21,7 +21,11 @@
     margin-bottom: rem(18px);
 }
 .user-content{
-
+.list-board-user{
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 500px;
+}
     .user-details-info{
         h2{
            font-weight: 100; 

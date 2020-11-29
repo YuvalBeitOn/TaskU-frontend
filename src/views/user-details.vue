@@ -23,7 +23,7 @@
         <h2><strong class="title-details">Full name:</strong>{{ user.fullName }}</h2>
         <h2><strong class="title-details">Email:</strong>{{ user.email }}</h2>
       </div>
-      <div  class="list-boards flex column wrap clean-list align-center">
+      <div  class="list-board-user flex column wrap clean-list align-center">
           <board-list
             @removeBoard="removeCurrBoard"
             @addNewBoard="addBoard"

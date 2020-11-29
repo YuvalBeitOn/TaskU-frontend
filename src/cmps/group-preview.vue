@@ -35,7 +35,7 @@
           contenteditable
         >
           {{ groupCopy.name }}
-        </h4>
+      </h4>
       </div>
       <span v-if="!isExpanded">{{ tasksCount }}</span>
       <div v-if="isExpanded" class="flex space-between align-center">
@@ -53,7 +53,7 @@
         :groupId="groupCopy.id"
         @forceRender="emitForceRender"
       />
-      <h2>{{task}}</h2>
+      
     </li>
 </template>
 
