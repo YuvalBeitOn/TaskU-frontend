@@ -5,7 +5,7 @@
             <i @click="addBoard" class="btn-add fas fa-plus-circle"></i>
         </div>
         <slot name="search"></slot>
-  
+
 
         <ul v-if="boards" class="boards-list clean-list">
             <li class="board-item" v-for="board in boards" :key="board._id">

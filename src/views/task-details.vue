@@ -77,15 +77,15 @@ export default {
                 board: this.board,
             })
         },
-        // getTaskById() {
-        //     let task
-        //     const taskId = this.$route.params.taskId
-        //     this.board.groups.forEach((group) => {
-    
-        //         task = group.tasks.find((task) => task.id === taskId)
-        //     })
-        //     return task
-        // },
+        getTaskById() {
+            let task
+            const taskId = this.$route.params.taskId
+            this.board.groups.forEach((group) => {
+                
+                group.tasks.find((task) => task.id === taskId)
+            })
+            return task
+        },
     },
     computed: {
         board() {

@@ -44,6 +44,7 @@
         @deleteGroup="deleteGroup"
         @updateGroup="updateGroup"
         @forceRender="forceRerender"
+        @updateGroups="updateGroups"
       />
       <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
     </div>
@@ -67,6 +68,8 @@ import { boardService } from '@/services/board.service'
 import { eventBus } from '@/services/event-bus.service'
 import boardFilter from '@/cmps/board-filter.vue'
 import boardSearch from '@/cmps/board-search'
+
+
 
 export default {
   name: 'board-app',
@@ -195,7 +198,7 @@ export default {
     boardFilter,
     addMembers,
     taskDetails,
-    boardSearch
+    boardSearch,
   }
 }
 </script>
