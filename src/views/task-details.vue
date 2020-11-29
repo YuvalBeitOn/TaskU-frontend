@@ -1,25 +1,24 @@
 <template>
-  <section v-if="board && task" class="task-details-section">
-    <div class="top-bar">
-      <i @click.stop="closeBtn" class="fas fa-times"></i>
-      <h1
-        class="editable"
-        @blur.stop="updateTaskTxt"
-        @keydown.enter="updateTaskTxt"
-        contenteditable
-      >
-        {{ task.txt }}
-      </h1>
-    </div>
-    <el-tabs>
-      <el-tab-pane label="Task posts">
-        <task-posts @updatePosts="updatePosts" :posts="posts" />
-      </el-tab-pane>
-      <el-tab-pane label="Task activities">
-        <task-activities :activities="task.activities" />
-      </el-tab-pane>
-    </el-tabs>
-  </section>
+    <section v-if="task" class="task-details-section">
+        <div class="top-bar">
+            <button class="cls-btn"><i @click.stop="closeBtn" class="fas fa-times"></i></button>
+            <h1 class="task-title editable"
+                @blur.stop="updateTaskTxt"
+                @keyup.enter="updateTaskTxt"
+                contenteditable
+            >
+                {{ task.txt }}
+            </h1>
+        </div>
+        <el-tabs>
+            <el-tab-pane label="Task Posts">
+                <task-posts @updatePosts="updatePosts" :posts="posts" />
+            </el-tab-pane>
+            <el-tab-pane label="Task Activities">
+                <task-activities :activities="task.activities" />
+            </el-tab-pane>
+        </el-tabs>
+    </section>
 </template>
 <script>
 import taskPosts from '@/cmps/task-posts'

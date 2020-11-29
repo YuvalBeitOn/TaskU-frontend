@@ -73,7 +73,7 @@
       </div>
       <span v-if="!isExpanded">{{ tasksCount }}</span>
       <div v-if="isExpanded" class="flex space-between align-center">
-        <div class="group-headers headers flex" :style="groupColor">
+        <div class="group-headers headers flex" >
           <h4 class="list-title">Members</h4>
           <h4 class="list-title">Status</h4>
           <h4 class="list-title">Priority</h4>

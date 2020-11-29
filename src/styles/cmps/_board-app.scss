@@ -4,6 +4,9 @@
   .board-control {
     border-bottom: 1px solid rgba(165, 165, 165, 0.714);
     padding: rem(15px) rem(30px) rem(0px) rem(20px);
+    .board-creator{
+      font-size: rem(13px);
+    }
   }
   .board-up {
     background-color: #f7f7f7;
@@ -23,8 +26,13 @@
       top: 10px;
       right: 30px;
     }
+    .board-descriotion{
+      font-size: rem(14px);
+    }
     .board-name-title {
-      font-weight: bolder;
+      font-family: 'roboto-regular';
+      font-size: rem(28px);
+
       text-transform: capitalize;
       margin-bottom: rem(16px);
     }

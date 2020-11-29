@@ -76,6 +76,8 @@
   .group-headers {
     padding-bottom: 1rem;
     &.group-name {
+      font-family: 'roboto-light';
+      font-size: rem(15px);
       color: rgb(17, 21, 27);
       display: inline-block;
       margin: 0;
@@ -86,6 +88,7 @@
     background-color: transparent;
   }
   .headers {
+    font-size: rem(13px);
     .list-title {
       width: 120px;
       text-align: center;

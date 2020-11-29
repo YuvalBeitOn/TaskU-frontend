@@ -8,6 +8,17 @@
   box-shadow: 0 3px 4px -5px #484444;
   transition: background-color 0.3s;
   text-align: center;
+  .status {
+    border-right: 1px solid white;
+  }
+  .status,
+  .priority {
+    color: white;
+    font-weight: 500;
+    font-size: rem(13px);
+    letter-spacing: 0.5px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
   .task-color {
     width: 7px;
     margin-right: 1px;
@@ -59,7 +70,7 @@
       border: none;
       justify-content: left;
     }
-    .el-input__inner{
+    .el-input__inner {
       height: 35px;
       border-radius: 0;
       border: inherit;

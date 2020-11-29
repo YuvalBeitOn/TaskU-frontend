@@ -1,8 +1,49 @@
-.task-post-card {
+.task-posts {
+  form {
+    .text-edit-post {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button {
+      color: white;
+      transition-duration: 0.3s;
+      margin: 0.5rem 0;
+    }
+    .el-input-text-editor {
+      font-family: Arial, Helvetica, sans-serif;
+      display: block;
+      resize: none;
+      padding: 5px 15px;
+      line-height: 1.5;
+      width: 100%;
+      font-size: inherit;
+      color: #606266;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #dcdfe6;
+      border-radius: 4px;
+    //   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+      &:focus {
+        outline: none !important;
+        border: 1.5px solid $clr1;
+    }
+    }
+  }
+  .task-post-card {
+    background-color: white;
     border-radius: rem(8px);
     border: 1px solid;
     border-color: #e6e9ef;
-    width: 350px;
+    width: 99%;
     padding: 15px;
     margin-top: 10px;
+    height: rem(180px);
+    .by-user {
+      font-family: 'roboto-regular';
+      margin-left: 3px;
+    }
+  }
+  .posts-list {
+    border-top: 1px solid rgb(233, 232, 230);
+  }
 }

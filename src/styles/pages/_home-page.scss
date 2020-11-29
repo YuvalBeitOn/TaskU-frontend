@@ -14,7 +14,8 @@
         >*{
     font-family: roboto-regular;
 
-            text-shadow: 0 1px 0px rgb(201, 202, 205);
+    text-shadow: 0 1px 0px #020202;
+    color: white;
         transition: .5s;
             text-transform: capitalize;
             border-radius:20px;
@@ -22,7 +23,7 @@
             padding: 5px 12px;
             display: inline-block;
             &:hover{
-                background-color: rgb(213, 213, 213);
+                background-color: rgb(186, 186, 186);
             }
         }
     }

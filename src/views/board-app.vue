@@ -1,13 +1,18 @@
 <template>
   <section v-if="!isLoading" class="board-app flex">
     <board-list
+      v-if="isExpendedList"
       @removeBoard="removeCurrBoard"
       @addNewBoard="addBoard"
       :boards="boards"
-      title="Board"
+      title="Boards"
     >
       <board-search @searchBoard="setSearch" slot="search" />
     </board-list>
+    <div class="expend-btn-container" :style="expendStyle">
+      <i @click="isExpendedList = !isExpendedList" :class="expendBtnStyle"></i>
+    </div>
+
     <div class="board-app-container width100">
       <div v-if="board" class="board-up">
         <div class="board-header-top flex space-between">
@@ -54,7 +59,7 @@
         </div>
 
         <div class="board-control flex space-between">
-          <h4>By: {{ board.creator.fullName }}</h4>
+          <h4 class="board-creator">By: {{ board.creator.fullName }}</h4>
           <board-filter
             v-if="board"
             :statuses="board.statuses"
@@ -63,7 +68,6 @@
             @forceRerender="forceRerender"
           />
         </div>
-        <!-- <button @click="addGroup">New Group</button> -->
       </div>
       <group-list
         v-if="board"
@@ -73,15 +77,13 @@
         @deleteGroup="deleteGroup"
         @updateGroup="updateGroup"
         @updateGroups="updateGroups"
-        @forceRender="forceRerender"
         @duplicateGroup="duplicateGroup"
+        @forceRender="forceRerender"
       />
-      <!-- <transition name="fade"> -->
-      <div v-show="isTaskDetailsHover" class="backdrop-layer"></div>
-      <!-- </transition> -->
+      <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
     </div>
     <task-details
-      v-if="this.$route.params.taskId && board"
+      v-if="this.$route.params.taskId"
       @close="isTaskDetailsHover = false"
       @mouseover.native="isTaskDetailsHover = true"
       @mouseleave.native="isTaskDetailsHover = false"
@@ -100,10 +102,12 @@ import { boardService } from '@/services/board.service'
 import boardFilter from '@/cmps/board-filter.vue'
 import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
+
 export default {
   name: 'board-app',
   data() {
     return {
+      isExpendedList: true,
       isMembersShowen: false,
       currTaskDetails: null,
       isTaskDetailsHover: false,
@@ -111,6 +115,16 @@ export default {
     }
   },
   computed: {
+    expendStyle() {
+      return this.isExpendedList
+        ? { borderLeft: 1 + 'px' + ' solid ' + 'rgb(228, 228, 228)' }
+        : { marginLeft: 15 + 'px' }
+    },
+    expendBtnStyle() {
+      return this.isExpendedList
+        ? 'expend-btn fas fa-chevron-left'
+        : 'expend-btn fas fa-chevron-right'
+    },
     isLoading() {
       return this.$store.getters.isLoading
     },
@@ -138,6 +152,7 @@ export default {
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.forceRerender()
     },
+
     updateBoardName(ev) {
       this.board.name = ev.target.innerText
       this.$store.dispatch({ type: 'saveBoard', board: this.board })

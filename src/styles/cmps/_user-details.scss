@@ -21,6 +21,9 @@
     margin-bottom: rem(18px);
 }
 .user-content{
+    >*{
+       margin: rem(30px);
+    }
 .list-board-user{
     overflow-y: auto;
     overflow-x: hidden;
