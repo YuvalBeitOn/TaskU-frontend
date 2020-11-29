@@ -35,7 +35,6 @@ export default {
   computed:{
     firstBoardId(){
       const boards = this.$store.getters.boards
-      console.log('boards[0]._id:', boards[0]._id)
       return boards[0]._id
     }
   },

@@ -29,9 +29,6 @@ export default {
             this.$emit('closePopup')
         },
     },
-    created() {
-        console.log(this.menuItems)
-    },
 }
 </script>
 

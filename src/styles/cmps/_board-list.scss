@@ -7,15 +7,6 @@
   padding: 0 rem(15px);
   z-index: 2;
 
-  .back-drop-layer {
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.082);
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 5;
-  }
   .top-bar {
     margin-top: 35px;
     .title-board-list {
@@ -31,7 +22,8 @@
 
   .boards-list {
     overflow-y: auto;
-    max-height: 82.5vh;
+    overflow-x: hidden;
+    height: 82.5vh;
     .board-item {
       position: relative;
       margin-bottom: 10px;

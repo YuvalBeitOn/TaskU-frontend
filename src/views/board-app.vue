@@ -10,14 +10,19 @@
     </board-list>
     <div class="board-app-container width100">
       <div v-if="board" class="board-up">
-        <div class="board-up-header flex space-between">
+        <div class="board-header-top flex space-between">
+          <div class="header-board-details flex column">
             <h2 class="board-name-title"   @blur="updateBoardName"
         @keyup.enter="updateBoardName"
         contenteditable>
           {{ board.name }}</h2>
-          
-          <i @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
+           <h3 class="board-descriotion" v-if="board.description" @blur="updateBoardDescription"
+        @keyup.enter="updateBoardDescription"
+        contenteditable>{{board.description}}</h3>
+          </div>
+    <div class="board-header-nav flex wrap"> 
     <div class="close-popup" v-if="isMembersShowen" @click.prevent="isMembersShowen=false"></div>
+          <i @click="toggleMembers" class="far fa-user-circle fa-icon"></i>
           <add-members
             class="right"
             v-if="isMembersShowen"
@@ -28,15 +33,13 @@
             @removeMember="removeUserFromBoard"
             @addMember="addUserToBoard"
           />
+          </div>
         </div>
-        <h3 v-if="board.description" @blur="updateBoardDescription"
-        @keyup.enter="updateBoardDescription"
-        contenteditable>{{board.description}}</h3>
-        <div class="board-control">
-          
+       
+        <div class="board-control flex space-between">
+          <h4>By:{{board.creator.fullName}}</h4>
           <board-filter
             v-if="board"
-            :creator="board.creator"
             :statuses="board.statuses"
             :priorities="board.priorities"
             @addGroup="addGroup"
@@ -115,13 +118,11 @@ export default {
   },
   methods: {
     updateBoardName(ev){
-        console.log(ev.target.innerText,'target')
-        this.board.name =  ev.target.innerText
+      this.board.name =  ev.target.innerText
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.forceRerender()
     },
         updateBoardDescription(ev){
-        console.log(ev.target.innerText,'target')
         this.board.description =  ev.target.innerText
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.forceRerender()
@@ -134,7 +135,6 @@ export default {
       this.isMembersShowen = !this.isMembersShowen
     },
     addUserToBoard(user) {
-      console.log('user:', user)
       this.board.members.unshift(user)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
     },
@@ -183,7 +183,6 @@ export default {
       this.forceRerender()
     },
     updateGroup(updatedGroup) {
-      console.log(updatedGroup.name)
       const idx = this.board.groups.findIndex(
         group => group.id === updatedGroup.id
       )
@@ -203,7 +202,6 @@ export default {
       this.forceRerender()
     },
     setCurrTaskDetails(currTaskDetails) {
-      console.log(currTaskDetails, 'Setting currTaskDetails')
       this.currTaskDetails = currTaskDetails
     }
   },

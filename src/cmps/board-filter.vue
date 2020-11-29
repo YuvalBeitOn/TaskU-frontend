@@ -1,9 +1,6 @@
 <template>
   <section class="board-filter flex space-between">
-    <span class="creator flex align-center" v-if="creator"
-      >By: {{ creator.fullName }}</span
-    >
-    <div class="filter-actions flex space-between">
+    <div class="filter-actions flex space-between align-center">
       <button class="add-group-btn" @click="addGroup">New Group</button>
       <span
         ><i class="far fa-search"></i
@@ -44,7 +41,6 @@ import filterForm from './filter-form'
 export default {
   name: 'board-filter',
   props: {
-    creator: Object,
     priorities: Array,
     statuses: Array
   },
@@ -71,7 +67,6 @@ export default {
     },
     updateFilter(filterObj) {
       this.filterBy[filterObj.title] = filterObj.opt
-      // this.$emit('updateFilter', this.filterBy)
       this.$store.commit({ type: 'setFilterBy', filterBy: this.filterBy })
       this.$emit('forceRerender')
     }

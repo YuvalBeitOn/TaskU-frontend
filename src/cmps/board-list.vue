@@ -52,7 +52,6 @@ export default {
   computed: {},
   methods: {
     removeCurrBoard() {
-      console.log('boardId:', this.currBoardId)
       this.$emit('removeBoard', this.currBoardId)
     },
     addBoard() {

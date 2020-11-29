@@ -92,7 +92,6 @@ export default {
     deleteTask(taskId) {
       const group = this.getGroupById()
       const taskIdx = group.tasks.findIndex(task => task.id === taskId)
-      console.log()
       group.tasks.splice(taskIdx, 1)
       this.$store.dispatch({
         type: 'saveBoard',

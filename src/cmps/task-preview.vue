@@ -1,84 +1,90 @@
 <template>
-    <li
-        v-if="taskCopy"
-        class="task-preview flex space-between align-center width100"
-    >
-    <div class="close-popup" v-if="isTaskMembersShowen" @click.prevent="isTaskMembersShowen=false"></div>
-        <div class="flex space-between width100">
-            <span class="task-color" :style="taskBgc"></span>
-                  <button @click="deleteTask">X</button>
+  <li
+    v-if="taskCopy"
+    class="task-preview flex space-between align-center width100"
+  >
+    <div class="flex space-between align-center width100">
+      <span class="task-color" :style="taskBgc"></span>
+      <button class="btn-close" @click="deleteTask">X</button>
 
-            <div class="task-txt">
-                <span
-                    @blur="updateTaskTxt"
-                    @keyup.enter="updateTaskTxt"
-                    contenteditable
-                    >{{ taskCopy.txt }}</span
-                >
-            </div>
-            <span @click="sendToTaskDetails"
-                ><i class="far fa-comment fa-icon"></i
-            ></span>
-        </div>
-        <div class="task-details flex">
-            <div class="headers flex">
-              
-                <span
-                
-                
-                    ><i
-                        @click.stop="toggleMember"
-                        class="far fa-user-circle fa-icon"
-                    ></i
-                ></span>
-                <add-members
-                    v-if="isTaskMembersShowen"
-                    firstTitle="Task Members"
-                    secondTitle="Board Members"
-                    :members="taskCopy.members"
-                    :allMembers="filteredBoardMembers"
-                    @addMember="addTaskMember"
-                    @removeMember="removeTaskMember"
-                />
-                <span
-                    @click="toggleStatuses"
-                    class="status relative"
-                    :style="getStyleStr(taskCopy.status.color)"
-                    >{{ taskCopy.status.txt }}
-                    <label-picker
-                        v-if="isStatusesShowen"
-                        :opts="statuses"
-                        type="status"
-                        @updateTaskStatus="updateTaskStatus"
-                /></span>
-    <div class="close-popup" v-if="isStatusesShowen" @click.prevent="isStatusesShowen=false"></div>
+      <div class="task-txt">
+        <span
+          @blur="updateTaskTxt"
+          @keyup.enter="updateTaskTxt"
+          contenteditable
+          >{{ taskCopy.txt }}</span
+        >
+      </div>
 
-                <span
-                    @click="togglePriors"
-                    class="priority relative"
-                    :style="getStyleStr(taskCopy.priority.color)"
-                    >{{ taskCopy.priority.txt }}
-                    <label-picker
-                        v-if="isPriorsShowen"
-                        :opts="priorities"
-                        type="priority"
-                        @updateTaskPriority="updateTaskPriority"
-                /></span>
-    <div class="close-popup" v-if="isPriorsShowen" @click.prevent="isPriorsShowen=false"></div>
+      <i @click="sendToTaskDetails" class="far fa-comment fa-icon"></i>
+    </div>
+    <div class="task-details flex">
+      <div class="headers flex">
+        <span
+          ><i @click.stop="toggleMember" class="far fa-user-circle fa-icon"></i
+        ></span>
+        <div
+          class="close-popup"
+          v-if="isTaskMembersShowen"
+          @click.prevent.stop="isTaskMembersShowen = false"
+        ></div>
 
-                <span class="date-picker">
-                    <el-date-picker
-                        class="date-input"
-                        @change="updateTask"
-                        v-model="taskCopy.dueDate"
-                        type="date"
-                        placeholder="Pick a date"
-                    >
-                    </el-date-picker>
-                </span>
-            </div>
-        </div>
-    </li>
+        <add-members
+          v-if="isTaskMembersShowen"
+          firstTitle="Task Members"
+          secondTitle="Board Members"
+          :members="taskCopy.members"
+          :allMembers="filteredBoardMembers"
+          @addMember="addTaskMember"
+          @removeMember="removeTaskMember"
+        />
+        <span
+          @click="toggleStatuses"
+          class="status relative"
+          :style="getStyleStr(taskCopy.status.color)"
+          >{{ taskCopy.status.txt }}
+          <label-picker
+            v-if="isStatusesShowen"
+            :opts="statuses"
+            type="status"
+            @updateTaskStatus="updateTaskStatus"
+        /></span>
+        <div
+          class="close-popup"
+          v-if="isStatusesShowen"
+          @click.prevent="isStatusesShowen = false"
+        ></div>
+
+        <span
+          @click="togglePriors"
+          class="priority relative"
+          :style="getStyleStr(taskCopy.priority.color)"
+          >{{ taskCopy.priority.txt }}
+          <label-picker
+            v-if="isPriorsShowen"
+            :opts="priorities"
+            type="priority"
+            @updateTaskPriority="updateTaskPriority"
+        /></span>
+        <div
+          class="close-popup"
+          v-if="isPriorsShowen"
+          @click.prevent="isPriorsShowen = false"
+        ></div>
+
+        <span class="date-picker">
+          <el-date-picker
+            class="date-input"
+            @change="updateTask"
+            v-model="taskCopy.dueDate"
+            type="date"
+            placeholder="Pick a date"
+          >
+          </el-date-picker>
+        </span>
+      </div>
+    </div>
+  </li>
 </template>
 <script>
 import addMembers from '@/cmps/add-members'
@@ -132,7 +138,6 @@ export default {
     },
     addTaskMember(member) {
       let newActivity = boardService.getEmptyActivity()
-      console.log('member:', member)
       this.taskCopy.members.unshift(member)
       newActivity.txt = `Member ${member.fullName} was added to task`
       newActivity.byUser = this.user
@@ -163,7 +168,6 @@ export default {
       this.$emit('deleteTask', this.taskCopy.id)
     },
     updateTaskTxt(ev) {
-      console.log(ev.target.innerText)
       let newActivity = boardService.getEmptyActivity()
       const prevTxt = this.taskCopy.txt
       this.taskCopy.txt = ev.target.innerText
@@ -182,15 +186,22 @@ export default {
       ) {
         return
       }
-      
-      eventBus.$emit('taskDetails', {task: this.taskCopy, groupId: this.groupId})
-      this.$router.push(`/board/${this.$route.params.boardId}/task/${this.task.id}`)
+
+      eventBus.$emit('taskDetails', {
+        task: this.taskCopy,
+        groupId: this.groupId
+      })
+      this.$router.push(
+        `/board/${this.$route.params.boardId}/task/${this.task.id}`
+      )
     },
     updateTaskPriority(opt) {
+      console.log('opt:', opt)
       let newActivity = boardService.getEmptyActivity()
-      const prevPrior = this.taskCopy.priority
-      this.taskCopy.priority = opt
-      console.log('prevPrior:', prevPrior, 'opt:', opt );
+      const prevPrior = this.taskCopy.priority.txt
+      console.log('prevPrior:', prevPrior)
+      this.taskCopy.priority.txt = opt.txt
+      this.taskCopy.priority.color = opt.color
       newActivity.txt = `Task priority was updated from '${prevPrior}' to '${opt}`
       newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
@@ -199,11 +210,11 @@ export default {
     },
     updateTaskStatus(opt) {
       let newActivity = boardService.getEmptyActivity()
-      const prevStatus = this.taskCopy.status
-      this.taskCopy.status = opt
+      const prevStatus = this.taskCopy.status.txt
+      this.taskCopy.status.txt = opt.txt
+      this.taskCopy.status.color = opt.color
       newActivity.txt = `Task status was updated from '${prevStatus}' to '${opt}`
       newActivity.byUser = this.user
-      console.log('newActivity:', newActivity)
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
       this.isPriorsShowen = false
