@@ -1,0 +1,31 @@
+.members{
+    position: absolute;
+    top: 65px;
+    right: 350px;
+    background-color: white;
+    box-shadow: 0 0 1px black;
+    padding: rem(10px);
+    
+    z-index: 1500;
+
+    h3{
+        font-size: rem(15px);
+        margin: rem(10px) 0;
+    }
+    .member-name{
+        margin: 0 rem(5px);
+        font-size: rem(13px);
+        font-weight: bold;
+    }
+    .first{
+        border-bottom: 1px solid rgb(211, 211, 211);
+        li:last-child{
+            margin-bottom: 5px;
+        }
+    }
+    .action-icon{
+        color: $clr1;
+        margin: rem(3px);
+    }
+
+}

@@ -1,0 +1,46 @@
+.app-login {
+    height: 100vh;
+
+    .login-header {
+        padding-top: rem(10px);
+        padding-left: rem(8px);
+        border-bottom: rem(1px) solid #e0e0e0;
+        height: rem(65px);
+        background: #f7f7f7;
+    }
+
+    .page-content {
+        height: 100%;
+    }
+
+    .login-box {
+        height: rem(630px);
+        width: rem(800px);
+        margin-top: rem(-65px);
+        background-color: white;
+
+        .login-title {
+            font-family: roboto-regular;
+            color: #333333;
+            font-size: 40px;
+
+            .thin-fonted {
+                font-family: roboto-thin;
+            }
+        }
+        .login-options-wrapper{
+            input{
+                height: 40px;
+                width: 360px;
+            }
+            .submit-button{
+                width: 100%;
+                height: 48px;
+                font-size: 18px;
+                border-radius: 15rem;
+                background: #0fa2e2;
+                color: white;
+            }
+        }
+    }
+}

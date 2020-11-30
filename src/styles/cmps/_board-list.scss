@@ -1,80 +1,97 @@
 .board-list {
-    background-color: #f7f7f7;
-    min-height: 100vh;
-    width: rem(230px);
-    border-top-left-radius: rem(15px);
-    margin-left: rem(-15px);
-    padding: 0 rem(15px);
-    z-index: 2;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  width: rem(230px);
+  border-top-left-radius: rem(15px);
+  margin-left: rem(-15px);
+  padding-left: rem(15px);
+  z-index: 2;
 
-    .board-list-search {
+  .top-bar {
+    margin-top: 35px;
+    .title-board-list {
+      margin-left: rem(20px);
+      font-size: rem(20px);
+    }
+    .btn-add {
+      cursor: pointer;
+      color: #0085ff;
+      font-size: 2rem;
+    }
+  }
+
+  .boards-list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 82.5vh;
+    .board-item {
+      position: relative;
+      margin-bottom: 10px;
+      margin-left: rem(8px);
+      max-width: 160px;
+      transition-duration: 0.3s;
+
+      a {
+        white-space: nowrap;
+        word-break: break-all;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+        padding: 5px 0px 5px 10px;
+        display: block;
+        text-transform: capitalize;
+        font-size: 1.25rem;
+        text-decoration: none;
+        color: #0085ff;
+        max-width: 160px;
+      }
+      .router-link-active {
+        border-radius: 5px;
+        background-color: rgba(136, 205, 237, 0.24);
+      }
+
+      &:hover {
+        border-radius: 5px;
+        background-color: rgba(136, 205, 237, 0.24);
+        > .minimenu-icon {
+          display: inline-block;
+        }
+      }
+      .trash-icon {
+        position: absolute;
+        color: rgb(77, 77, 77);
+        padding-top: 4px;
+        padding-left: 8px;
+        z-index: 5;
+        font-size: rem(15px);
+      }
+
+      .minimenu-icon {
+        display: none;
+        position: absolute;
+        cursor: pointer;
+        color: #4d4d4d;
+        z-index: 5;
+        font-size: 0.9375rem;
+        right: 15px;
+        top: 10px;
+      }
+    }
+  }
+  .board-search {
+    .search-container {
+      .input-search {
         outline: none;
         margin: rem(20px);
         border: 0;
-        border-bottom: 2px solid hsla(0, 0%, 42.7%, .419608);
+        border-bottom: 2px solid hsla(0, 0%, 42.7%, 0.419608);
         background-color: transparent;
+      }
+      .search-icon {
+        position: absolute;
+        left: 170px;
+        bottom: 25px;
+      }
     }
-
-    .top-bar {
-        margin-top: 35px;
-        .title-board-list {
-            margin-left: rem(20px);
-            font-size: rem(20px);
-        }
-        .btn-add {
-            cursor: pointer;
-            color: #0085ff;
-            font-size: 2rem;
-        }
-    }
-
-
-    .boards-list{
-        overflow-y:auto ;
-        max-height: 400px;
-        .board-item {
-            position: relative;
-            margin-bottom: 10px;
-            margin-left: rem(8px);
-            a {
-                transition: .3s;
-                position: relative;
-                padding-left: 30px;
-                min-height: 30px;
-                display: block;
-                text-transform: capitalize;
-                font-size: 1.25rem;
-                text-decoration: none;
-                color: #0085ff;
-            }
-            .router-link-active{
-                border-radius: 5px;
-                background-color: rgba(136,205,237,.24);
-            }
-            &:hover{
-                border-radius: 5px;
-                background-color: rgba(136,205,237,.24);
-            }
-            .trash-icon{
-                position: absolute;
-                color: rgb(77, 77, 77);
-                padding-top: 4px;
-                 padding-left: 8px;
-                 z-index: 5;
-                font-size: rem(15px);
-            }
-
-            .minimenu-icon{
-                position: absolute;
-                color: #4d4d4d;
-                z-index: 5;
-                font-size: 0.9375rem;
-                right: 15px;
-                top: 5px;            
-            }
-        }
-    }
-
-
-
+  }
 }

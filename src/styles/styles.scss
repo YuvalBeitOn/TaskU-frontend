@@ -4,10 +4,13 @@
 @import 'setup/functions';
 @import 'basics/fonts';
 // BASICS
-@import 'basics/helpers';
 @import 'basics/base';
+@import 'basics/buttons';
+@import 'basics/helpers';
 @import 'basics/layout';
-
+@import 'basics/tooltip';
+//PAGES
+@import 'pages/home-page';
 // COMPONENTS
 @import 'cmps/nav-menu';
 @import 'cmps/board-list';
@@ -20,7 +23,12 @@
 @import 'cmps/task-list';
 @import 'cmps/label-picker';
 @import 'cmps/board-filter';
-
-
+@import 'cmps/task-posts';
+@import 'cmps/colors-menu';
+@import 'cmps/add-members';
+@import 'cmps/task-details';
+@import 'cmps/filter-form';
+@import 'cmps/task-activities';
+@import 'cmps/app-login';
 
 

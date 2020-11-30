@@ -4,7 +4,8 @@ export const boardStore = {
     boards: [],
     currBoard: null,
     searchBoard: null,
-    filterBy: null
+    filterBy: { status: 'All', priority: 'All', person: 'All', searchTerm: '' },
+    isLoading: false
   },
   getters: {
     boards(state) {
@@ -14,10 +15,64 @@ export const boardStore = {
       )
     },
     board(state) {
-      return JSON.parse(JSON.stringify(state.currBoard))
+      const filterBy = state.filterBy
+      console.log('filterBy:', filterBy)
+      let filteredBoard = JSON.parse(JSON.stringify(state.currBoard))
+      if (filterBy.status !== 'All') {
+        filteredBoard.groups.filter(group => {
+          group.tasks = group.tasks.filter(task => {
+            return task.status.txt === filterBy.status
+          })
+        })
+        filteredBoard.groups = filteredBoard.groups.filter(
+          group => (group = group.tasks.length !== 0)
+        )
+      }
+      if (filterBy.priority !== 'All') {
+        filteredBoard.groups.forEach(group => {
+          group.tasks = group.tasks.filter(task => {
+            return task.priority.txt === filterBy.priority
+          })
+        })
+        filteredBoard.groups = filteredBoard.groups.filter(
+          group => (group = group.tasks.length !== 0)
+        )
+      }
+      if (filterBy.person !== 'All') {
+        filteredBoard.groups.forEach(group => {
+          group.tasks = group.tasks.filter(task => {
+            task.members = task.members.filter(member => {
+              console.log('member:', member)
+              console.log('filterBy.person:', filterBy.person)
+              return member._id === filterBy.person
+            })
+          })
+        })
+      }
+      if (filterBy.searchTerm !== '') {
+        filteredBoard.groups.forEach(group => {
+          group.tasks = group.tasks.filter(task => {
+            return task.txt
+              .toLowerCase()
+              .includes(filterBy.searchTerm.toLowerCase())
+          })
+        })
+        filteredBoard.groups = filteredBoard.groups.filter(
+          group => (group = group.tasks.length !== 0)
+        )
+      }
+      console.log('filteredBoard:', filteredBoard)
+      // filteredBoard.groups.filter(group => group.tasks)
+      return filteredBoard
     },
     defaultBoardId(state) {
       return state.boards[0]._id
+    },
+    filterBy(state) {
+      return JSON.parse(JSON.stringify(state.filterBy))
+    },
+    isLoading(state) {
+      return state.isLoading
     }
   },
   mutations: {
@@ -35,33 +90,50 @@ export const boardStore = {
       state.boards = state.boards.filter(board => board._id !== boardId)
     },
     setSearch(state, { searchBoard }) {
-      console.log('searchBoard:', searchBoard)
       state.searchBoard = searchBoard
-      console.log('state.searchBoard:', state.searchBoard)
+    },
+    setFilterBy(state, { filterBy }) {
+      state.filterBy = filterBy
+    },
+    toggleIsLoading(state) {
+      state.isLoading = !state.isLoading
     }
   },
   actions: {
     async loadBoards(context) {
-      console.log('context:', context)
-      const boards = await boardService.query()
+      const userId = context.getters.user._id
+      console.log('UserId from board store @Boards loading:', userId)
+      const boards = await boardService.query(userId)
       context.commit({ type: 'setBoards', boards })
     },
     async loadBoard({ commit }, { boardId }) {
+      commit({ type: 'toggleIsLoading' })
       const board = await boardService.getById(boardId)
       commit({ type: 'setBoard', board })
+      setTimeout(() => {
+        commit({ type: 'toggleIsLoading' })
+      }, 2000)
     },
     async removeBoard({ commit }, { boardId }) {
       await boardService.remove(boardId)
       commit({ type: 'removeBoard', boardId })
     },
-    async saveBoard({ commit, dispatch }, { board }) {
+    async saveBoard({ commit, dispatch, rootGetters }, { board }) {
+      console.log('board i got on store',board)
+      const guestUser = rootGetters.guestUser
+      const userId = rootGetters.user._id
+      //Avoiding guest user duplication in members parameter
+      if (userId !== guestUser._id) {
+        board.members.push(guestUser)
+      }
       const savedBoard = await boardService.save(board)
       if (board._id) {
         commit({ type: 'setBoard', board: savedBoard })
       } else {
-        console.log('savedBoard:', savedBoard)
+        console.log('im in the else')
         dispatch({ type: 'loadBoards' })
       }
+      return savedBoard._id
     }
   }
 }

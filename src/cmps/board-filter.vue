@@ -1,46 +1,69 @@
 <template>
   <section class="board-filter flex space-between">
-    <span class="creator flex align-center" v-if="creator"
-      >By: {{ creator.fullName }}</span
-    >
-    <div class="filter-actions flex space-between">
-      <button class="add-group-btn" @click="addGroup">New Group</button>
+    <div class="filter-actions flex space-between align-center">
+      <button v-tooltip.top="'Add New Group'" class="add-group-btn" @click="addGroup">New Group</button>
       <span
         ><i class="far fa-search"></i
-        ><input class="search-input" type="text" placeholder="Search"
+        ><input
+          @input="updateFilterSearch"
+          class="search-input"
+          type="text"
+          placeholder="Search"
+          v-model="filterBy.searchTerm"
       /></span>
       <div class="filter">
         <i class="fas fa-filter"></i>
-        <span @click="toggleFilter">Filter</span>
+        <span v-tooltip.top="'Filter Board'" @click="toggleFilter">Filter</span>
         <div class="filters flex" v-if="isFilterShowen">
-          <form @submit.prevent="updateFilter" class="filter-status flex column justify-center">
-            <h4>Status</h4>
-            <button type="submit">Done</button>
-            <button type="submit">Working on it</button>
-            <button type="submit">Stuck</button>
-          </form>
-          <form class="filter-priority flex column justify-center">
-            <h4>Priority</h4>
-            <button>Low</button>
-            <button>Medium</button>
-            <button>High</button>
-          </form>
+          <filter-form
+            title="Status"
+            :opts="statuses"
+            @updateFilter="updateFilter"
+          />
+          <filter-form
+            title="Priority"
+            :opts="priorities"
+            @updateFilter="updateFilter"
+          />
+          <filter-users
+            title="Person"
+            :users="users"
+            @updateFilter="updateFilter"
+          />
         </div>
+        <div
+          class="back-drop-layer"
+          v-if="isFilterShowen"
+          @click="toggleFilter"
+        ></div>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import filterForm from './filter-form'
+import filterUsers from './filter-users'
+
 export default {
   name: 'board-filter',
   props: {
-    creator: Object
+    priorities: Array,
+    statuses: Array
   },
   data() {
     return {
-      // filterBy: {status: },
-      isFilterShowen: false
+      isFilterShowen: false,
+      newItem: null
+    }
+  },
+  computed: {
+    filterBy() {
+      return this.$store.getters.filterBy
+    },
+    users() {
+      console.log('users:', this.$store.getters.users)
+      return this.$store.getters.users
     }
   },
   methods: {
@@ -50,16 +73,21 @@ export default {
     toggleFilter() {
       this.isFilterShowen = !this.isFilterShowen
     },
-    updateFilter(ev){
-      console.log(ev.submitter.innerText);
-      // this.$store.dispatch({
-      //           type: "setFilterBy",
-      //           filterBy: ev.target.innerText,
-      //       });
+    updateFilterSearch() {
+      this.$store.commit({ type: 'setFilterBy', filterBy: this.filterBy })
+      this.$emit('forceRerender')
+    },
+    updateFilter(filterObj) {
+      console.log('filterObj:', filterObj);
+      this.filterBy[filterObj.title] = filterObj.opt
+      this.$store.commit({ type: 'setFilterBy', filterBy: this.filterBy })
+      this.$emit('forceRerender')
+      this.isFilterShowen = false;
     }
   },
-  created() {
-    console.log('creator:')
+  components: {
+    filterForm,
+    filterUsers
   }
 }
 </script>

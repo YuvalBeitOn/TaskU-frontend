@@ -9,6 +9,7 @@
             <i :class="getIconClass(idx)"> </i>
             {{ menuitem.txt }}
         </div>
+        <el-divider/>
     </section>
 </template>
 
@@ -27,9 +28,6 @@ export default {
             itemFunction()
             this.$emit('closePopup')
         },
-    },
-    created() {
-        console.log(this.menuItems)
     },
 }
 </script>

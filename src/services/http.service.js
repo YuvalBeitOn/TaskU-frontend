@@ -1,7 +1,7 @@
 import router from "@/router";
 
 const BASE_URL =
-  process.env.NODE_ENV === "production" ? "/api/" : "//localhost:3000/";
+  process.env.NODE_ENV === "production" ? "/api/" : "//localhost:3030/api/";
 
 import Axios from "axios";
 var axios = Axios.create({
@@ -35,7 +35,6 @@ async function ajax(endpoint, method = "get", data = null) {
     if (err.response.status === 401) {
       router.push("/");
     }
-    console.log(`Had issues ${method}ing to server`, err);
     throw err;
   }
 }

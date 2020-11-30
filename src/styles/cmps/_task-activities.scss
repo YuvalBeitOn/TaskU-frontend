@@ -1,0 +1,41 @@
+.task-activities {
+  overflow: auto;
+  > *:not(:last-child) {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid gray;
+    position: relative;
+    text-align: left;
+  }
+  .activity {
+    padding: 14px;
+    border: 1px solid #e6e9ef;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #e5f4ff;
+    > * {
+      margin-right: 8px;
+    }
+    .activity-txt {
+      max-width: 310px;
+    }
+    .activity-date {
+      font-family: 'roboto-medium';
+    }
+    .user-avatar {
+      margin-right: 10px;
+      .profile-img {
+        width: 40px !important;
+        height: 40px !important;
+      }
+      .username {
+        position: absolute;
+        font-size: 0.8rem;
+        z-index: 5;
+        background-color: rgb(255, 255, 255);
+        border-radius: 4px;
+        padding: 5px;
+        border: 1px solid whitesmoke;
+      }
+    }
+  }
+}

@@ -1,59 +1,84 @@
 <template>
-  <section v-if="user" class="user-details flex column">
     <section
-      class="header-user-profile flex column justify-center align-center"
+        v-if="loggedInUser && user && !isLoading"
+        class="user-details flex column"
     >
-      <div class="img-profile">
-        <avatar
-          class="profile-img"
-          v-if="user"
-          :username="user.fullName"
-        ></avatar>
-      </div>
+        <section
+            class="header-user-profile flex column justify-center align-center"
+        >
+            <div class="img-profile">
+                <avatar
+                    class="profile-img"
+                    v-if="user"
+                    :username="user.fullName"
+                ></avatar>
+            </div>
 
-      <h3 class="mail">{{ user.email }}</h3>
+            <h3 class="mail">{{ user.email }}</h3>
+        </section>
+        <el-tabs>
+            <el-tab-pane label="User Details">
+                <about-user :user="user" />
+            </el-tab-pane>
+            <el-tab-pane label="Edit Profile">
+                <edit-user :user="user" />
+            </el-tab-pane>
+        </el-tabs>
     </section>
-    <div class="msg-user flex justify-center align-center">
-    <h2>Hello,{{ user.fullName }}</h2>
-
+    <div v-else class="flex justify-center align-center">
+        <img src="@/assets/imgs/loader.gif" class="loader-app" />
     </div>
-    <section class="user-content flex space-around align-center">
-      <div class="user-details-info flex column wrap align-center">
-        <h2>Details</h2>
-        <h2><strong class="title-details">Full name:</strong>{{ user.fullName }}</h2>
-        <h2><strong class="title-details">Email:</strong>{{ user.email }}</h2>
-      </div>
-      <ul class="list-board flex column wrap clean-list align-center">
-        <li><h2>Your board list</h2></li>
-        <li>board</li>
-        <li>board</li>
-        <li>board</li>
-        <li>board</li>
-      </ul>
-      <div class="left-task">
-        <p>You have  left 4 tasks to compolete</p>
-      </div>
-    </section>
-  </section>
 </template>
 
 <script>
+import aboutUser from '@/cmps/user-details-about-user'
+import editUser from '@/cmps/user-details-editor'
 import Avatar from 'vue-avatar'
 
 export default {
-  name: 'user-details',
-
-  computed: {
-    user() {
-      return this.$store.getters.user
+    name: 'user-details',
+    data() {
+        return {
+            user: null,
+        }
     },
-  },
-  created() {
-    const { userId } = this.$route.params
-    this.$store.dispatch({ type: 'loadUser', userId })
-  },
-  components: {
-    Avatar,
-  },
+    computed: {
+        isLoading() {
+            return this.$store.getters.isLoading
+        },
+        loggedInUser() {
+            return this.$store.getters.user
+        },
+        users() {
+            return this.$store.getters.users
+        },
+    },
+    methods: {
+        getUserById(userId) {
+            const user = this.users.find((user) => user._id === userId)
+            return user
+        },
+    },
+    created() {
+        const { userId } = this.$route.params
+        if (!this.loggedInUser) {
+            console.log('I am not even logged in')
+            this.$router.push('/')
+        } else if (this.loggedInUser._id === userId) {
+            console.log('I am the logged in user!')
+            this.user = this.loggedInUser
+        } else {
+            console.log(this.loggedInUser)
+            console.log('I am not the logged in user')
+            const user = this.getUserById(userId)
+            this.user = user
+        }
+    },
+    components: {
+        Avatar,
+        aboutUser,
+        editUser,
+    },
 }
 </script>
+

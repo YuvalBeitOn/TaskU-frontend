@@ -21,7 +21,6 @@ export default {
         : true
     }
   },
-  created() {},
   components: {
     navMenu
   }

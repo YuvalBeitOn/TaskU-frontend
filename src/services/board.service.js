@@ -1,6 +1,6 @@
 import { httpService } from './http.service';
-import {boardUtils} from './board-utils.service';
-import {utilService} from './util.service'
+import { boardUtils } from './board-utils.service';
+import { utilService } from './util.service'
 export const boardService = {
     query,
     getById,
@@ -8,11 +8,13 @@ export const boardService = {
     save,
     getEmptyBoard,
     getEmptyGroup,
-    getEmptyTask
+    getEmptyTask,
+    getEmptyPost,
+    getEmptyActivity
 };
 
-function query() {
-    return httpService.get('board');
+function query(userId) {
+    return httpService.get(`board?userId=${userId}`);
 }
 
 function getById(boardId) {
@@ -29,6 +31,7 @@ function save(board) {
 }
 
 async function _add(board) {
+    console.log('BOARD SERVICE GOT THE BOARD!!!', board)
     return httpService.post(`board/`, board);
 }
 
@@ -36,36 +39,52 @@ async function _update(board) {
     return httpService.put(`board/${board._id}`, board);
 }
 
-function getEmptyBoard(){
+function getEmptyBoard() {
     const board = boardUtils.getEmptyBoard()
-    board.statuses.forEach(status=>status.id=utilService.makeId())
-    board.priorities.forEach(priority=>priority.id=utilService.makeId())
-    board.groups.forEach(group=>{
-        group.id=utilService.makeId()
-        group.tasks.forEach(task=>{
+    board.statuses.forEach(status => status.id = utilService.makeId())
+    board.priorities.forEach(priority => priority.id = utilService.makeId())
+    board.groups.forEach(group => {
+        group.id = utilService.makeId()
+        group.tasks.forEach(task => {
             task.id = utilService.makeId()
-            task.status.id =utilService.makeId()
-            task.priority.id =utilService.makeId()
+            task.status.id = utilService.makeId()
+            task.priority.id = utilService.makeId()
         })
     }
-        )
+    )
     return board
 }
-function getEmptyTask(){
-   const task =  boardUtils.getEmptyTask()
-   task.id = utilService.makeId()
-   task.status.id =utilService.makeId()
-   task.priority.id =utilService.makeId()
-   return task
+function getEmptyTask() {
+    const task = boardUtils.getEmptyTask()
+    task.id = utilService.makeId()
+    task.status.id = utilService.makeId()
+    task.priority.id = utilService.makeId()
+    return task
 }
 
-function getEmptyGroup(){
+function getEmptyGroup() {
     const group = boardUtils.getEmptyGroup()
     group.id = utilService.makeId()
     group.tasks.forEach(task => {
         task.id = utilService.makeId()
-        task.status.id =utilService.makeId()
-        task.priority.id =utilService.makeId()
+        task.status.id = utilService.makeId()
+        task.priority.id = utilService.makeId()
     });
     return group
+}
+
+function getEmptyPost() {
+    const post = boardUtils.getEmptyPost()
+    post.id = utilService.makeId()
+    post.createdAt = Date.now()
+    return post
+}
+
+function getEmptyActivity(txt, user) {
+    const activity = boardUtils.getEmptyActivity()
+    activity.id = utilService.makeId()
+    activity.byUser = user
+    activity.txt = txt
+    activity.createdAt = Date.now()
+    return activity
 }
