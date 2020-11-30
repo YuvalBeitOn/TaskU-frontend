@@ -9,6 +9,7 @@ export const userService = {
 
 function getUsers() {
   return httpService.get("user");
+  
 }
 
 function getById(userId) {
