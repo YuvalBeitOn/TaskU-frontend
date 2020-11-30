@@ -1,5 +1,5 @@
 <template>
-    <section class="task-posts">
+    <section class="task-posts relative">
         <form @submit.prevent="addPost">
             <textarea class="el-input-text-editor" @keydown.enter.exact.prevent="addPost" rows="3" placeholder="Write a massge..."  v-model="newPost" />
             <button>Post</button>

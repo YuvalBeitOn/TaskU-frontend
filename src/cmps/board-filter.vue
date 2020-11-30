@@ -82,6 +82,7 @@ export default {
       this.filterBy[filterObj.title] = filterObj.opt
       this.$store.commit({ type: 'setFilterBy', filterBy: this.filterBy })
       this.$emit('forceRerender')
+      this.isFilterShowen = false;
     }
   },
   components: {
