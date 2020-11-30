@@ -162,6 +162,13 @@ export default {
       const txt = `Task due date was changed to ${date}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.activities.push(newActivity)
+      eventBus.$emit('updateBoardActivity', newActivity)
+      this.$notify({
+          message: 'Update task date',
+          position: 'bottom-left',
+          duration:2000,
+        });
+
       this.updateTask()
     },
     toggleMember() {
@@ -172,6 +179,12 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.members.unshift(member)
       this.taskCopy.activities.push(newActivity)
+       eventBus.$emit('updateBoardActivity', newActivity)
+      this.$notify({
+          message: 'Update task member',
+          position: 'bottom-left',
+          duration:2000,
+        });
       this.updateTask()
     },
     removeTaskMember(member) {
@@ -182,6 +195,12 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.members.splice(idx, 1)
       this.taskCopy.activities.push(newActivity)
+       eventBus.$emit('updateBoardActivity', newActivity)
+      this.$notify({
+          message: 'Update task member',
+          position: 'bottom-left',
+          duration:2000,
+        });
       this.updateTask()
     },
     getStyleStr(colorStr) {
@@ -202,6 +221,12 @@ export default {
       const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.activities.push(newActivity)
+       eventBus.$emit('updateBoardActivity', newActivity)
+      this.$notify({
+          message: 'Update task date',
+          position: 'bottom-left',
+          duration:2000,
+        });
       this.updateTask()
     },
     updateTask() {
@@ -227,6 +252,12 @@ export default {
       this.taskCopy.priority.txt = opt.txt
       this.taskCopy.priority.color = opt.color
       this.taskCopy.activities.push(newActivity)
+       eventBus.$emit('updateBoardActivity', newActivity)
+      this.$notify({
+          message: 'Update task priority',
+          position: 'bottom-left',
+          duration:2000,
+        });
       this.updateTask()
       this.isPriorsShowen = false
     },
@@ -237,6 +268,12 @@ export default {
       this.taskCopy.status.txt = opt.txt
       this.taskCopy.status.color = opt.color
       this.taskCopy.activities.push(newActivity)
+             eventBus.$emit('updateBoardActivity', newActivity)
+      this.$notify({
+          message: 'Update task status',
+          position: 'bottom-left',
+          duration:2000,
+        });
       this.updateTask()
       this.isPriorsShowen = false
     },
