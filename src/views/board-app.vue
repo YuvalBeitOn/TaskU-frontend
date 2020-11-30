@@ -121,6 +121,7 @@
   </div>
 </template>
 <script>
+import Swal from 'sweetalert2'
 import chatApp from '@/cmps/board-chat'
 import addMembers from '@/cmps/add-members'
 import groupList from '@/cmps/group-list'
@@ -230,8 +231,22 @@ export default {
       this.$store.dispatch({ type: 'removeBoard', boardId })
     },
     addBoard() {
-      const board = boardService.getEmptyBoard()
-      this.$store.dispatch({ type: 'saveBoard', board })
+     Swal.fire({
+  title: 'Enter your Board Name',
+  input: 'text',
+  inputAttributes: {
+    autocapitalize: 'off'
+  },
+  showCancelButton: true,
+  confirmButtonText: 'Create A Board',
+  showLoaderOnConfirm: true,
+}).then((result) => {
+  if (result.isConfirmed) {
+    const board = boardService.getEmptyBoard()
+    board.name = result.value
+    this.$store.dispatch({ type: 'saveBoard', board })
+  }
+})
     },
     loadBoard() {
       this.$store.dispatch({
