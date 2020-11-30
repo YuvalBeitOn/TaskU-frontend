@@ -14,18 +14,24 @@
     border: none;
     padding: 0;
   }
-  .group-actions-container .expand-btn {
-    position: relative;
-    padding: 3px;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    .expand-arrow {
-      position: absolute;
-      color: white;
-      font-size: 0.6rem;
-      right: 3.5px;
-      top: 4px;
+  .group-actions-container .expand-btn-container {
+    position: absolute;
+    right: 80px;
+    top: -5px;
+
+    .expand-btn {
+      position: relative;
+      padding: 3px;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      .expand-arrow {
+        position: absolute;
+        color: white;
+        font-size: 0.6rem;
+        right: 3.5px;
+        top: 4px;
+      }
     }
   }
   .fa-icon-act {
@@ -47,7 +53,8 @@
     box-shadow: 0 3px 10px -5px #484444;
     padding: 8px;
     width: 180px;
-    bottom: -170px;
+    bottom: -215px;
+    left: -30px;
     > * {
       padding: 1px;
       &:hover {

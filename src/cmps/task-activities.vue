@@ -14,7 +14,7 @@
         >
           <avatar
             class="profile-img"
-            size="20"
+            :size=20
             v-if="activity.byUser"
             :username="activity.byUser.fullName"
           ></avatar>
@@ -55,6 +55,9 @@ export default {
   },
   components: {
     Avatar
+  },
+  created() {
+    console.log('activities:', this.activities);
   }
 }
 </script>

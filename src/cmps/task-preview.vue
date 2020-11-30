@@ -5,11 +5,13 @@
   >
     <div class="flex space-between align-center width100">
       <span class="task-color" :style="taskBgc"></span>
-      <button class="btn-close" @click="deleteTask"><i class="task-icon fa-icon far fa-trash-alt"></i></button>
+      <button class="btn-close" @click="deleteTask">
+        <i class="task-icon fa-icon far fa-trash-alt"></i>
+      </button>
 
       <div class="task-txt">
         <span
-        class="editable"
+          class="editable"
           @blur="updateTaskTxt"
           @keydown.enter="updateTaskTxt"
           contenteditable
@@ -17,13 +19,16 @@
         >
       </div>
 
-      <i @click="sendToTaskDetails" class="task-icon far fa-comment fa-icon"></i>
+      <i
+        @click="sendToTaskDetails"
+        class="task-icon far fa-comment fa-icon"
+      ></i>
     </div>
     <div class="task-details flex">
       <div class="headers flex">
         <span
           ><i
-            @click.stop="openMemberPopup"
+            @click.stop="toggleMember"
             class="task-icon far fa-user-circle fa-icon"
           ></i
         ></span>
@@ -64,7 +69,7 @@
         <span class="date-picker">
           <el-date-picker
             class="date-input"
-            @change="updateTask"
+            @change="updateTaskDate"
             v-model="taskCopy.dueDate"
             type="date"
             placeholder="Pick a date"
@@ -85,6 +90,8 @@ import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
 import labelPicker from './label-picker'
 import { boardService } from '@/services/board.service'
+import moment from 'moment'
+
 export default {
   components: { labelPicker, addMembers },
   name: 'task-preview',
@@ -93,7 +100,7 @@ export default {
       taskCopy: null,
       isStatusesShowen: false,
       isPriorsShowen: false,
-      isTaskMembersShowen: false,
+      isTaskMembersShowen: false
     }
   },
   props: {
@@ -104,7 +111,7 @@ export default {
     groupId: String,
     boardMembers: [Array, Object],
     activity: Object,
-    user: Object,
+    user: Object
   },
   computed: {
     taskBgc() {
@@ -114,8 +121,8 @@ export default {
       const boardMembers = this.boardMembers
       const taskMembers = this.taskCopy.members
       if (taskMembers) {
-        const filteredBoardMembers = boardMembers.filter((bMember) => {
-          return taskMembers.every((tMember) => {
+        const filteredBoardMembers = boardMembers.filter(bMember => {
+          return taskMembers.every(tMember => {
             return tMember._id !== bMember._id
           })
         })
@@ -123,31 +130,33 @@ export default {
       } else {
         return boardMembers
       }
-    },
+    }
   },
   methods: {
-    openMemberPopup() {
-      this.isTaskMembersShowen = true
+    updateTaskDate() {
+      const date =  moment(this.taskCopy.dueDate).format('ll');
+      const txt = `Task due date was changed to ${date}`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      this.taskCopy.activities.push(newActivity)
+      this.updateTask()
     },
     toggleMember() {
       this.isTaskMembersShowen = !this.isTaskMembersShowen
     },
     addTaskMember(member) {
-      let newActivity = boardService.getEmptyActivity()
+      const txt = `Member ${member.fullName} was added to task`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.members.unshift(member)
-      newActivity.txt = `Member ${member.fullName} was added to task`
-      newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
     },
     removeTaskMember(member) {
       const idx = this.taskCopy.members.findIndex(
-        (tMember) => tMember._id === member._id
+        tMember => tMember._id === member._id
       )
-      let newActivity = boardService.getEmptyActivity()
+      const txt = `Member ${member.fullName} was removed from task`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.members.splice(idx, 1)
-      newActivity.txt = `Member ${member.fullName} was removed from task`
-      newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
     },
@@ -164,11 +173,10 @@ export default {
       this.$emit('deleteTask', this.taskCopy.id)
     },
     updateTaskTxt(ev) {
-      let newActivity = boardService.getEmptyActivity()
       const prevTxt = this.taskCopy.txt
       this.taskCopy.txt = ev.target.innerText
-      newActivity.txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
-      newActivity.byUser = this.user
+      const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
     },
@@ -189,25 +197,21 @@ export default {
       }
     },
     updateTaskPriority(opt) {
-      console.log('opt:', opt)
-      let newActivity = boardService.getEmptyActivity()
-      const prevPrior = this.taskCopy.priority.txt
+      const txt =`Task priority was updated to ${opt.txt}`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      // const prevPrior = this.taskCopy.priority.txt
       this.taskCopy.priority.txt = opt.txt
       this.taskCopy.priority.color = opt.color
-      console.log('prevPrior:', prevPrior)
-      newActivity.txt = `Task priority was updated from ${prevPrior} to ${opt.txt}`
-      newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
       this.isPriorsShowen = false
     },
     updateTaskStatus(opt) {
-      let newActivity = boardService.getEmptyActivity()
-      const prevStatus = this.taskCopy.status.txt
+      const txt =`Task status was updated to ${opt.txt}`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      // const prevStatus = this.taskCopy.status.txt
       this.taskCopy.status.txt = opt.txt
       this.taskCopy.status.color = opt.color
-      newActivity.txt = `Task status was updated from ${prevStatus} to ${opt.txt}`
-      newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
       this.isPriorsShowen = false
@@ -216,11 +220,11 @@ export default {
       this.isTaskMembersShowen = false
       this.isStatusesShowen = false
       this.isPriorsShowen = false
-    },
+    }
   },
   created() {
     eventBus.$on('updateTaskPreview', this.updateComponentTask)
     this.taskCopy = this.task
-  },
+  }
 }
 </script>

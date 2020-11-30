@@ -8,13 +8,15 @@
       @click="expandGroup"
     >
       <div class="group-actions-container flex relative align-center">
-        <button
-          :style="getStyleStr(group.color)"
-          class="expand-btn"
-          @click.stop="toggleGroupActions"
-        >
-          <i class="expand-arrow fas fa-arrow-down"></i>
-        </button>
+        <div class="expand-btn-container">
+          <button
+            :style="getStyleStr(group.color)"
+            class="expand-btn"
+            @click.stop="toggleGroupActions"
+          >
+            <i class="expand-arrow fas fa-arrow-down"></i>
+          </button>
+        </div>
         <h4
           class="group-headers group-name editable"
           ref="groupName"
@@ -31,6 +33,15 @@
               <i class="fas fa-expand-alt fa-icon-act"></i>
             </button>
             <span class="act-txt">Expand</span>
+          </div>
+          <div
+            class="group-action flex align-center"
+            @click.stop="addNewTask"
+          >
+            <button class="act-btn">
+              <i class="fas fa-plus"></i>
+            </button>
+            <span class="act-txt">New Task</span>
           </div>
           <div
             class="group-action flex align-center"
@@ -73,7 +84,7 @@
       </div>
       <span v-if="!isExpanded">{{ tasksCount }}</span>
       <div v-if="isExpanded" class="flex space-between align-center">
-        <div class="group-headers headers flex" >
+        <div class="group-headers headers flex">
           <h4 class="list-title">Members</h4>
           <h4 class="list-title">Status</h4>
           <h4 class="list-title">Priority</h4>
@@ -99,6 +110,8 @@
 <script>
 import taskList from './task-list.vue'
 import colorsMenu from './colors-menu'
+import { eventBus } from '@/services/event-bus.service'
+
 export default {
   name: 'group-preview',
   props: {
@@ -114,6 +127,10 @@ export default {
     }
   },
   methods: {
+    addNewTask() {
+      console.log('**********ADDDING NEW TASK*******')
+      eventBus.$emit('addEmptyTask', this.groupCopy.id)
+    },
     focusGroupName() {
       this.$refs.groupName.focus()
       this.isActionsShowen = false

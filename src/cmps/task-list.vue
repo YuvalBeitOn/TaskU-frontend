@@ -18,7 +18,7 @@
       </draggable>
     </ul>
     <form class="flex" @submit.prevent="addTask">
-    <span class="task-color" :style="taskBgc"></span>
+      <span class="task-color" :style="taskBgc"></span>
       <input
         class="add-task-input"
         @focus="showAddBtn"
@@ -35,6 +35,7 @@
 import taskPreview from './task-preview'
 import { boardService } from '@/services/board.service'
 import draggable from 'vuedraggable'
+import { eventBus } from '@/services/event-bus.service'
 
 export default {
   name: 'task-list',
@@ -63,6 +64,19 @@ export default {
     }
   },
   methods: {
+    addEmptyTask(groupId) {
+      if (this.groupId !== groupId) return
+      const newTask = boardService.getEmptyTask()
+      const groupIdx = this.board.groups.findIndex(
+        group => group.id === groupId
+      )
+      this.board.groups[groupIdx].tasks.push(newTask)
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+      this.$emit('forceRender')
+    },
     showAddBtn() {
       this.isAddBtnShowen = true
     },
@@ -73,11 +87,10 @@ export default {
       return this.board.groups[idx]
     },
     addTask() {
-      let newActivity = boardService.getEmptyActivity()
       const newTask = boardService.getEmptyTask()
       newTask.txt = this.txt
-      newActivity.txt = `Task '${newTask.txt}' added`
-      newActivity.byUser = this.loggedInUser
+      const txt = `Task '${newTask.txt}' added`
+      let newActivity = boardService.getEmptyActivity(txt, this.loggedInUser)
       newTask.activities.push(newActivity)
       const group = this.getGroupById()
       group.tasks.push(newTask)
@@ -111,6 +124,8 @@ export default {
     },
     updateTasks() {
       const group = this.getGroupById()
+      console.log('group:', group)
+      console.log('clonedTasks:', this.clonedTasks)
       group.tasks = this.clonedTasks
       this.$store.dispatch({
         type: 'saveBoard',
@@ -125,6 +140,7 @@ export default {
   },
   created() {
     this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
+    eventBus.$on('addEmptyTask', this.addEmptyTask)
   }
 }
 </script>
