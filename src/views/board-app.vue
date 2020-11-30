@@ -71,6 +71,12 @@
               @removeMember="removeUserFromBoard"
               @addMember="addUserToBoard"
             />
+            <div class="control-chat-ap">
+  <el-switch v-tooltip.top="chatControl"
+    v-model="isChatingBtnShown">
+  </el-switch>
+
+            </div>
           </div>
         </div>
 
@@ -104,12 +110,18 @@
       @mouseover.native="isTaskDetailsHover = true"
       @mouseleave.native="isTaskDetailsHover = false"
     />
+    <div v-tooltip.top="'Chat Board'" v-show="isChatingBtnShown" class="chat-icon-btn-container flex align-center justify-center">
+
+    <i  @click="toggleChat" class="fas chat-icon fa-comments"></i>
+    </div>
+  <chat-app @closeChat="toggleChat" v-if="isChating" />
   </section>
   <div v-else class="flex justify-center align-center">
     <img src="@/assets/imgs/loader.gif" class="loader-app" />
   </div>
 </template>
 <script>
+import chatApp from '@/cmps/board-chat'
 import addMembers from '@/cmps/add-members'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
@@ -123,6 +135,8 @@ export default {
   name: 'board-app',
   data() {
     return {
+      isChatingBtnShown:true,
+      isChating:false,
       isListExpanded: true,
       isMembersShowen: false,
       currTaskDetails: null,
@@ -131,6 +145,9 @@ export default {
     }
   },
   computed: {
+    chatControl(){
+      return this.isChatingBtnShown ? 'Hide Chat' : 'Show Chat'
+    },
     expendStyle() {
       return this.isListExpanded
         ? { borderLeft: 1 + 'px' + ' solid ' + 'rgb(228, 228, 228)' }
@@ -162,8 +179,14 @@ export default {
     }
   },
   methods: {
+    toogleChatBtn(){
+      this.isChatingBtnShown = !this.isChatingBtnShown
+    },
     toggleExpandList() {
       this.isListExpanded = !this.isListExpanded
+    },
+    toggleChat(){
+      this.isChating=!this.isChating
     },
     duplicateGroup(group) {
       group.id = utilService.makeId()
@@ -274,7 +297,8 @@ export default {
     boardFilter,
     addMembers,
     taskDetails,
-    boardSearch
+    boardSearch,
+    chatApp
   }
 }
 </script>
