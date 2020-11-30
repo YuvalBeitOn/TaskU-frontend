@@ -1,15 +1,16 @@
 <template>
-  <section class="filter-form flex column justify-center">
+  <section class="filter-form flex column">
     <h4 class="filter-title">{{ title }}</h4>
-    <button @click="updateFilter">All</button>
+    <button class="filter-btn" @click="updateFilter">All</button>
     <button
-      :style="getStyleStr(opt.color)"
+      class="filter-btn relative"
       @click="updateFilter"
       v-for="opt in filteredOpts"
       :key="opt.id"
       type="submit"
     >
-      {{ opt.txt }}
+      <span class="filter-txt">{{ opt.txt }}</span>
+      <span :style="getStyleStr(opt.color)" class="status-circle"></span>
     </button>
   </section>
 </template>
@@ -32,8 +33,8 @@ export default {
       this.$emit('updateFilter', filterObj)
     },
     getStyleStr(colorStr) {
-      return `backgroundColor:${colorStr}`
-    },
+      return `backgroundColor:${colorStr}; border-color:${colorStr};`
+    }
   },
   created() {
     this.filteredOpts = this.opts.filter(opt => opt.txt)

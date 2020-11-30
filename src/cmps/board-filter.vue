@@ -25,12 +25,17 @@
             :opts="priorities"
             @updateFilter="updateFilter"
           />
+          <filter-users
+            title="Person"
+            :users="users"
+            @updateFilter="updateFilter"
+          />
         </div>
-          <div
-            class="back-drop-layer"
-            v-if="isFilterShowen"
-            @click="toggleFilter"
-          ></div>
+        <div
+          class="back-drop-layer"
+          v-if="isFilterShowen"
+          @click="toggleFilter"
+        ></div>
       </div>
     </div>
   </section>
@@ -38,6 +43,8 @@
 
 <script>
 import filterForm from './filter-form'
+import filterUsers from './filter-users'
+
 export default {
   name: 'board-filter',
   props: {
@@ -46,12 +53,17 @@ export default {
   },
   data() {
     return {
-      isFilterShowen: false
+      isFilterShowen: false,
+      newItem: null
     }
   },
   computed: {
     filterBy() {
       return this.$store.getters.filterBy
+    },
+    users() {
+      console.log('users:', this.$store.getters.users)
+      return this.$store.getters.users
     }
   },
   methods: {
@@ -66,13 +78,15 @@ export default {
       this.$emit('forceRerender')
     },
     updateFilter(filterObj) {
+      console.log('filterObj:', filterObj);
       this.filterBy[filterObj.title] = filterObj.opt
       this.$store.commit({ type: 'setFilterBy', filterBy: this.filterBy })
       this.$emit('forceRerender')
     }
   },
   components: {
-    filterForm
+    filterForm,
+    filterUsers
   }
 }
 </script>

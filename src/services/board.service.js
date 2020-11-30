@@ -79,9 +79,19 @@ function getEmptyPost() {
     return post
 }
 
-function getEmptyActivity() {
+// function getEmptyActivity() {
+//     const activity = boardUtils.getEmptyActivity()
+//     activity.id = utilService.makeId()
+//     activity.createdAt = Date.now() 
+//     return activity
+// }
+
+
+function getEmptyActivity(txt, user) {
     const activity = boardUtils.getEmptyActivity()
     activity.id = utilService.makeId()
-    activity.createdAt = Date.now() 
+    activity.byUser = user
+    activity.txt = txt
+    activity.createdAt = Date.now()
     return activity
 }

@@ -1,7 +1,7 @@
 <template>
   <section v-if="!isLoading" class="board-app flex">
     <board-list
-      v-if="isExpendedList"
+      v-if="isListExpanded"
       @removeBoard="removeCurrBoard"
       @addNewBoard="addBoard"
       :boards="boards"
@@ -9,8 +9,8 @@
     >
       <board-search @searchBoard="setSearch" slot="search" />
     </board-list>
-    <div class="expend-btn-container"  :style="expendStyle">
-      <i v-tooltip.right="'Expend/Hide List'" @click="isExpendedList = !isExpendedList" :class="expendBtnStyle"></i>
+    <div class="expend-btn-container" :style="expendStyle">
+      <i  v-tooltip.right="'Expend/Hide List'" @click="toggleExpandList" :class="expendBtnStyle"></i>
     </div>
 
     <div class="board-app-container width100">
@@ -112,7 +112,7 @@ export default {
   name: 'board-app',
   data() {
     return {
-      isExpendedList: true,
+      isListExpanded: true,
       isMembersShowen: false,
       currTaskDetails: null,
       isTaskDetailsHover: false,
@@ -121,12 +121,12 @@ export default {
   },
   computed: {
     expendStyle() {
-      return this.isExpendedList
+      return this.isListExpanded
         ? { borderLeft: 1 + 'px' + ' solid ' + 'rgb(228, 228, 228)' }
         : { marginLeft: 15 + 'px' }
     },
     expendBtnStyle() {
-      return this.isExpendedList
+      return this.isListExpanded
         ? 'expend-btn fas fa-chevron-left'
         : 'expend-btn fas fa-chevron-right'
     },
@@ -151,6 +151,9 @@ export default {
     }
   },
   methods: {
+    toggleExpandList() {
+      this.isListExpanded = !this.isListExpanded
+    },
     duplicateGroup(group) {
       group.id = utilService.makeId()
       this.board.groups.push(group)
