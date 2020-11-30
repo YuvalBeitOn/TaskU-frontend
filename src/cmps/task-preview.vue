@@ -16,17 +16,25 @@
           >{{ taskCopy.txt }}</span
         >
       </div>
+    <el-badge  :value="task.posts.length"  class="item" type="primary">
+      <i @click="sendToTaskDetails" v-tooltip.top="'Task Details'" class="task-icon far fa-comment fa-icon"></i>
+    </el-badge>
 
-      <i @click="sendToTaskDetails" class="task-icon far fa-comment fa-icon"></i>
     </div>
     <div class="task-details flex">
       <div class="headers flex">
-        <span
-          ><i
+    
+
+        <span>
+        <el-badge  :value="task.members.length"  class="item" type="primary">
+          <i
             @click.stop="openMemberPopup"
-            class="task-icon far fa-user-circle fa-icon"
-          ></i
-        ></span>
+           v-tooltip.top="'Task Members'" class="task-icon far fa-user-circle fa-icon"
+          ></i>
+    </el-badge>
+
+        </span>
+
 
         <add-members
           v-if="isTaskMembersShowen"

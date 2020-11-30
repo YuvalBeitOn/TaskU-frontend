@@ -6,20 +6,20 @@
           <img src="img/icons/logo_icon.png" alt="TaskU" />
         </router-link>
       </div>
-      <i class="nav-icon far fa-bell"></i>
-      <i class="nav-icon far fa-inbox-in"></i>
+      <i v-tooltip.right="'Notfications'" class="nav-icon far fa-bell"></i>
+      <i v-tooltip.right="'Inbox'" class="nav-icon far fa-inbox-in"></i>
     </div>
 
     <div class="middle-nav">
       <div class="user-greeting">Hello Guest</div>
     </div>
     <div class="bottom-nav flex column align-center">
-      <i class="nav-icon fal fa-calendar-check"></i>
+      <i v-tooltip.right="'Calender'" class="nav-icon fal fa-calendar-check"></i>
       <router-link to="/user/301">
-        <i class="nav-icon profile fas fa-user-circle"></i>
+        <i v-tooltip.right="'User Profile'" class="nav-icon profile fas fa-user-circle"></i>
       </router-link>
       <router-link to="/">
-        <i class="nav-icon logout fad fa-sign-out"></i>
+        <i v-tooltip.right="'Logout'" class="nav-icon logout fad fa-sign-out"></i>
       </router-link>
     </div>
   </section>

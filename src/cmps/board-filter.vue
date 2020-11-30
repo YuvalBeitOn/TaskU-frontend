@@ -1,7 +1,7 @@
 <template>
   <section class="board-filter flex space-between">
     <div class="filter-actions flex space-between align-center">
-      <button class="add-group-btn" @click="addGroup">New Group</button>
+      <button v-tooltip.top="'Add New Group'" class="add-group-btn" @click="addGroup">New Group</button>
       <span
         ><i class="far fa-search"></i
         ><input
@@ -13,7 +13,7 @@
       /></span>
       <div class="filter">
         <i class="fas fa-filter"></i>
-        <span @click="toggleFilter">Filter</span>
+        <span v-tooltip.top="'Filter Board'" @click="toggleFilter">Filter</span>
         <div class="filters flex" v-if="isFilterShowen">
           <filter-form
             title="Status"

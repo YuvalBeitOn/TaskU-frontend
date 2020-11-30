@@ -3,7 +3,7 @@
     
     <div class="top-bar flex space-around align-center">
       <h1 class="title-board-list">{{ title }}</h1>
-      <i @click="addBoard" class="btn-add fas fa-plus-circle"></i>
+      <i v-tooltip.top="'Add Board'" @click="addBoard" class="btn-add fas fa-plus-circle"></i>
     </div>
     <slot name="search"></slot>
 
@@ -11,7 +11,7 @@
       <li class="board-item" v-for="board in boards" :key="board._id">
         <i
           @click="togglePopup(board._id)"
-          class="minimenu-icon fas fa-ellipsis-h"
+         v-tooltip.right="'Options'" class="minimenu-icon fas fa-ellipsis-h"
         ></i>
         <router-link :to="'/board/' + board._id">{{titleBoardToShow(board.name)}}</router-link>
         <popupMenu

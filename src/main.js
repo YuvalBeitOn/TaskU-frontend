@@ -6,7 +6,9 @@ import store from './store'
 import './styles/styles.scss'
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale'
-
+import VTooltip from 'v-tooltip'
+ 
+Vue.use(VTooltip)
 
 Vue.use(ElementUI, { locale })
 Vue.use(require('vue-moment'));

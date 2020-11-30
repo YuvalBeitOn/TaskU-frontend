@@ -9,8 +9,8 @@
     >
       <board-search @searchBoard="setSearch" slot="search" />
     </board-list>
-    <div class="expend-btn-container" :style="expendStyle">
-      <i @click="isExpendedList = !isExpendedList" :class="expendBtnStyle"></i>
+    <div class="expend-btn-container"  :style="expendStyle">
+      <i v-tooltip.right="'Expend/Hide List'" @click="isExpendedList = !isExpendedList" :class="expendBtnStyle"></i>
     </div>
 
     <div class="board-app-container width100">
@@ -41,10 +41,15 @@
               v-if="isMembersShowen"
               @click.prevent="isMembersShowen = false"
             ></div>
+        <el-badge  :value="board.members.length"  class="item" type="primary">
+
+            <button v-tooltip.top="'Board Members'" @click="toggleMembers" class="btn-close">
             <i
-              @click="toggleMembers"
+              
               class="icon-nav-hader far fa-user-circle fa-icon"
             ></i>
+            </button>
+            </el-badge>
             <add-members
               class="right"
               v-if="isMembersShowen"
