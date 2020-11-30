@@ -1,113 +1,123 @@
 <template>
-  <section v-if="!isLoading" class="board-app flex">
-    <board-list
-      v-if="isListExpanded"
-      @removeBoard="removeCurrBoard"
-      @addNewBoard="addBoard"
-      :boards="boards"
-      title="Boards"
-    >
-      <board-search @searchBoard="setSearch" slot="search" />
-    </board-list>
-    <div
-      @click="toggleExpandList"
-      class="expand-btn-container"
-      :style="expendStyle"
-    >
-      <button
-        :class="{ 'expand-list-btn': true, notExpanded: !isListExpanded }"
-      >
-        <i
-          v-tooltip.right="'Expend/Hide List'"
-          :class="expendBtnStyle"
-        ></i>
-      </button>
-    </div>
+    <section v-if="!isLoading" class="board-app flex">
+        <!-- {{ user }} -->
+        <board-list
+            v-if="isListExpanded"
+            @removeBoard="removeCurrBoard"
+            @addNewBoard="addBoard"
+            :boards="boards"
+            title="Boards"
+        >
+            <board-search @searchBoard="setSearch" slot="search" />
+        </board-list>
+        <div
+            @click="toggleExpandList"
+            class="expand-btn-container"
+            :style="expendStyle"
+        >
+            <button
+                :class="{
+                    'expand-list-btn': true,
+                    notExpanded: !isListExpanded,
+                }"
+            >
+                <i
+                    v-tooltip.right="'Expend/Hide List'"
+                    :class="expendBtnStyle"
+                ></i>
+            </button>
+        </div>
 
-    <div class="board-app-container width100">
-      <div v-if="board" class="board-up">
-        <div class="board-header-top flex space-between">
-          <div class="header-board-details flex column">
-            <h2
-              class="board-name-title editable"
-              @blur="updateBoardName"
-              @keydown.enter="updateBoardName"
-              contenteditable
-            >
-              {{ board.name }}
-            </h2>
-            <h3
-              class="board-descriotion editable"
-              v-if="board.description"
-              @blur="updateBoardDescription"
-              @keydown.enter="updateBoardDescription"
-              contenteditable
-            >
-              {{ board.description }}
-            </h3>
-          </div>
-          <div class="board-header-nav flex wrap">
-            <div
-              class="back-drop-layer"
-              v-if="isMembersShowen"
-              @click.prevent="isMembersShowen = false"
-            ></div>
-            <el-badge :value="board.members.length" class="item" type="primary">
-              <button
-                v-tooltip.top="'Board Members'"
-                @click="toggleMembers"
-                class="btn-close"
-              >
-                <i class="icon-nav-hader far fa-user-circle fa-icon"></i>
-              </button>
-            </el-badge>
-            <add-members
-              class="right"
-              v-if="isMembersShowen"
-              firstTitle="Board Member"
-              secondTitle="Users Site"
-              :members="board.members"
-              :allMembers="usersSite"
-              @removeMember="removeUserFromBoard"
-              @addMember="addUserToBoard"
+        <div class="board-app-container width100">
+            <div v-if="board" class="board-up">
+                <div class="board-header-top flex space-between">
+                    <div class="header-board-details flex column">
+                        <h2
+                            class="board-name-title editable"
+                            @blur="updateBoardName"
+                            @keydown.enter="updateBoardName"
+                            contenteditable
+                        >
+                            {{ board.name }}
+                        </h2>
+                        <h3
+                            class="board-descriotion editable"
+                            v-if="board.description"
+                            @blur="updateBoardDescription"
+                            @keydown.enter="updateBoardDescription"
+                            contenteditable
+                        >
+                            {{ board.description }}
+                        </h3>
+                    </div>
+                    <div class="board-header-nav flex wrap">
+                        <div
+                            class="back-drop-layer"
+                            v-if="isMembersShowen"
+                            @click.prevent="isMembersShowen = false"
+                        ></div>
+                        <el-badge
+                            :value="board.members.length"
+                            class="item"
+                            type="primary"
+                        >
+                            <button
+                                v-tooltip.top="'Board Members'"
+                                @click="toggleMembers"
+                                class="btn-close"
+                            >
+                                <i
+                                    class="icon-nav-hader far fa-user-circle fa-icon"
+                                ></i>
+                            </button>
+                        </el-badge>
+                        <add-members
+                            class="right"
+                            v-if="isMembersShowen"
+                            firstTitle="Board Member"
+                            secondTitle="Users Site"
+                            :members="board.members"
+                            :allMembers="usersSite"
+                            @removeMember="removeUserFromBoard"
+                            @addMember="addUserToBoard"
+                        />
+                    </div>
+                </div>
+
+                <div class="board-control flex space-between">
+                    <h4 class="board-creator">By: {{ board.creator.fullName }}</h4>
+                    <board-filter
+                        v-if="board"
+                        :statuses="board.statuses"
+                        :priorities="board.priorities"
+                        @addGroup="addGroup"
+                        @forceRerender="forceRerender"
+                    />
+                </div>
+            </div>
+            <group-list
+                v-if="board"
+                :key="componentKey"
+                :groups="board.groups"
+                :boardName="board.name"
+                @deleteGroup="deleteGroup"
+                @updateGroup="updateGroup"
+                @updateGroups="updateGroups"
+                @duplicateGroup="duplicateGroup"
+                @forceRender="forceRerender"
             />
-          </div>
+            <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
         </div>
-
-        <div class="board-control flex space-between">
-          <h4 class="board-creator">By: {{ board.creator.fullName }}</h4>
-          <board-filter
-            v-if="board"
-            :statuses="board.statuses"
-            :priorities="board.priorities"
-            @addGroup="addGroup"
-            @forceRerender="forceRerender"
-          />
-        </div>
-      </div>
-      <group-list
-        v-if="board"
-        :key="componentKey"
-        :groups="board.groups"
-        :boardName="board.name"
-        @deleteGroup="deleteGroup"
-        @updateGroup="updateGroup"
-        @updateGroups="updateGroups"
-        @duplicateGroup="duplicateGroup"
-        @forceRender="forceRerender"
-      />
-      <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
+        <task-details
+            v-if="this.$route.params.taskId"
+            @close="isTaskDetailsHover = false"
+            @mouseover.native="isTaskDetailsHover = true"
+            @mouseleave.native="isTaskDetailsHover = false"
+        />
+    </section>
+    <div v-else class="flex justify-center align-center">
+        <img src="@/assets/imgs/loader.gif" class="loader-app" />
     </div>
-    <task-details
-      v-if="this.$route.params.taskId"
-      @close="isTaskDetailsHover = false"
-      @mouseover.native="isTaskDetailsHover = true"
-      @mouseleave.native="isTaskDetailsHover = false"
-    />
-  </section>
-  <div v-else class="flex justify-center align-center">
-    <img src="@/assets/imgs/loader.gif" class="loader-app" />
-  </div>
 </template>
 <script>
 import addMembers from '@/cmps/add-members'
@@ -120,161 +130,169 @@ import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
 
 export default {
-  name: 'board-app',
-  data() {
-    return {
-      isListExpanded: true,
-      isMembersShowen: false,
-      currTaskDetails: null,
-      isTaskDetailsHover: false,
-      componentKey: 0
-    }
-  },
-  computed: {
-    expendStyle() {
-      return this.isListExpanded
-        ? { borderLeft: 1 + 'px' + ' solid ' + 'rgb(228, 228, 228)' }
-        : { marginLeft: 15 + 'px' }
+    name: 'board-app',
+    data() {
+        return {
+            isListExpanded: true,
+            isMembersShowen: false,
+            currTaskDetails: null,
+            isTaskDetailsHover: false,
+            componentKey: 0,
+        }
     },
-    expendBtnStyle() {
-      return this.isListExpanded
-        ? 'expend-btn fas fa-chevron-left'
-        : 'expend-btn fas fa-chevron-right'
+    computed: {
+        expendStyle() {
+            return this.isListExpanded
+                ? { borderLeft: 1 + 'px' + ' solid ' + 'rgb(228, 228, 228)' }
+                : { marginLeft: 15 + 'px' }
+        },
+        expendBtnStyle() {
+            return this.isListExpanded
+                ? 'expend-btn fas fa-chevron-left'
+                : 'expend-btn fas fa-chevron-right'
+        },
+        isLoading() {
+            return this.$store.getters.isLoading
+        },
+        board() {
+            return this.$store.getters.board
+        },
+        boards() {
+            return this.$store.getters.boards
+        },
+        usersSite() {
+            const siteUsers = this.$store.getters.users
+            const boardMembers = this.board.members
+            const filteredSiteUsers = siteUsers.filter((siteUser) => {
+                return boardMembers.every((boardMember) => {
+                    return boardMember._id !== siteUser._id
+                })
+            })
+            return filteredSiteUsers
+        },
+        user() {
+            return this.$store.getters.user
+        },
     },
-    isLoading() {
-      return this.$store.getters.isLoading
-    },
-    board() {
-      return this.$store.getters.board
-    },
-    boards() {
-      return this.$store.getters.boards
-    },
-    usersSite() {
-      const siteUsers = this.$store.getters.users
-      const boardMembers = this.board.members
-      const filteredSiteUsers = siteUsers.filter(siteUser => {
-        return boardMembers.every(boardMember => {
-          return boardMember._id !== siteUser._id
-        })
-      })
-      return filteredSiteUsers
-    }
-  },
-  methods: {
-    toggleExpandList() {
-      this.isListExpanded = !this.isListExpanded
-    },
-    duplicateGroup(group) {
-      group.id = utilService.makeId()
-      this.board.groups.push(group)
-      this.$store.dispatch({ type: 'saveBoard', board: this.board })
-      this.forceRerender()
-    },
+    methods: {
+        toggleExpandList() {
+            this.isListExpanded = !this.isListExpanded
+        },
+        duplicateGroup(group) {
+            group.id = utilService.makeId()
+            this.board.groups.push(group)
+            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+            this.forceRerender()
+        },
 
-    updateBoardName(ev) {
-      this.board.name = ev.target.innerText
-      this.$store.dispatch({ type: 'saveBoard', board: this.board })
-      this.forceRerender()
+        updateBoardName(ev) {
+            this.board.name = ev.target.innerText
+            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+            this.forceRerender()
+        },
+        updateBoardDescription(ev) {
+            this.board.description = ev.target.innerText
+            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+            this.forceRerender()
+        },
+        forceRerender() {
+            this.componentKey += 1
+        },
+        toggleMembers() {
+            this.isMembersShowen = !this.isMembersShowen
+        },
+        addUserToBoard(user) {
+            this.board.members.unshift(user)
+            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+        },
+        removeUserFromBoard(userId) {
+            const idx = this.board.members.findIndex(
+                (bMember) => bMember._id === userId
+            )
+            this.board.members.splice(idx, 1)
+            this.$store.dispatch({ type: 'saveBoard', board: this.board })
+        },
+        setSearch(searchBoard) {
+            this.$store.commit({ type: 'setSearch', searchBoard })
+            this.$store.dispatch({ type: 'loadBoards' })
+        },
+        removeCurrBoard(boardId) {
+            this.$store.dispatch({ type: 'removeBoard', boardId })
+        },
+        addBoard() {
+            const board = boardService.getEmptyBoard()
+            board.creator = this.user
+            board.members.push(this.user)
+            this.$store.dispatch({ type: 'saveBoard', board })
+        },
+        loadBoard() {
+            this.$store.dispatch({
+                type: 'loadBoard',
+                boardId: this.$route.params.boardId,
+            })
+        },
+        addGroup() {
+            const newGroup = boardService.getEmptyGroup()
+            this.board.groups.push(newGroup)
+            this.$store.dispatch({
+                type: 'saveBoard',
+                board: this.board,
+            })
+            this.forceRerender()
+        },
+        deleteGroup(groupId) {
+            const idx = this.board.groups.findIndex(
+                (group) => group.id === groupId
+            )
+            this.board.groups.splice(idx, 1)
+            this.$store.dispatch({
+                type: 'saveBoard',
+                board: this.board,
+            })
+            this.forceRerender()
+        },
+        updateGroup(updatedGroup) {
+            const idx = this.board.groups.findIndex(
+                (group) => group.id === updatedGroup.id
+            )
+            this.board.groups.splice(idx, 1, updatedGroup)
+            this.$store.dispatch({
+                type: 'saveBoard',
+                board: this.board,
+            })
+            this.forceRerender()
+        },
+        updateGroups(groups) {
+            this.board.groups = groups
+            this.$store.dispatch({
+                type: 'saveBoard',
+                board: this.board,
+            })
+            this.forceRerender()
+        },
     },
-    updateBoardDescription(ev) {
-      this.board.description = ev.target.innerText
-      this.$store.dispatch({ type: 'saveBoard', board: this.board })
-      this.forceRerender()
+    watch: {
+        '$route.params.boardId'(val) {
+            if (val) {
+                this.loadBoard()
+                this.forceRerender()
+            }
+        },
     },
-    forceRerender() {
-      this.componentKey += 1
-    },
-    toggleMembers() {
-      this.isMembersShowen = !this.isMembersShowen
-    },
-    addUserToBoard(user) {
-      this.board.members.unshift(user)
-      this.$store.dispatch({ type: 'saveBoard', board: this.board })
-    },
-    removeUserFromBoard(userId) {
-      const idx = this.board.members.findIndex(
-        bMember => bMember._id === userId
-      )
-      this.board.members.splice(idx, 1)
-      this.$store.dispatch({ type: 'saveBoard', board: this.board })
-    },
-    setSearch(searchBoard) {
-      this.$store.commit({ type: 'setSearch', searchBoard })
-      this.$store.dispatch({ type: 'loadBoards' })
-    },
-    removeCurrBoard(boardId) {
-      this.$store.dispatch({ type: 'removeBoard', boardId })
-    },
-    addBoard() {
-      const board = boardService.getEmptyBoard()
-      this.$store.dispatch({ type: 'saveBoard', board })
-    },
-    loadBoard() {
-      this.$store.dispatch({
-        type: 'loadBoard',
-        boardId: this.$route.params.boardId
-      })
-    },
-    addGroup() {
-      const newGroup = boardService.getEmptyGroup()
-      this.board.groups.push(newGroup)
-      this.$store.dispatch({
-        type: 'saveBoard',
-        board: this.board
-      })
-      this.forceRerender()
-    },
-    deleteGroup(groupId) {
-      const idx = this.board.groups.findIndex(group => group.id === groupId)
-      this.board.groups.splice(idx, 1)
-      this.$store.dispatch({
-        type: 'saveBoard',
-        board: this.board
-      })
-      this.forceRerender()
-    },
-    updateGroup(updatedGroup) {
-      const idx = this.board.groups.findIndex(
-        group => group.id === updatedGroup.id
-      )
-      this.board.groups.splice(idx, 1, updatedGroup)
-      this.$store.dispatch({
-        type: 'saveBoard',
-        board: this.board
-      })
-      this.forceRerender()
-    },
-    updateGroups(groups) {
-      this.board.groups = groups
-      this.$store.dispatch({
-        type: 'saveBoard',
-        board: this.board
-      })
-      this.forceRerender()
-    }
-  },
-  watch: {
-    '$route.params.boardId'(val) {
-      if (val) {
+    created() {
+      console.log(this.user, 'user')
+        // this.$store.dispatch({ type: 'loadUser' })
+        this.$store.dispatch({ type: 'loadUsers' })
+        this.$store.dispatch({ type: 'loadBoards' })
         this.loadBoard()
-        this.forceRerender()
-      }
-    }
-  },
-  created() {
-    this.$store.dispatch({ type: 'loadUsers' })
-    this.$store.dispatch({ type: 'loadUser', userId: '301' })
-    this.$store.dispatch({ type: 'loadBoards' })
-    this.loadBoard()
-  },
-  components: {
-    groupList,
-    boardList,
-    boardFilter,
-    addMembers,
-    taskDetails,
-    boardSearch
-  }
+    },
+    components: {
+        groupList,
+        boardList,
+        boardFilter,
+        addMembers,
+        taskDetails,
+        boardSearch,
+    },
 }
 </script>

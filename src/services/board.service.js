@@ -13,8 +13,8 @@ export const boardService = {
     getEmptyActivity
 };
 
-function query() {
-    return httpService.get('board');
+function query(userId) {
+    return httpService.get(`board?userId=${userId}`);
 }
 
 function getById(boardId) {
@@ -31,6 +31,7 @@ function save(board) {
 }
 
 async function _add(board) {
+    console.log('BOARD SERVICE GOT THE BOARD!!!', board)
     return httpService.post(`board/`, board);
 }
 
@@ -78,14 +79,6 @@ function getEmptyPost() {
     post.createdAt = Date.now()
     return post
 }
-
-// function getEmptyActivity() {
-//     const activity = boardUtils.getEmptyActivity()
-//     activity.id = utilService.makeId()
-//     activity.createdAt = Date.now() 
-//     return activity
-// }
-
 
 function getEmptyActivity(txt, user) {
     const activity = boardUtils.getEmptyActivity()

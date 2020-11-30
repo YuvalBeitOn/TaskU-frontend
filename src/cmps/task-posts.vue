@@ -1,7 +1,13 @@
 <template>
     <section class="task-posts relative">
         <form @submit.prevent="addPost">
-            <textarea class="el-input-text-editor" @keydown.enter.exact.prevent="addPost" rows="3" placeholder="Write a massge..."  v-model="newPost" />
+            <textarea
+                class="el-input-text-editor"
+                @keydown.enter.exact.prevent="addPost"
+                rows="3"
+                placeholder="Write a massge..."
+                v-model="newPost"
+            />
             <button>Post</button>
         </form>
         <div class="posts-list flex column align-center">
@@ -12,22 +18,25 @@
             >
                 <div class="user-info-container flex space-between">
                     <div class="flex align-center">
-                           <avatar
-                           size="30"
-                           color="white"
-                        class="profile-img"
-                        v-if="post.byUser"
-                        :username="post.byUser.fullName"
-                    ></avatar>
- <span class="by-user" v-if="post.byUser">{{ post.byUser.fullName }}</span>
+                        <avatar
+                            size="30"
+                            color="white"
+                            class="profile-img"
+                            v-if="post.byUser"
+                            :username="post.byUser.fullName"
+                        ></avatar>
+                        <span class="by-user" v-if="post.byUser">{{
+                            post.byUser.fullName
+                        }}</span>
                     </div>
-                 
-                   
-                    <h5><i class="far fa-clock"></i> {{getTime(post.createdAt)}}</h5>
+
+                    <h5>
+                        <i class="far fa-clock"></i>
+                        {{ getTime(post.createdAt) }}
+                    </h5>
                 </div>
                 <el-divider />
                 <span class="task-post-txt">{{ post.txt }}</span>
-                
             </div>
         </div>
     </section>
@@ -46,7 +55,7 @@ export default {
     },
     computed: {
         loggedInUser() {
-            return this.$store.getters.loggedInUser
+            return this.$store.getters.user
         },
     },
     data() {
@@ -58,9 +67,10 @@ export default {
     },
     created() {
         this.copiedPosts = JSON.parse(JSON.stringify(this.posts))
+        console.log(this.logged)
     },
     methods: {
-        getTime(time){
+        getTime(time) {
             return moment(time).calendar()
         },
         addPost() {

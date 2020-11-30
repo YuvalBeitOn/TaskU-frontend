@@ -3,17 +3,12 @@ export const boardUtils = {
   getEmptyGroup,
   getEmptyTask,
   getEmptyPost,
-getEmptyActivity
+  getEmptyActivity
 }
 function getEmptyBoard() {
   return {
-    name: 'myBoard',
-    description:'myBoard is the Best',
-    creator: {
-      _id: '304',
-      fullName: 'Muki Ben David',
-      imgUrl: 'https://www.img.com/101.png'
-    },
+    name: 'New Team-Board',
+    description: 'Write your description!',
     statuses: [
       {
         color: '#c4c4c4',
@@ -50,8 +45,7 @@ function getEmptyBoard() {
         txt: 'High'
       }
     ],
-    activities:[]
-    ,
+    activities: [],
     members: [],
     groups: [getEmptyGroup(), getEmptyGroup()]
   }
@@ -87,7 +81,7 @@ function getEmptyPost() {
   return {
     id: null,
     txt: 'txt',
-    createdAt:'',
+    createdAt: '',
     byUser: null
   }
 }

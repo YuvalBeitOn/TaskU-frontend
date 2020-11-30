@@ -14,6 +14,7 @@
                                 <input
                                     v-model="loginCredentials.email"
                                     type="text"
+                                    autocomplete="email"
                                 />
                             </label>
                         </div>
@@ -23,6 +24,7 @@
                                 <input
                                     v-model="loginCredentials.password"
                                     type="password"
+                                    autocomplete="password"
                                 />
                             </label>
                         </div>
@@ -30,7 +32,7 @@
                             Log in <i class="fa fa-arrow-right"></i>
                         </button>
                     </form>
-                    <pre>{{ loginCredentials }}</pre>
+                    <span>New to our website? <router-link to="/signup">Let's sign-up!</router-link></span>
                 </div>
             </div>
         </div>
@@ -45,13 +47,24 @@ export default {
             loginCredentials: {
                 email: null,
                 password: null,
+                isAdmin: false,
             },
         }
     },
     created() {},
     methods: {
-        submitLogin() {
-            alert('submitted');
+        async submitLogin() {
+            const userCred = JSON.parse(JSON.stringify(this.loginCredentials))
+            this.$store.dispatch({
+                type: 'login',
+                userCred,
+            })
+            this.loginCredentials = {
+                email: null,
+                password: null,
+                isAdmin: false,
+            }
+            this.$router.push('/board')
         },
     },
 }

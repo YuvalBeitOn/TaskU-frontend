@@ -101,7 +101,9 @@ export const boardStore = {
   },
   actions: {
     async loadBoards(context) {
-      const boards = await boardService.query()
+      const userId = context.getters.user._id
+      console.log('UserId from board store @Boards loading:', userId)
+      const boards = await boardService.query(userId)
       context.commit({ type: 'setBoards', boards })
     },
     async loadBoard({ commit }, { boardId }) {
@@ -116,13 +118,22 @@ export const boardStore = {
       await boardService.remove(boardId)
       commit({ type: 'removeBoard', boardId })
     },
-    async saveBoard({ commit, dispatch }, { board }) {
+    async saveBoard({ commit, dispatch, rootGetters }, { board }) {
+      console.log('board i got on store',board)
+      const guestUser = rootGetters.guestUser
+      const userId = rootGetters.user._id
+      //Avoiding guest user duplication in members parameter
+      if (userId !== guestUser._id) {
+        board.members.push(guestUser)
+      }
       const savedBoard = await boardService.save(board)
       if (board._id) {
         commit({ type: 'setBoard', board: savedBoard })
       } else {
+        console.log('im in the else')
         dispatch({ type: 'loadBoards' })
       }
+      return savedBoard._id
     }
   }
 }
