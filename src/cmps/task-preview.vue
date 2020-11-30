@@ -6,7 +6,7 @@
     <div class="flex space-between align-center width100">
       <span class="task-color" :style="taskBgc"></span>
       <button class="btn-close" @click="deleteTask">
-        <i class="task-icon btn-trash fa-icon far fa-trash-alt"></i>
+        <i v-tooltip.top="'Delete Task'" class="task-icon btn-trash fa-icon far fa-trash-alt"></i>
       </button>
 
       <div class="task-txt">
@@ -82,7 +82,7 @@
         /></span>
 
         <span class="date-picker">
-          <el-date-picker
+          <el-date-picker v-tooltip.top="'Due Date'"
             class="date-input"
             @change="updateTaskDate"
             v-model="taskCopy.dueDate"
