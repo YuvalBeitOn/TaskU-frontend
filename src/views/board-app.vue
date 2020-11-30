@@ -129,6 +129,7 @@ export default {
         addBoard() {
             const board = boardService.getEmptyBoard()
             this.$store.dispatch({ type: 'saveBoard', board })
+            //kk
         },
 
         loadBoard() {
