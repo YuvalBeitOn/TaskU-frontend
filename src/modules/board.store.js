@@ -5,7 +5,7 @@ export const boardStore = {
     currBoard: null,
     searchBoard: null,
     filterBy: { status: 'All', priority: 'All', searchTerm: '' },
-    isLoading:false,
+    isLoading: false
   },
   getters: {
     boards(state) {
@@ -15,14 +15,17 @@ export const boardStore = {
       )
     },
     board(state) {
-      const filterBy = state.filterBy;
+      const filterBy = state.filterBy
       let filteredBoard = JSON.parse(JSON.stringify(state.currBoard))
       if (filterBy.status !== 'All') {
-        filteredBoard.groups.forEach(group => {
+        filteredBoard.groups.filter(group => {
           group.tasks = group.tasks.filter(task => {
             return task.status.txt === filterBy.status
           })
         })
+        filteredBoard.groups = filteredBoard.groups.filter(
+          group => (group = group.tasks.length !== 0)
+        )
       }
       if (filterBy.priority !== 'All') {
         filteredBoard.groups.forEach(group => {
@@ -30,15 +33,24 @@ export const boardStore = {
             return task.priority.txt === filterBy.priority
           })
         })
+        filteredBoard.groups = filteredBoard.groups.filter(
+          group => (group = group.tasks.length !== 0)
+        )
       }
       if (filterBy.searchTerm !== '') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
-            return task.txt.toLowerCase().includes(filterBy.searchTerm.toLowerCase())
+            return task.txt
+              .toLowerCase()
+              .includes(filterBy.searchTerm.toLowerCase())
           })
         })
+        filteredBoard.groups = filteredBoard.groups.filter(
+          group => (group = group.tasks.length !== 0)
+        )
       }
-      return filteredBoard;
+
+      return filteredBoard
     },
     defaultBoardId(state) {
       return state.boards[0]._id
@@ -46,7 +58,7 @@ export const boardStore = {
     filterBy(state) {
       return JSON.parse(JSON.stringify(state.filterBy))
     },
-    isLoading(state){
+    isLoading(state) {
       return state.isLoading
     }
   },
@@ -68,9 +80,9 @@ export const boardStore = {
       state.searchBoard = searchBoard
     },
     setFilterBy(state, { filterBy }) {
-      state.filterBy = filterBy;
+      state.filterBy = filterBy
     },
-    toggleIsLoading(state){
+    toggleIsLoading(state) {
       state.isLoading = !state.isLoading
     }
   },
@@ -80,12 +92,12 @@ export const boardStore = {
       context.commit({ type: 'setBoards', boards })
     },
     async loadBoard({ commit }, { boardId }) {
-      commit({type:'toggleIsLoading'})
+      commit({ type: 'toggleIsLoading' })
       const board = await boardService.getById(boardId)
       commit({ type: 'setBoard', board })
-      setTimeout(()=>{
-        commit({type:'toggleIsLoading'})
-      },2000)
+      setTimeout(() => {
+        commit({ type: 'toggleIsLoading' })
+      }, 2000)
     },
     async removeBoard({ commit }, { boardId }) {
       await boardService.remove(boardId)
@@ -98,7 +110,6 @@ export const boardStore = {
       } else {
         dispatch({ type: 'loadBoards' })
       }
-    },
-
+    }
   }
 }
