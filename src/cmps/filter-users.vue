@@ -32,7 +32,6 @@ export default {
   methods: {
     updateFilter(filterBy) {
       const filterObj = { title: this.title.toLowerCase(), opt: filterBy }
-      console.log('filterObj:', filterObj);
       this.$emit('updateFilter', filterObj)
     }
   },

@@ -1,11 +1,31 @@
 .board-list {
-  background-color: #f7f7f7;
-  min-height: 100vh;
+  
+    background-color: #f7f7f7;
+    min-height: 100vh;
+    border-top-left-radius: rem(15px);
+    margin-left: rem(-15px);
+    padding-left: rem(15px);
+    z-index: 2;
+    width: rem(30px);
+    border-right: 0.3px solid rgb(219, 219, 219);
+    transition: width .4s;
+    >* {
+      display: none;
+      button {
+        display: block;
+      }
+    }
+&.expanded {
   width: rem(230px);
-  border-top-left-radius: rem(15px);
-  margin-left: rem(-15px);
-  padding-left: rem(15px);
-  z-index: 2;
+  >* {
+    display: block;
+  }
+
+}
+
+
+
+ 
 
   .top-bar {
     margin-top: 35px;

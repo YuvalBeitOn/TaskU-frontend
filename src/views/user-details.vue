@@ -13,20 +13,18 @@
 
       <h3 class="mail">{{ user.email }}</h3>
     </section>
-        <el-tabs>
-            <el-tab-pane label="User Details">
-                <about-user :user="user" />
-            </el-tab-pane>
-            <el-tab-pane label="Edit Profile">
-                <edit-user :user="user" />
-            </el-tab-pane>
-        </el-tabs>
- 
+    <el-tabs>
+      <el-tab-pane label="User Details">
+        <about-user :user="user" />
+      </el-tab-pane>
+      <el-tab-pane label="Edit Profile">
+        <edit-user :user="user" />
+      </el-tab-pane>
+    </el-tabs>
   </section>
-      <div v-else class="flex justify-center align-center">
-    <img  src="@/assets/imgs/loader.gif" class="loader-app">
-
-    </div>
+  <div v-else class="flex justify-center align-center">
+    <img src="@/assets/imgs/loader.gif" class="loader-app" />
+  </div>
 </template>
 
 <script>
@@ -38,17 +36,14 @@ export default {
   name: 'user-details',
 
   computed: {
-        isLoading(){
+    isLoading() {
       return this.$store.getters.isLoading
     },
     user() {
-      return this.$store.getters.loggedInUser
-    },
-   
+      return this.$store.getters.user
+    }
   },
-  methods:{
-
-  },
+  methods: {},
   created() {
     const { userId } = this.$route.params
     this.$store.dispatch({ type: 'loadUser', userId })
@@ -56,8 +51,7 @@ export default {
   components: {
     Avatar,
     aboutUser,
-editUser
-  },
+    editUser
+  }
 }
 </script>
-

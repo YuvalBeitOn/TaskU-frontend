@@ -57,7 +57,6 @@ export default {
     Avatar
   },
   created() {
-    console.log('activities:', this.activities);
   }
 }
 </script>

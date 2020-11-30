@@ -46,7 +46,7 @@ export default {
     },
     computed: {
         loggedInUser() {
-            return this.$store.getters.loggedInUser
+            return this.$store.getters.user
         },
     },
     data() {

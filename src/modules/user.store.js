@@ -3,14 +3,14 @@ import { userService } from '@/services/user.service.js'
 export const userStore = {
   state: {
     users: [],
-    currUser: null
+    loggedInUser: null
   },
   getters: {
     users(state) {
       return state.users
     },
-    loggedInUser(state) {
-      return state.currUser
+    user(state) {
+      return state.loggedInUser
     }
   },
   mutations: {

@@ -35,7 +35,7 @@
 import taskPreview from './task-preview'
 import { boardService } from '@/services/board.service'
 import draggable from 'vuedraggable'
-import { eventBus } from '@/services/event-bus.service'
+// import { eventBus } from '@/services/event-bus.service'
 
 export default {
   name: 'task-list',
@@ -57,7 +57,7 @@ export default {
       return this.$store.getters.board
     },
     loggedInUser() {
-      return this.$store.getters.loggedInUser
+      return this.$store.getters.user
     },
     taskBgc() {
       return { backgroundColor: this.taskColor }
@@ -65,12 +65,16 @@ export default {
   },
   methods: {
     addEmptyTask(groupId) {
-      if (this.groupId !== groupId) return
+      console.log(groupId, this.groupId);
+      if (this.groupId !== groupId) {
+        console.log('add empty task returnnnn');
+        return
+      }
       const newTask = boardService.getEmptyTask()
-      const groupIdx = this.board.groups.findIndex(
-        group => group.id === groupId
-      )
-      this.board.groups[groupIdx].tasks.push(newTask)
+      console.log('new task:', newTask)
+
+      const group = this.getGroupById()
+      group.tasks.push(newTask)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
@@ -94,6 +98,7 @@ export default {
       newTask.activities.push(newActivity)
       const group = this.getGroupById()
       group.tasks.push(newTask)
+      console.log('new task:', newTask)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
@@ -124,8 +129,6 @@ export default {
     },
     updateTasks() {
       const group = this.getGroupById()
-      console.log('group:', group)
-      console.log('clonedTasks:', this.clonedTasks)
       group.tasks = this.clonedTasks
       this.$store.dispatch({
         type: 'saveBoard',
@@ -139,8 +142,9 @@ export default {
     draggable
   },
   created() {
+    console.log('task list created');
     this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
-    eventBus.$on('addEmptyTask', this.addEmptyTask)
+    // eventBus.$on('addEmptyTask', console.log)
   }
 }
 </script>

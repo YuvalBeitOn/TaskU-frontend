@@ -45,7 +45,6 @@ export default {
       this.$router.push(`/board/${this.$route.params.boardId}`)
     },
     getTasksPath() {
-      console.log('groupId', this.groupId)
       const groupIdx = this.board.groups.findIndex(
         group => group.id === this.groupId
       )
@@ -92,7 +91,7 @@ export default {
       return this.$store.getters.board
     },
     loggedInUser() {
-      return this.$store.getters.loggedInUser
+      return this.$store.getters.user
     },
     posts() {
       return this.task.posts
@@ -103,7 +102,6 @@ export default {
       const taskInfo = this.getTaskInfoById()
       this.groupId = taskInfo.groupId
       this.task = JSON.parse(JSON.stringify(taskInfo.task))
-      console.log('task', this.task)
     }
   },
   components: {

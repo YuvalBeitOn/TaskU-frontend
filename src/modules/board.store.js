@@ -16,7 +16,6 @@ export const boardStore = {
     },
     board(state) {
       const filterBy = state.filterBy;
-      console.log('filterBy:', filterBy);
       let filteredBoard = JSON.parse(JSON.stringify(state.currBoard))
       if (filterBy.status !== 'All') {
         filteredBoard.groups.forEach(group => {
@@ -36,8 +35,6 @@ export const boardStore = {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
             task.members = task.members.filter(member => {
-              console.log('member:', member);
-              console.log('filterBy.person:', filterBy.person);
               return member._id === filterBy.person
             })
           })
@@ -50,7 +47,6 @@ export const boardStore = {
           })
         })
       }
-      console.log('filteredBoard:', filteredBoard);
       // filteredBoard.groups.filter(group => group.tasks)
       return filteredBoard;
     },
