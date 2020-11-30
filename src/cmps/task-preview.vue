@@ -18,20 +18,25 @@
           >{{ taskCopy.txt }}</span
         >
       </div>
-
-      <i
-        @click="sendToTaskDetails"
-        class="task-icon far fa-comment fa-icon"
-      ></i>
+      <el-badge :value="task.posts.length" class="item" type="primary">
+        <i
+          @click="sendToTaskDetails"
+          v-tooltip.top="'Task Details'"
+          class="task-icon far fa-comment fa-icon"
+        ></i>
+      </el-badge>
     </div>
     <div class="task-details flex">
       <div class="headers flex">
-        <span
-          ><i
-            @click.stop="toggleMember"
-            class="task-icon far fa-user-circle fa-icon"
-          ></i
-        ></span>
+        <span>
+          <el-badge :value="task.members.length" class="item" type="primary">
+            <i
+              @click.stop="toggleMember"
+              v-tooltip.top="'Task Members'"
+              class="task-icon far fa-user-circle fa-icon"
+            ></i>
+          </el-badge>
+        </span>
 
         <add-members
           v-if="isTaskMembersShowen"
@@ -134,7 +139,7 @@ export default {
   },
   methods: {
     updateTaskDate() {
-      const date =  moment(this.taskCopy.dueDate).format('ll');
+      const date = moment(this.taskCopy.dueDate).format('ll')
       const txt = `Task due date was changed to ${date}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.activities.push(newActivity)
@@ -197,7 +202,7 @@ export default {
       }
     },
     updateTaskPriority(opt) {
-      const txt =`Task priority was updated to ${opt.txt}`
+      const txt = `Task priority was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       // const prevPrior = this.taskCopy.priority.txt
       this.taskCopy.priority.txt = opt.txt
@@ -207,7 +212,7 @@ export default {
       this.isPriorsShowen = false
     },
     updateTaskStatus(opt) {
-      const txt =`Task status was updated to ${opt.txt}`
+      const txt = `Task status was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       // const prevStatus = this.taskCopy.status.txt
       this.taskCopy.status.txt = opt.txt

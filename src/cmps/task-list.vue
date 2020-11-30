@@ -20,7 +20,7 @@
     <form class="flex" @submit.prevent="addTask">
       <span class="task-color" :style="taskBgc"></span>
       <input
-        class="add-task-input"
+        class="add-task-input "
         @focus="showAddBtn"
         v-model="txt"
         type="text"
