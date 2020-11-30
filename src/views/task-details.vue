@@ -1,7 +1,7 @@
 <template>
     <section v-if="task" class="task-details-section">
         <div class="top-bar">
-            <button class="cls-btn"><i @click.stop="closeBtn" class="fas fa-times"></i></button>
+            <button v-tooltip.top="'Close Task Details'" class="cls-btn"><i @click.stop="closeBtn" class="fas fa-times"></i></button>
             <h1 class="task-title editable"
                 @blur.stop="updateTaskTxt"
                 @keyup.enter="updateTaskTxt"
