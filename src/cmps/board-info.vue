@@ -21,6 +21,8 @@
         :allMembers="filteredUsers"
       />
     </el-badge>
+    <el-switch v-model="isChatingBtnShown">
+</el-switch>
   </div>
 </template>
 
@@ -32,7 +34,8 @@ export default {
   },
   data() {
     return {
-      isMembersShowen: false
+      isMembersShowen: false,
+      isChatingBtnShown:true
     }
   },
   computed: {

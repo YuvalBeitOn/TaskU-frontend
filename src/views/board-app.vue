@@ -102,7 +102,7 @@ export default {
       return this.$store.getters.isLoading
     },
     loggedInUser(){
-      return this.$store.getters.loggedInUser
+      return this.$store.getters.user
     },
     board() {
       return this.$store.getters.board
@@ -170,8 +170,9 @@ export default {
       this.componentKey += 1
     },
     addBoardMember(user) {
+      console.log('user:', user)
       this.board.members.unshift(user)
-       const txt = `${this.user.fullName} add ${user.fullName} to board`
+       const txt = `${this.loggedInUser.fullName}  to board`
      let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
@@ -240,9 +241,9 @@ export default {
     addGroup() {
       const newGroup = boardService.getEmptyGroup()
       this.board.groups.push(newGroup)
-       const txt = `${this.user.fullName} add new group`
-       let newActivity = boardService.getEmptyActivity(txt, this.user)
-      this.board.activities.push(newActivity)
+      //  const txt = `${this.loggedInUser.fullName} add new group`
+      //  let newActivity = boardService.getEmptyActivity(txt, this.loggedInUser)
+      // this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
