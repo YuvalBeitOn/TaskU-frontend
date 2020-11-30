@@ -6,7 +6,7 @@
     <div class="flex space-between align-center width100">
       <span class="task-color" :style="taskBgc"></span>
       <button class="btn-close" @click="deleteTask">
-        <i class="task-icon fa-icon far fa-trash-alt"></i>
+        <i class="task-icon btn-trash fa-icon far fa-trash-alt"></i>
       </button>
 
       <div class="task-txt">
@@ -18,18 +18,28 @@
           >{{ taskCopy.txt }}</span
         >
       </div>
-      <el-badge :value="task.posts.length" class="item" type="primary">
+      <el-badge
+        :hidden="postsLegnth"
+        :value="task.posts.length"
+        class="item"
+        type="primary"
+      >
         <i
           @click="sendToTaskDetails"
           v-tooltip.top="'Task Details'"
-          class="task-icon far fa-comment fa-icon"
+          :style="postosColorBtn" class="task-icon far fa-comment fa-icon"
         ></i>
       </el-badge>
     </div>
     <div class="task-details flex">
       <div class="headers flex">
         <span>
-          <el-badge :value="task.members.length" class="item" type="primary">
+          <el-badge
+            :hidden="membersLegnth"
+            :value="task.members.length"
+            class="item"
+            type="primary"
+          >
             <i
               @click.stop="toggleMember"
               v-tooltip.top="'Task Members'"
@@ -105,7 +115,7 @@ export default {
       taskCopy: null,
       isStatusesShowen: false,
       isPriorsShowen: false,
-      isTaskMembersShowen: false
+      isTaskMembersShowen: false,
     }
   },
   props: {
@@ -116,9 +126,18 @@ export default {
     groupId: String,
     boardMembers: [Array, Object],
     activity: Object,
-    user: Object
+    user: Object,
   },
   computed: {
+    postsLegnth() {
+      return this.task.posts.length > 0 ? false : true
+    },
+    postosColorBtn(){
+    return this.task.posts.length > 0 ? 'color: #0085ff;': ''
+    },
+    membersLegnth() {
+      return this.task.members.length > 0 ? false : true
+    },
     taskBgc() {
       return { backgroundColor: this.taskColor }
     },
@@ -126,8 +145,8 @@ export default {
       const boardMembers = this.boardMembers
       const taskMembers = this.taskCopy.members
       if (taskMembers) {
-        const filteredBoardMembers = boardMembers.filter(bMember => {
-          return taskMembers.every(tMember => {
+        const filteredBoardMembers = boardMembers.filter((bMember) => {
+          return taskMembers.every((tMember) => {
             return tMember._id !== bMember._id
           })
         })
@@ -135,7 +154,7 @@ export default {
       } else {
         return boardMembers
       }
-    }
+    },
   },
   methods: {
     updateTaskDate() {
@@ -157,7 +176,7 @@ export default {
     },
     removeTaskMember(member) {
       const idx = this.taskCopy.members.findIndex(
-        tMember => tMember._id === member._id
+        (tMember) => tMember._id === member._id
       )
       const txt = `Member ${member.fullName} was removed from task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
@@ -225,11 +244,11 @@ export default {
       this.isTaskMembersShowen = false
       this.isStatusesShowen = false
       this.isPriorsShowen = false
-    }
+    },
   },
   created() {
     eventBus.$on('updateTaskPreview', this.updateComponentTask)
     this.taskCopy = this.task
-  }
+  },
 }
 </script>
