@@ -75,6 +75,14 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+                const txt = `${this.loggedInUser.fullName} add new task`
+           let newActivity = boardService.getEmptyActivity(txt, this.loggedInUser)
+      this.board.activities.unshift(newActivity)
+      this.$notify({
+          message: 'add new task ',
+          position: 'bottom-left',
+          duration:2000,
+        });
       this.$emit('forceRender')
     },
     showAddBtn() {
@@ -92,6 +100,7 @@ export default {
       const txt = `Task '${newTask.txt}' added`
       let newActivity = boardService.getEmptyActivity(txt, this.loggedInUser)
       newTask.activities.push(newActivity)
+       this.board.activities.unshift(newActivity)
       const group = this.getGroupById()
       group.tasks.push(newTask)
       this.$store.dispatch({
@@ -100,16 +109,29 @@ export default {
       })
       this.txt = ''
       this.isAddBtnShowen = false
+          this.$notify({
+          message: 'Add new task',
+          position: 'bottom-left',
+          duration:2000,
+        });
       this.$emit('forceRender')
     },
     deleteTask(taskId) {
       const group = this.getGroupById()
       const taskIdx = group.tasks.findIndex(task => task.id === taskId)
       group.tasks.splice(taskIdx, 1)
+      const txt = `${this.loggedInUser.fullName} remove a task`
+      let newActivity = boardService.getEmptyActivity(txt, this.loggedInUser)
+      this.board.activities.unshift(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
+                                    this.$notify({
+                                    message: 'Remove task',
+                                    position: 'bottom-left',
+                                    duration:2000,
+                                  });
       this.$emit('forceRender')
     },
     updateTask(newTask) {
@@ -120,6 +142,7 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      
       this.$emit('forceRender')
     },
     updateTasks() {
@@ -131,6 +154,7 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+
       this.$emit('forceRender')
     }
   },

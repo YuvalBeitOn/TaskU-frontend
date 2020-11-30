@@ -4,10 +4,12 @@
       <nav-menu v-if="isNavShowen" />
       <router-view class="grow" />
     </main>
-  </div>
+   
+          </div>
 </template>
 
 <script>
+
 import navMenu from '@/cmps/nav-menu'
 
 export default {
@@ -22,7 +24,8 @@ export default {
     }
   },
   components: {
-    navMenu
+    navMenu,
+    
   }
 }
 </script>

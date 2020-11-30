@@ -121,7 +121,7 @@
   </div>
 </template>
 <script>
-import Swal from 'sweetalert2'
+import {eventBus} from '@/services/event-bus.service.js';
 import chatApp from '@/cmps/board-chat'
 import addMembers from '@/cmps/add-members'
 import groupList from '@/cmps/group-list'
@@ -162,6 +162,9 @@ export default {
     isLoading() {
       return this.$store.getters.isLoading
     },
+    loggedInUser(){
+      return this.$store.getters.loggedInUser
+    },
     board() {
       return this.$store.getters.board
     },
@@ -192,18 +195,43 @@ export default {
     duplicateGroup(group) {
       group.id = utilService.makeId()
       this.board.groups.push(group)
+          const txt = `${this.user.fullName} duplicate group `
+           let newActivity = boardService.getEmptyActivity(txt, this.user)
+        this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
+        this.$notify({
+            message: 'Duplicate group has saved ',
+            position: 'bottom-left',
+            duration:2000,
+          });
       this.forceRerender()
     },
 
     updateBoardName(ev) {
       this.board.name = ev.target.innerText
+       const txt = `${this.user.fullName} update Board name`
+           let newActivity = boardService.getEmptyActivity(txt, this.user)
+      this.board.activities.push(newActivity)
+
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
+        this.$notify({
+            message: 'Board name has saved ',
+            position: 'bottom-left',
+            duration:2000,
+          });
       this.forceRerender()
     },
     updateBoardDescription(ev) {
       this.board.description = ev.target.innerText
+       const txt = `${this.user.fullName} update Board description`
+       let newActivity = boardService.getEmptyActivity(txt, this.user)
+      this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
+     this.$notify({
+            message: 'Board description has saved',
+            position: 'bottom-left',
+            duration:2000,
+          });
       this.forceRerender()
     },
     forceRerender() {
@@ -214,39 +242,65 @@ export default {
     },
     addUserToBoard(user) {
       this.board.members.unshift(user)
+       const txt = `${this.user.fullName} add ${user.fullName} to board`
+     let newActivity = boardService.getEmptyActivity(txt, this.user)
+      this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
+     this.$notify({
+            message: 'add member to board has been update',
+            position: 'bottom-left',
+            duration:2000,
+          });
     },
     removeUserFromBoard(userId) {
       const idx = this.board.members.findIndex(
         bMember => bMember._id === userId
       )
       this.board.members.splice(idx, 1)
+       const txt = `${this.user.fullName} remove  group`
+       let newActivity = boardService.getEmptyActivity(txt, this.user)
+      this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
+     this.$notify({
+            message: 'Remove member from board has been update',
+            position: 'bottom-left',
+            duration:2000,
+          });
     },
     setSearch(searchBoard) {
       this.$store.commit({ type: 'setSearch', searchBoard })
       this.$store.dispatch({ type: 'loadBoards' })
     },
     removeCurrBoard(boardId) {
+        const txt = `${this.user.fullName} remove Board`
+       let newActivity = boardService.getEmptyActivity(txt, this.user)
+      this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'removeBoard', boardId })
+     this.$notify({
+            message: 'Remove a Board has been update',
+            position: 'bottom-left',
+            duration:2000,
+          });
     },
     addBoard() {
-     Swal.fire({
-  title: 'Enter your Board Name',
-  input: 'text',
-  inputAttributes: {
-    autocapitalize: 'off'
-  },
-  showCancelButton: true,
-  confirmButtonText: 'Create A Board',
-  showLoaderOnConfirm: true,
-}).then((result) => {
-  if (result.isConfirmed) {
-    const board = boardService.getEmptyBoard()
-    board.name = result.value
+           this.$prompt('Please enter name to your board', 'Tip', {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+        }).then(({ value }) => {
+            const board = boardService.getEmptyBoard()
+          board.name = value
+          board.creator=this.loggedInUser
     this.$store.dispatch({ type: 'saveBoard', board })
-  }
-})
+          this.$message({
+            type: 'success',
+            message: 'Your Board:' + value + ' add '
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'Your action  canceled'
+          });       
+        });
     },
     loadBoard() {
       this.$store.dispatch({
@@ -257,19 +311,35 @@ export default {
     addGroup() {
       const newGroup = boardService.getEmptyGroup()
       this.board.groups.push(newGroup)
+       const txt = `${this.user.fullName} add new group`
+       let newActivity = boardService.getEmptyActivity(txt, this.user)
+      this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
+           this.$notify({
+                  message: 'Remove Group has been update',
+                  position: 'bottom-left',
+                  duration:2000,
+                });
       this.forceRerender()
     },
     deleteGroup(groupId) {
       const idx = this.board.groups.findIndex(group => group.id === groupId)
       this.board.groups.splice(idx, 1)
+         const txt = `${this.user.fullName} Deleted Group`
+         let newActivity = boardService.getEmptyActivity(txt, this.user)
+        this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
+      this.$notify({
+          message: 'Remove Group has been update',
+          position: 'bottom-left',
+          duration:2000,
+        });
       this.forceRerender()
     },
     updateGroup(updatedGroup) {
@@ -277,18 +347,42 @@ export default {
         group => group.id === updatedGroup.id
       )
       this.board.groups.splice(idx, 1, updatedGroup)
+        const txt = `${this.user.fullName} updated  group`
+   let newActivity = boardService.getEmptyActivity(txt, this.user)
+  this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
+   this.$notify({
+          message: 'Group has been update',
+          position: 'bottom-left',
+          duration:2000,
+        });
       this.forceRerender()
+    },
+    updateBoardActivity(activity){
+      this.board.activities.unshift(activity)
+       console.log('this.board.activities:', this.board.activities)
+       this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
     },
     updateGroups(groups) {
       this.board.groups = groups
+        const txt = `${this.user.fullName} update the groups`
+       let newActivity = boardService.getEmptyActivity(txt, this.user)
+      this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
+           this.$notify({
+                  message: 'Remove Group has been update',
+                  position: 'bottom-left',
+                  duration:2000,
+                });
       this.forceRerender()
     }
   },
@@ -301,6 +395,7 @@ export default {
     }
   },
   created() {
+    eventBus.$on('updateBoardActivity', this.updateBoardActivity)
     this.$store.dispatch({ type: 'loadUsers' })
     this.$store.dispatch({ type: 'loadUser', userId: '301' })
     this.$store.dispatch({ type: 'loadBoards' })

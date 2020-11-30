@@ -13,7 +13,7 @@
                 <div class="user-info-container flex space-between">
                     <div class="flex align-center">
                            <avatar
-                           size="30"
+                           :size="30"
                            color="white"
                         class="profile-img"
                         v-if="post.byUser"
@@ -73,7 +73,13 @@ export default {
             this.copiedPosts.unshift(post)
             this.$emit('updatePosts', this.copiedPosts)
             this.newPost = ''
+                                   this.$notify({
+                                    message: 'New post add',
+                                    position: 'bottom-left',
+                                    duration:2000,
+                                  });
         },
+        
     },
     components: {
         Avatar,
