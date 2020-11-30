@@ -14,7 +14,7 @@
         >
           <avatar
             class="profile-img"
-            size="20"
+            :size=20
             v-if="activity.byUser"
             :username="activity.byUser.fullName"
           ></avatar>
@@ -26,7 +26,7 @@
         </div>
         <div class="activity-txt">{{ activity.txt }}</div>
       </section>
-      <div class="activity-date">
+      <div class="activity-date flex end">
         <h6><i class="far fa-clock"></i> {{getTime(activity.createdAt)}}</h6>
       </div>
     </li>
@@ -55,6 +55,9 @@ export default {
   },
   components: {
     Avatar
+  },
+  created() {
+    console.log('activities:', this.activities);
   }
 }
 </script>

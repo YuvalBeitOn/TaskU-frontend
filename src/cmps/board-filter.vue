@@ -1,7 +1,7 @@
 <template>
   <section class="board-filter flex space-between">
     <div class="filter-actions flex space-between align-center">
-      <button class="add-group-btn" @click="addGroup">New Group</button>
+      <button v-tooltip.top="'Add New Group'" class="add-group-btn" @click="addGroup">New Group</button>
       <span
         ><i class="far fa-search"></i
         ><input
@@ -13,7 +13,7 @@
       /></span>
       <div class="filter">
         <i class="fas fa-filter"></i>
-        <span @click="toggleFilter">Filter</span>
+        <span v-tooltip.top="'Filter Board'" @click="toggleFilter">Filter</span>
         <div class="filters flex" v-if="isFilterShowen">
           <filter-form
             title="Status"
@@ -25,12 +25,17 @@
             :opts="priorities"
             @updateFilter="updateFilter"
           />
+          <filter-users
+            title="Person"
+            :users="users"
+            @updateFilter="updateFilter"
+          />
         </div>
-          <div
-            class="back-drop-layer"
-            v-if="isFilterShowen"
-            @click="toggleFilter"
-          ></div>
+        <div
+          class="back-drop-layer"
+          v-if="isFilterShowen"
+          @click="toggleFilter"
+        ></div>
       </div>
     </div>
   </section>
@@ -38,6 +43,8 @@
 
 <script>
 import filterForm from './filter-form'
+import filterUsers from './filter-users'
+
 export default {
   name: 'board-filter',
   props: {
@@ -46,12 +53,17 @@ export default {
   },
   data() {
     return {
-      isFilterShowen: false
+      isFilterShowen: false,
+      newItem: null
     }
   },
   computed: {
     filterBy() {
       return this.$store.getters.filterBy
+    },
+    users() {
+      console.log('users:', this.$store.getters.users)
+      return this.$store.getters.users
     }
   },
   methods: {
@@ -66,13 +78,16 @@ export default {
       this.$emit('forceRerender')
     },
     updateFilter(filterObj) {
+      console.log('filterObj:', filterObj);
       this.filterBy[filterObj.title] = filterObj.opt
       this.$store.commit({ type: 'setFilterBy', filterBy: this.filterBy })
       this.$emit('forceRerender')
+      this.isFilterShowen = false;
     }
   },
   components: {
-    filterForm
+    filterForm,
+    filterUsers
   }
 }
 </script>

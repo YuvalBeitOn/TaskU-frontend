@@ -6,21 +6,37 @@
           <img src="img/icons/logo_icon.png" alt="TaskU" />
         </router-link>
       </div>
-      <i class="nav-icon far fa-bell"></i>
-      <i class="nav-icon far fa-inbox-in"></i>
+      <div class="nav-icon-container">
+        <i v-tooltip.right="'Notfications'" class="nav-icon far fa-bell"></i>
+      </div>
+      <div class="nav-icon-container">
+        <i v-tooltip.right="'Inbox'" class="nav-icon far fa-inbox-in"></i>
+      </div>
     </div>
 
-    <div class="middle-nav">
-      <div class="user-greeting">Hello Guest</div>
-    </div>
+    <div class="user-greeting">Hello Guest</div>
     <div class="bottom-nav flex column align-center">
-      <i class="nav-icon fal fa-calendar-check"></i>
-      <router-link to="/user/301">
-        <i class="nav-icon profile fas fa-user-circle"></i>
-      </router-link>
-      <router-link to="/">
-        <i class="nav-icon logout fad fa-sign-out"></i>
-      </router-link>
+      <div class="nav-icon-container">
+        <i
+          v-tooltip.right="'Calender'"
+          class="nav-icon fal fa-calendar-check"
+        ></i>
+      </div>
+
+      <div class="nav-icon-container">
+        <router-link to="/">
+          <i
+            v-tooltip.right="'Logout'"
+            class="nav-icon logout fad fa-sign-out"
+          ></i>
+        </router-link>
+      </div>
+        <router-link to="/user/301">
+          <i
+            v-tooltip.right="'User Profile'"
+            class="nav-icon profile fas fa-user-circle"
+          ></i>
+        </router-link>
     </div>
   </section>
 </template>
@@ -28,7 +44,6 @@
 <script>
 export default {
   name: 'nav-menu',
-  computed: {
-  },
+  computed: {}
 }
 </script>

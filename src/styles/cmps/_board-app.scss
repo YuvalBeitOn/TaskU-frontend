@@ -1,21 +1,50 @@
 .board-app {
   background-color: #f7f7f7;
+  .expand-list-btn {
+    // color: black;
+    border: 1px solid #e6e9ef;
+    border-radius: 20px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    width: 26px;
+    height: 26px;
+    padding: 3px 9px;
+    position: absolute;
+    left: 272px;
+    font-size: rem(12px);
+    &.notExpanded {
+      position: absolute;
+      left: 85px;
+    }
+    &:hover {
+      padding: 0px 15px;
+      background-color: $clr1;
+      color: white;
+      justify-content: flex-end;
+    }
+    .expand-icon {
+      font-size: 11px;
+    }
+  }
 
   .board-control {
     border-bottom: 1px solid rgba(165, 165, 165, 0.714);
     padding: rem(15px) rem(30px) rem(0px) rem(20px);
-    .board-creator{
+    .board-creator {
       font-size: rem(13px);
     }
   }
   .board-up {
     background-color: #f7f7f7;
-    
+
     padding: 30px 30px 0px 30px;
   }
   .board-header-top {
     padding: 0px 20px 0px 20px;
-    .board-header-nav{
+    .board-header-nav {
       .icon-nav-hader {
         font-size: rem(20px);
         cursor: pointer;
@@ -26,17 +55,16 @@
       top: 10px;
       right: 30px;
     }
-    .board-descriotion{
+    .board-descriotion {
       font-size: rem(14px);
     }
     .board-name-title {
       font-family: 'roboto-regular';
       font-size: rem(28px);
-
+      display: inline-block;
       text-transform: capitalize;
       margin-bottom: rem(16px);
     }
-  
   }
   .backdrop-layer {
     position: absolute;
@@ -48,6 +76,4 @@
     background-color: black;
     opacity: 0.4;
   }
-
-
 }

@@ -5,28 +5,48 @@
   >
     <div class="flex space-between align-center width100">
       <span class="task-color" :style="taskBgc"></span>
-      <button class="btn-close" @click="deleteTask"><i class="task-icon fa-icon far fa-trash-alt"></i></button>
+      <button class="btn-close" @click="deleteTask">
+        <i v-tooltip.top="'Delete Task'" class="task-icon btn-trash fa-icon far fa-trash-alt"></i>
+      </button>
 
       <div class="task-txt">
         <span
-        class="editable"
+          class="editable"
           @blur="updateTaskTxt"
           @keydown.enter="updateTaskTxt"
           contenteditable
           >{{ taskCopy.txt }}</span
         >
       </div>
-
-      <i @click="sendToTaskDetails" class="task-icon far fa-comment fa-icon"></i>
+      <el-badge
+        :hidden="postsLegnth"
+        :value="task.posts.length"
+        class="item"
+        type="primary"
+      >
+        <i
+          @click="sendToTaskDetails"
+          v-tooltip.top="'Task Details'"
+          :style="postosColorBtn" class="task-icon far fa-comment fa-icon"
+        ></i>
+      </el-badge>
     </div>
     <div class="task-details flex">
       <div class="headers flex">
-        <span
-          ><i
-            @click.stop="openMemberPopup"
-            class="task-icon far fa-user-circle fa-icon"
-          ></i
-        ></span>
+        <span>
+          <el-badge
+            :hidden="membersLegnth"
+            :value="task.members.length"
+            class="item"
+            type="primary"
+          >
+            <i
+              @click.stop="toggleMember"
+              v-tooltip.top="'Task Members'"
+              class="task-icon far fa-user-circle fa-icon"
+            ></i>
+          </el-badge>
+        </span>
 
         <add-members
           v-if="isTaskMembersShowen"
@@ -62,9 +82,9 @@
         /></span>
 
         <span class="date-picker">
-          <el-date-picker
+          <el-date-picker v-tooltip.top="'Due Date'"
             class="date-input"
-            @change="updateTask"
+            @change="updateTaskDate"
             v-model="taskCopy.dueDate"
             type="date"
             placeholder="Pick a date"
@@ -85,6 +105,8 @@ import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
 import labelPicker from './label-picker'
 import { boardService } from '@/services/board.service'
+import moment from 'moment'
+
 export default {
   components: { labelPicker, addMembers },
   name: 'task-preview',
@@ -107,6 +129,15 @@ export default {
     user: Object,
   },
   computed: {
+    postsLegnth() {
+      return this.task.posts.length > 0 ? false : true
+    },
+    postosColorBtn(){
+    return this.task.posts.length > 0 ? 'color: #0085ff;': ''
+    },
+    membersLegnth() {
+      return this.task.members.length > 0 ? false : true
+    },
     taskBgc() {
       return { backgroundColor: this.taskColor }
     },
@@ -126,17 +157,20 @@ export default {
     },
   },
   methods: {
-    openMemberPopup() {
-      this.isTaskMembersShowen = true
+    updateTaskDate() {
+      const date = moment(this.taskCopy.dueDate).format('ll')
+      const txt = `Task due date was changed to ${date}`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      this.taskCopy.activities.push(newActivity)
+      this.updateTask()
     },
     toggleMember() {
       this.isTaskMembersShowen = !this.isTaskMembersShowen
     },
     addTaskMember(member) {
-      let newActivity = boardService.getEmptyActivity()
+      const txt = `Member ${member.fullName} was added to task`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.members.unshift(member)
-      newActivity.txt = `Member ${member.fullName} was added to task`
-      newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
     },
@@ -144,10 +178,9 @@ export default {
       const idx = this.taskCopy.members.findIndex(
         (tMember) => tMember._id === member._id
       )
-      let newActivity = boardService.getEmptyActivity()
+      const txt = `Member ${member.fullName} was removed from task`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.members.splice(idx, 1)
-      newActivity.txt = `Member ${member.fullName} was removed from task`
-      newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
     },
@@ -164,11 +197,10 @@ export default {
       this.$emit('deleteTask', this.taskCopy.id)
     },
     updateTaskTxt(ev) {
-      let newActivity = boardService.getEmptyActivity()
       const prevTxt = this.taskCopy.txt
       this.taskCopy.txt = ev.target.innerText
-      newActivity.txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
-      newActivity.byUser = this.user
+      const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
     },
@@ -189,25 +221,21 @@ export default {
       }
     },
     updateTaskPriority(opt) {
-      console.log('opt:', opt)
-      let newActivity = boardService.getEmptyActivity()
-      const prevPrior = this.taskCopy.priority.txt
+      const txt = `Task priority was updated to ${opt.txt}`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      // const prevPrior = this.taskCopy.priority.txt
       this.taskCopy.priority.txt = opt.txt
       this.taskCopy.priority.color = opt.color
-      console.log('prevPrior:', prevPrior)
-      newActivity.txt = `Task priority was updated from ${prevPrior} to ${opt.txt}`
-      newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
       this.isPriorsShowen = false
     },
     updateTaskStatus(opt) {
-      let newActivity = boardService.getEmptyActivity()
-      const prevStatus = this.taskCopy.status.txt
+      const txt = `Task status was updated to ${opt.txt}`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      // const prevStatus = this.taskCopy.status.txt
       this.taskCopy.status.txt = opt.txt
       this.taskCopy.status.color = opt.color
-      newActivity.txt = `Task status was updated from ${prevStatus} to ${opt.txt}`
-      newActivity.byUser = this.user
       this.taskCopy.activities.push(newActivity)
       this.updateTask()
       this.isPriorsShowen = false

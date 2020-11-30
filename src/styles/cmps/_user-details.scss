@@ -1,41 +1,79 @@
-.user-details{
-
-.header-user-profile{
-    margin-bottom: rem(50px);
+.user-details {
+  font-size: 13px;
+  .header-user-profile {
+    // margin-bottom: rem(50px);
     min-height: rem(200px);
     background-color: $clr1;
-    .img-profile{
-        margin-bottom: rem(30px);
-        .profile-img{
-            border: 3px solid white;
-            border-radius: 50%;
-        }
+    .img-profile {
+      margin-bottom: rem(30px);
+      .profile-img {
+        border: 3px solid white;
+        border-radius: 50%;
+      }
     }
-    .mail{
-        color:white;
-        font-size: rem(25px);
+    .mail {
+      color: white;
+      font-size: rem(25px);
     }
-  
+  }
+  .el-tabs__nav-scroll {
+    background-color: rgb(247, 247, 247);
+    padding: 0 42.5%;
+  }
 }
-.msg-user{
-    margin-bottom: rem(18px);
-}
-.user-content{
-    >*{
-       margin: rem(30px);
-    }
-.list-board-user{
+// user content
+.user-content {
+  height: 100%;
+  > * {
+    margin: rem(30px);
+  }
+  .list-board-user {
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 500px;
-}
-    .user-details-info{
-        h2{
-           font-weight: 100; 
-        }
-        .title-details{
-            margin-right: rem(5px);
-        }
+  }
+  .user-details-info {
+    h2 {
+      font-weight: 100;
     }
+    .title-details {
+      margin-right: rem(7px);
+      margin-left: rem(7px);
+      font-family: 'roboto-regular';
+    }
+    h3 {
+      margin-bottom: rem(20px);
+    }
+    .icon-container {
+      position: relative;
+      color: #676879;
+      display: inline-block;
+      vertical-align: middle;
+      width: 40px;
+      height: 40px;
+      background-color: transparent;
+      border-radius: 50%;
+      border: 1px solid;
+      border-color: #c5c7d0;
+      text-align: center;
+      font-size: 18px;
+      .icon-user {
+        position: absolute;
+        top: 8px;
+        right: 5px;
+        left: 5px;
+        bottom: 5px;
+      }
+    }
+  }
 }
+.user-editor {
+  margin-top: rem(20px);
+  form {
+    > * {
+      text-align: center;
+
+      margin-bottom: rem(17px);
+    }
+  }
 }

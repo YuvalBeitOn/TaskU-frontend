@@ -68,6 +68,9 @@ position: relative;
   margin: 0;
   margin-left: 5px;
   background-color: transparent;
+  &:hover{
+    background-color: transparent;
+  }
 }
 
 .task-icon{

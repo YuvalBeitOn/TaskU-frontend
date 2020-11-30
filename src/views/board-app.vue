@@ -1,7 +1,7 @@
 <template>
   <section v-if="!isLoading" class="board-app flex">
     <board-list
-      v-if="isExpendedList"
+      v-if="isListExpanded"
       @removeBoard="removeCurrBoard"
       @addNewBoard="addBoard"
       :boards="boards"
@@ -9,8 +9,19 @@
     >
       <board-search @searchBoard="setSearch" slot="search" />
     </board-list>
-    <div class="expend-btn-container" :style="expendStyle">
-      <i @click="isExpendedList = !isExpendedList" :class="expendBtnStyle"></i>
+    <div
+      @click="toggleExpandList"
+      class="expand-btn-container"
+      :style="expendStyle"
+    >
+      <button
+        :class="{ 'expand-list-btn': true, notExpanded: !isListExpanded }"
+      >
+        <i
+          v-tooltip.right="'Expend/Hide List'"
+          :class="expendBtnStyle"
+        ></i>
+      </button>
     </div>
 
     <div class="board-app-container width100">
@@ -41,10 +52,15 @@
               v-if="isMembersShowen"
               @click.prevent="isMembersShowen = false"
             ></div>
-            <i
-              @click="toggleMembers"
-              class="icon-nav-hader far fa-user-circle fa-icon"
-            ></i>
+            <el-badge :value="board.members.length" class="item" type="primary">
+              <button
+                v-tooltip.top="'Board Members'"
+                @click="toggleMembers"
+                class="btn-close"
+              >
+                <i class="icon-nav-hader far fa-user-circle fa-icon"></i>
+              </button>
+            </el-badge>
             <add-members
               class="right"
               v-if="isMembersShowen"
@@ -107,7 +123,7 @@ export default {
   name: 'board-app',
   data() {
     return {
-      isExpendedList: true,
+      isListExpanded: true,
       isMembersShowen: false,
       currTaskDetails: null,
       isTaskDetailsHover: false,
@@ -116,12 +132,12 @@ export default {
   },
   computed: {
     expendStyle() {
-      return this.isExpendedList
+      return this.isListExpanded
         ? { borderLeft: 1 + 'px' + ' solid ' + 'rgb(228, 228, 228)' }
         : { marginLeft: 15 + 'px' }
     },
     expendBtnStyle() {
-      return this.isExpendedList
+      return this.isListExpanded
         ? 'expend-btn fas fa-chevron-left'
         : 'expend-btn fas fa-chevron-right'
     },
@@ -146,6 +162,9 @@ export default {
     }
   },
   methods: {
+    toggleExpandList() {
+      this.isListExpanded = !this.isListExpanded
+    },
     duplicateGroup(group) {
       group.id = utilService.makeId()
       this.board.groups.push(group)

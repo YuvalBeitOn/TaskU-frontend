@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'board-chat',
+  name: 'board-chatt',
 }
 </script>

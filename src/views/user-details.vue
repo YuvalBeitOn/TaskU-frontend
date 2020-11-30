@@ -13,28 +13,15 @@
 
       <h3 class="mail">{{ user.email }}</h3>
     </section>
-    <div class="msg-user flex justify-center align-center">
-    <h2>Hello,{{ user.fullName }}</h2>
-
-    </div>
-    <section class="user-content flex justify-center ">
-      <div class="user-details-info flex column wrap align-center">
-        <h2>Details</h2>
-        <h2><strong class="title-details">Full name:</strong>{{ user.fullName }}</h2>
-        <h2><strong class="title-details">Email:</strong>{{ user.email }}</h2>
-      </div>
-      <div  class="list-board-user flex column wrap clean-list align-center">
-          <board-list
-            @removeBoard="removeCurrBoard"
-            @addNewBoard="addBoard"
-            :boards="boards" title="Your Board"
-           
-         />
-      </div>
-      <div class="left-task">
-        <p>You have  left 4 tasks to compolete</p>
-      </div>
-    </section>
+        <el-tabs>
+            <el-tab-pane label="User Details">
+                <about-user :user="user" />
+            </el-tab-pane>
+            <el-tab-pane label="Edit Profile">
+                <edit-user :user="user" />
+            </el-tab-pane>
+        </el-tabs>
+ 
   </section>
       <div v-else class="flex justify-center align-center">
     <img  src="@/assets/imgs/loader.gif" class="loader-app">
@@ -43,9 +30,10 @@
 </template>
 
 <script>
+import aboutUser from '@/cmps/user-details-about-user'
+import editUser from '@/cmps/user-details-editor'
 import Avatar from 'vue-avatar'
-import boardList from '@/cmps/board-list'
-import {boardService} from '@/services/board.service'
+
 export default {
   name: 'user-details',
 
@@ -56,18 +44,10 @@ export default {
     user() {
       return this.$store.getters.loggedInUser
     },
-    boards(){
-      return this.$store.getters.boards
-    }
+   
   },
   methods:{
-            removeCurrBoard(boardId) {
-            this.$store.dispatch({ type: 'removeBoard', boardId })
-        },
-        addBoard() {
-            const board = boardService.getEmptyBoard()
-            this.$store.dispatch({ type: 'saveBoard', board })
-        },
+
   },
   created() {
     const { userId } = this.$route.params
@@ -75,7 +55,8 @@ export default {
   },
   components: {
     Avatar,
-    boardList
+    aboutUser,
+editUser
   },
 }
 </script>

@@ -41,6 +41,14 @@
       box-shadow: inset 0 0 100px 100px hsla(0, 0%, 100%, 0.3);
     }
   }
+  .btn-close{
+
+    .btn-trash{
+      font-size: 13px;
+      margin: 0;
+      padding: 0;
+    }
+  }
   .task-txt {
     width: 100%;
     text-align: left;
@@ -52,7 +60,9 @@
       justify-content: end;
       border: none;
     }
+
   }
+  
 
   .fa-icon {
     font-size: 1.2rem;

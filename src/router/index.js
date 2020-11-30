@@ -34,19 +34,16 @@ const routes = [
     path: '/board/:boardId?/:task?/:taskId?',
     name: 'boardApp',
     component: boardApp,
-    // children: [
-    //   {
-    //     path: '/task/:taskId?',
-    //     component: taskDetails
-    //   }
-    // ]
+   
   },
   {
     path: '/user/:userId',
     name: 'userDetails',
-    component: userDetails
+    component: userDetails,
+   
   }
 ]
+
 
 const router = new VueRouter({
   mode: 'hash',
