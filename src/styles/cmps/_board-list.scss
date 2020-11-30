@@ -4,7 +4,7 @@
   width: rem(230px);
   border-top-left-radius: rem(15px);
   margin-left: rem(-15px);
-  padding-left:  rem(15px);
+  padding-left: rem(15px);
   z-index: 2;
 
   .top-bar {
@@ -25,17 +25,15 @@
     overflow-x: hidden;
     height: 82.5vh;
     .board-item {
-   
       position: relative;
       margin-bottom: 10px;
       margin-left: rem(8px);
       max-width: 160px;
       transition-duration: 0.3s;
-     
 
       a {
         white-space: nowrap;
-        word-break:break-all;
+        word-break: break-all;
         overflow: hidden;
         text-overflow: ellipsis;
         position: relative;
@@ -52,10 +50,12 @@
         background-color: rgba(136, 205, 237, 0.24);
       }
 
-      &:hover  {
+      &:hover {
         border-radius: 5px;
         background-color: rgba(136, 205, 237, 0.24);
-        > .minimenu-icon{display: inline-block;}
+        > .minimenu-icon {
+          display: inline-block;
+        }
       }
       .trash-icon {
         position: absolute;
@@ -65,7 +65,7 @@
         z-index: 5;
         font-size: rem(15px);
       }
-      
+
       .minimenu-icon {
         display: none;
         position: absolute;
@@ -75,6 +75,22 @@
         font-size: 0.9375rem;
         right: 15px;
         top: 10px;
+      }
+    }
+  }
+  .board-search {
+    .search-container {
+      .input-search {
+        outline: none;
+        margin: rem(20px);
+        border: 0;
+        border-bottom: 2px solid hsla(0, 0%, 42.7%, 0.419608);
+        background-color: transparent;
+      }
+      .search-icon {
+        position: absolute;
+        left: 170px;
+        bottom: 25px;
       }
     }
   }

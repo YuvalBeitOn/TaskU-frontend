@@ -1,7 +1,7 @@
 
       <template>
   <section class="user-content flex justify-center">
-    <div class="user-details-info flex column wrap align-center">
+    <div class="user-details-info flex column wrap">
       <h3>
         <div class="icon-container">
           <i class="icon-user fas fa-user"></i>
