@@ -371,7 +371,7 @@ export default {
     },
     watch: {
         '$route.params.boardId'() {
-             this.loadBoard()
+            this.loadBoard()
             this.forceRerender()
         },
     },
