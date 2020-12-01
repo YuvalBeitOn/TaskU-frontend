@@ -1,9 +1,8 @@
 .nav-menu {
   background-color: #292f4c;
   min-height: 100vh;
-  width: rem(80px);
+  width: rem(60px);
   padding: rem(15px);
-  padding-right: rem(30px);
   .top-nav > *:not(:last-child) {
     margin-bottom: 8px;
   }
@@ -13,8 +12,6 @@
   .nav-icon-container {
     border-radius: 0 8px 8px 0;
     width: 54px;
-    padding-left: 10px;
-    margin-left: -11px;
     &:hover {
       background-color: rgba(0, 0, 0, 0.6);
     }
