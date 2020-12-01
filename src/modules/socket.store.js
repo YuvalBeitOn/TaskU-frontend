@@ -1,4 +1,4 @@
-// import socket from '../services/SocketService.js'
+// import socket from '../services/socket.service.js'
 
 export const socketStore = {
     state: {

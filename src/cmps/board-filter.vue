@@ -9,19 +9,27 @@
         New Group
       </button>
       <span
-        ><i class="far fa-search"></i
+        :class="{
+          'input-container relative flex align-center justify-center': true,
+          'input-expanded': isInputExpanded
+        }"
+        ><i class="far fa-search search-icon"></i
         ><input
+          :class="{ 'search-input': true }"
+          ref="searchInput"
+          @click="expandInput"
           @input="updateFilterSearch"
-          class="search-input"
           type="text"
           placeholder="Search"
           v-model="filterBy.searchTerm"
       /></span>
       <div class="filter relative">
-        <i class="fas fa-filter"></i>
-        <span v-tooltip.top="'Filter Board'" @click="toggleFilter">Filter</span>
+        <span v-tooltip.top="'Filter Board'" @click="toggleFilter"
+          ><i class="fal fa-filter filter-icon"></i> Filter</span
+        >
+
         <div
-        v-show="isFilterShowen"
+          v-show="isFilterShowen"
           :class="{ 'filters flex': true, expanded: isFilterShowen }"
         >
           <filter-form
@@ -42,8 +50,8 @@
         </div>
         <div
           class="back-drop-layer"
-          v-if="isFilterShowen"
-          @click="toggleFilter"
+          v-if="isFilterShowen || isInputExpanded"
+          @click.stop="closePopUps"
         ></div>
       </div>
     </div>
@@ -63,7 +71,8 @@ export default {
   data() {
     return {
       isFilterShowen: false,
-      newItem: null
+      newItem: null,
+      isInputExpanded: false
     }
   },
   computed: {
@@ -75,6 +84,10 @@ export default {
     }
   },
   methods: {
+    expandInput() {
+      this.isInputExpanded = true
+      this.$refs.searchInput.focus()
+    },
     addGroup() {
       this.$emit('addGroup')
     },
@@ -84,12 +97,17 @@ export default {
     updateFilterSearch() {
       this.$store.commit({ type: 'setFilterBy', filterBy: this.filterBy })
       this.$emit('forceRerender')
+      // this.$refs.searchInput.blur()
     },
     updateFilter(filterObj) {
       this.filterBy[filterObj.title] = filterObj.opt
       this.$store.commit({ type: 'setFilterBy', filterBy: this.filterBy })
       this.$emit('forceRerender')
       this.isFilterShowen = false
+    },
+    closePopUps() {
+      this.isFilterShowen = false
+      this.isInputExpanded = false
     }
   },
   components: {

@@ -1,15 +1,27 @@
 <template>
   <section class="board-search flex">
-    <div class="search-container relative">
-      <input
-        class="input-search"
-        type="text"
+    <div
+      :class="{
+        'input-container relative flex align-center justify-center': true,
+        'input-expanded': isInputExpanded
+      }"
+    >
+      <i class="far fa-search search-icon"></i
+      ><input
+        :class="{ 'search-input': true }"
+        ref="searchInput"
+        @click="expandInput"
         @input="emitSearch"
-        v-model="searchBoard"
+        type="text"
         placeholder="Search"
+        v-model="searchBoard"
       />
-      <i class="far fa-search search-icon"></i>
     </div>
+    <div
+      class="back-drop-layer"
+      v-if="isInputExpanded"
+      @click="isInputExpanded = false"
+    ></div>
   </section>
 </template>
 
@@ -19,10 +31,15 @@ export default {
   name: 'board-search',
   data() {
     return {
-      searchBoard: ''
+      searchBoard: '',
+      isInputExpanded: false
     }
   },
   methods: {
+    expandInput() {
+      this.isInputExpanded = true
+      this.$refs.searchInput.focus()
+    },
     emitSearch() {
       const searchBoard = JSON.parse(JSON.stringify(this.searchBoard))
       this.$emit('searchBoard', searchBoard)
