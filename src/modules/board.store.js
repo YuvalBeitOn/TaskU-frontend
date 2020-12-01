@@ -15,7 +15,7 @@ export const boardStore = {
       )
     },
     board(state) {
-      const filterBy = state.filterBy;
+      const filterBy = state.filterBy
       let filteredBoard = JSON.parse(JSON.stringify(state.currBoard))
       if (filterBy.status !== 'All') {
         filteredBoard.groups.filter(group => {
@@ -111,11 +111,16 @@ export const boardStore = {
       }, 2000)
     },
     async removeBoard({ commit }, { boardId }) {
-      await boardService.remove(boardId)
-      commit({ type: 'removeBoard', boardId })
+      try {
+        await boardService.remove(boardId)
+        commit({ type: 'removeBoard', boardId })
+      } catch (err) {
+        console.log('error', err)
+        throw err
+      }
     },
     async saveBoard({ commit, dispatch, rootGetters }, { board }) {
-      console.log('board i got on store',board)
+      console.log('board i got on store', board)
       const guestUser = rootGetters.guestUser
       const userId = rootGetters.user._id
       //Avoiding guest user duplication in members parameter
