@@ -17,9 +17,9 @@
             :username="msg.from"
           ></avatar>
             <strong class="from-msg">{{ msg.from }}:</strong><span>{{ msg.txt }} </span> 
-           <!-- <div v-show="isTypeing">
+           <div v-show="isTypeing">
   {{msgTyping}}
-  </div> -->
+  </div>
           </div>
         </template>
       </div>
@@ -38,14 +38,14 @@
 <script>
 // Every line with @@ need to be without a comment
 import Avatar from 'vue-avatar'
-// import {socketService} from '@/services/socket-service.js' @@ 
+import {socketService} from '@/services/socket.service.js' 
 
 export default {
   name: 'board-chat',
   data() {
     return {
       msgs: [],
-      msg: {from:'guy',txt:''}, // change to login user
+      msg: {from:null,txt:''}, // change to login user
       topic:null,
        isTypeing:false,
       msgTyping:'',
@@ -63,10 +63,10 @@ computed:{
     
      userTyping(){
       var timer = null
-        // socketService.emit('typing',this.msg.from) @@
+        socketService.emit('typing',this.msg.from) 
       clearTimeout(timer); 
        timer = setTimeout(()=>{
-          // socketService.emit('reset is typing') @@
+          socketService.emit('reset is typing') 
         },2500)
     },
     addMsg(msg){
@@ -74,40 +74,38 @@ computed:{
     },
     sendMsg() {
       if (!this.msg.txt) return;
-      this.addMsg(JSON.parse(JSON.stringify(this.msg))) // Remove!! ****
-      // socketService.emit('reset is typing')  @@
-      // socketService.emit('chat newMsg', this.msg) @@
+      socketService.emit('reset is typing')  
+      socketService.emit('chat newMsg', this.msg) 
       this.msg.txt=''
     },
     updateTopic(){
 const { boardId } = this.$route.params;
     this.topic = boardId
-    console.log('topic:',this.topic);
+    console.log('topic IS:',this.topic);
     }
   },
   created(){
-    // @@@@@@@
-    // this.msg.from = this.$store.getters.loggedinUser 
-    // this.updateTopic();
-    // socketService.setup();
-    // socketService.emit('chat topic', this.topic)
-    // socketService.on('history msg',msgs=>this.msgs = msgs)
-    // socketService.on('chat addMsg', this.addMsg)
-    // socketService.on('isTyping',(boolen)=>this.isTypeing=boolen)
-    // socketService.on('msg',(msg)=>this.msgTyping=msg)
+    this.msg.from = this.$store.getters.user.fullName 
+    console.log('this.msg.from:', this.msg.from)
+    this.updateTopic();
+    socketService.setup();
+    socketService.emit('chat topic', this.topic)
+    socketService.on('history msg',msgs=>this.msgs = msgs)
+    socketService.on('chat addMsg', this.addMsg)
+    socketService.on('isTyping',(boolen)=>this.isTypeing=boolen)
+    socketService.on('msg',(msg)=>this.msgTyping=msg)
   },
     destroyed() {
-      // @@@@@
-    // this.msgs = []
-    // socketService.off('chat addMsg', this.addMsg)
+    this.msgs = []
+    socketService.off('chat addMsg', this.addMsg)
     // socketService.terminate();
   },
   watch:{
-      // @@@@@
-    //  '$route.params.boardId'(){
-    //  this.updateTopic();
+     '$route.params.boardId'(){
+       console.log('TOPIC HAS CHANGED');
+     this.updateTopic();
 
-    //  }
+     }
   },
   components:{
     Avatar

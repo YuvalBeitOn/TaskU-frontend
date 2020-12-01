@@ -61,6 +61,8 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      this.$store.dispatch({ type: 'updateBoard', board:this.board })
+
       
     },
     updatePosts(posts) {
@@ -74,6 +76,8 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      this.$store.dispatch({ type: 'updateBoard', board:this.board })
+
   
       eventBus.$emit('updateTaskPreview', this.task)
     },
@@ -107,6 +111,7 @@ export default {
       const taskInfo = this.getTaskInfoById()
       this.groupId = taskInfo.groupId
       this.task = JSON.parse(JSON.stringify(taskInfo.task))
+      console.log(this.task, 'my task - task details')
     }
   },
   components: {

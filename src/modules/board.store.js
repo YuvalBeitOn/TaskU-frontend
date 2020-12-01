@@ -74,6 +74,7 @@ export const boardStore = {
   mutations: {
     setBoards(state, { boards }) {
       const miniBoards = boards.map(board => {
+        console.log('im in map');
         board = { _id: board._id, name: board.name }
         return board
       })
@@ -98,23 +99,17 @@ export const boardStore = {
   actions: {
     async loadBoards(context) {
       const userId = context.getters.user._id
-      console.log('UserId from board store @Boards loading:', userId)
-      // try {
         const boards = await boardService.query(userId)
-        context.commit({ type: 'setBoards', boards })
-      // } catch (err) {
-      //   throw err
-      // }
+        await context.commit({ type: 'setBoards', boards })
     },
     async loadBoard({ commit }, { boardId }) {
-      // commit({ type: 'toggleIsLoading' })
+      commit({ type: 'toggleIsLoading' })
       // try {
         const board = await boardService.getById(boardId)
-        commit({ type: 'setBoard', board })
-        console.log('after set board');
-        // setTimeout(() => {
-        //   commit({ type: 'toggleIsLoading' })
-        // }, 2000)
+        await commit({ type: 'setBoard', board })
+        setTimeout(() => {
+          commit({ type: 'toggleIsLoading' })
+        }, 2000)
       // } catch (err) {
       //   throw err
       // }
@@ -129,7 +124,6 @@ export const boardStore = {
       }
     },
     async saveBoard({ commit, dispatch, rootGetters }, { board }) {
-      console.log('board i got on store', board)
       const guestUser = rootGetters.guestUser
       const userId = rootGetters.user._id
       //Avoiding guest user duplication in members parameter
