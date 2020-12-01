@@ -14,14 +14,15 @@
         <i class="icon-nav-hader far fa-user-circle fa-icon"></i>
       </button>
       <add-members
+        @removeMember="emitRemoveMember"
+        @addMember="emitAddMember"
         v-if="isMembersShowen"
-        firstTitle="Board Member"
+        firstTitle="Board Members"
         secondTitle="Users Site"
         :members="board.members"
         :allMembers="filteredUsers"
       />
     </el-badge>
-
   </div>
 </template>
 
@@ -29,7 +30,7 @@
 import addMembers from './add-members'
 export default {
   props: {
-    board: Object
+    board: Object,
   },
   data() {
     return {
@@ -40,24 +41,29 @@ export default {
     filteredUsers() {
       const users = this.$store.getters.users
       const boardMembers = this.board.members
-      const filteredUsers = users.filter(user => {
-        return boardMembers.every(boardMember => {
+      const filteredUsers = users.filter((user) => {
+        return boardMembers.every((boardMember) => {
           return boardMember._id !== user._id
         })
       })
       return filteredUsers
-    }
+    },
   },
   methods: {
     toggleMembers() {
       this.isMembersShowen = !this.isMembersShowen
     },
-
+    emitRemoveMember(member) {
+      this.$emit('removeMember', member)
+    },
+    emitAddMember(member) {
+      this.$emit('addMember', member)
+    },
   },
 
   components: {
-    addMembers
-  }
+    addMembers,
+  },
 }
 </script>
 

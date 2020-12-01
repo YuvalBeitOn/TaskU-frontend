@@ -17,7 +17,7 @@ export const userStore = {
     },
     guestUser() {
       return {
-        _id: '5fc5fba9eccfb704e0a61016',
+        _id: '5fc6599e75860a0fa94a9f60',
         email: 'guestUser@tasku.com',
         fullName: 'Guest',
         isAdmin: false
@@ -51,12 +51,12 @@ export const userStore = {
       commit({ type: 'setUsers', users })
     },
     async loadUser({ commit }, { userId }) {
-      commit({ type: 'toggleIsLoading' })
+      // commit({ type: 'toggleIsLoading' })
       const user = await userService.getById(userId)
       commit({ type: 'setUser', user })
-      setTimeout(() => {
-        commit({ type: 'toggleIsLoading' })
-      }, 2000)
+      // setTimeout(() => {
+        // commit({ type: 'toggleIsLoading' })
+      // }, 2000)
     },
     async removeUser({ commit }, { userId }) {
       await userService.remove(userId)

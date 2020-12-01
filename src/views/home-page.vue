@@ -10,7 +10,7 @@
         <router-link v-if="!loggedInUser" to="/signup">sign up</router-link>
         <span v-if="loggedInUser" @click="onLogout">logout</span>
         <button @click="onGetStarted" class="btn-app">
-         Get Started
+         {{ enteryButton }}
         </button>
       </nav>
     </div>
