@@ -1,6 +1,10 @@
 <template>
   <header class="board-header" v-if="board">
-    <board-info :board="board" />
+    <board-info
+      @removeMember="emitRemoveMember"
+      @addMember="emitAddMember"
+      :board="board"
+    />
     <h2
       class="board-name editable"
       @blur="updateBoardName"
@@ -40,12 +44,20 @@ export default {
     updateBoardName: Function,
     board: Object,
     addGroup: Function,
-    forceRerender: Function
+    forceRerender: Function,
+  },
+  methods: {
+    emitRemoveMember(member) {
+      this.$emit('removeMember', member)
+    },
+    emitAddMember(member) {
+      this.$emit('addMember', member)
+    },
   },
   components: {
     boardInfo,
-    boardFilter
-  }
+    boardFilter,
+  },
 }
 </script>
 

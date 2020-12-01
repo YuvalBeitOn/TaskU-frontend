@@ -99,16 +99,25 @@ export const boardStore = {
     async loadBoards(context) {
       const userId = context.getters.user._id
       console.log('UserId from board store @Boards loading:', userId)
-      const boards = await boardService.query(userId)
-      context.commit({ type: 'setBoards', boards })
+      // try {
+        const boards = await boardService.query(userId)
+        context.commit({ type: 'setBoards', boards })
+      // } catch (err) {
+      //   throw err
+      // }
     },
     async loadBoard({ commit }, { boardId }) {
-      commit({ type: 'toggleIsLoading' })
-      const board = await boardService.getById(boardId)
-      commit({ type: 'setBoard', board })
-      setTimeout(() => {
-        commit({ type: 'toggleIsLoading' })
-      }, 2000)
+      // commit({ type: 'toggleIsLoading' })
+      // try {
+        const board = await boardService.getById(boardId)
+        commit({ type: 'setBoard', board })
+        console.log('after set board');
+        // setTimeout(() => {
+        //   commit({ type: 'toggleIsLoading' })
+        // }, 2000)
+      // } catch (err) {
+      //   throw err
+      // }
     },
     async removeBoard({ commit }, { boardId }) {
       try {
@@ -124,17 +133,17 @@ export const boardStore = {
       const guestUser = rootGetters.guestUser
       const userId = rootGetters.user._id
       //Avoiding guest user duplication in members parameter
-      if (userId !== guestUser._id) {
+      if (userId !== guestUser._id && !board._id) {
         board.members.push(guestUser)
       }
-      const savedBoard = await boardService.save(board)
-      if (board._id) {
-        commit({ type: 'setBoard', board: savedBoard })
-      } else {
-        console.log('im in the else')
-        dispatch({ type: 'loadBoards' })
-      }
-      return savedBoard._id
+        const savedBoard = await boardService.save(board)
+        if (board._id) {
+          commit({ type: 'setBoard', board: savedBoard })
+        } else {
+          console.log('im in the else')
+          dispatch({ type: 'loadBoards' })
+        }
+        return savedBoard._id
     }
   }
 }
