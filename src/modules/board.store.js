@@ -124,7 +124,7 @@ export const boardStore = {
       const guestUser = rootGetters.guestUser
       const userId = rootGetters.user._id
       //Avoiding guest user duplication in members parameter
-      if (userId !== guestUser._id) {
+      if (userId !== guestUser._id && !board._id) {
         board.members.push(guestUser)
       }
       const savedBoard = await boardService.save(board)

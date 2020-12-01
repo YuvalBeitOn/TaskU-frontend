@@ -290,7 +290,7 @@ export default {
                 (group) => group.id === updatedGroup.id
             )
             this.board.groups.splice(idx, 1, updatedGroup)
-            const txt = `${this.user.fullName} updated  group`
+            const txt = `${this.user.fullName} updated group`
             let newActivity = boardService.getEmptyActivity(txt, this.user)
             this.board.activities.push(newActivity)
             this.$store.dispatch({
