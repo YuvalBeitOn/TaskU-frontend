@@ -56,8 +56,12 @@ export default {
     board() {
       return this.$store.getters.board
     },
-    user() {
-      return this.$store.getters.user
+    data() {
+      return {
+        txt: '',
+        isAddBtnShowen: false,
+        clonedTasks: null,
+      }
     },
     taskBgc() {
       return { backgroundColor: this.taskColor }
@@ -78,7 +82,7 @@ export default {
         type: 'saveBoard',
         board: this.board,
       })
-      this.$store.dispatch({ type: 'updateBoard', board:this.board })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       const txt = `${this.user.fullName} add new task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
@@ -108,12 +112,11 @@ export default {
       this.board.activities.unshift(newActivity)
       const group = this.getGroupById()
       group.tasks.push(newTask)
-                          this.$store.dispatch({
+      this.$store.dispatch({
         type: 'saveBoard',
         board: this.board,
       })
-            this.$store.dispatch({ type: 'updateBoard', board:this.board })
-
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       this.txt = ''
       this.isAddBtnShowen = false
@@ -135,8 +138,7 @@ export default {
         type: 'saveBoard',
         board: this.board,
       })
-                this.$store.dispatch({ type: 'updateBoard', board:this.board })
-
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       this.$notify({
         message: 'Remove task',
@@ -153,8 +155,7 @@ export default {
         type: 'saveBoard',
         board: this.board,
       })
-                 this.$store.dispatch({ type: 'updateBoard', board:this.board })
-
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       this.$emit('forceRender')
     },
@@ -165,8 +166,7 @@ export default {
         type: 'saveBoard',
         board: this.board,
       })
-                  this.$store.dispatch({ type: 'updateBoard', board:this.board })
-
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       this.$emit('forceRender')
     },
@@ -177,7 +177,7 @@ export default {
   },
   created() {
     this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
-   
+
     // eventBus.$on('addEmptyTask', console.log)
   },
 }

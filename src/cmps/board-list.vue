@@ -23,11 +23,11 @@
                     v-tooltip.right="'Options'"
                     class="minimenu-icon fas fa-ellipsis-h"
                 ></i>
-                <!-- <router-link :to="'/board/' + board._id"> -->
-                <span @click="onMoveBoard(board._id)">
-                    {{ titleBoardToShow(board.name) }}
-                </span>
-                <!-- </router-link> -->
+                <router-link :to="'/board/' + board._id">
+                  {{
+                    titleBoardToShow(board.name)
+                }}
+                </router-link>
                 <popupMenu
                     v-if="isPopupShowen && currBoardId === board._id"
                     :menuItems="popupOptions"
@@ -83,13 +83,6 @@ export default {
         togglePopup(boardId) {
             this.currBoardId = this.isPopupShowen ? '' : boardId
             this.isPopupShowen = !this.isPopupShowen
-        },
-        async onMoveBoard(boardId) {
-            await this.$store.dispatch({
-                type: 'loadBoard',
-                boardId,
-            })
-            this.$router.push(`/board/${boardId}`)
         },
     },
     created() {},
