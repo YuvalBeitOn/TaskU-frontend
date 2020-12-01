@@ -127,12 +127,12 @@ export default {
     duplicateGroup(group) {
       group.id = utilService.makeId()
       this.board.groups.push(group)
-          const txt = `${this.user.fullName} duplicate group `
+          const txt = `${this.user.fullName} duplicated group the group ${group.txt} `
            let newActivity = boardService.getEmptyActivity(txt, this.user)
         this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
         this.$notify({
-            message: 'Duplicate group has saved ',
+            message: 'Duplicated group was added',
             position: 'bottom-left',
             duration:2000,
           });
@@ -147,7 +147,7 @@ export default {
 
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
         this.$notify({
-            message: 'Board name has saved ',
+            message: 'Board name updated ',
             position: 'bottom-left',
             duration:2000,
           });
@@ -160,7 +160,7 @@ export default {
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
      this.$notify({
-            message: 'Board description has saved',
+            message: 'Board description updeated',
             position: 'bottom-left',
             duration:2000,
           });
@@ -170,13 +170,14 @@ export default {
       this.componentKey += 1
     },
     addBoardMember(user) {
+      console.log('user:', user)
       this.board.members.unshift(user)
-       const txt = `${this.user.fullName} add ${user.fullName} to board`
+      const txt = `${this.user.fullName} add ${user.fullName}  to board`
      let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
      this.$notify({
-            message: 'add member to board has been update',
+            message: 'Add new member to board',
             position: 'bottom-left',
             duration:2000,
           });
@@ -191,7 +192,7 @@ export default {
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
      this.$notify({
-            message: 'Remove member from board has been update',
+            message: 'The member has been removed from the board',
             position: 'bottom-left',
             duration:2000,
           });
@@ -206,19 +207,19 @@ export default {
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'removeBoard', boardId })
      this.$notify({
-            message: 'Remove a Board has been update',
+            message: 'The board has been deleted',
             position: 'bottom-left',
             duration:2000,
           });
     },
     addBoard() {
-           this.$prompt('Please enter name to your board', 'Tip', {
+           this.$prompt('Please enter a name to your board', 'Add New Board', {
           confirmButtonText: 'OK',
           cancelButtonText: 'Cancel',
         }).then(({ value }) => {
             const board = boardService.getEmptyBoard()
           board.name = value
-          board.creator=this.loggedInUser
+          board.creator=this.user
     this.$store.dispatch({ type: 'saveBoard', board })
           this.$message({
             type: 'success',
@@ -249,7 +250,7 @@ export default {
         board: this.board
       })
            this.$notify({
-                  message: 'Remove Group has been update',
+                  message: 'A new group was added',
                   position: 'bottom-left',
                   duration:2000,
                 });
@@ -266,7 +267,7 @@ export default {
         board: this.board
       })
       this.$notify({
-          message: 'Remove Group has been update',
+          message: 'The group has been deleted',
           position: 'bottom-left',
           duration:2000,
         });
@@ -285,7 +286,7 @@ export default {
         board: this.board
       })
    this.$notify({
-          message: 'Group has been update',
+          message: 'Group has been updated',
           position: 'bottom-left',
           duration:2000,
         });
@@ -301,7 +302,7 @@ export default {
     },
     updateGroups(groups) {
       this.board.groups = groups
-        const txt = `${this.user.fullName} update the groups`
+        const txt = `${this.user.fullName} updated the groups`
        let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({
@@ -309,7 +310,7 @@ export default {
         board: this.board
       })
            this.$notify({
-                  message: 'Remove Group has been update',
+                  message: 'The Groups has been saved',
                   position: 'bottom-left',
                   duration:2000,
                 });

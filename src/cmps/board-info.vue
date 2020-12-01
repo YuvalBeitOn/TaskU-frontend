@@ -21,6 +21,7 @@
         :allMembers="filteredUsers"
       />
     </el-badge>
+
   </div>
 </template>
 
@@ -32,7 +33,7 @@ export default {
   },
   data() {
     return {
-      isMembersShowen: false
+      isMembersShowen: false,
     }
   },
   computed: {
@@ -50,8 +51,10 @@ export default {
   methods: {
     toggleMembers() {
       this.isMembersShowen = !this.isMembersShowen
-    }
+    },
+
   },
+
   components: {
     addMembers
   }

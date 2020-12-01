@@ -223,7 +223,7 @@ export default {
       this.taskCopy.activities.push(newActivity)
        eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
-          message: 'Update task date',
+          message: 'Update task name',
           position: 'bottom-left',
           duration:2000,
         });
