@@ -11,7 +11,6 @@
 <script>
 
 import navMenu from '@/cmps/nav-menu'
-
 export default {
   methods: {},
   computed: {
@@ -22,6 +21,9 @@ export default {
         ? false
         : true
     }
+  },
+  created(){
+
   },
   components: {
     navMenu,

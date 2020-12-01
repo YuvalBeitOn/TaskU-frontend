@@ -78,6 +78,7 @@ import { boardService } from '@/services/board.service'
 import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
 import boardHeader from '../cmps/board-header.vue'
+import {socketService} from '@/services/socket.service.js'
 
 export default {
   name: 'board-app',
@@ -235,6 +236,8 @@ export default {
           board.creator = this.user
           board.members.push(this.user)
           this.$store.dispatch({ type: 'saveBoard', board })
+            socketService.emit('update board', board)
+
           this.$message({
             type: 'success',
             message: 'Your Board:' + value + ' add ',
@@ -268,6 +271,8 @@ export default {
         position: 'bottom-left',
         duration: 2000,
       })
+      this.$store.dispatch({type:'updateBoardSocket',board:this.board})
+
       this.forceRerender()
     },
     deleteGroup(groupId) {
@@ -338,10 +343,13 @@ export default {
     },
   },
   created() {
+    socketService.setup();
+
     eventBus.$on('updateBoardActivity', this.updateBoardActivity)
     this.$store.dispatch({ type: 'loadUsers' })
     this.$store.dispatch({ type: 'loadBoards' })
     this.loadBoard()
+    
   },
   components: {
     groupList,

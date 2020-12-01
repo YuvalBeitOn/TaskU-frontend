@@ -1,4 +1,4 @@
-// import socket from '../services/socket.service.js'
+// import {socketService} from '../services/socket.service.js'
 
 export const socketStore = {
     state: {
@@ -11,8 +11,8 @@ export const socketStore = {
 
     },
     actions: {
-        // sendMsg(context, {msg}) {
-        //     socket.emit('sendMsg', msg)
+        // updateBoardSocket(context, {board}) {
+        //     console.log('emitmy!');
         // },
         // getChatHistory(context, {chatId}) {
         //     socket.emit('getHistory', chatId)
