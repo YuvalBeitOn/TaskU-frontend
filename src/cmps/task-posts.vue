@@ -82,7 +82,7 @@ export default {
             this.$emit('updatePosts', this.copiedPosts)
             this.newPost = ''
                                    this.$notify({
-                                    message: 'New post added',
+                                    message: 'New post published',
                                     position: 'bottom-left',
                                     duration:2000,
                                   });

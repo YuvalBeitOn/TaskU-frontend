@@ -3,7 +3,7 @@
     <section class="chat-container flex column">
       <div class="header-chat flex space-between align-center">
         {{topicName}} Chat
-        <button v-tooltip.top="'Close Chat'" class="btn-close">
+        <button class="btn-close">
           <i @click="emitClose" class="fas fa-times"></i>
         </button>
       </div>

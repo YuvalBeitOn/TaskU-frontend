@@ -1,6 +1,7 @@
 <template>
-  <section v-if="!isLoading" class="board-app flex">
+  <section v-if="!isLoading && board" class="board-app flex">
     <board-list
+      :expandList="expandList"
       :isExpanded="isListExpanded"
       @removeBoard="removeCurrBoard"
       @addNewBoard="addBoard"
@@ -10,11 +11,10 @@
       <button
         slot="expand-btn"
         @click="toggleExpandList"
-        @mouseover="expandList"
         :style="expendStyle"
         :class="{
           'expand-list-btn': true,
-          notExpanded: !isListExpanded,
+          notExpanded: !isListExpanded
         }"
       >
         <i v-tooltip.right="'Expend/Hide List'" :class="expendBtnStyle"></i>
@@ -54,7 +54,7 @@
       @mouseleave.native="isTaskDetailsHover = false"
     />
     <div
-      v-tooltip.top="'Chat Board'"
+      v-tooltip.top="'Chat'"
       v-show="isChatingBtnShown"
       class="chat-icon-btn-container flex align-center justify-center"
     >
@@ -89,7 +89,7 @@ export default {
       isMembersShowen: false,
       currTaskDetails: null,
       isTaskDetailsHover: false,
-      componentKey: 0,
+      componentKey: 0
     }
   },
   computed: {
@@ -121,7 +121,7 @@ export default {
     },
     boards() {
       return this.$store.getters.boards
-    },
+    }
   },
   methods: {
     toogleChatBtn() {
@@ -130,6 +130,9 @@ export default {
     expandList() {
       this.isListExpanded = true
     },
+      // minimizeList() {
+      //   this.isListExpanded = false
+      // },
     toggleExpandList() {
       this.isListExpanded = !this.isListExpanded
     },
@@ -144,14 +147,15 @@ export default {
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.$notify({
-        message: 'Duplicated group was added',
+        message: 'Group duplicated',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
       this.forceRerender()
     },
 
     updateBoardName(ev) {
+      ev.target.blur()
       this.board.name = ev.target.innerText
       const txt = `${this.user.fullName} update Board name`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
@@ -159,22 +163,24 @@ export default {
 
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.$notify({
-        message: 'Board name updated ',
+        message: 'Board name updated',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
       this.forceRerender()
     },
     updateBoardDesc(ev) {
+      console.log('ev:<<<<<<<<<<<<<<<<<<')
+      ev.target.blur()
       this.board.description = ev.target.innerText
       const txt = `${this.user.fullName} update Board description`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.$notify({
-        message: 'Board description updeated',
+        message: 'Board description updated',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
       this.forceRerender()
     },
@@ -189,14 +195,14 @@ export default {
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.$notify({
-        message: 'Add new member to board',
+        message: 'New member added to board',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
     },
     removeBoardMember(member) {
       const idx = this.board.members.findIndex(
-        (bMember) => bMember._id === member._id
+        bMember => bMember._id === member._id
       )
       this.board.members.splice(idx, 1)
       const txt = `${this.user.fullName} remove  group`
@@ -204,9 +210,9 @@ export default {
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.$notify({
-        message: 'The member has been removed from the board',
+        message: 'Member removed from board',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
     },
     setSearch(searchBoard) {
@@ -219,15 +225,15 @@ export default {
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'removeBoard', boardId })
       this.$notify({
-        message: 'The board has been deleted',
+        message: 'Board deleted',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
     },
     addBoard() {
       this.$prompt('Please enter a name to your board', 'Add New Board', {
         confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        cancelButtonText: 'Cancel'
       })
         .then(({ value }) => {
           const board = boardService.getEmptyBoard()
@@ -237,20 +243,20 @@ export default {
           this.$store.dispatch({ type: 'saveBoard', board })
           this.$message({
             type: 'success',
-            message: 'Your Board:' + value + ' add ',
+            message: 'Your Board:' + value + ' add '
           })
         })
         .catch(() => {
           this.$message({
             type: 'info',
-            message: 'Your action  canceled',
+            message: 'Your action  canceled'
           })
         })
     },
     loadBoard() {
       this.$store.dispatch({
         type: 'loadBoard',
-        boardId: this.$route.params.boardId,
+        boardId: this.$route.params.boardId
       })
     },
     addGroup() {
@@ -261,35 +267,35 @@ export default {
       this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board,
+        board: this.board
       })
       this.$notify({
-        message: 'A new group was added',
+        message: 'New group added',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
       this.forceRerender()
     },
     deleteGroup(groupId) {
-      const idx = this.board.groups.findIndex((group) => group.id === groupId)
+      const idx = this.board.groups.findIndex(group => group.id === groupId)
       this.board.groups.splice(idx, 1)
       const txt = `${this.user.fullName} deleted group`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board,
+        board: this.board
       })
       this.$notify({
-        message: 'The group has been deleted',
+        message: 'Group deleted',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
       this.forceRerender()
     },
     updateGroup(updatedGroup) {
       const idx = this.board.groups.findIndex(
-        (group) => group.id === updatedGroup.id
+        group => group.id === updatedGroup.id
       )
       this.board.groups.splice(idx, 1, updatedGroup)
       const txt = `${this.user.fullName} updated  group`
@@ -297,12 +303,12 @@ export default {
       this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board,
+        board: this.board
       })
       this.$notify({
-        message: 'Group has been updated',
+        message: 'Group updated',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
       this.forceRerender()
     },
@@ -311,7 +317,7 @@ export default {
       console.log('this.board.activities:', this.board.activities)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board,
+        board: this.board
       })
     },
     updateGroups(groups) {
@@ -321,21 +327,21 @@ export default {
       this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board,
+        board: this.board
       })
       this.$notify({
-        message: 'The Groups has been saved',
+        message: 'Groups updated',
         position: 'bottom-left',
-        duration: 2000,
-    })
+        duration: 2000
+      })
       this.forceRerender()
-    },
+    }
   },
   watch: {
     async '$route.params.boardId'() {
       await this.loadBoard()
       this.forceRerender()
-    },
+    }
   },
   created() {
     eventBus.$on('updateBoardActivity', this.updateBoardActivity)
@@ -351,7 +357,7 @@ export default {
     taskDetails,
     boardSearch,
     chatApp,
-    boardHeader,
-  },
+    boardHeader
+  }
 }
 </script>

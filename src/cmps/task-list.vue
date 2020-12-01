@@ -1,6 +1,6 @@
 <template>
-  <section v-if="clonedTasks" class="task-list width100">
-    <ul class="clean-list flex wrap align-center justify-center gap">
+  <section v-if="clonedTasks" class="task-list-container width100">
+    <ul class="task-list clean-list flex wrap align-center justify-center gap">
       <draggable class="width100" v-model="clonedTasks" @end="updateTasks">
         <task-preview
           v-for="task in clonedTasks"
@@ -17,8 +17,8 @@
         />
       </draggable>
     </ul>
-    <form class="flex" @submit.prevent="addTask">
-      <span class="task-color" :style="taskBgc"></span>
+    <form class="add-task-form flex" @submit.prevent="addTask">
+      <span class="task-color input-color" :style="taskBgc"></span>
       <input
         class="add-task-input "
         @focus="showAddBtn"
@@ -83,7 +83,7 @@ export default {
            let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.unshift(newActivity)
       this.$notify({
-          message: 'Added new task ',
+          message: 'New task added',
           position: 'bottom-left',
           duration:2000,
         });
@@ -115,7 +115,7 @@ export default {
       this.txt = ''
       this.isAddBtnShowen = false
           this.$notify({
-          message: 'Add new task',
+          message: 'New task added',
           position: 'bottom-left',
           duration:2000,
         });
@@ -133,7 +133,7 @@ export default {
         board: this.board
       })
                                     this.$notify({
-                                    message: 'Remove task',
+                                    message: 'Task removed',
                                     position: 'bottom-left',
                                     duration:2000,
                                   });

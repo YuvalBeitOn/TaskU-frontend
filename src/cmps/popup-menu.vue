@@ -1,12 +1,14 @@
 <template>
-  <section class="popup-menu" v-if="menuItems">
+  <section class="popup-menu" v-if="menuItems" ref="popup">
     <div
       class="menu-item flex align-center"
       @click.stop="itemClicked(menuitem.func)"
       v-for="(menuitem, idx) in menuItems"
       :key="idx"
     >
-      <span class="menu-item-icon flex align-center justify-center"><i :class="getIconClass(idx)"> </i> </span>
+      <span class="menu-item-icon flex align-center justify-center"
+        ><i :class="getIconClass(idx)"> </i>
+      </span>
       <span class="menu-item-txt">{{ menuitem.txt }}</span>
     </div>
     <!-- <el-divider /> -->
@@ -18,7 +20,8 @@ export default {
   props: {
     menuItems: {
       type: Array
-    }
+    },
+    offsetY: Number
   },
   methods: {
     getIconClass(idx) {
@@ -27,6 +30,15 @@ export default {
     itemClicked(itemFunction) {
       itemFunction()
       this.$emit('closePopup')
+    }
+  },
+  mounted() {
+    console.log('popupMenu created', this.offsetY)
+    if (this.offsetY) {
+      console.log('$rEFS', this.$refs.popup)
+      let elpopUp = this.$refs.popup
+      elpopUp.style.left = '95%'
+      elpopUp.style.top = `${this.offsetY}px`
     }
   }
 }

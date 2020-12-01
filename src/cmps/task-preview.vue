@@ -6,12 +6,16 @@
     <div class="flex space-between align-center width100">
       <span class="task-color" :style="taskBgc"></span>
       <button class="btn-close" @click="deleteTask">
-        <i v-tooltip.top="'Delete Task'" class="task-icon btn-trash fa-icon far fa-trash-alt"></i>
+        <i
+          v-tooltip.top="'Task deleted'"
+          class="task-icon btn-trash fa-icon far fa-trash-alt"
+        ></i>
       </button>
 
       <div class="task-txt">
         <span
           class="editable"
+          spellcheck="false"
           @blur="updateTaskTxt"
           @keydown.enter="updateTaskTxt"
           contenteditable
@@ -27,39 +31,41 @@
         <i
           @click="sendToTaskDetails"
           v-tooltip.top="'Task Details'"
-          :style="postosColorBtn" class="task-icon far fa-comment fa-icon"
+          :style="postosColorBtn"
+          class="task-icon far fa-comment fa-icon"
         ></i>
       </el-badge>
     </div>
     <div class="task-details flex">
       <div class="headers flex">
-        <span>
+        <span class="members-preview task-item">
           <el-badge
+            class="item"
             :hidden="membersLegnth"
             :value="task.members.length"
-            class="item"
             type="primary"
           >
             <i
-              @click.stop="toggleMember"
+              @click.stop="openMembersModal"
               v-tooltip.top="'Task Members'"
               class="task-icon far fa-user-circle fa-icon"
             ></i>
           </el-badge>
+          <add-members
+            class="top-left"
+            v-if="isTaskMembersShowen"
+            firstTitle="Task members"
+            secondTitle="Invite members"
+            :members="taskCopy.members"
+            :allMembers="filteredBoardMembers"
+            @addMember="addTaskMember"
+            @removeMember="removeTaskMember"
+          />
         </span>
 
-        <add-members
-          v-if="isTaskMembersShowen"
-          firstTitle="Task Members"
-          secondTitle="Board Members"
-          :members="taskCopy.members"
-          :allMembers="filteredBoardMembers"
-          @addMember="addTaskMember"
-          @removeMember="removeTaskMember"
-        />
         <span
           @click="toggleStatuses"
-          class="status relative"
+          class="status relative task-item"
           :style="getStyleStr(taskCopy.status.color)"
           >{{ taskCopy.status.txt }}
           <label-picker
@@ -71,7 +77,7 @@
 
         <span
           @click="togglePriors"
-          class="priority relative"
+          class="priority relative task-item"
           :style="getStyleStr(taskCopy.priority.color)"
           >{{ taskCopy.priority.txt }}
           <label-picker
@@ -81,8 +87,9 @@
             @updateTaskPriority="updateTaskPriority"
         /></span>
 
-        <span class="date-picker">
-          <el-date-picker v-tooltip.top="'Due Date'"
+        <span class="date-picker task-item">
+          <el-date-picker
+            v-tooltip.top="'Due Date'"
             class="date-input"
             @change="updateTaskDate"
             v-model="taskCopy.dueDate"
@@ -115,7 +122,7 @@ export default {
       taskCopy: null,
       isStatusesShowen: false,
       isPriorsShowen: false,
-      isTaskMembersShowen: false,
+      isTaskMembersShowen: false
     }
   },
   props: {
@@ -126,14 +133,14 @@ export default {
     groupId: String,
     boardMembers: [Array, Object],
     activity: Object,
-    user: Object,
+    user: Object
   },
   computed: {
     postsLegnth() {
       return this.task.posts.length > 0 ? false : true
     },
-    postosColorBtn(){
-    return this.task.posts.length > 0 ? 'color: #0085ff;': ''
+    postosColorBtn() {
+      return this.task.posts.length > 0 ? 'color: #0085ff;' : ''
     },
     membersLegnth() {
       return this.task.members.length > 0 ? false : true
@@ -145,8 +152,8 @@ export default {
       const boardMembers = this.boardMembers
       const taskMembers = this.taskCopy.members
       if (taskMembers) {
-        const filteredBoardMembers = boardMembers.filter((bMember) => {
-          return taskMembers.every((tMember) => {
+        const filteredBoardMembers = boardMembers.filter(bMember => {
+          return taskMembers.every(tMember => {
             return tMember._id !== bMember._id
           })
         })
@@ -154,7 +161,7 @@ export default {
       } else {
         return boardMembers
       }
-    },
+    }
   },
   methods: {
     updateTaskDate() {
@@ -164,43 +171,43 @@ export default {
       this.taskCopy.activities.push(newActivity)
       eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
-          message: 'Update task date',
-          position: 'bottom-left',
-          duration:2000,
-        });
+        message: 'Task due date updated',
+        position: 'bottom-left',
+        duration: 2000
+      })
 
       this.updateTask()
     },
-    toggleMember() {
-      this.isTaskMembersShowen = !this.isTaskMembersShowen
+    openMembersModal() {
+      this.isTaskMembersShowen = true;
     },
     addTaskMember(member) {
       const txt = `Member ${member.fullName} was added to task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.members.unshift(member)
       this.taskCopy.activities.push(newActivity)
-       eventBus.$emit('updateBoardActivity', newActivity)
+      eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
-          message: 'Update task member',
-          position: 'bottom-left',
-          duration:2000,
-        });
+        message: 'Member assinged to task',
+        position: 'bottom-left',
+        duration: 2000
+      })
       this.updateTask()
     },
     removeTaskMember(member) {
       const idx = this.taskCopy.members.findIndex(
-        (tMember) => tMember._id === member._id
+        tMember => tMember._id === member._id
       )
       const txt = `Member ${member.fullName} was removed from task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.members.splice(idx, 1)
       this.taskCopy.activities.push(newActivity)
-       eventBus.$emit('updateBoardActivity', newActivity)
+      eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
-          message: 'Update task member',
-          position: 'bottom-left',
-          duration:2000,
-        });
+        message: 'Member removed from task',
+        position: 'bottom-left',
+        duration: 2000
+      })
       this.updateTask()
     },
     getStyleStr(colorStr) {
@@ -216,17 +223,18 @@ export default {
       this.$emit('deleteTask', this.taskCopy.id)
     },
     updateTaskTxt(ev) {
+      ev.target.blur()
       const prevTxt = this.taskCopy.txt
       this.taskCopy.txt = ev.target.innerText
       const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.taskCopy.activities.push(newActivity)
-       eventBus.$emit('updateBoardActivity', newActivity)
+      eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
-          message: 'Update task name',
-          position: 'bottom-left',
-          duration:2000,
-        });
+        message: 'Task txt updated',
+        position: 'bottom-left',
+        duration: 2000
+      })
       this.updateTask()
     },
     updateTask() {
@@ -252,12 +260,12 @@ export default {
       this.taskCopy.priority.txt = opt.txt
       this.taskCopy.priority.color = opt.color
       this.taskCopy.activities.push(newActivity)
-       eventBus.$emit('updateBoardActivity', newActivity)
+      eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
-          message: 'Update task priority',
-          position: 'bottom-left',
-          duration:2000,
-        });
+        message: 'Task priority updated',
+        position: 'bottom-left',
+        duration: 2000
+      })
       this.updateTask()
       this.isPriorsShowen = false
     },
@@ -268,12 +276,12 @@ export default {
       this.taskCopy.status.txt = opt.txt
       this.taskCopy.status.color = opt.color
       this.taskCopy.activities.push(newActivity)
-             eventBus.$emit('updateBoardActivity', newActivity)
+      eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
-          message: 'Update task status',
-          position: 'bottom-left',
-          duration:2000,
-        });
+        message: 'Task status updated',
+        position: 'bottom-left',
+        duration: 2000
+      })
       this.updateTask()
       this.isPriorsShowen = false
     },
@@ -281,11 +289,11 @@ export default {
       this.isTaskMembersShowen = false
       this.isStatusesShowen = false
       this.isPriorsShowen = false
-    },
+    }
   },
   created() {
     eventBus.$on('updateTaskPreview', this.updateComponentTask)
     this.taskCopy = this.task
-  },
+  }
 }
 </script>

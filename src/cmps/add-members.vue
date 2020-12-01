@@ -1,8 +1,8 @@
 <template>
   <section class="members">
     <h3 class="title-members">{{ firstTitle }}</h3>
-    <ul class="clean-list first members-list">
-      <li class="flex align-center" v-for="member in members" :key="member._id">
+    <ul class="members-list first clean-list ">
+      <li class="member flex align-center" v-for="member in members" :key="member._id">
         <avatar
           backgroundColor="#0085ff"
           :size="20"
@@ -16,9 +16,9 @@
       </li>
     </ul>
     <h3 class="title-members">{{ secondTitle }}</h3>
-    <ul class="clean-list members-list">
+    <ul class="members-list clean-list">
       <li
-        class="flex align-center"
+        class="member flex align-center"
         v-for="aMember in allMembers"
         :key="aMember._id"
       >

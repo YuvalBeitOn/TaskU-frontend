@@ -1,4 +1,4 @@
-.task-list {
+.task-list-container {
   margin-bottom: rem(30px);
 
   form {
@@ -14,9 +14,21 @@
       font-weight: 400;
       padding-left: 20px;
       text-align: left;
+      &:hover {
+        border: 0.7px solid black;
+        transition: border .2s;
+
+      }
 
       &:focus {
         border: 1px solid $clr1;
+      }
+    }
+    &:hover {
+      .input-color {
+        opacity: 1;
+        transition: opacity .2s;
+
       }
     }
     button {
@@ -34,7 +46,10 @@
   }
   .task-color {
     width: 7px;
-    margin-right: 1px;
     height: 35px;
+    &.input-color {
+      opacity: 0.5;
+      transition: opacity .2s;
+    }
   }
 }

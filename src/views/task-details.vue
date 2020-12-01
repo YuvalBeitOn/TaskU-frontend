@@ -1,30 +1,34 @@
 <template>
-    <section v-if="task" class="task-details-section">
-        <div class="top-bar">
-            <button v-tooltip.top="'Close Task Details'" class="cls-btn"><i @click.stop="closeBtn" class="fas fa-times"></i></button>
-            <h1 class="task-title editable"
-                @blur.stop="updateTaskTxt"
-                @keyup.enter="updateTaskTxt"
-                contenteditable
-            >
-                {{ task.txt }}
-            </h1>
-        </div>
-        <el-tabs>
-            <el-tab-pane label="Task Posts">
-                <task-posts @updatePosts="updatePosts" :posts="posts" />
-            </el-tab-pane>
-            <el-tab-pane label="Task Activities">
-                <task-activities :activities="task.activities" />
-            </el-tab-pane>
-        </el-tabs>
-    </section>
+  <section v-if="task" class="task-details-section">
+    <button class="cls-btn">
+      <i @click.stop="closeBtn" class="fas fa-times"></i>
+    </button>
+    <div class="task-title-container">
+      <h2
+        class="task-title editable"
+        spellcheck="false"
+        @blur.stop="updateTaskTxt"
+        @keyup.enter="updateTaskTxt"
+        contenteditable
+      >
+        {{ task.txt }}
+      </h2>
+    </div>
+    <el-tabs>
+      <el-tab-pane label="Task Posts">
+        <task-posts @updatePosts="updatePosts" :posts="posts" />
+      </el-tab-pane>
+      <el-tab-pane label="Task Activities">
+        <task-activities :activities="task.activities" />
+      </el-tab-pane>
+    </el-tabs>
+  </section>
 </template>
 <script>
 import taskPosts from '@/cmps/task-posts'
 import taskActivities from '@/cmps/task-activities'
 import { eventBus } from '@/services/event-bus.service'
-import {boardService} from '@/services/board.service'
+import { boardService } from '@/services/board.service'
 export default {
   name: 'task-details',
   data() {
@@ -53,6 +57,7 @@ export default {
       return tasks
     },
     updateTaskTxt(ev) {
+      ev.target.blur()
       this.task.txt = ev.target.innerText
       const tasks = this.getTasksPath()
       const taskIdx = tasks.findIndex(task => task.id === this.task.id)
@@ -61,20 +66,19 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      
     },
     updatePosts(posts) {
       const tasks = this.getTasksPath()
       const taskIdx = tasks.findIndex(task => task.id === this.task.id)
       tasks[taskIdx].posts = posts
-          const txt = `${this.user.fullName} add new post`
+      const txt = `${this.user.fullName} add new post`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
-       this.board.activities.push(newActivity)
+      this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
-  
+
       eventBus.$emit('updateTaskPreview', this.task)
     },
     getTaskInfoById() {

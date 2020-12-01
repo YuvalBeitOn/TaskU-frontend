@@ -24,7 +24,6 @@
     padding: 0 1rem 0 1rem;
     flex-wrap: wrap;
     min-height: 40px;
-    min-width: 1100px;
     margin-bottom: 20px;
 
     .group-actions-container .expand-btn-container {
@@ -48,14 +47,23 @@
       margin-bottom: 15px;
       width: 100%;
       justify-content: flex-end;
-      padding-right: 142px;
+      padding-right: 135px;
+      @include for-wide-layout {
+        padding-right: 90px;
+      }
       .progressbar {
-        width: 105px;
+        width: 116.5px;
         margin-right: 7px;
+        @include for-wide-layout {
+          width: 86.5px;
+        }
         .item-progressbar:hover {
           transition-duration: 0.3s;
-          transform: scale(1.2);
+          transform: scale(1.1);
         }
+      }
+      :last-child {
+        margin: 0;
       }
     }
 
@@ -80,6 +88,12 @@
         text-align: center;
         &.date {
           width: 135px;
+          @include for-wide-layout {
+            width: 90px;
+          }
+        }
+        @include for-wide-layout {
+          width: 90px;
         }
       }
     }

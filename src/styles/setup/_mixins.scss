@@ -1,28 +1,28 @@
 /* Media queries Breakpoint mixins */
 
-@mixin for-max-narrow-layout {
-    @media (max-width: $break-max-narrow) {
-        @content;
-    }
-}
+// @mixin for-max-narrow-layout {
+//     @media (max-width: $break-max-narrow) {
+//         @content;
+//     }
+// }
 
-@mixin for-narrow-layout {
-    @media (max-width: $break-narrow) {
-        @content;
-    }
-}
+// @mixin for-narrow-layout {
+//     @media (max-width: $break-narrow) {
+//         @content;
+//     }
+// }
 
-@mixin for-normal-layout {
-    @media (max-width: $break-normal) {
-        @content;
-    }
-}
+// @mixin for-normal-layout {
+//     @media (max-width: $break-normal) {
+//         @content;
+//     }
+// }
 
-@mixin for-normal-wide-layout {
-    @media (max-width: $break-normal-wide) {
-        @content;
-    }
-}
+// @mixin for-normal-wide-layout {
+//     @media (max-width: $break-normal-wide) {
+//         @content;
+//     }
+// }
 
 @mixin for-wide-layout {
     @media (max-width: $break-wide) {
@@ -65,6 +65,3 @@
     }
 }
 
-@mixin expand-from-center {
-    
-}

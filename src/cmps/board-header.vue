@@ -5,16 +5,20 @@
       @addMember="emitAddMember"
       :board="board"
     />
-    <h2
-      class="board-name editable"
-      @blur="updateBoardName"
-      @keydown.enter="updateBoardName"
-      contenteditable
-    >
-      {{ board.name }}
-    </h2>
+    <div class="board-name-container">
+      <h2
+        class="board-name editable"
+        spellcheck="false"
+        @blur="updateBoardName"
+        @keydown.enter="updateBoardName"
+        contenteditable
+      >
+        {{ board.name }}
+      </h2>
+    </div>
     <h3
       class="board-descriotion editable"
+      spellcheck="false"
       v-if="board.description"
       @blur="updateBoardDesc"
       @keydown.enter="updateBoardDesc"
@@ -44,7 +48,7 @@ export default {
     updateBoardName: Function,
     board: Object,
     addGroup: Function,
-    forceRerender: Function,
+    forceRerender: Function
   },
   methods: {
     emitRemoveMember(member) {
@@ -52,12 +56,12 @@ export default {
     },
     emitAddMember(member) {
       this.$emit('addMember', member)
-    },
+    }
   },
   components: {
     boardInfo,
-    boardFilter,
-  },
+    boardFilter
+  }
 }
 </script>
 

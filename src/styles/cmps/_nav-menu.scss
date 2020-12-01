@@ -1,6 +1,6 @@
 .nav-menu {
   background-color: #292f4c;
-  min-height: 100vh;
+  height: 100vh;
   width: rem(60px);
   padding: rem(15px);
   .top-nav > *:not(:last-child) {
@@ -11,7 +11,6 @@
   }
   .nav-icon-container {
     border-radius: 0 8px 8px 0;
-    width: 54px;
     &:hover {
       background-color: rgba(0, 0, 0, 0.6);
     }

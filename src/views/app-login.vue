@@ -7,7 +7,7 @@
     </div>
     <section class="app-login flex column">
       <div class="flex column justify-center">
-        <h1 class="login-title">Log <span class="thin-fonted">In</span></h1>
+        <h2 class="login-title">Log <span class="thin-fonted">In</span></h2>
         <form
           class="flex column justify-center align-center"
           @submit.prevent="submitLogin"

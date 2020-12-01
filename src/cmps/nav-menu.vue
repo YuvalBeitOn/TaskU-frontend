@@ -1,8 +1,8 @@
 <template>
     <section class="nav-menu flex column align-center space-between">
-        <div class="top-nav flex column space-between align-center">
+        <div class="top-nav flex column align-center">
             <div class="nav-logo">
-                <router-link to="/board/">
+                <router-link to="/">
                     <img src="img/icons/logo_icon.png" alt="TaskU" />
                 </router-link>
             </div>
@@ -38,7 +38,7 @@
             </div>
             <router-link v-if="user" :to="'/user/' + user._id">
                 <i
-                    v-tooltip.right="'User Profile'"
+                    v-tooltip.right="'Profile'"
                     class="nav-icon profile fas fa-user-circle"
                 ></i>
             </router-link>

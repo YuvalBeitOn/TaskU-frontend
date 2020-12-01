@@ -1,5 +1,6 @@
 <template>
   <section
+    @mouseover="expandList"
     :class="{ 'board-list flex column relative': true, expanded: isExpanded }"
   >
     <slot name="expand-btn"></slot>
@@ -11,23 +12,17 @@
     <div>
       <slot name="search"></slot>
     </div>
-          <span class="separator-line"></span>
+    <span class="separator-line"></span>
     <ul v-if="boards" class="boards-list clean-list">
       <li class="board-item" v-for="board in boards" :key="board._id">
         <img class="board-img" src="@/assets/imgs/board.png" alt="" />
         <i
-          @click="togglePopup(board._id)"
-          v-tooltip.right="'Options'"
+          @click="togglePopup($event, board._id)"
           class="minimenu-icon fas fa-ellipsis-h"
         ></i>
         <router-link class="item-txt" :to="'/board/' + board._id">{{
           titleBoardToShow(board.name)
         }}</router-link>
-        <popupMenu
-          v-if="isPopupShowen && currBoardId === board._id"
-          :menuItems="popupOptions"
-          @closePopup="togglePopup"
-        />
       </li>
       <div
         class="back-drop-layer"
@@ -35,6 +30,12 @@
         @click="togglePopup"
       ></div>
     </ul>
+    <popupMenu
+      v-if="isPopupShowen"
+      :menuItems="popupOptions"
+      :offsetY="popupY"
+      @closePopup="togglePopup"
+    />
   </section>
 </template>
 
@@ -45,11 +46,13 @@ export default {
   props: {
     boards: [Array, Object],
     title: String,
-    isExpanded: Boolean
+    isExpanded: Boolean,
+    expandList: Function
   },
   data() {
     return {
       isPopupShowen: false,
+      popupY: 1,
       popupOptions: [
         {
           txt: 'Delete this board',
@@ -75,12 +78,13 @@ export default {
     addBoard() {
       this.$emit('addNewBoard')
     },
-    togglePopup(boardId) {
+    togglePopup(ev, boardId) {
+      this.popupY = ev.y
+      console.log(this.popupY)
       this.currBoardId = this.isPopupShowen ? '' : boardId
       this.isPopupShowen = !this.isPopupShowen
     }
   },
-  created() {},
   components: {
     popupMenu
   }
