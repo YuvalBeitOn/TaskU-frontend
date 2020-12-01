@@ -18,13 +18,9 @@
             >
                 <div class="user-info-container flex space-between">
                     <div class="flex align-center">
-                           <avatar
-                           :size="30"
-                           color="white"
-                        class="profile-img"
-                        v-if="post.byUser"
-                        :username="post.byUser.fullName"
-                    ></avatar>
+                        
+                <avatar :user="post.byUser" />
+
  <span class="by-user" v-if="post.byUser">{{ post.byUser.fullName }}</span>
                     </div>
 
@@ -41,7 +37,8 @@
 </template>
 <script>
 import { boardService } from '../services/board.service'
-import Avatar from 'vue-avatar'
+import Avatar from '@/cmps/user-avatar.vue'
+
 import moment from 'moment'
 
 export default {

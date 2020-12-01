@@ -8,7 +8,7 @@
                     alt=""
             /></router-link>
         </div>
-        <section v-show="!isLoading" class="app-signup app-login flex column">
+        <section class="app-signup app-login flex column">
             <div class="flex column justify-center">
                 <h1 class="login-title">
                     Sign <span class="thin-fonted">Up</span>
@@ -33,12 +33,8 @@
                         v-model="signupCredentials.password"
                         placeholder="Password"
                     />
-                    <el-input
-                        type="file"
-                        name="img-uploader"
-                        id="imgUploader"
-                    />
-                        <!-- @change="onUploadImg()" -->
+       
+                   
 
                     <button class="login-btn">Sign up</button>
                 </form>
@@ -61,7 +57,7 @@
 
 <script>
 import { boardService } from '@/services/board.service'
-// import { imgUpload } from '@/services/img-upload.service'
+
 export default {
     name: 'app-signup',
     data() {
@@ -71,9 +67,9 @@ export default {
                 email: null,
                 password: null,
                 isAdmin: false,
-                imgUrl: null,
+                
             },
-            isLoading: false,
+           
         }
     },
     computed: {},
@@ -89,7 +85,7 @@ export default {
                 password: null,
                 fullName: null,
                 isAdmin: false,
-                imgUrl: null,
+                
             }
             console.log(user)
             const board = boardService.getEmptyBoard()
@@ -101,14 +97,10 @@ export default {
             })
             this.$router.push(`/board/${boardId}`)
         },
-        // async onUploadImg(ev) {
-        //     this.isLoading = true
-        //     const res = await imgUpload(ev)
-        //     console.log('res:', res.url)
-        //     // this.imgUrls.push(res.url)
-        //     // this.toyToEdit.imgUrl = res.url;
-        //     this.isLoading = false
-        // },
+
     },
 }
 </script>
+<style >
+
+</style>

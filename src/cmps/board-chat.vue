@@ -10,12 +10,9 @@
       <div class="msg-container grow flex column">
         <template v-if="msgs">
           <div class="chat-msg flex " v-for="(msg, idx) in msgs" :key="idx">
-               <avatar
-            class="profile-img"
-            :size="20"
-            
-            :username="msg.from"
-          ></avatar>
+        <avatar :user="user" />
+
+         
             <strong class="from-msg">{{ msg.from }}:</strong><span>{{ msg.txt }} </span> 
            <div v-show="isTypeing">
   {{msgTyping}}
@@ -37,8 +34,9 @@
 </template>
 <script>
 // Every line with @@ need to be without a comment
-import Avatar from 'vue-avatar'
 import {socketService} from '@/services/socket.service.js' 
+import Avatar from '@/cmps/user-avatar.vue'
+ Avatar 
 
 export default {
   name: 'board-chat',
@@ -54,6 +52,9 @@ export default {
 computed:{
   topicName(){
     return this.$store.getters.board.name
+  },
+  user(){
+   return this.$store.getters.user
   }
 },
   methods: {

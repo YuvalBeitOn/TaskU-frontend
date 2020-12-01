@@ -10,11 +10,8 @@
       type="submit"
     >
       <div class="user-avatar">
-        <avatar
-          class="profile-img"
-          :size=20
-          :username="user.fullName"
-        ></avatar>
+             <avatar :user="user" />
+
       </div>
       <span class="filter-txt">{{ user.fullName }}</span>
     </button>
@@ -22,7 +19,8 @@
 </template>
 
 <script>
-import Avatar from 'vue-avatar'
+import Avatar from '@/cmps/user-avatar.vue'
+
 
 export default {
   props: {

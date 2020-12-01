@@ -27,12 +27,27 @@
         placeholder="Company name"
         v-model.trim="userToEdit.companyName"
       ></el-input>
+                     <div  class="img upload" v-if="!isLoading">
+                        <template v-if="!isLoading">
+                    
+                    <img v-if="signupCredentials.imgUrl" width="55px" :src="signupCredentials.imgUrl" alt="user image">
+                    <label for="imgUploader">
+                        <button type="up-pic" class="white">Upload Image</button>
+                    <input  type="file" id="imgUploader">
+
+                    </label>
+                    </template>
+                <img v-else src="@/assets/imgs/loader.gif" class="loader-app" />
+
+                    </div>
       <button style="color: white">Save Changes</button>
     </form>
   </section>
 </template>
       
       <script>
+import { imgUpload } from '@/services/img-upload.service'
+
 export default {
   name: 'user-editor',
   props: {
@@ -40,7 +55,8 @@ export default {
   },
   data() {
     return {
-      userToEdit: null
+      userToEdit: null,
+      isLoading: false,
     }
   },
   methods: {
@@ -48,6 +64,15 @@ export default {
       const copyUser = JSON.parse(JSON.stringify(this.userToEdit))
       console.log('saveUser:', copyUser)
     },
+            async onUploadImg(ev) {
+            console.log('cliclll');
+            console.log(ev,'eve');
+            this.isLoading = true
+            const res = await imgUpload(ev)
+            console.log('res:', res.url)
+            this.signupCredentials.imgUrl = res.url;
+            this.isLoading = false
+        },
   },
   created() {
     this.userToEdit = JSON.parse(JSON.stringify(this.user))
@@ -55,4 +80,5 @@ export default {
 }
 </script>
       
-  
+
+
