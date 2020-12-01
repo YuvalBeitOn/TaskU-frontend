@@ -24,6 +24,7 @@
 import taskPosts from '@/cmps/task-posts'
 import taskActivities from '@/cmps/task-activities'
 import { eventBus } from '@/services/event-bus.service'
+import {boardService} from '@/services/board.service'
 export default {
   name: 'task-details',
   data() {
@@ -45,7 +46,6 @@ export default {
       this.$router.push(`/board/${this.$route.params.boardId}`)
     },
     getTasksPath() {
-      console.log('groupId', this.groupId)
       const groupIdx = this.board.groups.findIndex(
         group => group.id === this.groupId
       )
@@ -61,16 +61,20 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      eventBus.$emit('updateTaskPreview', this.task)
+      
     },
     updatePosts(posts) {
       const tasks = this.getTasksPath()
       const taskIdx = tasks.findIndex(task => task.id === this.task.id)
       tasks[taskIdx].posts = posts
+          const txt = `${this.user.fullName} add new post`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
+       this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
+  
       eventBus.$emit('updateTaskPreview', this.task)
     },
     getTaskInfoById() {
@@ -91,8 +95,8 @@ export default {
     board() {
       return this.$store.getters.board
     },
-    loggedInUser() {
-      return this.$store.getters.loggedInUser
+    user() {
+      return this.$store.getters.user
     },
     posts() {
       return this.task.posts
@@ -103,7 +107,6 @@ export default {
       const taskInfo = this.getTaskInfoById()
       this.groupId = taskInfo.groupId
       this.task = JSON.parse(JSON.stringify(taskInfo.task))
-      console.log('task', this.task)
     }
   },
   components: {

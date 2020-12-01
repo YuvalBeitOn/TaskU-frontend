@@ -6,7 +6,7 @@ if (sessionStorage.user) localLoggedinUser = JSON.parse(sessionStorage.user)
 export const userStore = {
   state: {
     users: [],
-    loggedInUser: localLoggedinUser
+  loggedInUser: localLoggedinUser
   },
   getters: {
     users(state) {

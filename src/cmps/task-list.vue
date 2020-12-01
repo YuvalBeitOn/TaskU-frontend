@@ -4,7 +4,7 @@
       <draggable class="width100" v-model="clonedTasks" @end="updateTasks">
         <task-preview
           v-for="task in clonedTasks"
-          :user="loggedInUser"
+          :user="user"
           :taskColor="taskColor"
           :key="task.id"
           :task="task"
@@ -35,7 +35,7 @@
 import taskPreview from './task-preview'
 import { boardService } from '@/services/board.service'
 import draggable from 'vuedraggable'
-import { eventBus } from '@/services/event-bus.service'
+// import { eventBus } from '@/services/event-bus.service'
 
 export default {
   name: 'task-list',
@@ -56,8 +56,8 @@ export default {
     board() {
       return this.$store.getters.board
     },
-    loggedInUser() {
-      return this.$store.getters.loggedInUser
+    user() {
+      return this.$store.getters.user
     },
     taskBgc() {
       return { backgroundColor: this.taskColor }
@@ -65,16 +65,28 @@ export default {
   },
   methods: {
     addEmptyTask(groupId) {
-      if (this.groupId !== groupId) return
+      console.log(groupId, this.groupId);
+      if (this.groupId !== groupId) {
+        console.log('add empty task returnnnn');
+        return
+      }
       const newTask = boardService.getEmptyTask()
-      const groupIdx = this.board.groups.findIndex(
-        group => group.id === groupId
-      )
-      this.board.groups[groupIdx].tasks.push(newTask)
+      console.log('new task:', newTask)
+
+      const group = this.getGroupById()
+      group.tasks.push(newTask)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
+                const txt = `${this.user.fullName} add new task`
+           let newActivity = boardService.getEmptyActivity(txt, this.user)
+      this.board.activities.unshift(newActivity)
+      this.$notify({
+          message: 'Added new task ',
+          position: 'bottom-left',
+          duration:2000,
+        });
       this.$emit('forceRender')
     },
     showAddBtn() {
@@ -90,26 +102,41 @@ export default {
       const newTask = boardService.getEmptyTask()
       newTask.txt = this.txt
       const txt = `Task '${newTask.txt}' added`
-      let newActivity = boardService.getEmptyActivity(txt, this.loggedInUser)
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
       newTask.activities.push(newActivity)
+       this.board.activities.unshift(newActivity)
       const group = this.getGroupById()
       group.tasks.push(newTask)
+      console.log('new task:', newTask)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
       this.txt = ''
       this.isAddBtnShowen = false
+          this.$notify({
+          message: 'Add new task',
+          position: 'bottom-left',
+          duration:2000,
+        });
       this.$emit('forceRender')
     },
     deleteTask(taskId) {
       const group = this.getGroupById()
       const taskIdx = group.tasks.findIndex(task => task.id === taskId)
       group.tasks.splice(taskIdx, 1)
+      const txt = `${this.user.fullName} remove a task`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      this.board.activities.unshift(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
+                                    this.$notify({
+                                    message: 'Remove task',
+                                    position: 'bottom-left',
+                                    duration:2000,
+                                  });
       this.$emit('forceRender')
     },
     updateTask(newTask) {
@@ -120,17 +147,17 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      
       this.$emit('forceRender')
     },
     updateTasks() {
       const group = this.getGroupById()
-      console.log('group:', group)
-      console.log('clonedTasks:', this.clonedTasks)
       group.tasks = this.clonedTasks
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
+
       this.$emit('forceRender')
     }
   },
@@ -139,8 +166,9 @@ export default {
     draggable
   },
   created() {
+    console.log('task list created');
     this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
-    eventBus.$on('addEmptyTask', this.addEmptyTask)
+    // eventBus.$on('addEmptyTask', console.log)
   }
 }
 </script>

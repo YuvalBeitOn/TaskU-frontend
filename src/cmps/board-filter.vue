@@ -1,7 +1,13 @@
 <template>
   <section class="board-filter flex space-between">
     <div class="filter-actions flex space-between align-center">
-      <button v-tooltip.top="'Add New Group'" class="add-group-btn" @click="addGroup">New Group</button>
+      <button
+        v-tooltip.top="'Add New Group'"
+        class="add-group-btn"
+        @click="addGroup"
+      >
+        New Group
+      </button>
       <span
         ><i class="far fa-search"></i
         ><input
@@ -11,10 +17,13 @@
           placeholder="Search"
           v-model="filterBy.searchTerm"
       /></span>
-      <div class="filter">
+      <div class="filter relative">
         <i class="fas fa-filter"></i>
         <span v-tooltip.top="'Filter Board'" @click="toggleFilter">Filter</span>
-        <div class="filters flex" v-if="isFilterShowen">
+        <div
+        v-show="isFilterShowen"
+          :class="{ 'filters flex': true, expanded: isFilterShowen }"
+        >
           <filter-form
             title="Status"
             :opts="statuses"
@@ -62,7 +71,6 @@ export default {
       return this.$store.getters.filterBy
     },
     users() {
-      console.log('users:', this.$store.getters.users)
       return this.$store.getters.users
     }
   },
@@ -78,11 +86,10 @@ export default {
       this.$emit('forceRerender')
     },
     updateFilter(filterObj) {
-      console.log('filterObj:', filterObj);
       this.filterBy[filterObj.title] = filterObj.opt
       this.$store.commit({ type: 'setFilterBy', filterBy: this.filterBy })
       this.$emit('forceRerender')
-      this.isFilterShowen = false;
+      this.isFilterShowen = false
     }
   },
   components: {
