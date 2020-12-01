@@ -18,16 +18,14 @@
             >
                 <div class="user-info-container flex space-between">
                     <div class="flex align-center">
-                        <avatar
-                            size="30"
-                            color="white"
-                            class="profile-img"
-                            v-if="post.byUser"
-                            :username="post.byUser.fullName"
-                        ></avatar>
-                        <span class="by-user" v-if="post.byUser">{{
-                            post.byUser.fullName
-                        }}</span>
+                           <avatar
+                           :size="30"
+                           color="white"
+                        class="profile-img"
+                        v-if="post.byUser"
+                        :username="post.byUser.fullName"
+                    ></avatar>
+ <span class="by-user" v-if="post.byUser">{{ post.byUser.fullName }}</span>
                     </div>
 
                     <h5>
@@ -54,7 +52,7 @@ export default {
         },
     },
     computed: {
-        loggedInUser() {
+        user() {
             return this.$store.getters.user
         },
     },
@@ -79,11 +77,17 @@ export default {
             }
             const post = boardService.getEmptyPost()
             post.txt = this.newPost
-            post.byUser = this.loggedInUser
+            post.byUser = this.user
             this.copiedPosts.unshift(post)
             this.$emit('updatePosts', this.copiedPosts)
             this.newPost = ''
+                                   this.$notify({
+                                    message: 'New post added',
+                                    position: 'bottom-left',
+                                    duration:2000,
+                                  });
         },
+        
     },
     components: {
         Avatar,

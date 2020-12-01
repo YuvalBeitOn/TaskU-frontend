@@ -1,6 +1,6 @@
 <template>
-  <section class="board-list flex column">
-    
+  <section :class="{'board-list flex column relative':true, 'expanded':isExpanded}">
+    <slot name="expand-btn"></slot>
     <div class="top-bar flex space-around align-center">
       <h1 class="title-board-list">{{ title }}</h1>
       <i v-tooltip.top="'Add Board'" @click="addBoard" class="btn-add fas fa-plus-circle"></i>
@@ -35,7 +35,8 @@ export default {
   name: 'board-list',
   props: {
     boards: [Array, Object],
-    title: String
+    title: String,
+    isExpanded: Boolean
   },
   data() {
     return {

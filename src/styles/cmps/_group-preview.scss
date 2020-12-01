@@ -1,125 +1,97 @@
-.group-preview {
-
-  position: relative;
-  background: #d3d3d347;
-  border-radius: 4px;
-  padding: 0 1rem 0 1rem;
-  flex-wrap: wrap;
-  min-height: 40px;
-  min-width: 1100px;
-  margin-bottom: 20px;
-  cursor: pointer;
-
-  button {
-    position: relative;
-    background-color: transparent;
-    border: none;
-    padding: 0;
-  }
-  .group-actions-container .expand-btn-container {
+.group-preview-container {
+  .expand-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    right: 80px;
-    top: -5px;
+    padding: 3px;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    top: 8px;
+    left: -10px;
+    margin: 0;
 
-    .expand-btn {
-      position: relative;
-      padding: 3px;
-      border-radius: 50%;
-      width: 16px;
-      height: 16px;
-      .expand-arrow {
-        position: absolute;
-        color: white;
-        font-size: 0.6rem;
-        right: 3.5px;
-        top: 4px;
-      }
-    }
-  }
-  .fa-icon-act {
-    font-size: 0.6rem;
-    padding: 5px;
-    color: #ffffff;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    &:hover {
-      color: rgb(77, 77, 77);
-    }
-  }
-  .progress-bar-section{
-    margin-top: -15px;
-    margin-bottom: 15px;
-    width: 100%;
-    justify-content: flex-end;
-    padding-right: 142px;
-    .progressbar {
-      width: 105px;
-      margin-right: 7px;
-      .item-progressbar:hover{
-        transition-duration: 0.3s;
-        transform: scale(1.2);
-      }
-    }
-  }
-
-  .group-actions {
-    position: absolute;
-    background-color: white;
-    z-index: 5;
-    border-radius: rem(10px);
-    box-shadow: 0 3px 10px -5px #484444;
-    padding: 8px;
-    width: 180px;
-    bottom: -215px;
-    left: -30px;
-    > * {
-      padding: 1px;
-      &:hover {
-        background-color: #e6e9ef;
-        border-radius: 5px;
-      }
-    }
-    .act-btn {
-      background-color: #706f6f;
-      border-radius: 50%;
+    .expand-arrow {
       color: white;
-      width: 20px;
-      height: 20px;
-    }
-    .act-txt {
-      font-family: roboto-light;
-      color: #323338;
-      margin-left: 5px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    // > *:not(:last-child) {
-    //   border-bottom: 1px solid #96969698;
-    // }
-  }
-  .group-headers {
-    padding-bottom: 1rem;
-    &.group-name {
-      font-family: 'roboto-light';
-      font-size: rem(15px);
-      color: rgb(17, 21, 27);
-      display: inline-block;
-      margin: 0;
-      padding: 0;
+      font-size: 0.6rem;
     }
   }
-  &.expanded {
-    background-color: transparent;
-  }
-  .headers {
-    font-size: rem(13px);
-    .list-title {
-      width: 120px;
-      text-align: center;
-      &.date {
-        width: 135px;
+
+  .group-preview {
+    background: #d3d3d347;
+    border-radius: 4px;
+    padding: 0 1rem 0 1rem;
+    flex-wrap: wrap;
+    min-height: 40px;
+    min-width: 1100px;
+    margin-bottom: 20px;
+
+    .group-actions-container .expand-btn-container {
+      position: absolute;
+      top: 2px;
+      left: -10px;
+    }
+    .fa-icon-act {
+      font-size: 0.6rem;
+      padding: 5px;
+      color: #ffffff;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      &:hover {
+        color: rgb(77, 77, 77);
       }
+    }
+    .progress-bar-section {
+      margin-top: -15px;
+      margin-bottom: 15px;
+      width: 100%;
+      justify-content: flex-end;
+      padding-right: 142px;
+      .progressbar {
+        width: 105px;
+        margin-right: 7px;
+        .item-progressbar:hover {
+          transition-duration: 0.3s;
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    .group-headers {
+      padding-bottom: 1rem;
+      &.group-name {
+        font-family: 'roboto-light';
+        font-size: rem(15px);
+        color: rgb(17, 21, 27);
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+      }
+    }
+    &.expanded {
+      background-color: transparent;
+    }
+    .headers {
+      font-size: rem(13px);
+      .list-title {
+        width: 120px;
+        text-align: center;
+        &.date {
+          width: 135px;
+        }
+      }
+    }
+  }
+  @keyframes expand-menu {
+    0% {
+      opacity: 0;
+      top: 5px;
+    }
+    100% {
+      opacity: 1;
+      top: 15px;
     }
   }
 }

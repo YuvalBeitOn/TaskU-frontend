@@ -1,7 +1,6 @@
 .board-app {
   background-color: #f7f7f7;
   .expand-list-btn {
-    // color: black;
     border: 1px solid #e6e9ef;
     border-radius: 20px;
     background-color: #ffffff;
@@ -13,11 +12,11 @@
     height: 26px;
     padding: 3px 9px;
     position: absolute;
-    left: 272px;
+    right: -20px;
+    top: 10px;
     font-size: rem(12px);
     &.notExpanded {
       position: absolute;
-      left: 85px;
     }
     &:hover {
       padding: 0px 15px;
@@ -38,6 +37,9 @@
     }
   }
   .board-up {
+
+
+    
     background-color: #f7f7f7;
 
     padding: 30px 30px 0px 30px;
@@ -45,10 +47,10 @@
   .board-header-top {
     padding: 0px 20px 0px 20px;
     .board-header-nav {
-      .icon-nav-hader {
-        font-size: rem(20px);
-        cursor: pointer;
+      >*{
+        margin: 10px;
       }
+  
     }
     .right {
       z-index: 55;
@@ -58,7 +60,8 @@
     .board-descriotion {
       font-size: rem(14px);
     }
-    .board-name-title {
+    
+    .board-name{
       font-family: 'roboto-regular';
       font-size: rem(28px);
       display: inline-block;
@@ -76,4 +79,6 @@
     background-color: black;
     opacity: 0.4;
   }
+
+  
 }
