@@ -55,7 +55,7 @@ export const userStore = {
       const user = await userService.getById(userId)
       commit({ type: 'setUser', user })
       // setTimeout(() => {
-        // commit({ type: 'toggleIsLoading' })
+      // commit({ type: 'toggleIsLoading' })
       // }, 2000)
     },
     async removeUser({ commit }, { userId }) {
@@ -102,6 +102,9 @@ export const userStore = {
       const user = await userService.signup(userCred)
       context.commit({ type: 'setUser', user })
       return user
-    }
+    },
+    // async uploadUserImg(context, { img }) {
+    //   console.log('the image',img, context, 'context')
+    // }
   }
 }

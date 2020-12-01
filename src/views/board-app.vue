@@ -341,16 +341,16 @@ export default {
         },
     },
     watch: {
-        async '$route.params.boardId'() {
-            await this.loadBoard()
+        '$route.params.boardId'() {
+            this.loadBoard()
             this.forceRerender()
         },
     },
-    async created() {
+    created() {
         eventBus.$on('updateBoardActivity', this.updateBoardActivity)
-        await this.$store.dispatch({ type: 'loadUsers' })
-        await this.$store.dispatch({ type: 'loadBoards' })
-        await this.loadBoard()
+        this.$store.dispatch({ type: 'loadUsers' })
+        this.$store.dispatch({ type: 'loadBoards' })
+        this.loadBoard()
     },
     components: {
         groupList,

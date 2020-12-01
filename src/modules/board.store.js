@@ -99,19 +99,19 @@ export const boardStore = {
     async loadBoards(context) {
       const userId = context.getters.user._id
       console.log('UserId from board store @Boards loading:', userId)
-        const boards = await boardService.query(userId)
-        await context.commit({ type: 'setBoards', boards })
+      const boards = await boardService.query(userId)
+      await context.commit({ type: 'setBoards', boards })
     },
     async loadBoard({ commit }, { boardId }) {
-      // commit({ type: 'toggleIsLoading' })
+      commit({ type: 'toggleIsLoading' })
       // try {
-        console.log('before got board:', boardId)
-        const board = await boardService.getById(boardId)
-        await commit({ type: 'setBoard', board })
-        console.log('after set board');
-        // setTimeout(() => {
-        //   commit({ type: 'toggleIsLoading' })
-        // }, 2000)
+      const board = await boardService.getById(boardId)
+      console.log('after i  got board:', boardId)
+      await commit({ type: 'setBoard', board })
+      console.log('after set board')
+      setTimeout(() => {
+        commit({ type: 'toggleIsLoading' })
+      }, 2000)
       // } catch (err) {
       //   throw err
       // }
@@ -133,14 +133,14 @@ export const boardStore = {
       if (userId !== guestUser._id && !board._id) {
         board.members.push(guestUser)
       }
-        const savedBoard = await boardService.save(board)
-        if (board._id) {
-          commit({ type: 'setBoard', board: savedBoard })
-        } else {
-          console.log('im in the else')
-          dispatch({ type: 'loadBoards' })
-        }
-        return savedBoard._id
+      const savedBoard = await boardService.save(board)
+      if (board._id) {
+        commit({ type: 'setBoard', board: savedBoard })
+      } else {
+        console.log('im in the else')
+        dispatch({ type: 'loadBoards' })
+      }
+      return savedBoard._id
     }
   }
 }
