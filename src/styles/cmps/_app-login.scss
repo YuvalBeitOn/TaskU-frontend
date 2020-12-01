@@ -1,46 +1,59 @@
 .app-login {
-    height: 100vh;
+  max-width: 500px;
+  margin: 0 auto;
+  .login-header {
+    width: 100%;
+    display: block;
+    padding-top: 10px;
+    padding-left: 8px;
+    border-bottom: 1px solid #e0e0e0;
+    height: 65px;
+    background: #f7f7f7;
+  }
+  .login-title {
+    align-self: center;
+    font-family: roboto-regular;
+    color: #333333;
+    font-size: 40px;
+    margin-bottom: 1.5rem;
 
-    .login-header {
-        padding-top: rem(10px);
-        padding-left: rem(8px);
-        border-bottom: rem(1px) solid #e0e0e0;
-        height: rem(65px);
-        background: #f7f7f7;
+    .thin-fonted {
+      font-family: roboto-thin;
     }
-
-    .page-content {
-        height: 100%;
+  }
+  form {
+    .login-btn {
+      width: 320px;
+      height: 40px;
+      outline: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 28px;
+      border: none;
+      border-bottom: 2px solid #0d91ca;
+      background: #0fa2e2;
+      font-size: 18px;
+      border-radius: 15rem;
+      color: white;
+      margin-bottom: 4rem;
     }
-
-    .login-box {
-        height: rem(630px);
-        width: rem(800px);
-        margin-top: rem(-65px);
-        background-color: white;
-
-        .login-title {
-            font-family: roboto-regular;
-            color: #333333;
-            font-size: 40px;
-
-            .thin-fonted {
-                font-family: roboto-thin;
-            }
-        }
-        .login-options-wrapper{
-            input{
-                height: 40px;
-                width: 360px;
-            }
-            .submit-button{
-                width: 100%;
-                height: 48px;
-                font-size: 18px;
-                border-radius: 15rem;
-                background: #0fa2e2;
-                color: white;
-            }
-        }
+  }
+  .separator-line {
+    width: 250px;
+    border: 0.5px solid #c5c7d0;
+    margin: 16px;
+    height: 0;
+  }
+  .login-subtitle {
+    width: 450px;
+    font-size: rem(20px);
+    font-size: 1rem;
+    span {
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: rem(5px);
+      color: #0fa2e2;
     }
+  }
 }
