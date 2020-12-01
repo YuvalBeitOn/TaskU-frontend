@@ -236,7 +236,7 @@ export default {
           board.creator = this.user
           board.members.push(this.user)
           this.$store.dispatch({ type: 'saveBoard', board })
-            // socketService.emit('update board', board)
+          // socketService.emit('update board', board)
 
           this.$message({
             type: 'success',
@@ -271,7 +271,7 @@ export default {
         position: 'bottom-left',
         duration: 2000,
       })
-      this.$store.dispatch({type:'updateBoardSocket',board:this.board})
+      this.$store.dispatch({ type: 'updateBoardSocket', board: this.board })
 
       this.forceRerender()
     },
@@ -332,7 +332,7 @@ export default {
         message: 'The Groups has been saved',
         position: 'bottom-left',
         duration: 2000,
-    })
+      })
       this.forceRerender()
     },
   },
@@ -349,7 +349,6 @@ export default {
     this.$store.dispatch({ type: 'loadUsers' })
     this.$store.dispatch({ type: 'loadBoards' })
     this.loadBoard()
-    
   },
   components: {
     groupList,
