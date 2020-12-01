@@ -1,19 +1,28 @@
 <template>
-  <section :class="{'board-list flex column relative':true, 'expanded':isExpanded}">
+  <section
+    :class="{ 'board-list flex column relative': true, expanded: isExpanded }"
+  >
     <slot name="expand-btn"></slot>
-    <div class="top-bar flex space-around align-center">
-      <h1 class="title-board-list">{{ title }}</h1>
-      <i v-tooltip.top="'Add Board'" @click="addBoard" class="btn-add fas fa-plus-circle"></i>
+    <h3 class="title-board-list">{{ title }}</h3>
+    <div class="add-options flex align-center" @click="addBoard">
+      <i class="fal fa-plus-circle add-icon" v-tooltip.top="'Add Board'"></i>
+      <span class="add-txt">Add</span>
     </div>
-    <slot name="search"></slot>
-
+    <div>
+      <slot name="search"></slot>
+    </div>
+          <span class="separator-line"></span>
     <ul v-if="boards" class="boards-list clean-list">
       <li class="board-item" v-for="board in boards" :key="board._id">
+        <img class="board-img" src="@/assets/imgs/board.png" alt="" />
         <i
           @click="togglePopup(board._id)"
-         v-tooltip.right="'Options'" class="minimenu-icon fas fa-ellipsis-h"
+          v-tooltip.right="'Options'"
+          class="minimenu-icon fas fa-ellipsis-h"
         ></i>
-        <router-link :to="'/board/' + board._id">{{titleBoardToShow(board.name)}}</router-link>
+        <router-link class="item-txt" :to="'/board/' + board._id">{{
+          titleBoardToShow(board.name)
+        }}</router-link>
         <popupMenu
           v-if="isPopupShowen && currBoardId === board._id"
           :menuItems="popupOptions"
@@ -53,10 +62,10 @@ export default {
   },
   computed: {},
   methods: {
-    titleBoardToShow(title){
-      if(title.length>10){
-        return title.substr(0,8)+'..'
-      }else{
+    titleBoardToShow(title) {
+      if (this.title.length > 10) {
+        return this.title.substr(0, 8) + '..'
+      } else {
         return title
       }
     },

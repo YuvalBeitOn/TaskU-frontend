@@ -1,43 +1,30 @@
 .board-list {
-  
-    background-color: #f7f7f7;
-    min-height: 100vh;
-    border-top-left-radius: rem(15px);
-    margin-left: rem(-15px);
-    padding-left: rem(15px);
-    z-index: 2;
-    width: rem(30px);
-    border-right: 0.3px solid rgb(219, 219, 219);
-    transition: width .4s;
-    >* {
-      display: none;
-      button {
-        display: block;
-      }
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  border-top-left-radius: rem(15px);
+  padding-left: rem(15px);
+  z-index: 2;
+  width: rem(30px);
+  border-right: 0.3px solid rgb(219, 219, 219);
+  transition: width 0.4s;
+  > * {
+    display: none;
+    button {
+      display: block;
     }
-&.expanded {
-  width: rem(230px);
-  >* {
-    display: block;
   }
-
-}
-
-
-
- 
-
-  .top-bar {
-    margin-top: 35px;
-    .title-board-list {
-      margin-left: rem(20px);
-      font-size: rem(20px);
+  &.expanded {
+    width: rem(250px);
+    > * {
+      display: block;
     }
-    .btn-add {
-      cursor: pointer;
-      color: #0085ff;
-      font-size: 2rem;
+    .add-options {
+      display: flex;
     }
+  }
+  .title-board-list {
+    padding-top: rem(20px);
+    margin-bottom: 0.5rem;
   }
 
   .boards-list {
@@ -46,12 +33,26 @@
     height: 82.5vh;
     .board-item {
       position: relative;
-      margin-bottom: 10px;
-      margin-left: rem(8px);
-      max-width: 160px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      font-family: Arial, Helvetica, sans-serif;
+      width: 210px;
       transition-duration: 0.3s;
+      .item-txt {
+        padding-left: 30px;
+      }
+      .board-img {
+        position: absolute;
+        height: 12px;
+        width: 16px;
+        top: 8px;
+        left: 6px;
+    
+      }
 
       a {
+        font-size: 0.9rem;
+        font-family: Arial, Helvetica, sans-serif;
         white-space: nowrap;
         word-break: break-all;
         overflow: hidden;
@@ -60,10 +61,7 @@
         padding: 5px 0px 5px 10px;
         display: block;
         text-transform: capitalize;
-        font-size: 1.25rem;
         text-decoration: none;
-        color: #0085ff;
-        max-width: 160px;
       }
       .router-link-active {
         border-radius: 5px;
@@ -71,8 +69,8 @@
       }
 
       &:hover {
-        border-radius: 5px;
-        background-color: rgba(136, 205, 237, 0.24);
+        background-color: #e6e9ef;
+        border-radius: 4px;
         > .minimenu-icon {
           display: inline-block;
         }
@@ -98,20 +96,75 @@
       }
     }
   }
-  .board-search {
-    .search-container {
-      .input-search {
-        outline: none;
-        margin: rem(20px);
-        border: 0;
-        border-bottom: 2px solid hsla(0, 0%, 42.7%, 0.419608);
-        background-color: transparent;
-      }
-      .search-icon {
-        position: absolute;
-        left: 170px;
-        bottom: 25px;
+  .add-options {
+    position: relative;
+    // display: flex;
+    margin: 0 auto;
+    width: 210px;
+    height: 32px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    margin-right: rem(10px);
+    &:hover {
+      background-color: #e6e9ef;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .add-txt {
+      padding-left: 28px;
+    }
+    .add-icon {
+      position: absolute;
+      left: 8px;
+      bottom: 10.5px;
+      font-size: 0.8rem;
+    }
+  }
+  .input-container {
+    width: 210px;
+    height: 32px;
+    margin-right: rem(10px);
+    &:hover {
+      background-color: #e6e9ef;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    &.input-expanded {
+      border: 1px solid $clr1;
+      border-radius: 4px;
+    }
+    .search-icon {
+      position: absolute;
+      left: 8px;
+      bottom: 10.5px;
+      font-size: 0.8rem;
+
+      &.icon-expanded {
+        left: 22px;
       }
     }
+    .search-input {
+      &::placeholder {
+        color: rgb(61, 61, 61);
+        font-size: 0.9rem;
+        padding-left: 25px;
+      }
+      width: 210px;
+      height: 32px;
+      outline: none;
+      border: none;
+      background-color: transparent;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .separator-line {
+    width: 180px;
+    margin: 0 auto;
+    border: 0.1px solid #c5c7d0;
+    margin: 16px;
+    height: 0;
+    margin-bottom: 2rem;
   }
 }
