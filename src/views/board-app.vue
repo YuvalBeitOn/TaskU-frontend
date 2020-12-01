@@ -327,7 +327,7 @@ export default {
         message: 'The Groups has been saved',
         position: 'bottom-left',
         duration: 2000,
-      })
+    })
       this.forceRerender()
     },
   },
