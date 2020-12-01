@@ -18,14 +18,14 @@ export const userStore = {
       state.users = users
     },
     setUser(state, { user }) {
-      state.currUser = user
+      state.loggedInUser = user
     },
     updateUser(state, { user }) {
       const idx = state.users.findIndex(currUser => user._id === currUser._id)
       state.users.splice(idx, 1, user)
     },
     deleteUser(state, { userId }) {
-       const idx = state.users.findIndex(user => user._id === userId)
+      const idx = state.users.findIndex(user => user._id === userId)
       state.users.splice(idx, 1)
     },
     addUser(state, { user }) {
@@ -33,21 +33,21 @@ export const userStore = {
     }
   },
   actions: {
-    async loadUsers({commit}) {
+    async loadUsers({ commit }) {
       const users = await userService.getUsers()
       commit({ type: 'setUsers', users })
     },
-    async loadUser({commit},{ userId }) {
-      commit({type:'toggleIsLoading'})
+    async loadUser({ commit }, { userId }) {
+      commit({ type: 'toggleIsLoading' })
       const user = await userService.getById(userId)
       commit({ type: 'setUser', user })
-      setTimeout(()=>{
-      commit({type:'toggleIsLoading'})
-      },2000)
+      setTimeout(() => {
+        commit({ type: 'toggleIsLoading' })
+      }, 2000)
     },
-    async removeUser({commit}, { userId }) {
+    async removeUser({ commit }, { userId }) {
       await userService.remove(userId)
-    commit({ type: 'removeUser', userId })
+      commit({ type: 'removeUser', userId })
     },
     async upadteUser({ commit }, { user }) {
       const savedUser = await userService.save(user)

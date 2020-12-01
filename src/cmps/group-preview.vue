@@ -27,6 +27,7 @@
         {{ groupCopy.name }}
       </h4>
 
+      <!-- :isShowen="isActionsShowen" -->
       <popup-menu
         v-if="isActionsShowen"
         @closePopup="toggleGroupActions"

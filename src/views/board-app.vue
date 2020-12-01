@@ -101,8 +101,8 @@ export default {
     isLoading() {
       return this.$store.getters.isLoading
     },
-    loggedInUser(){
-      return this.$store.getters.loggedInUser
+    user(){
+      return this.$store.getters.user
     },
     board() {
       return this.$store.getters.board
@@ -238,6 +238,7 @@ export default {
       })
     },
     addGroup() {
+      console.log('adding group');
       const newGroup = boardService.getEmptyGroup()
       this.board.groups.push(newGroup)
        const txt = `${this.user.fullName} add new group`
