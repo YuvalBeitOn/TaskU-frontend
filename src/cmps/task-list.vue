@@ -4,7 +4,7 @@
       <draggable class="width100" v-model="clonedTasks" @end="updateTasks">
         <task-preview
           v-for="task in clonedTasks"
-          :user="loggedInUser"
+          :user="user"
           :taskColor="taskColor"
           :key="task.id"
           :task="task"
@@ -56,7 +56,7 @@ export default {
     board() {
       return this.$store.getters.board
     },
-    loggedInUser() {
+    user() {
       return this.$store.getters.user
     },
     taskBgc() {
@@ -79,11 +79,11 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-                const txt = `${this.loggedInUser.fullName} add new task`
-           let newActivity = boardService.getEmptyActivity(txt, this.loggedInUser)
+                const txt = `${this.user.fullName} add new task`
+           let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.unshift(newActivity)
       this.$notify({
-          message: 'add new task ',
+          message: 'Added new task ',
           position: 'bottom-left',
           duration:2000,
         });
@@ -102,7 +102,7 @@ export default {
       const newTask = boardService.getEmptyTask()
       newTask.txt = this.txt
       const txt = `Task '${newTask.txt}' added`
-      let newActivity = boardService.getEmptyActivity(txt, this.loggedInUser)
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
       newTask.activities.push(newActivity)
        this.board.activities.unshift(newActivity)
       const group = this.getGroupById()
@@ -125,8 +125,8 @@ export default {
       const group = this.getGroupById()
       const taskIdx = group.tasks.findIndex(task => task.id === taskId)
       group.tasks.splice(taskIdx, 1)
-      const txt = `${this.loggedInUser.fullName} remove a task`
-      let newActivity = boardService.getEmptyActivity(txt, this.loggedInUser)
+      const txt = `${this.user.fullName} remove a task`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.unshift(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',

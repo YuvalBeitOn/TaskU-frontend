@@ -67,7 +67,7 @@ export default {
       const tasks = this.getTasksPath()
       const taskIdx = tasks.findIndex(task => task.id === this.task.id)
       tasks[taskIdx].posts = posts
-          const txt = `${this.loggedInUser.fullName} add new post`
+          const txt = `${this.user.fullName} add new post`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
        this.board.activities.push(newActivity)
       this.$store.dispatch({
@@ -95,7 +95,7 @@ export default {
     board() {
       return this.$store.getters.board
     },
-    loggedInUser() {
+    user() {
       return this.$store.getters.user
     },
     posts() {

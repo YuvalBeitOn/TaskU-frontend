@@ -45,7 +45,7 @@ export default {
         },
     },
     computed: {
-        loggedInUser() {
+        user() {
             return this.$store.getters.user
         },
     },
@@ -69,12 +69,12 @@ export default {
             }
             const post = boardService.getEmptyPost()
             post.txt = this.newPost
-            post.byUser = this.loggedInUser
+            post.byUser = this.user
             this.copiedPosts.unshift(post)
             this.$emit('updatePosts', this.copiedPosts)
             this.newPost = ''
                                    this.$notify({
-                                    message: 'New post add',
+                                    message: 'New post added',
                                     position: 'bottom-left',
                                     duration:2000,
                                   });

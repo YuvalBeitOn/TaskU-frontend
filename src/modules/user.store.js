@@ -18,7 +18,7 @@ export const userStore = {
       state.users = users
     },
     setUser(state, { user }) {
-      state.currUser = user
+      state.loggedInUser = user
     },
     updateUser(state, { user }) {
       const idx = state.users.findIndex(currUser => user._id === currUser._id)
