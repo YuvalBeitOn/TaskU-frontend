@@ -44,7 +44,7 @@
             </div>
             <task-list
                 :taskColor="group.color"
-                v-if="isExpanded"
+                v-if="isExpanded && groupCopy.tasks && groupCopy.id"
                 :tasks="groupCopy.tasks"
                 :groupId="groupCopy.id"
                 @forceRender="emitForceRender"

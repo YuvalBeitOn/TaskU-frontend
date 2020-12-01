@@ -22,11 +22,11 @@ import draggable from 'vuedraggable'
 export default {
   name: 'group-list',
   props: {
-    groups: Array
+    groups: Array,
   },
   data() {
     return {
-      clonedGroups: null
+      clonedGroups: null,
     }
   },
   created() {
@@ -34,7 +34,7 @@ export default {
   },
   components: {
     groupPreview,
-    draggable
+    draggable,
   },
   methods: {
     duplicateGroup(group) {
@@ -52,7 +52,7 @@ export default {
     },
     emitUpdateGroups() {
       this.$emit('updateGroups', this.clonedGroups)
-    }
-  }
+    },
+  },
 }
 </script>

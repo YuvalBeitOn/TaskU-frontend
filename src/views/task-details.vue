@@ -107,6 +107,7 @@ export default {
       const taskInfo = this.getTaskInfoById()
       this.groupId = taskInfo.groupId
       this.task = JSON.parse(JSON.stringify(taskInfo.task))
+      console.log(this.task, 'my task - task details')
     }
   },
   components: {

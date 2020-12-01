@@ -51,12 +51,12 @@ export const userStore = {
       commit({ type: 'setUsers', users })
     },
     async loadUser({ commit }, { userId }) {
-      commit({ type: 'toggleIsLoading' })
+      // commit({ type: 'toggleIsLoading' })
       const user = await userService.getById(userId)
       commit({ type: 'setUser', user })
-      setTimeout(() => {
-        commit({ type: 'toggleIsLoading' })
-      }, 2000)
+      // setTimeout(() => {
+        // commit({ type: 'toggleIsLoading' })
+      // }, 2000)
     },
     async removeUser({ commit }, { userId }) {
       await userService.remove(userId)

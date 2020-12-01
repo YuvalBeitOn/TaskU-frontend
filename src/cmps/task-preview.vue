@@ -286,6 +286,7 @@ export default {
   created() {
     eventBus.$on('updateTaskPreview', this.updateComponentTask)
     this.taskCopy = this.task
+    console.log('I am task preview, here is my task man:', this.taskCopy)
   },
 }
 </script>

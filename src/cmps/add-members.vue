@@ -39,7 +39,6 @@
 
 <script>
 import Avatar from 'vue-avatar'
-import {eventBus} from '../services/event-bus.service'
 
 export default {
   props: {
@@ -50,10 +49,10 @@ export default {
   },
   methods: {
     emitAddMember(member) {
-      eventBus.$emit('addMember', member)
+      this.$emit('addMember', member)
     },
     emitRemoveMember(member) {
-      eventBus.$emit('removeMember', member)
+      this.$emit('removeMember', member)
     }
   },
   components: {

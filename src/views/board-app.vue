@@ -32,6 +32,8 @@
                 :updateBoardDesc="updateBoardDesc"
                 :board="board"
                 :addGroup="addGroup"
+                @removeMember="removeBoardMember"
+                @addMember="addBoardMember"
                 :forceRerender="forceRerender"
             />
             <group-list
@@ -108,6 +110,10 @@ export default {
                 : 'expend-btn fas fa-chevron-right'
         },
         isLoading() {
+            console.log(
+                'this.$store.getters.isLoading:',
+                this.$store.getters.isLoading
+            )
             return this.$store.getters.isLoading
         },
         user() {
@@ -191,9 +197,9 @@ export default {
                 duration: 2000,
             })
         },
-        removeBoardMember(userId) {
+        removeBoardMember(member) {
             const idx = this.board.members.findIndex(
-                (bMember) => bMember._id === userId
+                (bMember) => bMember._id === member._id
             )
             this.board.members.splice(idx, 1)
             const txt = `${this.user.fullName} remove  group`
@@ -230,6 +236,11 @@ export default {
                     const board = boardService.getEmptyBoard()
                     board.name = value
                     board.creator = this.user
+                    board.members.push(this.user)
+                    console.log(
+                        'I got that board before sending to store',
+                        board
+                    )
                     this.$store.dispatch({ type: 'saveBoard', board })
                     this.$message({
                         type: 'success',
@@ -290,7 +301,7 @@ export default {
                 (group) => group.id === updatedGroup.id
             )
             this.board.groups.splice(idx, 1, updatedGroup)
-            const txt = `${this.user.fullName} updated group`
+            const txt = `${this.user.fullName} updated  group`
             let newActivity = boardService.getEmptyActivity(txt, this.user)
             this.board.activities.push(newActivity)
             this.$store.dispatch({
@@ -330,21 +341,16 @@ export default {
         },
     },
     watch: {
-        '$route.params.boardId'(val) {
-            if (val) {
-                this.loadBoard()
-                this.forceRerender()
-            }
+        async '$route.params.boardId'() {
+            await this.loadBoard()
+            this.forceRerender()
         },
     },
-    created() {
-        eventBus.$on('addMember', this.addBoardMember)
-        eventBus.$on('removeMember', this.removeBoardMember)
+    async created() {
         eventBus.$on('updateBoardActivity', this.updateBoardActivity)
-        this.$store.dispatch({ type: 'loadUsers' })
-        this.$store.dispatch({ type: 'loadUser', userId: '301' })
-        this.$store.dispatch({ type: 'loadBoards' })
-        this.loadBoard()
+        await this.$store.dispatch({ type: 'loadUsers' })
+        await this.$store.dispatch({ type: 'loadBoards' })
+        await this.loadBoard()
     },
     components: {
         groupList,

@@ -168,6 +168,7 @@ export default {
   created() {
     console.log('task list created');
     this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
+    console.log(this.clonedTasks, 'cloned tasks', this.board,'myboard', this.groupId, 'my groupid')
     // eventBus.$on('addEmptyTask', console.log)
   }
 }
