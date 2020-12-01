@@ -2,7 +2,7 @@
   <section class="home-page">
     <div class="nav-container flex wrap align-center space-between">
       <div class="app-logo">
-        <img class="logo1 flex end" src="@/assets/imgs/logo2.png" alt="" />
+        <img class="logo1 flex end" src="@/assets/imgs/logo1.png" alt="" />
       </div>
       <nav class="nav-home-page flex space-between">
         <router-link to="/">home</router-link>
