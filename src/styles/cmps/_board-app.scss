@@ -12,7 +12,7 @@
     height: 26px;
     padding: 3px 9px;
     position: absolute;
-    right: -20px;
+    right: -15px;
     top: 10px;
     font-size: rem(12px);
     &.notExpanded {
@@ -37,9 +37,6 @@
     }
   }
   .board-up {
-
-
-    
     background-color: #f7f7f7;
 
     padding: 30px 30px 0px 30px;
@@ -47,7 +44,7 @@
   .board-header-top {
     padding: 0px 20px 0px 20px;
     .board-header-nav {
-      >*{
+      > * {
         margin: 10px;
       }
       .icon-nav-hader {
@@ -63,8 +60,8 @@
     .board-descriotion {
       font-size: rem(14px);
     }
-    
-    .board-name{
+
+    .board-name {
       font-family: 'roboto-regular';
       font-size: rem(28px);
       display: inline-block;
