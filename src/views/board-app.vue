@@ -78,7 +78,7 @@ import { boardService } from '@/services/board.service'
 import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
 import boardHeader from '../cmps/board-header.vue'
-import {socketService} from '@/services/socket.service.js'
+// import {socketService} from '@/services/socket.service.js'
 
 export default {
   name: 'board-app',
@@ -236,7 +236,7 @@ export default {
           board.creator = this.user
           board.members.push(this.user)
           this.$store.dispatch({ type: 'saveBoard', board })
-            socketService.emit('update board', board)
+            // socketService.emit('update board', board)
 
           this.$message({
             type: 'success',
@@ -343,7 +343,7 @@ export default {
     },
   },
   created() {
-    socketService.setup();
+    // socketService.setup();
 
     eventBus.$on('updateBoardActivity', this.updateBoardActivity)
     this.$store.dispatch({ type: 'loadUsers' })
