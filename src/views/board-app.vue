@@ -351,6 +351,7 @@ export default {
         },
         updateGroups(groups) {
             this.board.groups = groups
+            //fix funcs
             const txt = `${this.user.fullName} updated the groups`
             let newActivity = boardService.getEmptyActivity(txt, this.user)
             this.board.activities.push(newActivity)
