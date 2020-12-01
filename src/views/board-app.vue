@@ -230,6 +230,7 @@ export default {
                     const board = boardService.getEmptyBoard()
                     board.name = value
                     board.creator = this.user
+                    board.members.push(this.user)
                     this.$store.dispatch({ type: 'saveBoard', board })
                     this.$message({
                         type: 'success',

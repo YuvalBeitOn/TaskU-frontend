@@ -1,6 +1,8 @@
-.app-login {
-  max-width: 500px;
-  margin: 0 auto;
+.app-login-container {
+    .logo2 {
+        width: 180px;
+        height: 58px;
+    }
   .login-header {
     width: 100%;
     display: block;
@@ -9,51 +11,58 @@
     border-bottom: 1px solid #e0e0e0;
     height: 65px;
     background: #f7f7f7;
+    margin-bottom: 3rem;
   }
-  .login-title {
-    align-self: center;
-    font-family: roboto-regular;
-    color: #333333;
-    font-size: 40px;
-    margin-bottom: 1.5rem;
+  .app-login {
+    max-width: 500px;
+    margin: 0 auto;
+    .login-title {
+      font-size: rem(40px);
+      align-self: center;
+      font-family: roboto-regular;
+      color: #333333;
+      font-size: 40px;
+      margin-bottom: 1.5rem;
 
-    .thin-fonted {
-      font-family: roboto-thin;
+      .thin-fonted {
+        font-family: roboto-thin;
+      }
     }
-  }
-  form {
-    .login-btn {
-      width: 320px;
-      height: 40px;
-      outline: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      line-height: 28px;
-      border: none;
-      border-bottom: 2px solid #0d91ca;
-      background: #0fa2e2;
-      font-size: 18px;
-      border-radius: 15rem;
-      color: white;
-      margin-bottom: 4rem;
+    form {
+      .login-btn {
+        width: 320px;
+        height: 40px;
+        outline: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 28px;
+        border: none;
+        border-bottom: 2px solid #0d91ca;
+        background: #0fa2e2;
+        font-size: 18px;
+        border-radius: 15rem;
+        color: white;
+        margin-bottom: 4rem;
+        margin-top: 1rem;
+      }
     }
-  }
-  .separator-line {
-    width: 250px;
-    border: 0.5px solid #c5c7d0;
-    margin: 16px;
-    height: 0;
-  }
-  .login-subtitle {
-    width: 450px;
-    font-size: rem(20px);
-    font-size: 1rem;
-    span {
-      font-weight: bold;
-      cursor: pointer;
-      margin-left: rem(5px);
-      color: #0fa2e2;
+    .separator-line {
+      width: 250px;
+      border: 0.5px solid #c5c7d0;
+      margin: 16px;
+      height: 0;
+    }
+    .login-subtitle {
+      width: 450px;
+      font-size: rem(20px);
+      font-size: 1rem;
+      span {
+        font-weight: bold;
+        cursor: pointer;
+        margin-left: rem(5px);
+        color: #0fa2e2;
+      }
     }
   }
 }
