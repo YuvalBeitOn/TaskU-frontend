@@ -7,7 +7,7 @@
             class="header-user-profile flex column justify-center align-center"
         >
             <div class="img-profile">
-                     <avatar :user="post.byUser" />
+                     <avatar :user="user" />
 
             </div>
 
