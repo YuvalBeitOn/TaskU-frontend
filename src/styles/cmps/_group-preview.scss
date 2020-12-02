@@ -17,6 +17,21 @@
       font-size: 0.6rem;
     }
   }
+  .group-control {
+    .drag-btn {
+      cursor: move;
+      position: absolute;
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+      left: 12px;
+      top: 8px;
+      .drag-icon {
+        color: #8080809c;
+        font-size: 0.9rem;
+      }
+    }
+  }
 
   .group-preview {
     background: #d3d3d347;
@@ -70,12 +85,19 @@
     .group-headers {
       padding-bottom: 1rem;
       &.group-name {
-        font-family: 'roboto-light';
+        max-width: 220px;
+        overflow: hidden;
+        height: 20px;
+        font-family: 'roboto-light','Ariel';
         font-size: rem(15px);
         color: rgb(17, 21, 27);
         display: inline-block;
         margin: 0;
         padding: 0;
+        transition: margin .3s;
+        &.hovering {
+          margin-left: 18px;
+        }
       }
     }
     &.expanded {

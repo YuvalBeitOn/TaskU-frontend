@@ -54,7 +54,7 @@ export default {
       isPopupShowen: false,
       popupOptions: [
         {
-          txt: 'Delete this board',
+          txt: 'Delete board',
           func: this.removeCurrBoard,
           iconStr: 'trash'
         }

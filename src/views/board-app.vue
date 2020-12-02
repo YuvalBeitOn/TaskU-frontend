@@ -16,7 +16,7 @@
           notExpanded: !isListExpanded
         }"
       >
-        <i v-tooltip.right="'Expand/Hide List'"></i>
+        <i :class="btnClassExpend" v-tooltip.right="'Expand/Hide List'"></i>
       </button>
 
       <board-search @searchBoard="setSearch" slot="search" />
@@ -91,6 +91,11 @@ export default {
     }
   },
   computed: {
+    btnClassExpend() {
+      return this.isListExpanded
+        ? 'expend-btn fas fa-chevron-left'
+        : 'expend-btn fas fa-chevron-right'
+    },
     chatControl() {
       return this.isChatingBtnShown ? 'Hide Chat' : 'Show Chat'
     },
@@ -132,35 +137,39 @@ export default {
 
     updateBoardName(ev) {
       ev.target.blur()
-      this.board.name = ev.target.innerText
-      const txt = `${this.user.fullName} update Board name`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
-      this.board.activities.push(newActivity)
-
-      this.$store.dispatch({ type: 'saveBoard', board: this.board })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
-      this.$notify({
-        message: 'Board name updated',
-        position: 'bottom-left',
-        duration: 2000
-      })
-      this.forceRerender()
+      if (ev.target.innerText === this.board.name) return
+      else {
+        this.board.name = ev.target.innerText
+        const txt = `${this.user.fullName} update Board name`
+        let newActivity = boardService.getEmptyActivity(txt, this.user)
+        this.board.activities.push(newActivity)
+        this.$store.dispatch({ type: 'saveBoard', board: this.board })
+        this.$store.dispatch({ type: 'updateBoard', board: this.board })
+        this.$notify({
+          message: 'Board name updated',
+          position: 'bottom-left',
+          duration: 2000
+        })
+        this.forceRerender()
+      }
     },
     updateBoardDesc(ev) {
-      console.log('ev:<<<<<<<<<<<<<<<<<<')
       ev.target.blur()
-      this.board.description = ev.target.innerText
-      const txt = `${this.user.fullName} update Board description`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
-      this.board.activities.push(newActivity)
-      this.$store.dispatch({ type: 'saveBoard', board: this.board })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
-      this.$notify({
-        message: 'Board description updated',
-        position: 'bottom-left',
-        duration: 2000
-      })
-      this.forceRerender()
+      if (ev.target.innerText === this.board.description) return
+      else {
+        this.board.description = ev.target.innerText
+        const txt = `${this.user.fullName} update Board description`
+        let newActivity = boardService.getEmptyActivity(txt, this.user)
+        this.board.activities.push(newActivity)
+        this.$store.dispatch({ type: 'saveBoard', board: this.board })
+        this.$store.dispatch({ type: 'updateBoard', board: this.board })
+        this.$notify({
+          message: 'Board description updated',
+          position: 'bottom-left',
+          duration: 2000
+        })
+        this.forceRerender()
+      }
     },
     forceRerender() {
       this.componentKey += 1

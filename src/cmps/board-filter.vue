@@ -24,7 +24,7 @@
           v-model="filterBy.searchTerm"
       /></span>
       <div class="filter relative">
-        <span v-tooltip.top="'Filters'" @click="toggleFilter"
+        <span class="filters-txt" v-tooltip.top="'Filters'" @click="toggleFilter"
           ><i class="fal fa-filter filter-icon"></i> Filter</span
         >
 

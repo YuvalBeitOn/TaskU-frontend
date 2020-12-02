@@ -6,10 +6,7 @@
     <div class="flex space-between align-center width100">
       <span class="task-color" :style="taskBgc"></span>
       <button class="btn-close" @click="deleteTask">
-        <i
-          v-tooltip.top="'Task deleted'"
-          class="task-icon btn-trash fa-icon far fa-trash-alt"
-        ></i>
+        <i class="task-icon btn-trash fa-icon far fa-trash-alt"></i>
       </button>
 
       <div class="task-txt">
@@ -225,18 +222,21 @@ export default {
     },
     updateTaskTxt(ev) {
       ev.target.blur()
-      const prevTxt = this.taskCopy.txt
-      this.taskCopy.txt = ev.target.innerText
-      const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
-      this.taskCopy.activities.push(newActivity)
-      eventBus.$emit('updateBoardActivity', newActivity)
-      this.$notify({
-        message: 'Task txt updated',
-        position: 'bottom-left',
-        duration: 2000
-      })
-      this.updateTask()
+      if (ev.target.innerText === this.taskCopy.txt) return
+      else {
+        const prevTxt = this.taskCopy.txt
+        this.taskCopy.txt = ev.target.innerText
+        const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
+        let newActivity = boardService.getEmptyActivity(txt, this.user)
+        this.taskCopy.activities.push(newActivity)
+        eventBus.$emit('updateBoardActivity', newActivity)
+        this.$notify({
+          message: 'Task txt updated',
+          position: 'bottom-left',
+          duration: 2000
+        })
+        this.updateTask()
+      }
     },
     updateTask() {
       this.$emit('updateTask', this.taskCopy)
