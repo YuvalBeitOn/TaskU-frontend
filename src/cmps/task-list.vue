@@ -72,12 +72,11 @@ export default {
   },
   methods: {
     addEmptyTask(groupId) {
-      console.log(groupId, this.groupId)
+      // console.log(groupId, this.groupId)
       if (this.groupId !== groupId) {
         return
       }
       const newTask = boardService.getEmptyTask()
-
       const group = this.getGroupById()
        const txt = `${this.user.fullName} add new task in ${group.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
@@ -135,20 +134,15 @@ export default {
       const group = this.getGroupById()
       const taskIdx = group.tasks.findIndex(task => task.id === taskId)
       group.tasks.splice(taskIdx, 1)
-      const txt = `${this.user.fullName} remove a task`
+      const txt = `${this.user.fullName} remove a task from ${group.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
+      newActivity.groupId = this.groupId
       this.board.activities.unshift(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
       this.$store.dispatch({ type: 'updateBoard', board: this.board })
-
-      this.$notify({
-        message: 'Remove task',
-        position: 'bottom-left',
-        duration: 2000
-      })
       this.$notify({
         message: 'Task removed',
         position: 'bottom-left',
@@ -160,6 +154,10 @@ export default {
       const group = this.getGroupById()
       const taskIdx = group.tasks.findIndex(task => task.id === newTask.id)
       group.tasks.splice(taskIdx, 1, newTask)
+      const txt = `${this.user.fullName} update the task name`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      newActivity.taskId = newTask.id
+      this.board.activities.unshift(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
@@ -171,6 +169,10 @@ export default {
     updateTasks() {
       const group = this.getGroupById()
       group.tasks = this.clonedTasks
+      const txt = `${this.user.fullName} update a the tasks on ${group.txt}`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      newActivity.groupId = group.id
+      this.board.activities.unshift(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board

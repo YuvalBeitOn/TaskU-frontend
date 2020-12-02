@@ -70,12 +70,14 @@ export const boardStore = {
     },
     isLoading(state) {
       return state.isLoading
+    },
+    boardActivities(state){
+      return state.currBoard.activities
     }
   },
   mutations: {
     setBoards(state, { boards }) {
       const miniBoards = boards.map(board => {
-        console.log('im in map');
         board = { _id: board._id, name: board.name }
         return board
       })

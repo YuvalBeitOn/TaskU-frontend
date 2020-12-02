@@ -1,5 +1,8 @@
 <template>
-  <div v-if="board" class="board-info">
+  <div v-if="board" class="board-info flex justify-center align-center">
+    <div>
+      <button>click me</button>
+    </div>
       <members :hiddenBadge="membersLegnth" :size="25" toolTipTxt="Board Members" classIcon="icon-nav-hader" :members="board.members">
       <add-members slot="add-members"
       

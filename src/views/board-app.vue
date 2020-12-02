@@ -179,7 +179,7 @@ export default {
     addBoardMember(user) {
       console.log('user:', user)
       this.board.members.unshift(user)
-      const txt = `${this.user.fullName} add ${user.fullName}  to board`
+      const txt = `${this.user.fullName} add ${user.fullName} to Board`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
@@ -195,7 +195,7 @@ export default {
         (bMember) => bMember._id === member._id
       )
       this.board.members.splice(idx, 1)
-      const txt = `${this.user.fullName} remove  group`
+      const txt = `${this.user.fullName} remove  ${member.fullName} from Board`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
@@ -236,6 +236,9 @@ export default {
           board.name = value
           board.creator = this.user
           board.members.push(this.user)
+          const txt = `${this.user.fullName} create this Board`
+         let newActivity = boardService.getEmptyActivity(txt, this.user)
+          this.board.activities.push(newActivity)
           this.$store.dispatch({ type: 'saveBoard', board })
           this.$store.dispatch({ type: 'loadAllBoards' })
           this.$message({
@@ -277,8 +280,8 @@ export default {
     },
     deleteGroup(groupId) {
       const idx = this.board.groups.findIndex((group) => group.id === groupId)
+      const txt = `${this.user.fullName} deleted group ${this.board.groups[idx].txt}`
       this.board.groups.splice(idx, 1)
-      const txt = `${this.user.fullName} deleted group`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({
@@ -298,7 +301,7 @@ export default {
         (group) => group.id === updatedGroup.id
       )
       this.board.groups.splice(idx, 1, updatedGroup)
-      const txt = `${this.user.fullName} updated  group`
+      const txt = `${this.user.fullName} updated group ${updatedGroup.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({

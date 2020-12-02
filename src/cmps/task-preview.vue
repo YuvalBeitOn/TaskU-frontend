@@ -155,9 +155,9 @@ export default {
   methods: {
     updateTaskDate() {
       const date = moment(this.taskCopy.dueDate).format('ll')
-      const txt = `Task due date was changed to ${date}`
+      const txt = `Task due ${this.taskCopy.txt} date was changed to ${date}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
-      this.taskCopy.activities.push(newActivity)
+      newActivity.taskId = this.taskCopy.id
       eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
         message: 'Task due date updated',
@@ -170,8 +170,8 @@ export default {
     addTaskMember(member) {
       const txt = `Member ${member.fullName} was added to task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
+      newActivity.taskId = this.taskCopy.id
       this.taskCopy.members.unshift(member)
-      this.taskCopy.activities.push(newActivity)
       eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
         message: 'Member assinged to task',
@@ -186,8 +186,8 @@ export default {
       )
       const txt = `Member ${member.fullName} was removed from task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
+      newActivity.taskId = this.taskCopy.id
       this.taskCopy.members.splice(idx, 1)
-      this.taskCopy.activities.push(newActivity)
       eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
         message: 'Member removed from task',
@@ -216,7 +216,7 @@ export default {
         this.taskCopy.txt = ev.target.innerText
         const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
         let newActivity = boardService.getEmptyActivity(txt, this.user)
-        this.taskCopy.activities.push(newActivity)
+        newActivity.taskId = this.taskCopy.id
         eventBus.$emit('updateBoardActivity', newActivity)
         this.$notify({
           message: 'Task txt updated',
@@ -245,10 +245,10 @@ export default {
     updateTaskPriority(opt) {
       const txt = `Task priority was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
+      newActivity.taskId = this.taskCopy.id
       // const prevPrior = this.taskCopy.priority.txt
       this.taskCopy.priority.txt = opt.txt
-      this.taskCopy.priority.color = opt.color
-      this.taskCopy.activities.push(newActivity)
+      this.taskCopy.priority.color = opt.color      
       eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
         message: 'Task priority updated',
@@ -261,10 +261,10 @@ export default {
     updateTaskStatus(opt) {
       const txt = `Task status was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
+      newActivity.taskId = this.taskCopy.id 
       // const prevStatus = this.taskCopy.status.txt
       this.taskCopy.status.txt = opt.txt
       this.taskCopy.status.color = opt.color
-      this.taskCopy.activities.push(newActivity)
       eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
         message: 'Task status updated',

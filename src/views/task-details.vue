@@ -20,10 +20,11 @@
         <task-posts @updateBoardActivity="updateBoardActivity" @updatePosts="updatePosts" :task="task" :posts="posts" />
       </el-tab-pane>
       <el-tab-pane label="Task Activities">
-        <task-activities :activities="task.activities" />
+        <task-activities :activities="taskActivities" />
       </el-tab-pane>
     </el-tabs>
   </section>
+  
 </template>
 <script>
 import taskPosts from '@/cmps/task-posts'
@@ -115,6 +116,16 @@ export default {
     },
     posts() {
       return this.task.posts
+    },
+    taskActivities(){
+      let taskActivities=[]
+      const boardActivities = JSON.parse(JSON.stringify(this.$store.getters.boardActivities))
+      const taskId = this.$route.params.taskId
+      boardActivities.forEach(activity=>{
+        if(activity.taskId===taskId) taskActivities.push(activity)
+      })
+      return taskActivities
+
     }
   },
   watch: {
