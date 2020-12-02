@@ -2,7 +2,7 @@
   <section class="board-filter flex space-between">
     <div class="filter-actions flex space-between align-center">
       <button
-        v-tooltip.top="'Add New Group'"
+        v-tooltip.top="'New group was added'"
         class="add-group-btn"
         @click="addGroup"
       >
@@ -24,7 +24,7 @@
           v-model="filterBy.searchTerm"
       /></span>
       <div class="filter relative">
-        <span v-tooltip.top="'Filter Board'" @click="toggleFilter"
+        <span v-tooltip.top="'Filters'" @click="toggleFilter"
           ><i class="fal fa-filter filter-icon"></i> Filter</span
         >
 

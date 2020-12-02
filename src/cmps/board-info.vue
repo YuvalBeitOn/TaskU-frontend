@@ -14,6 +14,7 @@
         <i class="icon-nav-hader far fa-user-circle fa-icon"></i>
       </button>
       <add-members
+        class="top-right"
         @removeMember="emitRemoveMember"
         @addMember="emitAddMember"
         v-if="isMembersShowen"
@@ -30,24 +31,24 @@
 import addMembers from './add-members'
 export default {
   props: {
-    board: Object,
+    board: Object
   },
   data() {
     return {
-      isMembersShowen: false,
+      isMembersShowen: false
     }
   },
   computed: {
     filteredUsers() {
       const users = this.$store.getters.users
       const boardMembers = this.board.members
-      const filteredUsers = users.filter((user) => {
-        return boardMembers.every((boardMember) => {
+      const filteredUsers = users.filter(user => {
+        return boardMembers.every(boardMember => {
           return boardMember._id !== user._id
         })
       })
       return filteredUsers
-    },
+    }
   },
   methods: {
     toggleMembers() {
@@ -58,12 +59,12 @@ export default {
     },
     emitAddMember(member) {
       this.$emit('addMember', member)
-    },
+    }
   },
 
   components: {
-    addMembers,
-  },
+    addMembers
+  }
 }
 </script>
 

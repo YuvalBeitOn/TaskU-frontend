@@ -22,6 +22,10 @@
       cursor: pointer;
     }
   }
+
+  .members-preview {
+    position: relative;
+  }
   .task-color {
     width: 7px;
     margin-right: 1px;
@@ -30,16 +34,19 @@
   &:hover {
     background-color: #f3f3f3;
   }
-  span {
+  .task-item {
     display: flex;
     align-items: center;
     width: 120px;
     height: 35px;
     display: flex;
     justify-content: center;
-    // border: 0.5px solid white;
     &:hover {
       box-shadow: inset 0 0 100px 100px hsla(0, 0%, 100%, 0.3);
+    }
+    @include for-wide-layout {
+      width: 90px;
+      font-size: 11px;
     }
   }
   .btn-close {
@@ -51,13 +58,21 @@
   }
   .task-txt {
     width: 100%;
+    height: 35px;
     text-align: left;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
     padding-left: 10px;
+    display: flex;
+    align-items: center;
     span {
-      justify-content: end;
+      max-width: 300px;
+      padding: 3px;
+      line-height: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      @include for-wide-layout {
+        max-width: 180px;
+      }
     }
   }
 
@@ -72,8 +87,11 @@
   }
   .task-details .date-picker {
     width: 135px;
+    @include for-wide-layout {
+      width: 90px;
+    }
     .el-input__prefix {
-      width: 160px;
+      width: 135px;
       border: none;
       justify-content: left;
     }
@@ -81,6 +99,10 @@
       height: 35px;
       border-radius: 0;
       border: inherit;
+      @include for-wide-layout {
+        font-size: 11px;
+        padding: 0 15px 0 15px;
+      }
     }
     .el-input__icon {
       opacity: 0;

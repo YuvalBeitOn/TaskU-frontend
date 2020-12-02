@@ -3,6 +3,10 @@
   height: 160px;
   border-bottom: 0.3px solid rgb(221, 221, 221);
   position: relative;
+  @include for-wide-layout {
+    padding: 1.5rem;
+  }
+
   .board-name {
     margin-bottom: 0.3rem;
   }

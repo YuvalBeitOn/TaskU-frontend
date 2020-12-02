@@ -1,6 +1,6 @@
 <template>
-  <section v-if="clonedTasks" class="task-list width100">
-    <ul class="clean-list flex wrap align-center justify-center gap">
+  <section v-if="clonedTasks" class="task-list-container width100">
+    <ul class="task-list clean-list flex wrap align-center justify-center gap">
       <draggable class="width100" v-model="clonedTasks" @end="updateTasks">
         <task-preview
           v-for="task in clonedTasks"
@@ -17,8 +17,8 @@
         />
       </draggable>
     </ul>
-    <form class="flex" @submit.prevent="addTask">
-      <span class="task-color" :style="taskBgc"></span>
+    <form class="add-task-form flex" @submit.prevent="addTask">
+      <span class="task-color input-color" :style="taskBgc"></span>
       <input
         class="add-task-input"
         @focus="showAddBtn"
@@ -42,13 +42,13 @@ export default {
   props: {
     tasks: Array,
     groupId: String,
-    taskColor: String,
+    taskColor: String
   },
   data() {
     return {
       txt: '',
       isAddBtnShowen: false,
-      clonedTasks: null,
+      clonedTasks: null
     }
   },
 
@@ -60,11 +60,14 @@ export default {
       return {
         txt: '',
         isAddBtnShowen: false,
-        clonedTasks: null,
+        clonedTasks: null
       }
     },
     taskBgc() {
       return { backgroundColor: this.taskColor }
+    },
+    user(){
+      return this.$store.getters.user
     },
   },
   methods: {
@@ -79,7 +82,7 @@ export default {
       group.tasks.push(newTask)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board,
+        board: this.board
       })
       this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
@@ -87,9 +90,9 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.unshift(newActivity)
       this.$notify({
-        message: 'Added new task ',
+        message: 'New task added',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
       this.$emit('forceRender')
     },
@@ -98,7 +101,7 @@ export default {
     },
     getGroupById() {
       const idx = this.board.groups.findIndex(
-        (group) => group.id === this.groupId
+        group => group.id === this.groupId
       )
       return this.board.groups[idx]
     },
@@ -113,46 +116,51 @@ export default {
       group.tasks.push(newTask)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board,
+        board: this.board
       })
       this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       this.txt = ''
       this.isAddBtnShowen = false
       this.$notify({
-        message: 'Add new task',
+        message: 'New task added',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
       this.$emit('forceRender')
     },
     deleteTask(taskId) {
       const group = this.getGroupById()
-      const taskIdx = group.tasks.findIndex((task) => task.id === taskId)
+      const taskIdx = group.tasks.findIndex(task => task.id === taskId)
       group.tasks.splice(taskIdx, 1)
       const txt = `${this.user.fullName} remove a task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.unshift(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board,
+        board: this.board
       })
       this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       this.$notify({
         message: 'Remove task',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
+      })
+      this.$notify({
+        message: 'Task removed',
+        position: 'bottom-left',
+        duration: 2000
       })
       this.$emit('forceRender')
     },
     updateTask(newTask) {
       const group = this.getGroupById()
-      const taskIdx = group.tasks.findIndex((task) => task.id === newTask.id)
+      const taskIdx = group.tasks.findIndex(task => task.id === newTask.id)
       group.tasks.splice(taskIdx, 1, newTask)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board,
+        board: this.board
       })
       this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
@@ -163,21 +171,19 @@ export default {
       group.tasks = this.clonedTasks
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board,
+        board: this.board
       })
       this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       this.$emit('forceRender')
-    },
+    }
   },
   components: {
     taskPreview,
-    draggable,
+    draggable
   },
   created() {
     this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
-
-    // eventBus.$on('addEmptyTask', console.log)
-  },
+  }
 }
 </script>
