@@ -11,13 +11,12 @@
       <button
         slot="expand-btn"
         @click="toggleExpandList"
-        :style="expendStyle"
         :class="{
           'expand-list-btn': true,
           notExpanded: !isListExpanded
         }"
       >
-        <i v-tooltip.right="'Expend/Hide List'" :class="expendBtnStyle"></i>
+        <i v-tooltip.right="'Expand/Hide List'"></i>
       </button>
 
       <board-search @searchBoard="setSearch" slot="search" />
@@ -54,7 +53,7 @@
       @mouseleave.native="isTaskDetailsHover = false"
     />
     <div
-      v-tooltip.top="'Chat'"
+      v-tooltip.top="'Chat Board'"
       v-show="isChatingBtnShown"
       class="chat-icon-btn-container flex align-center justify-center"
     >
@@ -69,15 +68,14 @@
 <script>
 import { eventBus } from '@/services/event-bus.service'
 import chatApp from '@/cmps/board-chat'
-// import addMembers from '@/cmps/add-members'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
 import taskDetails from '../views/task-details'
 import { boardService } from '@/services/board.service'
-// import boardFilter from '@/cmps/board-filter.vue'
 import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
 import boardHeader from '../cmps/board-header.vue'
+import { socketService } from '@/services/socket.service.js'
 
 export default {
   name: 'board-app',
@@ -96,21 +94,7 @@ export default {
     chatControl() {
       return this.isChatingBtnShown ? 'Hide Chat' : 'Show Chat'
     },
-    expendStyle() {
-      return this.isListExpanded
-        ? { borderLeft: 1 + 'px' + ' solid ' + 'rgb(228, 228, 228)' }
-        : { marginLeft: 15 + 'px' }
-    },
-    expendBtnStyle() {
-      return this.isListExpanded
-        ? 'expend-btn fas fa-chevron-left'
-        : 'expend-btn fas fa-chevron-right'
-    },
     isLoading() {
-      console.log(
-        'this.$store.getters.isLoading:',
-        this.$store.getters.isLoading
-      )
       return this.$store.getters.isLoading
     },
     user() {
@@ -130,9 +114,6 @@ export default {
     expandList() {
       this.isListExpanded = true
     },
-      // minimizeList() {
-      //   this.isListExpanded = false
-      // },
     toggleExpandList() {
       this.isListExpanded = !this.isListExpanded
     },
@@ -146,12 +127,7 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
-      this.$notify({
-        message: 'Group duplicated',
-        position: 'bottom-left',
-        duration: 2000
-      })
-      this.forceRerender()
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
     },
 
     updateBoardName(ev) {
@@ -162,6 +138,7 @@ export default {
       this.board.activities.push(newActivity)
 
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Board name updated',
         position: 'bottom-left',
@@ -177,6 +154,7 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Board description updated',
         position: 'bottom-left',
@@ -194,6 +172,7 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'New member added to board',
         position: 'bottom-left',
@@ -209,6 +188,7 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Member removed from board',
         position: 'bottom-left',
@@ -224,11 +204,16 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'removeBoard', boardId })
+      this.$store.dispatch({ type: 'loadAllBoards' })
       this.$notify({
         message: 'Board deleted',
         position: 'bottom-left',
         duration: 2000
       })
+    },
+    async loadBoards() {
+      await this.$store.dispatch({ type: 'loadBoards' })
+      this.forceRerender()
     },
     addBoard() {
       this.$prompt('Please enter a name to your board', 'Add New Board', {
@@ -241,6 +226,7 @@ export default {
           board.creator = this.user
           board.members.push(this.user)
           this.$store.dispatch({ type: 'saveBoard', board })
+          this.$store.dispatch({ type: 'loadAllBoards' })
           this.$message({
             type: 'success',
             message: 'Your Board:' + value + ' add '
@@ -252,6 +238,11 @@ export default {
             message: 'Your action  canceled'
           })
         })
+
+      eventBus.$on('updateBoardActivity', this.updateBoardActivity)
+      this.$store.dispatch({ type: 'loadUsers' })
+      this.loadBoards()
+      this.loadBoard()
     },
     loadBoard() {
       this.$store.dispatch({
@@ -269,6 +260,7 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'New group added',
         position: 'bottom-left',
@@ -286,6 +278,7 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Group deleted',
         position: 'bottom-left',
@@ -305,6 +298,7 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Group updated',
         position: 'bottom-left',
@@ -319,6 +313,7 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
     },
     updateGroups(groups) {
       this.board.groups = groups
@@ -329,6 +324,7 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Groups updated',
         position: 'bottom-left',
@@ -338,22 +334,35 @@ export default {
     }
   },
   watch: {
-    async '$route.params.boardId'() {
-      await this.loadBoard()
+    '$route.params.boardId'() {
+      this.loadBoard()
       this.forceRerender()
     }
   },
   created() {
+    socketService.setup()
+    socketService.on('updated board', board => {
+      this.$store.commit({
+        type: 'setBoard',
+        board
+      })
+      this.forceRerender()
+    })
+    socketService.on('load boards', () => {
+      console.log('im here hunny')
+      this.loadBoards()
+    })
     eventBus.$on('updateBoardActivity', this.updateBoardActivity)
     this.$store.dispatch({ type: 'loadUsers' })
-    this.$store.dispatch({ type: 'loadBoards' })
+    this.loadBoards()
     this.loadBoard()
+  },
+  destroyed() {
+    this.$store.dispatch({ type: 'turnOffSocket' })
   },
   components: {
     groupList,
     boardList,
-    // boardFilter,
-    // addMembers,
     taskDetails,
     boardSearch,
     chatApp,

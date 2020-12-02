@@ -12,12 +12,8 @@
           @mouseenter="isHovering = true"
           @mouseleave="isHovering = false"
         >
-          <avatar
-            class="profile-img"
-            :size=20
-            v-if="activity.byUser"
-            :username="activity.byUser.fullName"
-          ></avatar>
+           <avatar :user="activity.byUser" />
+
           <transition name="fade">
             <span class="username" v-show="isHovering">{{
               activity.byUser.fullName
@@ -34,7 +30,8 @@
 </template>
 
 <script>
-import Avatar from 'vue-avatar'
+import Avatar from '@/cmps/user-avatar.vue'
+
 import moment from 'moment'
 export default {
   name: 'task-activities',

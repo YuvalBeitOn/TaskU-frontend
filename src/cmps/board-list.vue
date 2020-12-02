@@ -52,7 +52,6 @@ export default {
   data() {
     return {
       isPopupShowen: false,
-      popupY: 1,
       popupOptions: [
         {
           txt: 'Delete this board',
@@ -63,11 +62,10 @@ export default {
       currBoardId: null
     }
   },
-  computed: {},
   methods: {
     titleBoardToShow(title) {
-      if (this.title.length > 10) {
-        return this.title.substr(0, 8) + '..'
+      if (title.length > 10) {
+        return title.substr(0, 8) + '..'
       } else {
         return title
       }
@@ -78,6 +76,7 @@ export default {
     addBoard() {
       this.$emit('addNewBoard')
     },
+
     togglePopup(ev, boardId) {
       this.popupY = ev.y
       console.log(this.popupY)

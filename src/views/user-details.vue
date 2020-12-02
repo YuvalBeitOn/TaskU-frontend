@@ -7,11 +7,8 @@
             class="header-user-profile flex column justify-center align-center"
         >
             <div class="img-profile">
-                <avatar
-                    class="profile-img"
-                    v-if="user"
-                    :username="user.fullName"
-                ></avatar>
+                     <avatar :user="post.byUser" />
+
             </div>
 
             <h3 class="mail">{{ user.email }}</h3>
@@ -33,7 +30,8 @@
 <script>
 import aboutUser from '@/cmps/user-details-about-user'
 import editUser from '@/cmps/user-details-editor'
-import Avatar from 'vue-avatar'
+import Avatar from '@/cmps/user-avatar.vue'
+
 
 export default {
     name: 'user-details',

@@ -135,6 +135,7 @@ export default {
     activity: Object,
     user: Object
   },
+
   computed: {
     postsLegnth() {
       return this.task.posts.length > 0 ? false : true
@@ -163,6 +164,7 @@ export default {
       }
     }
   },
+
   methods: {
     updateTaskDate() {
       const date = moment(this.taskCopy.dueDate).format('ll')
@@ -175,11 +177,10 @@ export default {
         position: 'bottom-left',
         duration: 2000
       })
-
       this.updateTask()
     },
     openMembersModal() {
-      this.isTaskMembersShowen = true;
+      this.isTaskMembersShowen = true
     },
     addTaskMember(member) {
       const txt = `Member ${member.fullName} was added to task`

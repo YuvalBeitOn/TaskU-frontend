@@ -1,4 +1,4 @@
-// import socket from '../services/socket.service.js'
+import {socketService} from '../services/socket.service.js'
 
 export const socketStore = {
     state: {
@@ -11,9 +11,19 @@ export const socketStore = {
 
     },
     actions: {
-        // sendMsg(context, {msg}) {
-        //     socket.emit('sendMsg', msg)
-        // },
+        updateBoard(context, {board}) {
+            console.log('**************************UPDATE THE BOARD IS ON************');
+            socketService.emit('update board',board)
+        },
+        loadAllBoards(){
+            console.log('**************************UPDATE THE BOARDsssss************');
+
+        socketService.emit('load boards')
+        },
+        turnOffSocket(){
+            console.log('turning off');
+            socketService.terminate();
+        }
         // getChatHistory(context, {chatId}) {
         //     socket.emit('getHistory', chatId)
         // }

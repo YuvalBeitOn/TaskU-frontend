@@ -1,13 +1,10 @@
 <template>
   <section class="members">
     <h3 class="title-members">{{ firstTitle }}</h3>
-    <ul class="members-list first clean-list ">
+    <ul class="clean-list first members-list">
       <li class="member flex align-center" v-for="member in members" :key="member._id">
-        <avatar
-          backgroundColor="#0085ff"
-          :size="20"
-          :username="member.fullName"
-        ></avatar>
+        <avatar :user="member" />
+
         <span class="member-name">{{ member.fullName }}</span>
         <i
           @click.stop="emitRemoveMember(member)"
@@ -22,11 +19,7 @@
         v-for="aMember in allMembers"
         :key="aMember._id"
       >
-        <avatar
-          backgroundColor="#0085ff"
-          :size="20"
-          :username="aMember.fullName"
-        ></avatar>
+        <avatar :user="aMember" />
         <span class="member-name">{{ aMember.fullName }}</span>
         <i
           @click.stop="emitAddMember(aMember)"
@@ -38,14 +31,14 @@
 </template>
 
 <script>
-import Avatar from 'vue-avatar'
+import Avatar from '@/cmps/user-avatar.vue'
 
 export default {
   props: {
     members: Array,
     allMembers: Array,
     firstTitle: String,
-    secondTitle: String
+    secondTitle: String,
   },
   methods: {
     emitAddMember(member) {
@@ -53,11 +46,11 @@ export default {
     },
     emitRemoveMember(member) {
       this.$emit('removeMember', member)
-    }
+    },
   },
   components: {
-    Avatar
-  }
+    Avatar,
+  },
 }
 </script>
 

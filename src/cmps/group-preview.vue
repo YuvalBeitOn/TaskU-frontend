@@ -45,16 +45,12 @@
       </div>
       <task-list
         :taskColor="group.color"
-        v-if="isExpanded"
+        v-if="isExpanded && groupCopy.tasks && groupCopy.id"
         :tasks="groupCopy.tasks"
         :groupId="groupCopy.id"
         @forceRender="emitForceRender"
       />
       <div class="progress-bar-section flex">
-        <!-- <h2> -->
-        <!-- {{progressBarPrio}} -->
-
-        <!-- </h2>  -->
         <progress-bar :progressBarData="progressBarData" />
 
         <progress-bar :progressBarData="progressBarPrio" />

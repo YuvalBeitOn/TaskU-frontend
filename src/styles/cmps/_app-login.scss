@@ -47,6 +47,9 @@
         margin-top: 1rem;
       }
     }
+    input[type=file]{
+      // opacity: 0;
+    }
     .separator-line {
       width: 250px;
       border: 0.5px solid #c5c7d0;
