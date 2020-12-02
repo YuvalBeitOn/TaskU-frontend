@@ -71,7 +71,6 @@ export default {
     addEmptyTask(groupId) {
       console.log(groupId, this.groupId)
       if (this.groupId !== groupId) {
-        console.log('add empty task returnnnn')
         return
       }
       const newTask = boardService.getEmptyTask()
