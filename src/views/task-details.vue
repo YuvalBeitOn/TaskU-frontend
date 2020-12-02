@@ -15,8 +15,9 @@
       </h2>
     </div>
     <el-tabs>
+
       <el-tab-pane label="Task Posts">
-        <task-posts @updatePosts="updatePosts" :posts="posts" />
+        <task-posts @updateBoardActivity="updateBoardActivity" @updatePosts="updatePosts" :task="task" :posts="posts" />
       </el-tab-pane>
       <el-tab-pane label="Task Activities">
         <task-activities :activities="task.activities" />
@@ -98,7 +99,12 @@ export default {
     },
     forceRerender() {
       this.componentKey += 1
+    },
+    updateBoardActivity(activity){
+      eventBus.$emit('updateBoardActivity', activity)
+
     }
+  
   },
   computed: {
     board() {

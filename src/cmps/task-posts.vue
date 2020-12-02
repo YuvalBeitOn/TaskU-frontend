@@ -47,6 +47,7 @@ export default {
         posts: {
             type: Array,
         },
+        task:Object
     },
     computed: {
         user() {
@@ -66,16 +67,21 @@ export default {
     },
     methods: {
         getTime(time) {
-            return moment(time).calendar()
+            return moment(time).fromNow(); 
         },
         addPost() {
             if (!this.newPost) {
                 return
             }
+            
             const post = boardService.getEmptyPost()
             post.txt = this.newPost
             post.byUser = this.user
             this.copiedPosts.unshift(post)
+            const txt = `${this.user.fullName} added new post on task:${this.task.txt} `
+            let newActivity = boardService.getEmptyActivity(txt, this.user)
+            newActivity.taskId = this.task.id
+            this.$emit('updateBoardActivity', newActivity)
             this.$emit('updatePosts', this.copiedPosts)
             this.newPost = ''
                                    this.$notify({
