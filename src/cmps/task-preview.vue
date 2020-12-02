@@ -35,29 +35,19 @@
     </div>
     <div class="task-details flex">
       <div class="headers flex">
-        <span class="members-preview task-item">
-          <el-badge
-            class="item"
-            :hidden="membersLegnth"
-            :value="task.members.length"
-            type="primary"
-          >
-            <i
-              @click.stop="openMembersModal"
-              v-tooltip.top="'Task Members'"
-              class="task-icon far fa-user-circle fa-icon"
-            ></i>
-          </el-badge>
+        <span class="members-preview relative task-item">
+          <members :hiddenBadge="membersLegnth" toolTipTxt="Task Members" classIcon="task-icon" :members="taskCopy.members">
           <add-members
             class="top-left"
-            v-if="isTaskMembersShowen"
+            slot="add-members"
             firstTitle="Task members"
-            secondTitle="Invite members"
+            secondTitle="Invite Board members"
             :members="taskCopy.members"
             :allMembers="filteredBoardMembers"
             @addMember="addTaskMember"
             @removeMember="removeTaskMember"
           />
+          </members>
         </span>
 
         <span
@@ -99,12 +89,13 @@
     </div>
     <div
       class="back-drop-layer"
-      v-if="isTaskMembersShowen || isStatusesShowen || isPriorsShowen"
+      v-if=" isStatusesShowen || isPriorsShowen"
       @click.stop="closePopups"
     ></div>
   </li>
 </template>
 <script>
+import members from '@/cmps/members';
 import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
 import labelPicker from './label-picker'
@@ -112,14 +103,13 @@ import { boardService } from '@/services/board.service'
 import moment from 'moment'
 
 export default {
-  components: { labelPicker, addMembers },
+  components: { labelPicker, addMembers ,members},
   name: 'task-preview',
   data() {
     return {
       taskCopy: null,
       isStatusesShowen: false,
       isPriorsShowen: false,
-      isTaskMembersShowen: false
     }
   },
   props: {
@@ -176,9 +166,7 @@ export default {
       })
       this.updateTask()
     },
-    openMembersModal() {
-      this.isTaskMembersShowen = true
-    },
+
     addTaskMember(member) {
       const txt = `Member ${member.fullName} was added to task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
@@ -287,7 +275,6 @@ export default {
       this.isPriorsShowen = false
     },
     closePopups() {
-      this.isTaskMembersShowen = false
       this.isStatusesShowen = false
       this.isPriorsShowen = false
     }

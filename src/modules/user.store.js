@@ -17,7 +17,7 @@ export const userStore = {
     },
     guestUser() {
       return {
-        _id: '5fc6599e75860a0fa94a9f60',
+        _id: '5fc759ebafd04a19475468ec',
         email: 'guestUser@tasku.com',
         fullName: 'Guest',
         isAdmin: false
@@ -63,6 +63,7 @@ export const userStore = {
       commit({ type: 'removeUser', userId })
     },
     async upadteUser({ commit }, { user }) {
+      console.log('user:', user)
       const savedUser = await userService.save(user)
       commit({ type: 'updateUser', user: savedUser })
       return savedUser

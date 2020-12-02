@@ -1,33 +1,21 @@
 <template>
   <div v-if="board" class="board-info">
-    <div
-      class="back-drop-layer"
-      v-if="isMembersShowen"
-      @click.prevent="isMembersShowen = false"
-    ></div>
-    <el-badge :value="board.members.length" class="item" type="primary">
-      <button
-        v-tooltip.top="'Board Members'"
-        @click="toggleMembers"
-        class="btn-close"
-      >
-        <i class="icon-nav-hader far fa-user-circle fa-icon"></i>
-      </button>
-      <add-members
+      <members :size="25" toolTipTxt="Board Members" classIcon="icon-nav-hader" :members="board.members">
+      <add-members slot="add-members"
         class="top-right"
         @removeMember="emitRemoveMember"
         @addMember="emitAddMember"
-        v-if="isMembersShowen"
         firstTitle="Board Members"
         secondTitle="Users Site"
         :members="board.members"
         :allMembers="filteredUsers"
-      />
-    </el-badge>
+       />
+    </members>
   </div>
 </template>
 
 <script>
+import members from './members'
 import addMembers from './add-members'
 export default {
   props: {
@@ -35,7 +23,6 @@ export default {
   },
   data() {
     return {
-      isMembersShowen: false
     }
   },
   computed: {
@@ -51,9 +38,7 @@ export default {
     }
   },
   methods: {
-    toggleMembers() {
-      this.isMembersShowen = !this.isMembersShowen
-    },
+
     emitRemoveMember(member) {
       this.$emit('removeMember', member)
     },
@@ -63,7 +48,8 @@ export default {
   },
 
   components: {
-    addMembers
+    addMembers,
+    members
   }
 }
 </script>

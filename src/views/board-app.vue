@@ -106,11 +106,7 @@ export default {
     boards() {
       return this.$store.getters.boards
     },
-    btnClassExpend() {
-     return this.isListExpanded
-        ? 'expend-btn fas fa-chevron-left'
-        : 'expend-btn fas fa-chevron-right'
-    },
+
   },
   methods: {
     toogleChatBtn() {

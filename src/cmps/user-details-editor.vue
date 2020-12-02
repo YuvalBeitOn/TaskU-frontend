@@ -17,30 +17,44 @@
       ></el-input>
       <label for="">Phone:</label>
 
-      <el-input placeholder="Phone" v-model.number="userToEdit.phone"></el-input>
+      <el-input
+        placeholder="Phone"
+        v-model.number="userToEdit.phone"
+      ></el-input>
       <label for="">Address:</label>
 
-      <el-input placeholder="Address" v-model.trim="userToEdit.address"></el-input>
+      <el-input
+        placeholder="Address"
+        v-model.trim="userToEdit.address"
+      ></el-input>
       <label for="">Company name:</label>
 
       <el-input
         placeholder="Company name"
         v-model.trim="userToEdit.companyName"
       ></el-input>
-                     <div  class="img upload" v-if="!isLoading">
-                        <template v-if="!isLoading">
-                    
-                    <img v-if="userToEdit.imgUrl" width="55px" :src="signupCredentials.imgUrl" alt="user image">
-                    <label for="imgUploader">
-                        <button type="up-pic" class="white">Upload Image</button>
-                    <input  type="file" id="imgUploader">
-
-                    </label>
-                    </template>
-                <img v-else src="@/assets/imgs/loader.gif" class="loader-app" />
-
-                    </div>
-      <button style="color: white">Save Changes</button>
+      <div class="img upload">
+        <div v-if="!isLoading">
+          <img
+            v-if="userToEdit.imgUrl"
+            width="55px"
+            :src="userToEdit.imgUrl"
+            alt="user image"
+          />
+          <label for="imgUploader">
+            <h2 class="white">Upload Image</h2>
+            <input @change="onUploadImg" type="file" id="imgUploader" />
+          </label>
+        </div>
+        <img
+          v-else
+          src="@/assets/imgs/loader.gif"
+          width="100px"
+          height="100px"
+          class="loader-app"
+        />
+      </div>
+      <button type="submit" style="color: white">Save Changes</button>
     </form>
   </section>
 </template>
@@ -62,23 +76,35 @@ export default {
   methods: {
     saveDetails() {
       const copyUser = JSON.parse(JSON.stringify(this.userToEdit))
-      console.log('saveUser:', copyUser)
+      this.$store.dispatch({ type: 'upadteUser', user: copyUser })
+       this.$notify({
+        message: 'The Details updated',
+        position: 'bottom-left',
+        duration: 2000
+      })
     },
-            async onUploadImg(ev) {
-            console.log('cliclll');
-            console.log(ev,'eve');
-            this.isLoading = true
-            const res = await imgUpload(ev)
-            console.log('res:', res.url)
-            this.userToEdit.imgUrl = res.url;
-            this.isLoading = false
-        },
+    async onUploadImg(ev) {
+      console.log('cliclll')
+      console.log(ev, 'eve')
+      this.isLoading = true
+      const res = await imgUpload(ev)
+      const imgId = res.public_id
+     const imgurl =` http://res.cloudinary.com/mstoysguy/image/upload/w_150,h_100,c_fill,r_max/${imgId}.${res.format}`
+      this.userToEdit.imgUrl = imgurl
+      this.isLoading = false
+    },
   },
   created() {
     this.userToEdit = JSON.parse(JSON.stringify(this.user))
   },
 }
 </script>
+      <style >
+input[type='file'] {
+  opacity: 0;
+}
+</style>
+      
       
 
 
