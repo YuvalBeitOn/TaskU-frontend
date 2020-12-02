@@ -41,8 +41,7 @@
                 <div class="signup-section flex align-center">
                     <span class="separator-line"></span>
                     <div
-                        class="login-subtitle flex align-center justify-center"
-                    >
+                        class="login-subtitle flex align-center justify-center">
                         Already have a user?
                         <router-link to="/login">
                             <span class="btn-content"> Login</span>
@@ -69,7 +68,7 @@ export default {
                 isAdmin: false,
                 
             },
-           
+
         }
     },
     computed: {},

@@ -17,7 +17,7 @@ export const userStore = {
     },
     guestUser() {
       return {
-        _id: '5fc6599e75860a0fa94a9f60',
+        _id: '5fc759ebafd04a19475468ec',
         email: 'guestUser@tasku.com',
         fullName: 'Guest',
         isAdmin: false
@@ -96,7 +96,7 @@ export const userStore = {
       await userService.logout()
       context.commit({ type: 'setUsers', users: [] })
       context.commit({ type: 'setUser', user: null })
-    },
+    },  
     async signup(context, { userCred }) {
       console.log('store got the user cred', userCred)
       const user = await userService.signup(userCred)
