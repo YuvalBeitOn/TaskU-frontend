@@ -9,9 +9,16 @@
 
   .board-name {
     margin-bottom: 0.3rem;
+    max-width: 500px;
+    overflow: hidden;
+    height: 35px;
   }
   .board-descriotion {
-    margin-bottom: 2.2rem;
+    margin-bottom: 1.2rem;
+    max-width: 500px;
+    overflow: hidden;
+    height: 25px;
+    
   }
   .board-info {
     position: absolute;
