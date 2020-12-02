@@ -79,6 +79,10 @@ export default {
       const newTask = boardService.getEmptyTask()
 
       const group = this.getGroupById()
+       const txt = `${this.user.fullName} add new task in ${group.txt}`
+      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      newActivity.groupId = groupId
+      this.board.activities.unshift(newActivity)
       group.tasks.push(newTask)
       this.$store.dispatch({
         type: 'saveBoard',
@@ -86,9 +90,7 @@ export default {
       })
       this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
-      const txt = `${this.user.fullName} add new task`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
-      this.board.activities.unshift(newActivity)
+     
       this.$notify({
         message: 'New task added',
         position: 'bottom-left',
@@ -110,7 +112,7 @@ export default {
       newTask.txt = this.txt
       const txt = `Task '${newTask.txt}' added`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
-      newTask.activities.push(newActivity)
+      newActivity.groupId = this.groupId
       this.board.activities.unshift(newActivity)
       const group = this.getGroupById()
       group.tasks.push(newTask)

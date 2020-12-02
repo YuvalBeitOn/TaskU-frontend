@@ -1,6 +1,6 @@
 <template>
   <section class="members-actions">
-          <el-badge :hidden="hiddenBadge" :value="memebrsToshow.length" class="item" type="primary">
+          <el-badge :hidden="hiddenBadge" :value="members.length" class="item" type="primary">
 
       <!-- MEMBERS -->
     <div  v-tooltip.top="toolTipTxt"

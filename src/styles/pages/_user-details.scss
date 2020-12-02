@@ -68,6 +68,8 @@
   }
 }
 .user-editor {
+  overflow: auto;
+  max-height: 650px;
   margin-top: rem(20px);
   form {
     > * {

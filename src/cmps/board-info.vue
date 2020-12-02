@@ -1,7 +1,8 @@
 <template>
   <div v-if="board" class="board-info">
-      <members :size="25" toolTipTxt="Board Members" classIcon="icon-nav-hader" :members="board.members">
+      <members :hiddenBadge="membersLegnth" :size="25" toolTipTxt="Board Members" classIcon="icon-nav-hader" :members="board.members">
       <add-members slot="add-members"
+      
         class="top-right"
         @removeMember="emitRemoveMember"
         @addMember="emitAddMember"
@@ -26,6 +27,9 @@ export default {
     }
   },
   computed: {
+    membersLegnth(){
+      return this.board.members.length > 3 ? false : true
+    },
     filteredUsers() {
       const users = this.$store.getters.users
       const boardMembers = this.board.members

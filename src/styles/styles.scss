@@ -11,14 +11,19 @@
 @import 'basics/tooltip';
 //PAGES
 @import 'pages/home-page';
+@import 'pages/board-app';
+@import 'pages/user-details';
+@import 'pages/task-details';
+@import 'pages/app-login';
+
+
+
 // COMPONENTS
 @import 'cmps/nav-menu';
 @import 'cmps/board-list';
 @import 'cmps/task-preview';
 @import 'cmps/group-list';
 @import 'cmps/group-preview';
-@import 'cmps/user-details';
-@import 'cmps/board-app';
 @import 'cmps/popup-menu';
 @import 'cmps/task-list';
 @import 'cmps/label-picker';
@@ -26,11 +31,10 @@
 @import 'cmps/task-posts';
 @import 'cmps/colors-menu';
 @import 'cmps/add-members';
-@import 'cmps/task-details';
 @import 'cmps/filter-form';
 @import 'cmps/task-activities';
 @import 'cmps/board-header';
-@import 'cmps/app-login';
 @import 'cmps/chat-cmp';
 @import 'cmps/user-msg';
-
+@import 'cmps/upload-img';
+@import 'cmps/avatar';
