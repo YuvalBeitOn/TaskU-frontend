@@ -40,7 +40,9 @@ export const boardStore = {
       if (filterBy.person !== 'All') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
-            task.members = task.members.filter(member => {
+          return task.members = task.members.filter(member => {
+              console.log(member._id)
+              console.log(filterBy.person);
               return member._id === filterBy.person
             })
           })
@@ -58,7 +60,6 @@ export const boardStore = {
           group => (group = group.tasks.length !== 0)
         )
       }
-      // filteredBoard.groups.filter(group => group.tasks)
       return filteredBoard
     },
     defaultBoardId(state) {

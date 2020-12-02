@@ -4,9 +4,9 @@
     <button class="filter-btn" @click="updateFilter">All</button>
     <button
       class="filter-btn relative"
-      @click="updateFilter"
       v-for="opt in filteredOpts"
       :key="opt.id"
+      @click="updateFilter"
       type="submit"
     >
       <span class="filter-txt">{{ opt.txt }}</span>
@@ -26,9 +26,10 @@ export default {
       filteredOpts: null
     }
   },
+  computed: {},
   methods: {
     updateFilter(ev) {
-      const txt = ev.target.innerText
+      let txt = ev.target.innerText
       const filterObj = { title: this.title.toLowerCase(), opt: txt }
       this.$emit('updateFilter', filterObj)
     },

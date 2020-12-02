@@ -91,11 +91,6 @@ export default {
     }
   },
   computed: {
-    btnClassExpend() {
-      return this.isListExpanded
-        ? 'expend-btn fas fa-chevron-left'
-        : 'expend-btn fas fa-chevron-right'
-    },
     chatControl() {
       return this.isChatingBtnShown ? 'Hide Chat' : 'Show Chat'
     },
