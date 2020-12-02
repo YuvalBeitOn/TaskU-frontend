@@ -58,15 +58,18 @@ export default {
     },
     updateTaskTxt(ev) {
       ev.target.blur()
-      this.task.txt = ev.target.innerText
-      const tasks = this.getTasksPath()
-      const taskIdx = tasks.findIndex(task => task.id === this.task.id)
-      tasks.splice(taskIdx, 1, this.task)
-      this.$store.dispatch({
-        type: 'saveBoard',
-        board: this.board
-      })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
+      if (ev.target.innerText === this.task.txt) return
+      else {
+        this.task.txt = ev.target.innerText
+        const tasks = this.getTasksPath()
+        const taskIdx = tasks.findIndex(task => task.id === this.task.id)
+        tasks.splice(taskIdx, 1, this.task)
+        this.$store.dispatch({
+          type: 'saveBoard',
+          board: this.board
+        })
+        this.$store.dispatch({ type: 'updateBoard', board: this.board })
+      }
     },
     updatePosts(posts) {
       const tasks = this.getTasksPath()

@@ -1,12 +1,21 @@
 <template>
   <section class="group-preview-container relative">
-    <div class="expand-btn-container">
-      <button
-        :style="getStyleStr(group.color)"
-        class="expand-btn"
-        @click.stop="toggleGroupActions"
-      >
-        <i class="expand-arrow fas fa-arrow-down"></i>
+    <div
+      @mouseover="showDragBtn"
+      @mouseleave=" hideDragBtn"
+      class="group-control"
+    >
+      <div class="expand-btn-container">
+        <button
+          :style="getStyleStr(group.color)"
+          class="expand-btn"
+          @click.stop="toggleGroupActions"
+        >
+          <i class="expand-arrow fas fa-arrow-down" v-tooltip.right="'Actions'"></i>
+        </button>
+      </div>
+      <button v-show="isGroupHovering" class="drag-btn">
+        <i class="fas fa-arrows-alt drag-icon" v-tooltip.right="'Drag group'"></i>
       </button>
     </div>
     <li
@@ -17,10 +26,12 @@
       @click="expandGroup"
     >
       <h4
-        class="group-headers group-name editable"
+        :class="{'group-headers group-name editable':true, 'hovering': isGroupHovering}"
         spellcheck="false"
         ref="groupName"
         :style="groupColor"
+        @mouseover="showDragBtn"
+        @mouseleave=" hideDragBtn"
         @blur="updateGroupName"
         @keydown.enter="updateGroupName"
         contenteditable
@@ -80,6 +91,7 @@ export default {
   },
   data() {
     return {
+      isGroupHovering: false,
       isExpanded: true,
       groupCopy: null,
       isActionsShowen: false,
@@ -114,6 +126,12 @@ export default {
     }
   },
   methods: {
+    showDragBtn() {
+      this.isGroupHovering = true
+    },
+    hideDragBtn() {
+      this.isGroupHovering = false
+    },
     closePopUps() {
       this.isActionsShowen = false
       this.isColorsShowen = false
@@ -162,9 +180,11 @@ export default {
     },
     updateGroupName(ev) {
       ev.target.blur()
-      console.log('evvvvvvvvvvvvvvvvvvv:', ev)
+       if (ev.target.innerText === this.groupCopy.name) return
+      else {
       this.groupCopy.name = ev.target.innerText
-      // this.$emit('updateGroup', this.groupCopy)
+      this.$emit('updateGroup', this.groupCopy)
+      }
     }
   },
   computed: {

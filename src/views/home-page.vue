@@ -4,13 +4,13 @@
       <div class="app-logo">
         <img class="logo1 flex end" src="@/assets/imgs/logo1.png" alt="" />
       </div>
-      <nav class="nav-home-page flex space-between">
+      <nav class="nav-home-page flex space-between align-center">
         <router-link to="/">home</router-link>
         <router-link v-if="!loggedInUser" to="/login">login</router-link>
         <router-link v-if="!loggedInUser" to="/signup">sign up</router-link>
         <span v-if="loggedInUser" @click="onLogout">logout</span>
-        <button @click="onGetStarted" class="btn-app">
-         {{ enteryButton }}
+        <button @click="onGetStarted" class="btn-app btn-nav">
+         Get Started
         </button>
       </nav>
     </div>
@@ -18,13 +18,11 @@
     <main class="main-content top-hero">
       <section class="hero-homepage hero-container">
         <div class="main-hero-contant flex space-between">
-          <div class="content-container flex column align-center wrap">
+          <div class="content-container flex column  wrap">
             <h1>Team-work in modern days is EASY</h1>
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt
-              dolore modi numquam nostrum voluptatem deleniti harum dicta odio
-              eveniet adipisci magni cupiditate doloribus quae mollitia soluta
-              itaque nemo, deserunt quia!
+              dolore modi numquam nostrum voluptatem deleniti harum dicta odio.
             </p>
             <button @click="onGetStarted" class="btn-app">
               {{ enteryButton }}

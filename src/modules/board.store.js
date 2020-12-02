@@ -74,7 +74,7 @@ export const boardStore = {
   mutations: {
     setBoards(state, { boards }) {
       const miniBoards = boards.map(board => {
-        console.log('im in map');
+        console.log('im in map')
         board = { _id: board._id, name: board.name }
         return board
       })
@@ -117,7 +117,8 @@ export const boardStore = {
       //   throw err
       // }
     },
-    async removeBoard({ commit }, { boardId }) {
+    async removeBoard({ commit, state }, { boardId }) {
+      if (state.boards.length <= 1) return
       try {
         await boardService.remove(boardId)
         commit({ type: 'removeBoard', boardId })

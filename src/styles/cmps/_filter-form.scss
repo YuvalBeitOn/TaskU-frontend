@@ -9,8 +9,9 @@
     text-overflow: ellipsis;
     padding: 5px 8px;
   }
+
   .filter-btn {
-    font-family: roboto-light;
+    font-family: 'roboto-light','Ariel';
     border: none;
     width: 140px;
     position: relative;
@@ -30,9 +31,13 @@
       background-color: #e1e1e1;
     }
     .filter-txt {
-        margin-left: 15px;
-        text-overflow: ellipsis;
-
+      position: absolute;
+      margin-left: 15px;
+      text-overflow: ellipsis;
+      top: 4px;
+      &.user-filter {
+        left: 20px;
+      }
     }
     .status-circle {
       position: absolute;

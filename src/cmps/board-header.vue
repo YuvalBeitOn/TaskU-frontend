@@ -5,6 +5,8 @@
       @addMember="emitAddMember"
       :board="board"
     />
+    <!-- :contenteditable="isAllowed" -->
+    <!-- @keypress="limitTextLength" -->
     <div class="board-name-container">
       <h2
         class="board-name editable"
@@ -50,7 +52,16 @@ export default {
     addGroup: Function,
     forceRerender: Function
   },
+  data() {
+    return {
+      isAllowed: true
+    }
+  },
   methods: {
+    // limitTextLength(ev) {
+    //   console.log(ev.target.innerText.length);
+    //   return ev.target.innerText.length <= 20 ? this.isAllowed = true : this.isAllowed =false
+    // },
     emitRemoveMember(member) {
       this.$emit('removeMember', member)
     },

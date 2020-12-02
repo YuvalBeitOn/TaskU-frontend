@@ -38,7 +38,7 @@
       position: relative;
       margin-bottom: 8px;
       font-size: 0.9rem;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: Arial;
       width: 210px;
       transition-duration: 0.3s;
       @include for-wide-layout {
@@ -58,7 +58,7 @@
 
       a {
         font-size: 0.9rem;
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: Arial;
         white-space: nowrap;
         word-break: break-all;
         overflow: hidden;
@@ -108,7 +108,7 @@
     margin: 0 auto;
     width: 210px;
     height: 32px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial;
     font-size: 0.9rem;
     margin-right: rem(10px);
     @include for-wide-layout {
