@@ -30,7 +30,7 @@
                      <div  class="img upload" v-if="!isLoading">
                         <template v-if="!isLoading">
                     
-                    <img v-if="signupCredentials.imgUrl" width="55px" :src="signupCredentials.imgUrl" alt="user image">
+                    <img v-if="userToEdit.imgUrl" width="55px" :src="signupCredentials.imgUrl" alt="user image">
                     <label for="imgUploader">
                         <button type="up-pic" class="white">Upload Image</button>
                     <input  type="file" id="imgUploader">
@@ -70,7 +70,7 @@ export default {
             this.isLoading = true
             const res = await imgUpload(ev)
             console.log('res:', res.url)
-            this.signupCredentials.imgUrl = res.url;
+            this.userToEdit.imgUrl = res.url;
             this.isLoading = false
         },
   },
