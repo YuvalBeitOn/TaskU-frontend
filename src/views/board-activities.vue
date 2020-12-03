@@ -5,7 +5,7 @@
       <h2 class="title">Board activiites</h2>
       <h3>{{boardActiviitesTitle}}</h3>
       <div class="activity-contianer">
-<activites-board v-if="boardActiviites.length" :activities="boardActiviites" />
+<activites-board v-if="boardActiviites&&boardActiviites.length" :activities="boardActiviites" />
 </div>
 </main>
     </side-bar>
