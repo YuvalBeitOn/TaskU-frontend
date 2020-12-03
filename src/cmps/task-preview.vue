@@ -36,17 +36,22 @@
     <div class="task-details flex">
       <div class="headers flex">
         <span class="members-preview relative task-item">
-          <members :hiddenBadge="membersLegnth" toolTipTxt="Task Members" classIcon="task-icon" :members="taskCopy.members">
-          <add-members
-            class="top-left"
-            slot="add-members"
-            firstTitle="Task members"
-            secondTitle="Invite Board members"
+          <members
+            :hiddenBadge="membersLegnth"
+            toolTipTxt="Task Members"
+            classIcon="task-icon"
             :members="taskCopy.members"
-            :allMembers="filteredBoardMembers"
-            @addMember="addTaskMember"
-            @removeMember="removeTaskMember"
-          />
+          >
+            <add-members
+              class="top-left"
+              slot="add-members"
+              firstTitle="Task members"
+              secondTitle="Invite Board members"
+              :members="taskCopy.members"
+              :allMembers="filteredBoardMembers"
+              @addMember="addTaskMember"
+              @removeMember="removeTaskMember"
+            />
           </members>
         </span>
 
@@ -89,27 +94,29 @@
     </div>
     <div
       class="back-drop-layer"
-      v-if=" isStatusesShowen || isPriorsShowen"
+      v-if="isStatusesShowen || isPriorsShowen"
       @click.stop="closePopups"
     ></div>
   </li>
 </template>
 <script>
-import members from '@/cmps/members';
+import members from '@/cmps/members'
 import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
 import labelPicker from './label-picker'
 import { boardService } from '@/services/board.service'
+import { userService } from '@/services/user.service'
+
 import moment from 'moment'
 
 export default {
-  components: { labelPicker, addMembers ,members},
+  components: { labelPicker, addMembers, members },
   name: 'task-preview',
   data() {
     return {
       taskCopy: null,
       isStatusesShowen: false,
-      isPriorsShowen: false,
+      isPriorsShowen: false
     }
   },
   props: {
@@ -170,6 +177,14 @@ export default {
     addTaskMember(member) {
       const txt = `Member ${member.fullName} was added to task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
+      let newNotif = userService.getEmptyNotif()
+      newNotif.txt = `${this.user.fullName} assinged you to "${this.taskCopy.txt}"`
+      newNotif.byUser = { 'name:': this.user.fullName }
+      newNotif.toUserId = member._id
+      this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
+      // newNotif.byUser.imgUrl = ''
+      console.log('newNotif:', newNotif)
+      console.log('member:', member)
       this.taskCopy.members.unshift(member)
       this.taskCopy.activities.push(newActivity)
       eventBus.$emit('updateBoardActivity', newActivity)

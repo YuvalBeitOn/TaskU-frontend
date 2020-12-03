@@ -1,5 +1,5 @@
 .board-header {
-  padding: 30px 30px 0;
+  padding: 30px 50px;
   height: 160px;
   border-bottom: 0.3px solid rgb(221, 221, 221);
   position: relative;
@@ -8,6 +8,7 @@
   }
 
   .board-name {
+    font-size: 28px;
     font-family: 'roboto-regular', 'Ariel';
     margin-bottom: 0.3rem;
     max-width: 500px;
@@ -15,6 +16,8 @@
     height: 35px;
   }
   .board-descriotion {
+    font-size: 14px;
+    color: #676879;
     margin-bottom: 1.2rem;
     max-width: 500px;
     overflow: hidden;
@@ -25,7 +28,10 @@
     position: absolute;
     top: 0;
     right: 0;
-    padding-right: 30px;
+    padding-right: 50px;
     padding-top: 30px;
+    @include for-wide-layout {
+      padding-right: 1.5rem;
+    }
   }
 }

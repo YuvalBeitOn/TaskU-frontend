@@ -28,7 +28,7 @@
     >
       {{ board.description }}
     </h3>
-    <h4 class="board-creator">By: {{ board.creator.fullName }}</h4>
+    <!-- <h4 class="board-creator">By: {{ board.creator.fullName }}</h4> -->
 
     <board-filter
       v-if="board"

@@ -1,18 +1,15 @@
 <template>
   <div id="app">
     <main class="main-container flex">
-      <nav-menu v-if="isNavShowen" />
+      <nav-menu @logout="logout" v-if="isNavShowen" />
       <router-view class="grow" />
     </main>
-   
-          </div>
+  </div>
 </template>
 
 <script>
-
 import navMenu from '@/cmps/nav-menu'
 export default {
-  methods: {},
   computed: {
     isNavShowen() {
       return this.$route.path === '/login' ||
@@ -22,12 +19,14 @@ export default {
         : true
     }
   },
-  created(){
-
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    }
   },
+
   components: {
-    navMenu,
-    
+    navMenu
   }
 }
 </script>

@@ -17,7 +17,7 @@ export const userStore = {
     },
     guestUser() {
       return {
-        _id: '5fc759ebafd04a19475468ec',
+        _id: '5fc8a3fc7e7885568ba11351',
         email: 'guestUser@tasku.com',
         fullName: 'Guest',
         isAdmin: false
@@ -107,5 +107,12 @@ export const userStore = {
     // async uploadUserImg(context, { img }) {
     //   console.log('the image',img, context, 'context')
     // }
+    async sendNotif(context, {notif}) {
+      console.log('notif in store:', notif);
+        await userService.sendNotif(notif)
+
+      // context.commit({ type: 'setUser', user })
+
+    }
   }
 }

@@ -13,7 +13,7 @@
              <avatar :user="user" />
 
       </div>
-      <span class="filter-txt user-filter">{{ user.fullName }}</span>
+      <span v-if="user.fullName" class="filter-txt user-filter">{{ user.fullName }}</span>
     </button>
   </section>
 </template>

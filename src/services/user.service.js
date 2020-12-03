@@ -1,4 +1,6 @@
 import { httpService } from "./http.service";
+import { utilService } from './util.service'
+
 
 export const userService = {
   getUsers,
@@ -7,7 +9,9 @@ export const userService = {
   save,
   login,
   signup,
-  logout
+  logout,
+  getEmptyNotif,
+  sendNotif
 };
 
 
@@ -18,7 +22,7 @@ function getUsers() {
 
 function getById(userId) {
   return httpService.get(`user/${userId}`);
-  
+
 }
 
 function remove(userId) {
@@ -56,4 +60,19 @@ async function _update(user) {
 function _handleLogin(user) {
   sessionStorage.setItem('user', JSON.stringify(user))
   return user;
+}
+
+function getEmptyNotif() {
+  return {
+    id: utilService.makeId(),
+    txt: '',
+    byUser: null,
+    toUser: null,
+    isRead: null,
+    createdAt: Date.now()
+  }
+}
+
+async function sendNotif(notif) {
+  return httpService.post(`user/notif/${notif.toUserId}`, notif);
 }

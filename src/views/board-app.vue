@@ -91,6 +91,12 @@ export default {
     }
   },
   computed: {
+    btnClassExpend() {
+      return this.isListExpanded
+        ? 'expend-btn fas fa-chevron-left'
+        : 'expend-btn fas fa-chevron-right'
+    },
+
     chatControl() {
       return this.isChatingBtnShown ? 'Hide Chat' : 'Show Chat'
     },
@@ -244,10 +250,10 @@ export default {
           })
         })
 
-      eventBus.$on('updateBoardActivity', this.updateBoardActivity)
-      this.$store.dispatch({ type: 'loadUsers' })
-      this.loadBoards()
-      this.loadBoard()
+      // eventBus.$on('updateBoardActivity', this.updateBoardActivity)
+      // this.$store.dispatch({ type: 'loadUsers' })
+      // this.loadBoards()
+      // this.loadBoard()
     },
     loadBoard() {
       this.$store.dispatch({
@@ -357,10 +363,10 @@ export default {
       console.log('im here hunny')
       this.loadBoards()
     })
-    eventBus.$on('updateBoardActivity', this.updateBoardActivity)
     this.$store.dispatch({ type: 'loadUsers' })
     this.loadBoards()
     this.loadBoard()
+    eventBus.$on('updateBoardActivity', this.updateBoardActivity)
   },
   destroyed() {
     this.$store.dispatch({ type: 'turnOffSocket' })

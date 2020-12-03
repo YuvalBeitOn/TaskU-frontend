@@ -75,7 +75,7 @@ export default {
     components: {
         Avatar,
         aboutUser,
-        editUser,
+        editUser
     },
 }
 </script>

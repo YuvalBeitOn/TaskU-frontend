@@ -40,11 +40,9 @@ export const boardStore = {
       if (filterBy.person !== 'All') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
-          return task.members = task.members.filter(member => {
-              console.log(member._id)
-              console.log(filterBy.person);
-              return member._id === filterBy.person
-            })
+            if (task.members.some(member => member._id === filterBy.person)) {
+              return task
+            }
           })
         })
       }
@@ -63,7 +61,8 @@ export const boardStore = {
       return filteredBoard
     },
     defaultBoardId(state) {
-      return state.boards[0]._id
+      if (state.boards.length) return state.boards[0]._id
+      else return;
     },
     filterBy(state) {
       return JSON.parse(JSON.stringify(state.filterBy))
@@ -93,9 +92,9 @@ export const boardStore = {
     setFilterBy(state, { filterBy }) {
       state.filterBy = filterBy
     },
-    toggleIsLoading(state) {
-      state.isLoading = !state.isLoading
-    }
+    // toggleIsLoading(state) {
+    //   state.isLoading = !state.isLoading
+    // }
   },
   actions: {
     async loadBoards(context) {
@@ -105,15 +104,15 @@ export const boardStore = {
       await context.commit({ type: 'setBoards', boards })
     },
     async loadBoard({ commit }, { boardId }) {
-      commit({ type: 'toggleIsLoading' })
+      // commit({ type: 'toggleIsLoading' })
       // try {
       const board = await boardService.getById(boardId)
       console.log('after i  got board:', boardId)
       await commit({ type: 'setBoard', board })
       console.log('after set board')
-      setTimeout(() => {
-        commit({ type: 'toggleIsLoading' })
-      }, 2000)
+      // setTimeout(() => {
+      //   commit({ type: 'toggleIsLoading' })
+      // }, 2000)
       // } catch (err) {
       //   throw err
       // }

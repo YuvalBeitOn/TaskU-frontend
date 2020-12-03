@@ -68,7 +68,9 @@
   }
 }
 .user-editor {
+  overflow: auto;
   margin-top: rem(20px);
+  max-height: 400px;
   form {
     > * {
       text-align: center;

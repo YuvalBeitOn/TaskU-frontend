@@ -58,10 +58,12 @@ export default {
   methods: {
     async submitLogin() {
       const userCred = JSON.parse(JSON.stringify(this.loginCredentials))
-      this.$store.dispatch({
+      let user = await this.$store.dispatch({
         type: 'login',
         userCred
       })
+      // this.$store.dispatch({ type: 'loadBoards' })
+      console.log('user after login:', user)
       this.loginCredentials = {
         email: null,
         password: null,
