@@ -16,12 +16,12 @@
     </div>
 
   <div class="btn-activity-container">
-      <button class="btn-close btn-second " @click="toggleMembersList">Board Members List <span v-if="board.members.length" class="blue">{{board.members.length}}</span></button>
+      <button v-tooltip.top="'contect with your memebres'" class="btn-close btn-second " @click="toggleMembersList">Board Members List <span v-if="board.members.length" class="blue">{{board.members.length}}</span></button>
     <members-list @close="toggleMembersList" :members="board.members" v-if="isMembersShown" />
     </div>
     
     <div class="btn-activity-container">
-      <button class="btn-close btn-second " @click="boardActivities">Board Activities / <span v-if="activiitesLength" class="blue">{{activiitesLength}}</span></button>
+      <button v-tooltip.top="'Board activity'" class="btn-close btn-second " @click="boardActivities">Board Activities / <span v-if="activiitesLength" class="blue">{{activiitesLength}}</span></button>
     </div>
   
   </div>
