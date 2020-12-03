@@ -40,11 +40,11 @@ export const boardStore = {
       if (filterBy.person !== 'All') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
-          return task.members = task.members.filter(member => {
+            return (task.members = task.members.filter(member => {
               console.log(member._id)
-              console.log(filterBy.person);
+              console.log(filterBy.person)
               return member._id === filterBy.person
-            })
+            }))
           })
         })
       }
@@ -81,7 +81,7 @@ export const boardStore = {
     isLoading(state) {
       return state.isLoading
     },
-    boardActivities(state){
+    boardActivities(state) {
       return state.currBoard.activities
     }
   },
@@ -126,9 +126,8 @@ export const boardStore = {
       commit({ type: 'setBoard', board })
       console.log('after set board')
       setTimeout(() => {
-        commit({ type: 'toggleIsLoading' })
+      commit({ type: 'toggleIsLoading' })
       }, 2000)
- 
     },
     async removeBoard({ commit, state }, { boardId }) {
       if (state.boards.length <= 1) return
@@ -152,7 +151,7 @@ export const boardStore = {
         commit({ type: 'setBoard', board: savedBoard })
       } else {
         console.log('im in the else')
-        dispatch({ type: 'loadBoards' })
+        await dispatch({ type: 'loadBoards' })
       }
       return savedBoard._id
     }

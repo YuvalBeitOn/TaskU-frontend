@@ -33,15 +33,14 @@
                         v-model="signupCredentials.password"
                         placeholder="Password"
                     />
-       
-                   
 
                     <button class="login-btn">Sign up</button>
                 </form>
                 <div class="signup-section flex align-center">
                     <span class="separator-line"></span>
                     <div
-                        class="login-subtitle flex align-center justify-center">
+                        class="login-subtitle flex align-center justify-center"
+                    >
                         Already have a user?
                         <router-link to="/login">
                             <span class="btn-content"> Login</span>
@@ -66,9 +65,7 @@ export default {
                 email: null,
                 password: null,
                 isAdmin: false,
-                
             },
-
         }
     },
     computed: {},
@@ -84,7 +81,6 @@ export default {
                 password: null,
                 fullName: null,
                 isAdmin: false,
-                
             }
             console.log(user)
             const board = boardService.getEmptyBoard()
@@ -96,10 +92,8 @@ export default {
             })
             this.$router.push(`/board/${boardId}`)
         },
-
     },
 }
 </script>
 <style >
-
 </style>

@@ -191,6 +191,7 @@ export default {
     },
     created() {
         this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
+        console.log('Tasks list is created')
     },
 }
 </script>
