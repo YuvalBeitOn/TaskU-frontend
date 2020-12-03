@@ -7,7 +7,7 @@ button {
   // margin: 5px;
   border: none;
   border-radius: 5px;
-  transition-duration:0.3s ;
+  transition-duration: 0.3s;
 
   &:hover {
     background-color: #0071d9;
@@ -27,7 +27,7 @@ button {
 .btn-app {
   display: flex;
   align-items: center;
-  font-family:  'sofia-light', 'Ariel';
+  font-family: 'sofia-light', 'Ariel';
   width: fit-content;
   padding: 14px 28px;
   font-size: 16px;
@@ -48,7 +48,6 @@ button {
     background-color: #ff0a79dd;
     // filter: brightness(85%);
   }
-
 }
 
 .expend-btn-container {
@@ -69,15 +68,13 @@ button {
     padding: 3px;
     border-radius: 50%;
     background-color: $clr1;
-
   }
-
 }
 
 .btn-close {
   padding: 0;
   margin: 0;
-  margin-left: 5px;
+  margin-left: 8px;
   background-color: transparent;
 
   &:hover {
@@ -99,7 +96,14 @@ button {
   position: fixed;
   bottom: 10px;
   right: 8px;
-  background-image: linear-gradient(to left bottom, #2b2c5d, #313264, #36376b, #3c3d72, #424379);
+  background-image: linear-gradient(
+    to left bottom,
+    #2b2c5d,
+    #313264,
+    #36376b,
+    #3c3d72,
+    #424379
+  );
   border-radius: 50%;
   height: 60px;
   width: 60px;
@@ -110,20 +114,37 @@ button {
   .chat-icon {
     cursor: pointer;
 
-    color: #e6e9ef;;
+    color: #e6e9ef;
     font-size: rem(30px);
   }
-  &:hover{
+  &:hover {
     transform: scale(1.1);
   }
 }
-.send-btn{
+.send-btn {
   cursor: pointer;
-  color:$clr1;
+  color: $clr1;
   font-size: 20px;
 }
 //Header btn:
 .icon-nav-hader {
   font-size: rem(28px);
   cursor: pointer;
+}
+.btn-second {
+  width: 125px;
+  height: 40px;
+  border: 1px solid #e6e9ef;
+  border-color: #c5c7d0;
+  color: #323338;
+  background-color: transparent;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  min-height: 40px;
+  &:hover {
+    background-color: #e6e9ee;
+  }
+  .blue {
+    color: #0685ff;
+  }
 }

@@ -1,5 +1,5 @@
 
-function makeId(length = 10) {
+function makeId(length = 11) {
     var txt = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for(let i=0; i < length; i++) {

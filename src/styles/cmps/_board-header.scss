@@ -22,7 +22,6 @@
     max-width: 500px;
     overflow: hidden;
     height: 25px;
-    
   }
   .board-info {
     position: absolute;
@@ -32,6 +31,18 @@
     padding-top: 30px;
     @include for-wide-layout {
       padding-right: 1.5rem;
+    }
+    .btn-members-container {
+      background-color: transparent;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .btn-activity-container {
+      .btn-activity {
+        width: 70px;
+        height: 40px;
+      }
     }
   }
 }

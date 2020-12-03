@@ -46,12 +46,14 @@
     </div>
     <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
 
-    <task-details
+    <!-- <task-details
       v-if="this.$route.params.taskId"
       @close="isTaskDetailsHover = false"
       @mouseover.native="isTaskDetailsHover = true"
       @mouseleave.native="isTaskDetailsHover = false"
-    />
+    /> -->
+      <router-view class="grow" />
+
     <div
       v-tooltip.top="'Chat Board'"
       v-show="isChatingBtnShown"
@@ -70,7 +72,7 @@ import { eventBus } from '@/services/event-bus.service'
 import chatApp from '@/cmps/board-chat'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
-import taskDetails from '../views/task-details'
+// import taskDetails from '../views/task-details'
 import { boardService } from '@/services/board.service'
 import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
@@ -91,12 +93,12 @@ export default {
     }
   },
   computed: {
+    // NOT  REMOVE THIS FUNC !!!!!!!!!!
     btnClassExpend() {
       return this.isListExpanded
         ? 'expend-btn fas fa-chevron-left'
         : 'expend-btn fas fa-chevron-right'
     },
-
     chatControl() {
       return this.isChatingBtnShown ? 'Hide Chat' : 'Show Chat'
     },
@@ -179,7 +181,7 @@ export default {
     addBoardMember(user) {
       console.log('user:', user)
       this.board.members.unshift(user)
-      const txt = `${this.user.fullName} add ${user.fullName}  to board`
+      const txt = `${this.user.fullName} add ${user.fullName} to Board`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
@@ -195,7 +197,7 @@ export default {
         (bMember) => bMember._id === member._id
       )
       this.board.members.splice(idx, 1)
-      const txt = `${this.user.fullName} remove  group`
+      const txt = `${this.user.fullName} remove  ${member.fullName} from Board`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
@@ -236,6 +238,9 @@ export default {
           board.name = value
           board.creator = this.user
           board.members.push(this.user)
+          const txt = `${this.user.fullName} create this Board`
+         let newActivity = boardService.getEmptyActivity(txt, this.user)
+          this.board.activities.push(newActivity)
           this.$store.dispatch({ type: 'saveBoard', board })
           this.$store.dispatch({ type: 'loadAllBoards' })
           this.$message({
@@ -250,10 +255,6 @@ export default {
           })
         })
 
-      // eventBus.$on('updateBoardActivity', this.updateBoardActivity)
-      // this.$store.dispatch({ type: 'loadUsers' })
-      // this.loadBoards()
-      // this.loadBoard()
     },
     loadBoard() {
       this.$store.dispatch({
@@ -281,8 +282,8 @@ export default {
     },
     deleteGroup(groupId) {
       const idx = this.board.groups.findIndex((group) => group.id === groupId)
+      const txt = `${this.user.fullName} deleted group ${this.board.groups[idx].txt}`
       this.board.groups.splice(idx, 1)
-      const txt = `${this.user.fullName} deleted group`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({
@@ -302,7 +303,7 @@ export default {
         (group) => group.id === updatedGroup.id
       )
       this.board.groups.splice(idx, 1, updatedGroup)
-      const txt = `${this.user.fullName} updated  group`
+      const txt = `${this.user.fullName} updated group ${updatedGroup.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({
@@ -374,7 +375,7 @@ export default {
   components: {
     groupList,
     boardList,
-    taskDetails,
+    // taskDetails,
     boardSearch,
     chatApp,
     boardHeader,

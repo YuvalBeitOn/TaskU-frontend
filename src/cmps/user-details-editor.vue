@@ -13,7 +13,7 @@
       <el-input
         placeholder="Name"
         v-model="userToEdit.fullName"
-        :disabled="true"
+        
       ></el-input>
       <label for="">Phone:</label>
 
@@ -33,34 +33,15 @@
         placeholder="Company name"
         v-model.trim="userToEdit.companyName"
       ></el-input>
-      <div class="img upload">
-        <div v-if="!isLoading">
-          <img
-            v-if="userToEdit.imgUrl"
-            width="55px"
-            :src="userToEdit.imgUrl"
-            alt="user image"
-          />
-          <label for="imgUploader">
-            <h2 class="white">Upload Image</h2>
-            <input @change="onUploadImg" type="file" id="imgUploader" />
-          </label>
-        </div>
-        <img
-          v-else
-          src="@/assets/imgs/loader.gif"
-          width="100px"
-          height="100px"
-          class="loader-app"
-        />
-      </div>
+<upload-img @sendImgUrl="imgUrl" />
+    
       <button type="submit" style="color: white">Save Changes</button>
     </form>
   </section>
 </template>
       
       <script>
-import { imgUpload } from '@/services/img-upload.service'
+import  uploadImg  from './upload-img'
 
 export default {
   name: 'user-editor',
@@ -74,8 +55,13 @@ export default {
     }
   },
   methods: {
+    imgUrl(url){
+      this.userToEdit.imgUrl=url
+console.log(url,'im url');
+    },
     saveDetails() {
       const copyUser = JSON.parse(JSON.stringify(this.userToEdit))
+      console.log('copyUser:', copyUser)
       this.$store.dispatch({ type: 'upadteUser', user: copyUser })
        this.$notify({
         message: 'The Details updated',
@@ -83,26 +69,18 @@ export default {
         duration: 2000
       })
     },
-    async onUploadImg(ev) {
-      console.log('cliclll')
-      console.log(ev, 'eve')
-      this.isLoading = true
-      const res = await imgUpload(ev)
-      const imgId = res.public_id
-     const imgurl =` http://res.cloudinary.com/mstoysguy/image/upload/w_150,h_100,c_fill,r_max/${imgId}.${res.format}`
-      this.userToEdit.imgUrl = imgurl
-      this.isLoading = false
-    },
+
   },
   created() {
     this.userToEdit = JSON.parse(JSON.stringify(this.user))
   },
+  components:{
+    uploadImg
+  }
 }
 </script>
       <style >
-input[type='file'] {
-  opacity: 0;
-}
+
 </style>
       
       

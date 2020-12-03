@@ -47,7 +47,7 @@ export default {
   },
   methods:{
     getTime(time){
-      return moment(time).calendar()
+      return moment(time).fromNow(); 
     }
   },
   components: {

@@ -41,8 +41,12 @@
     }
   }
 
-  .task-post-txt {
+  .task-post-container {
     font-weight: bold;
+    .uploaded-img {
+      width: 100px;
+      height: 100px;
+    }
   }
   .posts-list {
     overflow: auto;

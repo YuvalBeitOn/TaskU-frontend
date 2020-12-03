@@ -32,9 +32,12 @@
         <div class="icon-container">
           <i class="icon-user far fa-building"></i>
         </div>
+        
         <strong class="title-details">Company name:</strong>{{ companyName }}
       </h3>
     </div>
+    <pre>
+    </pre>
   </section>
 </template>
       

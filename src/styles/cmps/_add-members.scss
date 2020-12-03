@@ -4,10 +4,12 @@
   box-shadow: 0 0 1px black;
   padding: 5px 10px;
   z-index: 1500;
-  width: 165px;
+  width: 180px;
   border-radius: 4px;
   &.top-right {
     right: 15px;
+    right: 2px;
+    top: 30px;
   }
   &.top-left {
     top: 3px;
@@ -16,7 +18,7 @@
   .member {
     position: relative;
     padding-bottom: 0.2rem;
-    height: 25px;
+    height: fit-content;
 
     .member-name {
       margin: 0;
@@ -51,3 +53,54 @@
     }
   }
 }
+
+.members-list-section {
+  .title-members {
+    padding-top: 30px;
+    margin-bottom: 20px;
+  }
+}
+
+.members-list {
+    max-height: 136px;
+    overflow-y: auto;
+  .member {
+    width: 100%;
+    display: flex;
+    button {
+      align-self: flex-end;
+    }
+    .user-container {
+      .user-avatar {
+        margin-right: 4px;
+        width: 25px;
+        height: 25px;
+      }
+    }
+  }
+  .member-list-btn {
+    margin: 0;
+    height: 35px;
+    padding: 0 10px;
+    font-family: 'roboto-light';
+    border: 1px solid #e6e9ef;
+    color: #323338;
+  }
+}
+
+.members-actions {
+  position: relative;
+}
+
+// .member-show {
+//   position: absolute;
+//   &.member-0 {
+//     right: 0;
+//   }
+//   &.member-1 {
+//     right: 30px;
+//   }
+//   &.member-2 {
+//     right: 40px;
+//   }
+// }

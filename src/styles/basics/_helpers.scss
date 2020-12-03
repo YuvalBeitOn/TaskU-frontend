@@ -85,3 +85,8 @@
   border: 1px dashed black !important;
   width: fit-content;
 }
+
+
+.ratio-square {
+  @include aspect-ratio(1, 1);
+}

@@ -69,12 +69,14 @@ export const boardStore = {
     },
     isLoading(state) {
       return state.isLoading
+    },
+    boardActivities(state){
+      return state.currBoard.activities
     }
   },
   mutations: {
     setBoards(state, { boards }) {
       const miniBoards = boards.map(board => {
-        console.log('im in map');
         board = { _id: board._id, name: board.name }
         return board
       })
@@ -92,30 +94,27 @@ export const boardStore = {
     setFilterBy(state, { filterBy }) {
       state.filterBy = filterBy
     },
-    // toggleIsLoading(state) {
-    //   state.isLoading = !state.isLoading
-    // }
+    toggleIsLoading(state) {
+      state.isLoading = !state.isLoading
+    }
   },
   actions: {
     async loadBoards(context) {
-      const userId = context.getters.user._id
+      const userId = context.rootGetters.user._id
       console.log('UserId from board store @Boards loading:', userId)
       const boards = await boardService.query(userId)
-      await context.commit({ type: 'setBoards', boards })
+      context.commit({ type: 'setBoards', boards })
     },
     async loadBoard({ commit }, { boardId }) {
-      // commit({ type: 'toggleIsLoading' })
-      // try {
+      commit({ type: 'toggleIsLoading' })
       const board = await boardService.getById(boardId)
       console.log('after i  got board:', boardId)
-      await commit({ type: 'setBoard', board })
+      commit({ type: 'setBoard', board })
       console.log('after set board')
-      // setTimeout(() => {
-      //   commit({ type: 'toggleIsLoading' })
-      // }, 2000)
-      // } catch (err) {
-      //   throw err
-      // }
+      setTimeout(() => {
+        commit({ type: 'toggleIsLoading' })
+      }, 2000)
+ 
     },
     async removeBoard({ commit }, { boardId }) {
       try {

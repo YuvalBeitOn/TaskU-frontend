@@ -2,7 +2,7 @@
   <!-- <section class="board-filter flex space-between"> -->
     <section class="board-filters flex">
       <button
-        v-tooltip.top="'New group was added'"
+        v-tooltip.top="'Add New group'"
         class="add-group-btn"
         @click="addGroup"
       >

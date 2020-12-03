@@ -1,7 +1,8 @@
 .task-posts {
   .posts-list {
     border-top: 1px solid rgb(233, 232, 230);
-    height: 400px;
+    max-height: 400px;
+    min-height: 270px;
   }
   form {
     .text-edit-post {
@@ -11,7 +12,10 @@
     button {
       color: white;
       transition-duration: 0.3s;
-      margin: 0.5rem 0;
+      position: absolute;
+      top: 90px;
+      right: 0;
+      padding: 8px 14px;
     }
     .el-input-text-editor {
       font-family: Arial, Helvetica, sans-serif;
@@ -41,10 +45,16 @@
     width: 99%;
     padding: 15px;
     margin-top: 10px;
-    height: rem(180px);
     .by-user {
-      font-family: 'roboto-regular','Ariel';
+      font-family: 'roboto-regular', 'Ariel';
       margin-left: 3px;
+    }
+  }
+  .task-post-container {
+    font-weight: bold;
+    .uploaded-img {
+      width: 100px;
+      // height: 100px;
     }
   }
 }

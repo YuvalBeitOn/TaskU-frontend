@@ -5,7 +5,8 @@ import boardApp from '@/views/board-app'
 import userDetails from '@/views/user-details'
 import appLogin from '@/views/app-login'
 import appSignup from '@/views/app-signup'
-// import taskDetails from '@/views/task-details'
+import taskDetails from '@/views/task-details'
+import boardActivities from '@/views/board-activities'
 
 Vue.use(VueRouter)
 
@@ -31,9 +32,19 @@ const routes = [
   //   component: boardApp
   // },
   {
-    path: '/board/:boardId?/:task?/:taskId?',
+    path: '/board/:boardId?/',
     name: 'boardApp',
     component: boardApp,
+    children: [
+      {
+        path: "task/:taskId",
+        component: taskDetails,
+      },
+      {
+        path: "activities",
+        component: boardActivities,
+      },
+    ],
    
   },
   {
