@@ -101,6 +101,7 @@ export const boardStore = {
   },
   actions: {
     async loadBoards(context) {
+      console.log('context:', context)
       const userId = context.getters.user._id
       console.log('UserId from board store @Boards loading:', userId)
       const boards = await boardService.query(userId)

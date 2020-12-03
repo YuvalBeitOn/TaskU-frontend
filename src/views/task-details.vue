@@ -42,6 +42,7 @@ export default {
   },
   created() {
     const taskInfo = this.getTaskInfoById()
+    console.log('taskInfo.task:', taskInfo.task)
     this.task = taskInfo.task
     this.groupId = taskInfo.groupId
   },
@@ -97,6 +98,7 @@ export default {
       )
       taskInfo.task = group.tasks.find(task => task.id === taskId)
       taskInfo.groupId = group.id
+      console.log('taskInfo:', taskInfo)
       return taskInfo
     },
     forceRerender() {
@@ -131,6 +133,8 @@ export default {
   },
   watch: {
     '$route.params.taskId'() {
+      const {taskId} = $route.params.taskId
+       console.log('taskId:', taskId)
       const taskInfo = this.getTaskInfoById()
       this.groupId = taskInfo.groupId
       this.task = JSON.parse(JSON.stringify(taskInfo.task))

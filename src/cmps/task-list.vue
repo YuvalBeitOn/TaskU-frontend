@@ -150,14 +150,18 @@ export default {
       })
       this.$emit('forceRender')
     },
-    updateTask(newTask) {
+    updateTask(newTask,activity) {
+      console.log('activity:', activity)
       const group = this.getGroupById()
       const taskIdx = group.tasks.findIndex(task => task.id === newTask.id)
       group.tasks.splice(taskIdx, 1, newTask)
-      const txt = `${this.user.fullName} update the task name`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
-      newActivity.taskId = newTask.id
-      this.board.activities.unshift(newActivity)
+      // const txt = `${this.user.fullName} update the task name`
+      // let newActivity = boardService.getEmptyActivity(txt, this.user)
+      // newActivity.taskId = newTask.id
+      if(activity){
+        this.board.activities.unshift(activity)
+        console.log('this.board.activities://///////*********', this.board.activities)
+      }
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
@@ -169,10 +173,6 @@ export default {
     updateTasks() {
       const group = this.getGroupById()
       group.tasks = this.clonedTasks
-      const txt = `${this.user.fullName} update a the tasks on ${group.txt}`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
-      newActivity.groupId = group.id
-      this.board.activities.unshift(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
