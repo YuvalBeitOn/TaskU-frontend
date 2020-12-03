@@ -37,6 +37,7 @@ export default {
         }
     },
     created() {
+        console.log('group list created')
         this.clonedGroups = JSON.parse(JSON.stringify(this.groups))
     },
     components: {
@@ -53,7 +54,6 @@ export default {
         emitForceRender() {
             this.$emit('forceRender')
         },
-
         updateGroup(group) {
             this.$emit('updateGroup', group)
         },

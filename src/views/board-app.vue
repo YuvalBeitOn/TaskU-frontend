@@ -358,6 +358,7 @@ export default {
         },
     },
     async created() {
+      console.log('boardapp creation')
         socketService.setup()
         socketService.on('updated board', (board) => {
             this.$store.commit({

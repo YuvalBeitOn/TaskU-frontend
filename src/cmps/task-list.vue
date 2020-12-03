@@ -55,6 +55,9 @@ export default {
     },
 
     computed: {
+        isLoading() {
+            return this.$store.getters.isLoading
+        },
         board() {
             return this.$store.getters.board
         },
@@ -191,6 +194,7 @@ export default {
     },
     created() {
         this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
+        console.log('isLoading?',this.isLoading)
         console.log('Tasks list is created')
     },
 }

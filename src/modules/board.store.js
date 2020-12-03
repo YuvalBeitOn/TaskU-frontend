@@ -93,6 +93,7 @@ export const boardStore = {
       //   return board
       // })
       state.boards = boards
+      console.log('store board mutation BOARDS SET')
     },
     setBoard(state, { board }) {
       state.currBoard = board
@@ -112,11 +113,14 @@ export const boardStore = {
   },
   actions: {
     async loadBoards(context) {
-      console.log(context)
+      // console.log(context)
+      // context.commit({ type: 'toggleIsLoading' })
       const userId = context.rootGetters.user._id
       console.log('UserId from board store @Boards loading:', userId)
       const boards = await boardService.query(userId)
+      console.log('store finished with serve loading boards')
       context.commit({ type: 'setBoards', boards })
+      // context.commit({ type: 'toggleIsLoading' })
     },
     async loadBoard({ commit }, { boardId }) {
       commit({ type: 'toggleIsLoading' })
@@ -125,9 +129,9 @@ export const boardStore = {
       console.log('after i  got board:', boardId)
       commit({ type: 'setBoard', board })
       console.log('after set board')
-      setTimeout(() => {
+      // setTimeout(() => {
       commit({ type: 'toggleIsLoading' })
-      }, 2000)
+      // }, 2000)
     },
     async removeBoard({ commit, state }, { boardId }) {
       if (state.boards.length <= 1) return
