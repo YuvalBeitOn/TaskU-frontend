@@ -116,9 +116,7 @@ export const boardStore = {
       setTimeout(() => {
         commit({ type: 'toggleIsLoading' })
       }, 2000)
-      // } catch (err) {
-      //   throw err
-      // }
+ 
     },
     async removeBoard({ commit }, { boardId }) {
       try {
