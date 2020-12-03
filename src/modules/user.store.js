@@ -97,13 +97,13 @@ export const userStore = {
       await userService.logout()
       context.commit({ type: 'setUsers', users: [] })
       context.commit({ type: 'setUser', user: null })
-    },  
+    },
     async signup(context, { userCred }) {
       console.log('store got the user cred', userCred)
       const user = await userService.signup(userCred)
       context.commit({ type: 'setUser', user })
       return user
-    },
+    }
     // async uploadUserImg(context, { img }) {
     //   console.log('the image',img, context, 'context')
     // }
