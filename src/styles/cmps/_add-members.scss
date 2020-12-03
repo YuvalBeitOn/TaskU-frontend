@@ -51,3 +51,15 @@
     }
   }
 }
+.members-list-section{
+  .member {
+    width: 100%;
+    >*{
+      margin-left: 10px;
+      
+    }
+    button{
+      justify-self:flex-end;
+    }
+  }
+}

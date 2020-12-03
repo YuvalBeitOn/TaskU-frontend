@@ -127,3 +127,19 @@ button {
   font-size: rem(28px);
   cursor: pointer;
 }
+.btn-second{
+  border: 1px solid #e6e9ef;
+  border-color: #c5c7d0;
+  color: #323338;
+  background-color:transparent;
+  font-weight: 400;
+  font-size: 1rem;
+  padding: 8px 16px;
+    min-height: 40px;
+    &:hover{
+      background-color: #E6E9EE;
+    }
+    .blue{
+      color:#0685FF;
+    }
+}

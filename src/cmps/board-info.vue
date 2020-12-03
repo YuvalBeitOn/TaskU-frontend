@@ -1,8 +1,6 @@
 <template>
   <div v-if="board" class="board-info flex justify-center align-center">
-    <div>
-      <button>click me</button>
-    </div>
+    <div class="first-btn-memebrs-container">
       <members :hiddenBadge="membersLegnth" :size="25" toolTipTxt="Board Members" classIcon="icon-nav-hader" :members="board.members">
       <add-members slot="add-members"
       
@@ -15,21 +13,39 @@
         :allMembers="filteredUsers"
        />
     </members>
+    </div>
+
+  <div class="btn-activity-container">
+      <button class="btn-close btn-second " @click="toggleMembersList">Board Members List <span v-if="board.members.length" class="blue">{{board.members.length}}</span></button>
+    <members-list @close="toggleMembersList" :members="board.members" v-if="isMembersShown" />
+    </div>
+    
+    <div class="btn-activity-container">
+      <button class="btn-close btn-second " @click="boardActivities">Board Activities / <span v-if="activiitesLength" class="blue">{{activiitesLength}}</span></button>
+    </div>
+  
   </div>
 </template>
 
 <script>
 import members from './members'
 import addMembers from './add-members'
+import membersList from './members-list'
 export default {
   props: {
     board: Object
   },
   data() {
     return {
+      isMembersShown:false
     }
   },
   computed: {
+    activiitesLength(){
+     const boardActiviites = this.$store.getters.boardActivities
+     if(!boardActiviites.length ||boardActiviites.length <= 0  ) return '0'
+     return boardActiviites.length
+},
     membersLegnth(){
       return this.board.members.length > 3 ? false : true
     },
@@ -45,18 +61,25 @@ export default {
     }
   },
   methods: {
+    boardActivities(){
+ this.$router.push(`/board/${this.$route.params.boardId}/activities`)
 
+    },
     emitRemoveMember(member) {
       this.$emit('removeMember', member)
     },
     emitAddMember(member) {
       this.$emit('addMember', member)
+    },
+    toggleMembersList(){
+      this.isMembersShown = !this.isMembersShown
     }
   },
 
   components: {
     addMembers,
-    members
+    members,
+    membersList
   }
 }
 </script>

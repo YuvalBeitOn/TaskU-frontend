@@ -46,12 +46,14 @@
     </div>
     <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
 
-    <task-details
+    <!-- <task-details
       v-if="this.$route.params.taskId"
       @close="isTaskDetailsHover = false"
       @mouseover.native="isTaskDetailsHover = true"
       @mouseleave.native="isTaskDetailsHover = false"
-    />
+    /> -->
+      <router-view class="grow" />
+
     <div
       v-tooltip.top="'Chat Board'"
       v-show="isChatingBtnShown"
@@ -70,7 +72,7 @@ import { eventBus } from '@/services/event-bus.service'
 import chatApp from '@/cmps/board-chat'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
-import taskDetails from '../views/task-details'
+// import taskDetails from '../views/task-details'
 import { boardService } from '@/services/board.service'
 import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
@@ -373,7 +375,7 @@ export default {
   components: {
     groupList,
     boardList,
-    taskDetails,
+    // taskDetails,
     boardSearch,
     chatApp,
     boardHeader,

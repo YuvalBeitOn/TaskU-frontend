@@ -1,8 +1,6 @@
 <template>
+<side-bar @closeBtn="closeBtn">
   <section v-if="task" class="task-details-section">
-    <button class="cls-btn">
-      <i @click.stop="closeBtn" class="fas fa-times"></i>
-    </button>
     <div class="task-title-container">
       <h2
         class="task-title editable"
@@ -24,9 +22,10 @@
       </el-tab-pane>
     </el-tabs>
   </section>
-  
+</side-bar>
 </template>
 <script>
+import sideBar from '@/cmps/sidebar.vue'
 import taskPosts from '@/cmps/task-posts'
 import taskActivities from '@/cmps/task-activities'
 import { eventBus } from '@/services/event-bus.service'
@@ -48,7 +47,7 @@ export default {
   },
   methods: {
     closeBtn() {
-      this.$emit('close')
+      
       this.$router.push(`/board/${this.$route.params.boardId}`)
     },
     getTasksPath() {
@@ -71,6 +70,8 @@ export default {
           board: this.board
         })
         this.$store.dispatch({ type: 'updateBoard', board: this.board })
+      eventBus.$emit('updateTaskPreview', this.task)
+
       }
     },
     updatePosts(posts) {
@@ -136,9 +137,19 @@ export default {
       console.log(this.task, 'my task - task details')
     }
   },
+  destroyed(){
+    console.log('im destroy');
+    // this.task
+      console.log('this.task destory:', this.task)
+      // eventBus.$emit('updateTaskPreview', this.task)
+
+      eventBus.$emit('updateTaskPreviewDestory', this.task)
+
+  },
   components: {
     taskPosts,
-    taskActivities
+    taskActivities,
+    sideBar
   }
 }
 </script>

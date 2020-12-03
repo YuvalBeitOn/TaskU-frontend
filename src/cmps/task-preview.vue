@@ -240,6 +240,7 @@ export default {
     updateComponentTask(task) {
       if (this.taskCopy.id === this.$route.params.taskId) {
         this.taskCopy = task
+        // this.updateTask()
       }
     },
     updateTaskPriority(opt) {
@@ -281,6 +282,12 @@ export default {
   },
   created() {
     eventBus.$on('updateTaskPreview', this.updateComponentTask)
+    eventBus.$on('updateTaskPreviewDestory', (task)=>{
+      this.taskCopy=task
+      this.updateTask()
+      console.log('im updated!!!');
+      console.log('this.taskCopy',this.taskCopy);
+    })
     this.taskCopy = this.task
   }
 }
