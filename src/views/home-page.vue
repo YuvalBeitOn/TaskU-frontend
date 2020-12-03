@@ -67,6 +67,7 @@ export default {
           userCred: 'guest'
         })
         await this.$store.dispatch({ type: 'loadBoards' })
+        console.log(this.firstBoardId)
         this.$router.push('/board/' + this.firstBoardId)
       }
     },

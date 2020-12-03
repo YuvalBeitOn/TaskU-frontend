@@ -40,12 +40,22 @@ export const boardStore = {
       if (filterBy.person !== 'All') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
-            task.members = task.members.filter(member => {
-              return member._id === filterBy.person
-            })
+            task.members = task.members.every(
+              member => member.id === filterBy.person
+            )
           })
         })
       }
+      // if (filterBy.person !== 'All') {
+      //   filteredBoard.groups.forEach(group => {
+      //     group.tasks = group.tasks.filter(task => {
+      //       task.members = task.members.filter(member => {
+      //         console.log(member._id, filterBy.person)
+      //         return member._id === filterBy.person
+      //       })
+      //     })
+      //   })
+      // }
       if (filterBy.searchTerm !== '') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
@@ -73,12 +83,12 @@ export const boardStore = {
   },
   mutations: {
     setBoards(state, { boards }) {
-      const miniBoards = boards.map(board => {
-        console.log('im in map')
-        board = { _id: board._id, name: board.name }
-        return board
-      })
-      state.boards = miniBoards
+      // const miniBoards = boards.map(board => {
+      //   console.log('im in map')
+      //   board = { _id: board._id, name: board.name }
+      //   return board
+      // })
+      state.boards = boards
     },
     setBoard(state, { board }) {
       state.currBoard = board
@@ -98,17 +108,18 @@ export const boardStore = {
   },
   actions: {
     async loadBoards(context) {
+      console.log(context)
       const userId = context.getters.user._id
       console.log('UserId from board store @Boards loading:', userId)
       const boards = await boardService.query(userId)
-      await context.commit({ type: 'setBoards', boards })
+      context.commit({ type: 'setBoards', boards })
     },
     async loadBoard({ commit }, { boardId }) {
       commit({ type: 'toggleIsLoading' })
       // try {
       const board = await boardService.getById(boardId)
       console.log('after i  got board:', boardId)
-      await commit({ type: 'setBoard', board })
+      commit({ type: 'setBoard', board })
       console.log('after set board')
       setTimeout(() => {
         commit({ type: 'toggleIsLoading' })
