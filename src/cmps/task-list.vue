@@ -152,16 +152,13 @@ export default {
     },
     updateTask(newTask,activity) {
       console.log('activity:', activity)
-      const group = this.getGroupById()
-      const taskIdx = group.tasks.findIndex(task => task.id === newTask.id)
-      group.tasks.splice(taskIdx, 1, newTask)
-      // const txt = `${this.user.fullName} update the task name`
-      // let newActivity = boardService.getEmptyActivity(txt, this.user)
-      // newActivity.taskId = newTask.id
-      if(activity){
+          if(activity){
         this.board.activities.unshift(activity)
         console.log('this.board.activities://///////*********', this.board.activities)
       }
+      const group = this.getGroupById()
+      const taskIdx = group.tasks.findIndex(task => task.id === newTask.id)
+      group.tasks.splice(taskIdx, 1, newTask)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board

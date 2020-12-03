@@ -15,10 +15,10 @@
     <el-tabs>
 
       <el-tab-pane label="Task Posts">
-        <task-posts @updateBoardActivity="updateBoardActivity" @updatePosts="updatePosts" :task="task" :posts="posts" />
+        <task-posts v-if="posts" @updateBoardActivity="updateBoardActivity" @updatePosts="updatePosts" :task="task" :posts="posts" />
       </el-tab-pane>
       <el-tab-pane label="Task Activities">
-        <task-activities :activities="taskActivities" />
+        <task-activities v-if="taskActivities &&taskActivities.length" :activities="taskActivities" />
       </el-tab-pane>
     </el-tabs>
   </section>
@@ -29,7 +29,7 @@ import sideBar from '@/cmps/sidebar.vue'
 import taskPosts from '@/cmps/task-posts'
 import taskActivities from '@/cmps/task-activities'
 import { eventBus } from '@/services/event-bus.service'
-import { boardService } from '@/services/board.service'
+
 export default {
   name: 'task-details',
   data() {
@@ -44,6 +44,7 @@ export default {
     const taskInfo = this.getTaskInfoById()
     console.log('taskInfo.task:', taskInfo.task)
     this.task = taskInfo.task
+    console.log(' this.task:',  this.task)
     this.groupId = taskInfo.groupId
   },
   methods: {
@@ -75,13 +76,11 @@ export default {
 
       }
     },
-    updatePosts(posts) {
+    updatePosts(posts,activity) {
       const tasks = this.getTasksPath()
       const taskIdx = tasks.findIndex(task => task.id === this.task.id)
       tasks[taskIdx].posts = posts
-      const txt = `${this.user.fullName} add new post`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
-      this.board.activities.push(newActivity)
+      this.board.activities.unshift(activity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
@@ -98,7 +97,6 @@ export default {
       )
       taskInfo.task = group.tasks.find(task => task.id === taskId)
       taskInfo.groupId = group.id
-      console.log('taskInfo:', taskInfo)
       return taskInfo
     },
     forceRerender() {
@@ -118,7 +116,10 @@ export default {
       return this.$store.getters.user
     },
     posts() {
+      console.log('postlist////', this.task.posts)
+      console.log('//// orelll posts: type of', typeof this.task.posts)
       return this.task.posts
+      // return false
     },
     taskActivities(){
       let taskActivities=[]
@@ -133,8 +134,6 @@ export default {
   },
   watch: {
     '$route.params.taskId'() {
-      const {taskId} = $route.params.taskId
-       console.log('taskId:', taskId)
       const taskInfo = this.getTaskInfoById()
       this.groupId = taskInfo.groupId
       this.task = JSON.parse(JSON.stringify(taskInfo.task))
@@ -142,7 +141,7 @@ export default {
     }
   },
   destroyed(){
-    console.log('im destroy');
+    console.log('im destroy//////////');
     // this.task
       console.log('this.task destory:', this.task)
       // eventBus.$emit('updateTaskPreview', this.task)
