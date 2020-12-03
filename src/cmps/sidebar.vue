@@ -6,7 +6,6 @@
     <div>
       <slot>No have content yet....</slot>
     </div>
-
   </section>
   
 </template>
@@ -21,7 +20,5 @@ methods:{
 }
 }
 </script>
-<style lang="scss">
 
-</style>
 

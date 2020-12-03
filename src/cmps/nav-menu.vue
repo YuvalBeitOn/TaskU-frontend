@@ -56,7 +56,7 @@ export default {
     },
     methods: {
         onLogout() {
-          console.log('logging out')
+            console.log('logging out')
             this.$store.dispatch({
                 type: 'logout',
             })

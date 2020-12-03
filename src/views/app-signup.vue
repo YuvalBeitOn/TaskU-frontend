@@ -33,8 +33,6 @@
                         v-model="signupCredentials.password"
                         placeholder="Password"
                     />
-       
-                   
 
                     <button class="login-btn">Sign up</button>
                 </form>
@@ -67,9 +65,7 @@ export default {
                 email: null,
                 password: null,
                 isAdmin: false,
-                
             },
-           
         }
     },
     computed: {},
@@ -85,7 +81,6 @@ export default {
                 password: null,
                 fullName: null,
                 isAdmin: false,
-                
             }
             console.log(user)
             const board = boardService.getEmptyBoard()
@@ -97,10 +92,8 @@ export default {
             })
             this.$router.push(`/board/${boardId}`)
         },
-
     },
 }
 </script>
 <style >
-
 </style>

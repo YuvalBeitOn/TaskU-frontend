@@ -28,16 +28,13 @@
 <script>
 import { imgUpload } from '@/services/img-upload.service'
 export default {
-
     data(){
         return {
             isLoading:false,
             imgUrl:null
         }
     },
-    computed(){
-        
-    },
+
     methods:{
     async onUploadImg(ev) {
       this.isLoading = true
@@ -47,9 +44,7 @@ export default {
       this.isLoading = false
     },
     },
-    created(){
-       
-    }
+  
 
 }
 </script>
