@@ -17,7 +17,7 @@ export const userStore = {
     },
     guestUser() {
       return {
-        _id: '5fc7c86cccff9c3bcfa1f637',
+        _id: '5fc912cdc65cd57254f400d4',
         email: 'guestUser@tasku.com',
         fullName: 'Guest',
         isAdmin: false
