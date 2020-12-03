@@ -6,11 +6,7 @@
     <div>
       <slot>No have content yet....</slot>
     </div>
-     <div
-          class="back-drop-layer"
-          
-          @click.stop="closeBtn"
-        ></div>
+
   </section>
   
 </template>

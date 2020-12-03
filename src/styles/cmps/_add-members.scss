@@ -54,12 +54,16 @@
 .members-list-section{
   .member {
     width: 100%;
+    display: flex;
     >*{
       margin-left: 10px;
+    width: 100%;
+      font-size: 20px;
+    justify-content: flex-start;
       
     }
     button{
-      justify-self:flex-end;
+      align-self:flex-end;
     }
   }
 }
