@@ -133,8 +133,6 @@ export default {
   },
   watch: {
     '$route.params.taskId'() {
-      const {taskId} = $route.params.taskId
-       console.log('taskId:', taskId)
       const taskInfo = this.getTaskInfoById()
       this.groupId = taskInfo.groupId
       this.task = JSON.parse(JSON.stringify(taskInfo.task))
