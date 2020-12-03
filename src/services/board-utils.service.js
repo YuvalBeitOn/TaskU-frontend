@@ -73,7 +73,6 @@ function getEmptyTask() {
       txt: ''
     },
     posts: [],
-    activities: []
   }
 }
 

@@ -16,7 +16,7 @@
   .member {
     position: relative;
     padding-bottom: 0.2rem;
-    height: 25px;
+    height: fit-content;
 
     .member-name {
       margin: 0;
@@ -48,6 +48,22 @@
     border-bottom: 1px solid rgb(211, 211, 211);
     li:last-child {
       margin-bottom: 5px;
+    }
+  }
+}
+.members-list-section{
+  .member {
+    width: 100%;
+    display: flex;
+    >*{
+      margin-left: 10px;
+    width: 100%;
+      font-size: 20px;
+    justify-content: flex-start;
+      
+    }
+    button{
+      align-self:flex-end;
     }
   }
 }

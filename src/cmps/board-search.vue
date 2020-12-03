@@ -33,6 +33,7 @@ export default {
     return {
       searchBoard: '',
       isInputExpanded: false
+      
     }
   },
   methods: {

@@ -40,9 +40,11 @@ export const boardStore = {
       if (filterBy.person !== 'All') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
-            task.members = task.members.every(
-              member => member.id === filterBy.person
-            )
+          return task.members = task.members.filter(member => {
+              console.log(member._id)
+              console.log(filterBy.person);
+              return member._id === filterBy.person
+            })
           })
         })
       }
@@ -68,7 +70,6 @@ export const boardStore = {
           group => (group = group.tasks.length !== 0)
         )
       }
-      // filteredBoard.groups.filter(group => group.tasks)
       return filteredBoard
     },
     defaultBoardId(state) {
@@ -79,6 +80,9 @@ export const boardStore = {
     },
     isLoading(state) {
       return state.isLoading
+    },
+    boardActivities(state){
+      return state.currBoard.activities
     }
   },
   mutations: {
@@ -109,7 +113,7 @@ export const boardStore = {
   actions: {
     async loadBoards(context) {
       console.log(context)
-      const userId = context.getters.user._id
+      const userId = context.rootGetters.user._id
       console.log('UserId from board store @Boards loading:', userId)
       const boards = await boardService.query(userId)
       context.commit({ type: 'setBoards', boards })
@@ -124,9 +128,7 @@ export const boardStore = {
       setTimeout(() => {
         commit({ type: 'toggleIsLoading' })
       }, 2000)
-      // } catch (err) {
-      //   throw err
-      // }
+ 
     },
     async removeBoard({ commit, state }, { boardId }) {
       if (state.boards.length <= 1) return

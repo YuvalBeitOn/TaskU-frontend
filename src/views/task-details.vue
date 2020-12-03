@@ -1,8 +1,6 @@
 <template>
+<side-bar @closeBtn="closeBtn">
   <section v-if="task" class="task-details-section">
-    <button class="cls-btn">
-      <i @click.stop="closeBtn" class="fas fa-times"></i>
-    </button>
     <div class="task-title-container">
       <h2
         class="task-title editable"
@@ -15,16 +13,19 @@
       </h2>
     </div>
     <el-tabs>
+
       <el-tab-pane label="Task Posts">
-        <task-posts @updatePosts="updatePosts" :posts="posts" />
+        <task-posts @updateBoardActivity="updateBoardActivity" @updatePosts="updatePosts" :task="task" :posts="posts" />
       </el-tab-pane>
       <el-tab-pane label="Task Activities">
-        <task-activities :activities="task.activities" />
+        <task-activities :activities="taskActivities" />
       </el-tab-pane>
     </el-tabs>
   </section>
+</side-bar>
 </template>
 <script>
+import sideBar from '@/cmps/sidebar.vue'
 import taskPosts from '@/cmps/task-posts'
 import taskActivities from '@/cmps/task-activities'
 import { eventBus } from '@/services/event-bus.service'
@@ -46,7 +47,7 @@ export default {
   },
   methods: {
     closeBtn() {
-      this.$emit('close')
+      
       this.$router.push(`/board/${this.$route.params.boardId}`)
     },
     getTasksPath() {
@@ -69,6 +70,8 @@ export default {
           board: this.board
         })
         this.$store.dispatch({ type: 'updateBoard', board: this.board })
+      eventBus.$emit('updateTaskPreview', this.task)
+
       }
     },
     updatePosts(posts) {
@@ -98,7 +101,12 @@ export default {
     },
     forceRerender() {
       this.componentKey += 1
+    },
+    updateBoardActivity(activity){
+      eventBus.$emit('updateBoardActivity', activity)
+
     }
+  
   },
   computed: {
     board() {
@@ -109,6 +117,16 @@ export default {
     },
     posts() {
       return this.task.posts
+    },
+    taskActivities(){
+      let taskActivities=[]
+      const boardActivities = JSON.parse(JSON.stringify(this.$store.getters.boardActivities))
+      const taskId = this.$route.params.taskId
+      boardActivities.forEach(activity=>{
+        if(activity.taskId===taskId) taskActivities.push(activity)
+      })
+      return taskActivities
+
     }
   },
   watch: {
@@ -119,9 +137,19 @@ export default {
       console.log(this.task, 'my task - task details')
     }
   },
+  destroyed(){
+    console.log('im destroy');
+    // this.task
+      console.log('this.task destory:', this.task)
+      // eventBus.$emit('updateTaskPreview', this.task)
+
+      eventBus.$emit('updateTaskPreviewDestory', this.task)
+
+  },
   components: {
     taskPosts,
-    taskActivities
+    taskActivities,
+    sideBar
   }
 }
 </script>

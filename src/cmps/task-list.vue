@@ -3,11 +3,7 @@
         <ul
             class="task-list clean-list flex wrap align-center justify-center gap"
         >
-            <draggable
-                class="width100"
-                :list="clonedTasks"
-                @end="updateTasks"
-            >
+            <draggable class="width100" :list="clonedTasks" @end="updateTasks">
                 <task-preview
                     v-for="task in clonedTasks"
                     :user="user"
@@ -78,13 +74,16 @@ export default {
     },
     methods: {
         addEmptyTask(groupId) {
-            console.log(groupId, this.groupId)
+            // console.log(groupId, this.groupId)
             if (this.groupId !== groupId) {
                 return
             }
             const newTask = boardService.getEmptyTask()
-
             const group = this.getGroupById()
+            const txt = `${this.user.fullName} add new task in ${group.txt}`
+            let newActivity = boardService.getEmptyActivity(txt, this.user)
+            newActivity.groupId = groupId
+            this.board.activities.unshift(newActivity)
             group.tasks.push(newTask)
             this.$store.dispatch({
                 type: 'saveBoard',
@@ -92,9 +91,6 @@ export default {
             })
             this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
-            const txt = `${this.user.fullName} add new task`
-            let newActivity = boardService.getEmptyActivity(txt, this.user)
-            this.board.activities.unshift(newActivity)
             this.$notify({
                 message: 'New task added',
                 position: 'bottom-left',
@@ -116,7 +112,7 @@ export default {
             newTask.txt = this.txt
             const txt = `Task '${newTask.txt}' added`
             let newActivity = boardService.getEmptyActivity(txt, this.user)
-            newTask.activities.push(newActivity)
+            newActivity.groupId = this.groupId
             this.board.activities.unshift(newActivity)
             const group = this.getGroupById()
             group.tasks.push(newTask)
@@ -139,20 +135,15 @@ export default {
             const group = this.getGroupById()
             const taskIdx = group.tasks.findIndex((task) => task.id === taskId)
             group.tasks.splice(taskIdx, 1)
-            const txt = `${this.user.fullName} remove a task`
+            const txt = `${this.user.fullName} remove a task from ${group.txt}`
             let newActivity = boardService.getEmptyActivity(txt, this.user)
+            newActivity.groupId = this.groupId
             this.board.activities.unshift(newActivity)
             this.$store.dispatch({
                 type: 'saveBoard',
                 board: this.board,
             })
             this.$store.dispatch({ type: 'updateBoard', board: this.board })
-
-            this.$notify({
-                message: 'Remove task',
-                position: 'bottom-left',
-                duration: 2000,
-            })
             this.$notify({
                 message: 'Task removed',
                 position: 'bottom-left',
@@ -166,6 +157,10 @@ export default {
                 (task) => task.id === newTask.id
             )
             group.tasks.splice(taskIdx, 1, newTask)
+            const txt = `${this.user.fullName} update the task name`
+            let newActivity = boardService.getEmptyActivity(txt, this.user)
+            newActivity.taskId = newTask.id
+            this.board.activities.unshift(newActivity)
             this.$store.dispatch({
                 type: 'saveBoard',
                 board: this.board,
@@ -177,6 +172,10 @@ export default {
         updateTasks() {
             const group = this.getGroupById()
             group.tasks = this.clonedTasks
+            const txt = `${this.user.fullName} update a the tasks on ${group.txt}`
+            let newActivity = boardService.getEmptyActivity(txt, this.user)
+            newActivity.groupId = group.id
+            this.board.activities.unshift(newActivity)
             this.$store.dispatch({
                 type: 'saveBoard',
                 board: this.board,
