@@ -4,8 +4,7 @@ export const boardStore = {
     boards: [],
     currBoard: null,
     searchBoard: null,
-    filterBy: { status: 'All', priority: 'All', person: 'All', searchTerm: '' },
-    isLoading: false
+    filterBy: { status: 'All', priority: 'All', person: 'All', searchTerm: '' }
   },
   getters: {
     boards(state) {
@@ -78,9 +77,6 @@ export const boardStore = {
     filterBy(state) {
       return JSON.parse(JSON.stringify(state.filterBy))
     },
-    isLoading(state) {
-      return state.isLoading
-    },
     boardActivities(state) {
       return state.currBoard.activities
     }
@@ -106,32 +102,24 @@ export const boardStore = {
     },
     setFilterBy(state, { filterBy }) {
       state.filterBy = filterBy
-    },
-    toggleIsLoading(state) {
-      state.isLoading = !state.isLoading
     }
   },
   actions: {
-    async loadBoards(context) {
-      // console.log(context)
-      // context.commit({ type: 'toggleIsLoading' })
-      const userId = context.rootGetters.user._id
+    async loadBoards({ commit, rootGetters }) {
+      commit({ type: 'setBoards', boards: null })
+      const userId = rootGetters.user._id
       console.log('UserId from board store @Boards loading:', userId)
       const boards = await boardService.query(userId)
       console.log('store finished with serve loading boards')
-      context.commit({ type: 'setBoards', boards })
-      // context.commit({ type: 'toggleIsLoading' })
+      commit({ type: 'setBoards', boards })
     },
     async loadBoard({ commit }, { boardId }) {
-      commit({ type: 'toggleIsLoading' })
+      commit({ type: 'setBoard', board: null })
       // try {
       const board = await boardService.getById(boardId)
       console.log('after i  got board:', boardId)
       commit({ type: 'setBoard', board })
       console.log('after set board')
-      // setTimeout(() => {
-      commit({ type: 'toggleIsLoading' })
-      // }, 2000)
     },
     async removeBoard({ commit, state }, { boardId }) {
       if (state.boards.length <= 1) return

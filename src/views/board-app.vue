@@ -1,5 +1,5 @@
 <template>
-    <section v-if="!isLoading && board" class="board-app flex">
+    <section v-if="board" class="board-app flex">
         <board-list
             :expandList="expandList"
             :isExpanded="isListExpanded"
@@ -104,9 +104,6 @@ export default {
         },
         chatControl() {
             return this.isChatingBtnShown ? 'Hide Chat' : 'Show Chat'
-        },
-        isLoading() {
-            return this.$store.getters.isLoading
         },
         user() {
             return this.$store.getters.user
@@ -358,7 +355,7 @@ export default {
         },
     },
     async created() {
-      console.log('boardapp creation')
+        console.log('boardapp creation')
         socketService.setup()
         socketService.on('updated board', (board) => {
             this.$store.commit({
