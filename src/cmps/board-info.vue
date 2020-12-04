@@ -32,23 +32,6 @@
     </div>
     <div class="btn-activity-container">
       <button
-        v-tooltip.top="'Contact with your memebres'"
-        class="btn-close btn-second "
-        @click="toggleMembersList"
-      >
-        Board Members List
-        <span v-if="board.members.length" class="blue">{{
-          board.members.length
-        }}</span>
-      </button>
-      <members-list
-        @close="toggleMembersList"
-        :members="board.members"
-        v-if="isMembersShown"
-      />
-    </div>
-    <div class="btn-activity-container">
-      <button
         v-tooltip.top="'contect with your memberes'"
         class="btn-close btn-second btn-activity"
         @click="toggleMembersList"
