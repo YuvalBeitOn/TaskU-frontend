@@ -178,7 +178,6 @@ export default {
       newActivity.taskId = this.taskCopy.id
       this.taskCopy.members.unshift(member)
       this.activity = newActivity
-
       this.$notify({
         message: 'Member assinged to task',
         position: 'bottom-left',
@@ -195,7 +194,6 @@ export default {
       newActivity.taskId = this.taskCopy.id
       this.taskCopy.members.splice(idx, 1)
       this.activity = newActivity
-
       this.$notify({
         message: 'Member removed from task',
         position: 'bottom-left',
