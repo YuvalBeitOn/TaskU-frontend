@@ -1,6 +1,6 @@
 <template>
-  <section class="board-filter flex space-between">
-    <div class="filter-actions flex space-between align-center">
+  <!-- <section class="board-filter flex space-between"> -->
+    <section class="board-filters flex">
       <button
         v-tooltip.top="'Add New group'"
         class="add-group-btn"
@@ -10,24 +10,20 @@
       </button>
       <span
         :class="{
-          'input-container relative flex align-center justify-center': true,
-          'input-expanded': isInputExpanded
+          'input-container relative flex align-center justify-center': true
         }"
         ><i class="far fa-search search-icon"></i
         ><input
           :class="{ 'search-input': true }"
           ref="searchInput"
-          @click="expandInput"
           @input="updateFilterSearch"
           type="text"
           placeholder="Search"
           v-model="filterBy.searchTerm"
       /></span>
-      <div class="filter relative">
-        <span class="filters-txt" v-tooltip.top="'Filters'" @click="toggleFilter"
-          ><i class="fal fa-filter filter-icon"></i> Filter</span
-        >
-
+        <button class="filters-btn" v-tooltip.top="'Filters'" @click="toggleFilter"
+          ><i class="fal fa-filter filter-icon"></i> Filter</button>
+      <div class="filter-modal ">
         <div
           v-show="isFilterShowen"
           :class="{ 'filters flex': true, expanded: isFilterShowen }"
@@ -50,11 +46,10 @@
         </div>
         <div
           class="back-drop-layer"
-          v-if="isFilterShowen || isInputExpanded"
+          v-if="isFilterShowen"
           @click.stop="closePopUps"
         ></div>
       </div>
-    </div>
   </section>
 </template>
 
@@ -72,7 +67,6 @@ export default {
     return {
       isFilterShowen: false,
       newItem: null,
-      isInputExpanded: false
     }
   },
   computed: {
@@ -84,10 +78,10 @@ export default {
     }
   },
   methods: {
-    expandInput() {
-      this.isInputExpanded = true
-      this.$refs.searchInput.focus()
-    },
+    // expandInput() {
+    //   this.isInputExpanded = true
+    //   this.$refs.searchInput.focus()
+    // },
     addGroup() {
       this.$emit('addGroup')
     },
@@ -107,7 +101,6 @@ export default {
     },
     closePopUps() {
       this.isFilterShowen = false
-      this.isInputExpanded = false
     }
   },
   components: {

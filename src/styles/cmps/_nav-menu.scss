@@ -1,18 +1,47 @@
 .nav-menu {
   background-color: #292f4c;
-  height: 100vh;
-  width: rem(60px);
-  padding: rem(15px);
+  height: 100%;
+  min-width: rem(65px);
+  max-width: rem(65px);
+  padding: 10px 0;
   .top-nav > *:not(:last-child) {
     margin-bottom: 8px;
   }
   .bottom-nav > *:not(:last-child) {
     margin-bottom: 8px;
   }
+  .user-profile {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    &:hover {
+      cursor: pointer;
+    }
+    .user-menu {
+      left: 55px;
+      bottom: 25px;
+      top: unset;
+    }
+    .user-img {
+      width: 35px;
+      border-radius: 50%;
+      border: 1px solid white;
+    }
+  }
   .nav-icon-container {
+    width: 50px;
+    height: 38px;
+    display: flex;
+    position: relative;
     border-radius: 0 8px 8px 0;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 9px;
     &:hover {
       background-color: rgba(0, 0, 0, 0.6);
+    }
+    &:active {
+      background-color: rgba(255, 255, 255, 0.6);
     }
   }
 
@@ -22,25 +51,32 @@
     height: rem(45px);
   }
   .user-greeting {
-    transform: rotate(270deg);
-    padding: rem(8px) rem(15px);
+    position: absolute;
+    z-index: 10;
+    transform: rotate(-90deg);
     background-color: #00ca73;
     color: #fefefe;
-    font-size: rem(18px);
+    font-size: 1.125rem;
     font-weight: 600;
-    margin-left: -35px;
-    border-radius: 0 0 rem(20px) rem(20px);
+    border-radius: 0 0 1.25rem 1.25rem;
     width: 9.75rem;
     text-align: center;
     text-overflow: ellipsis;
     cursor: default;
+    left: -65px;
+    top: 50%;
+    height: 25px;
   }
 
   .nav-icon {
     cursor: pointer;
-    font-size: rem(20px);
+    height: 20px;
+    width: 20px;
+    font-size: rem(22px);
     color: white;
-    margin: rem(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &.logout {
       transform: rotate(180deg);
     }

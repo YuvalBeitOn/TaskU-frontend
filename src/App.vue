@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <main class="main-container flex">
-      <nav-menu v-if="isNavShowen" />
-      <router-view class="grow" />
+    <main :class="['main-container flex' ,darkMode]">
+      <nav-menu @logout="logout" v-if="isNavShowen" />
+      <router-view :class="['grow',darkMode]" />
     </main>
-   
-          </div>
+  </div>
 </template>
 
 <script>
-
 import navMenu from '@/cmps/nav-menu'
 export default {
-  methods: {},
   computed: {
+    darkMode(){
+     return this.$store.getters.getDarkModeToggle
+    },
     isNavShowen() {
       return this.$route.path === '/login' ||
         this.$route.path === '/signup' ||
@@ -22,12 +22,19 @@ export default {
         : true
     }
   },
-  created(){
-
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    }
   },
+  async created() {
+    await this.$store.dispatch({
+      type: 'setupSockets'
+    })
+  },
+
   components: {
-    navMenu,
-    
+    navMenu
   }
 }
 </script>

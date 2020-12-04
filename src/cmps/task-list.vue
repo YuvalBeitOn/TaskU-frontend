@@ -74,7 +74,6 @@ export default {
     },
     methods: {
         addEmptyTask(groupId) {
-            // console.log(groupId, this.groupId)
             if (this.groupId !== groupId) {
                 return
             }
@@ -151,47 +150,42 @@ export default {
             })
             this.$emit('forceRender')
         },
-        updateTask(newTask) {
-            const group = this.getGroupById()
-            const taskIdx = group.tasks.findIndex(
-                (task) => task.id === newTask.id
-            )
-            group.tasks.splice(taskIdx, 1, newTask)
-            const txt = `${this.user.fullName} update the task name`
-            let newActivity = boardService.getEmptyActivity(txt, this.user)
-            newActivity.taskId = newTask.id
-            this.board.activities.unshift(newActivity)
-            this.$store.dispatch({
-                type: 'saveBoard',
-                board: this.board,
-            })
-            this.$store.dispatch({ type: 'updateBoard', board: this.board })
+    updateTask(newTask,activity) {
+      console.log('activity:', activity)
+        if(activity){
+        this.board.activities.unshift(activity)
+        console.log('this.board.activities://///////*********', this.board.activities)
+      }
+      const group = this.getGroupById()
+      const taskIdx = group.tasks.findIndex(task => task.id === newTask.id)
+      group.tasks.splice(taskIdx, 1, newTask)
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
-            this.$emit('forceRender')
-        },
-        updateTasks() {
-            const group = this.getGroupById()
-            group.tasks = this.clonedTasks
-            const txt = `${this.user.fullName} update a the tasks on ${group.txt}`
-            let newActivity = boardService.getEmptyActivity(txt, this.user)
-            newActivity.groupId = group.id
-            this.board.activities.unshift(newActivity)
-            this.$store.dispatch({
-                type: 'saveBoard',
-                board: this.board,
-            })
-            this.$store.dispatch({ type: 'updateBoard', board: this.board })
+      this.$emit('forceRender')
+    },
+    updateTasks() {
+      const group = this.getGroupById()
+      group.tasks = this.clonedTasks
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
-            this.$emit('forceRender')
-        },
-    },
-    components: {
-        taskPreview,
-        draggable,
-    },
+      this.$emit('forceRender')
+    }
+  },
     created() {
-        this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
-        console.log('Tasks list is created')
-    },
+    this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
+  },
+  components: {
+    taskPreview,
+    draggable
+  },
+
 }
 </script>

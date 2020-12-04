@@ -1,5 +1,5 @@
 <template>
-  <li
+<li
     v-if="taskCopy"
     class="task-preview flex space-between align-center width100"
   >
@@ -8,7 +8,6 @@
       <button class="btn-close" @click="deleteTask">
         <i class="task-icon btn-trash fa-icon far fa-trash-alt"></i>
       </button>
-
       <div class="task-txt">
         <span
           class="editable"
@@ -36,17 +35,22 @@
     <div class="task-details flex">
       <div class="headers flex">
         <span class="members-preview relative task-item">
-          <members :hiddenBadge="membersLegnth" toolTipTxt="Task Members" classIcon="task-icon" :members="taskCopy.members">
-          <add-members
-            class="top-left"
-            slot="add-members"
-            firstTitle="Task members"
-            secondTitle="Invite Board members"
+          <members
+            :hiddenBadge="membersLegnth"
+            toolTipTxt="Task Members"
+            classIcon="task-icon"
             :members="taskCopy.members"
-            :allMembers="filteredBoardMembers"
-            @addMember="addTaskMember"
-            @removeMember="removeTaskMember"
-          />
+          >
+            <add-members
+              class="top-left"
+              slot="add-members"
+              firstTitle="Task members"
+              secondTitle="Invite Board members"
+              :members="taskCopy.members"
+              :allMembers="filteredBoardMembers"
+              @addMember="addTaskMember"
+              @removeMember="removeTaskMember"
+            />
           </members>
         </span>
 
@@ -89,13 +93,13 @@
     </div>
     <div
       class="back-drop-layer"
-      v-if=" isStatusesShowen || isPriorsShowen"
+      v-if="isStatusesShowen || isPriorsShowen"
       @click.stop="closePopups"
     ></div>
   </li>
 </template>
 <script>
-import members from '@/cmps/members';
+import members from '@/cmps/members'
 import addMembers from '@/cmps/add-members'
 import { eventBus } from '@/services/event-bus.service'
 import labelPicker from './label-picker'
@@ -103,13 +107,14 @@ import { boardService } from '@/services/board.service'
 import moment from 'moment'
 
 export default {
-  components: { labelPicker, addMembers ,members},
+  components: { labelPicker, addMembers, members },
   name: 'task-preview',
   data() {
     return {
       taskCopy: null,
       isStatusesShowen: false,
       isPriorsShowen: false,
+      activity: null,
     }
   },
   props: {
@@ -119,8 +124,7 @@ export default {
     priorities: Array,
     groupId: String,
     boardMembers: [Array, Object],
-    activity: Object,
-    user: Object
+    user: Object,
   },
 
   computed: {
@@ -140,8 +144,8 @@ export default {
       const boardMembers = this.boardMembers
       const taskMembers = this.taskCopy.members
       if (taskMembers) {
-        const filteredBoardMembers = boardMembers.filter(bMember => {
-          return taskMembers.every(tMember => {
+        const filteredBoardMembers = boardMembers.filter((bMember) => {
+          return taskMembers.every((tMember) => {
             return tMember._id !== bMember._id
           })
         })
@@ -149,7 +153,7 @@ export default {
       } else {
         return boardMembers
       }
-    }
+    },
   },
 
   methods: {
@@ -158,11 +162,11 @@ export default {
       const txt = `Task due ${this.taskCopy.txt} date was changed to ${date}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
-      eventBus.$emit('updateBoardActivity', newActivity)
+      this.activity = newActivity
       this.$notify({
         message: 'Task due date updated',
         position: 'bottom-left',
-        duration: 2000
+        duration: 2000,
       })
       this.updateTask()
     },
@@ -172,27 +176,27 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
       this.taskCopy.members.unshift(member)
-      eventBus.$emit('updateBoardActivity', newActivity)
+      this.activity = newActivity
       this.$notify({
         message: 'Member assinged to task',
         position: 'bottom-left',
-        duration: 2000
+        duration: 2000,
       })
       this.updateTask()
     },
     removeTaskMember(member) {
       const idx = this.taskCopy.members.findIndex(
-        tMember => tMember._id === member._id
+        (tMember) => tMember._id === member._id
       )
       const txt = `Member ${member.fullName} was removed from task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
       this.taskCopy.members.splice(idx, 1)
-      eventBus.$emit('updateBoardActivity', newActivity)
+      this.activity = newActivity
       this.$notify({
         message: 'Member removed from task',
         position: 'bottom-left',
-        duration: 2000
+        duration: 2000,
       })
       this.updateTask()
     },
@@ -217,17 +221,19 @@ export default {
         const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
         let newActivity = boardService.getEmptyActivity(txt, this.user)
         newActivity.taskId = this.taskCopy.id
-        eventBus.$emit('updateBoardActivity', newActivity)
+        this.activity = newActivity
+
         this.$notify({
           message: 'Task txt updated',
           position: 'bottom-left',
-          duration: 2000
+          duration: 2000,
         })
         this.updateTask()
       }
     },
     updateTask() {
-      this.$emit('updateTask', this.taskCopy)
+      console.log('//////////////this.activity:////////', this.activity)
+      this.$emit('updateTask', this.taskCopy, this.activity)
     },
     sendToTaskDetails() {
       if (this.$route.params.taskId === this.task.id) {
@@ -240,21 +246,20 @@ export default {
     updateComponentTask(task) {
       if (this.taskCopy.id === this.$route.params.taskId) {
         this.taskCopy = task
-        // this.updateTask()
       }
     },
     updateTaskPriority(opt) {
       const txt = `Task priority was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
-      // const prevPrior = this.taskCopy.priority.txt
+      this.activity = newActivity
+
       this.taskCopy.priority.txt = opt.txt
-      this.taskCopy.priority.color = opt.color      
-      eventBus.$emit('updateBoardActivity', newActivity)
+      this.taskCopy.priority.color = opt.color
       this.$notify({
         message: 'Task priority updated',
         position: 'bottom-left',
-        duration: 2000
+        duration: 2000,
       })
       this.updateTask()
       this.isPriorsShowen = false
@@ -262,15 +267,15 @@ export default {
     updateTaskStatus(opt) {
       const txt = `Task status was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
-      newActivity.taskId = this.taskCopy.id 
-      // const prevStatus = this.taskCopy.status.txt
+      newActivity.taskId = this.taskCopy.id
+      this.activity = newActivity
+
       this.taskCopy.status.txt = opt.txt
       this.taskCopy.status.color = opt.color
-      eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
         message: 'Task status updated',
         position: 'bottom-left',
-        duration: 2000
+        duration: 2000,
       })
       this.updateTask()
       this.isPriorsShowen = false
@@ -278,17 +283,17 @@ export default {
     closePopups() {
       this.isStatusesShowen = false
       this.isPriorsShowen = false
-    }
+    },
   },
   created() {
     eventBus.$on('updateTaskPreview', this.updateComponentTask)
-    eventBus.$on('updateTaskPreviewDestory', (task)=>{
-      this.taskCopy=task
+    eventBus.$on('updateTaskPreviewDestory', (task) => {
+      this.taskCopy = task
+      this.activity = null
       this.updateTask()
-      console.log('im updated!!!');
-      console.log('this.taskCopy',this.taskCopy);
+      console.log('im updated!!!')
     })
     this.taskCopy = this.task
-  }
+  },
 }
 </script>

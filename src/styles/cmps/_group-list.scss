@@ -1,7 +1,8 @@
 .group-container {
+  max-height: calc(100% - 160px);
   padding: 3rem;
-  height: 81.8vh;
   overflow-y: auto;
+  overflow-x: hidden;
   background-color: #f7f7f7;
   @include for-wide-layout {
     padding: 1.5rem;

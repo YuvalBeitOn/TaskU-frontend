@@ -1,6 +1,6 @@
 <template>
   <section class="task-posts relative">
-    <form @submit.prevent="addPost">
+    <form class="task-post-form relative" @submit.prevent="addPost">
       <textarea
         class="el-input-text-editor"
         @keydown.enter.exact.prevent="addPost"
@@ -9,8 +9,7 @@
         v-model="newPost"
       />
       <upload-img @sendImgUrl="imgUrl" />
-
-      <button>Post</button>
+      <button class="post-btn">Post</button>
     </form>
     <div class="posts-list flex column align-center">
       <div class="task-post-card" v-for="post in copiedPosts" :key="post.id">
@@ -29,9 +28,11 @@
           </h5>
         </div>
         <el-divider />
-        <div class="task-post-txt flex column">
-          <img v-if="post.imgUrl" :src="post.imgUrl" />
+        <div class="task-post-container flex space-between">
           <span>{{ post.txt }}</span>
+          <!-- <div class="ratio-square"> -->
+          <img class="uploaded-img" v-if="post.imgUrl" :src="post.imgUrl" />
+          <!-- </div> -->
         </div>
       </div>
     </div>
@@ -48,26 +49,28 @@ export default {
   name: 'task-posts',
   props: {
     posts: {
-      type: Array,
+      type: Array
     },
-    task: Object,
+    task: Object
   },
   computed: {
     user() {
       return this.$store.getters.user
-    },
+    }
   },
   data() {
     return {
       newPost: null,
       copiedPosts: null,
       componentKey: 0,
-      img: null,
+      img: null
     }
   },
   created() {
     this.copiedPosts = JSON.parse(JSON.stringify(this.posts))
-    console.log(this.logged)
+    // console.log(this.logged)
+    console.log('type of:',typeof this.task);
+    console.log('type of posts:',typeof this.posts);
   },
   methods: {
     imgUrl(url) {
@@ -89,27 +92,25 @@ export default {
       const txt = `${this.user.fullName} added new post on task:${this.task.txt} `
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.task.id
-      this.$emit('updateBoardActivity', newActivity)
-      this.$emit('updatePosts', this.copiedPosts)
+      this.$emit('updatePosts', this.copiedPosts,newActivity)
       this.newPost = ''
       this.$notify({
         message: 'New post published',
         position: 'bottom-left',
-        duration: 2000,
+        duration: 2000
       })
-    },
+    }
   },
   components: {
     Avatar,
-    uploadImg,
+    uploadImg
   },
   watch: {
     '$route.params.taskId'() {
       this.copiedPosts = this.posts
-    },
-  },
+    }
+  }
 }
 </script>
 
-<style>
-</style>
+<style></style>

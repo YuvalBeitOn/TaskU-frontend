@@ -1,29 +1,33 @@
 <template>
   <section class="board-chat">
     <section class="chat-container flex column">
-      <div class="header-chat flex space-between align-center">
+      <div class="header-chat flex column ">
+        <div class="main-header flex space-between align-center">
         {{topicName}} Chat
         <button class="btn-close">
           <i @click="emitClose" class="fas fa-times"></i>
         </button>
+        </div>
+        <span v-if="isTypeing">{{msgTyping}}</span>
       </div>
-      <div class="msg-container grow flex column">
+      <div ref="massgesContainer" class="msg-container grow flex column">
+        
         <template v-if="msgs">
-          <div class="chat-msg flex " v-for="(msg, idx) in msgs" :key="idx">
+          <div  class="chat-msg flex " v-for="(msg, idx) in msgs" :key="idx">
+            <div :class="msg.sender || ''">
         <avatar :user="user" />
 
          
             <strong class="from-msg">{{ msg.from }}:</strong><span>{{ msg.txt }} </span> 
-           <div v-show="isTypeing">
-  {{msgTyping}}
-  </div>
+
+          </div>
           </div>
         </template>
       </div>
       <div class="footer-chat flex align-center">
         <input
           type="text" @keydown.enter="sendMsg"
-          v-model="msg.txt"
+          v-model="msg.txt" 
           placeholder="Write a massage..."
           name=""
           id=""
@@ -36,7 +40,6 @@
 // Every line with @@ need to be without a comment
 import {socketService} from '@/services/socket.service.js' 
 import Avatar from '@/cmps/user-avatar.vue'
- Avatar 
 
 export default {
   name: 'board-chat',
@@ -72,6 +75,9 @@ computed:{
     },
     addMsg(msg){
       this.msgs.push(msg)
+      var elment = this.$refs.massgesContainer
+      elment.scrollTop = elment.scrollHeight;
+
     },
     sendMsg() {
       if (!this.msg.txt) return;
@@ -89,12 +95,15 @@ const { boardId } = this.$route.params;
     this.msg.from = this.$store.getters.user.fullName 
     console.log('this.msg.from:', this.msg.from)
     this.updateTopic();
-    socketService.setup();
     socketService.emit('chat topic', this.topic)
     socketService.on('history msg',msgs=>this.msgs = msgs)
     socketService.on('chat addMsg', this.addMsg)
+    socketService.on('chat addMsg sender', this.addMsg)
     socketService.on('isTyping',(boolen)=>this.isTypeing=boolen)
-    socketService.on('msg',(msg)=>this.msgTyping=msg)
+    socketService.on('msg',(msg)=>{
+      this.msgTyping=msg
+      console.log( this.msgTyping,'typing userr');
+      })
   },
     destroyed() {
     this.msgs = []

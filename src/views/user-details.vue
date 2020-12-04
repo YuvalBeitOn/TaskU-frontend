@@ -1,6 +1,6 @@
 <template>
     <section
-        v-if="loggedInUser && user && !isLoading"
+        v-if="loggedInUser && user "
         class="user-details flex column"
     >
         <section
@@ -16,8 +16,8 @@
             <el-tab-pane label="User Details">
                 <about-user :user="user" />
             </el-tab-pane>
-            <el-tab-pane label="Edit Profile">
-                <edit-user :user="user" />
+            <el-tab-pane v-if="userLogin" label="Edit Profile">
+                <edit-user v-if="userLogin" :user="user" />
             </el-tab-pane>
         </el-tabs>
     </section>
@@ -39,6 +39,10 @@ export default {
         }
     },
     computed: {
+        userLogin(){
+        const { userId } = this.$route.params
+           return (this.loggedInUser._id === userId)  ? true : false
+        },
         isLoading() {
             return this.$store.getters.isLoading
         },
@@ -57,6 +61,7 @@ export default {
     },
     created() {
         const { userId } = this.$route.params
+        this.$store.dispatch({type:'loadUser',userId:'12'})
         if (!this.loggedInUser) {
             console.log('I am not even logged in')
             this.$router.push('/')
@@ -73,7 +78,7 @@ export default {
     components: {
         Avatar,
         aboutUser,
-        editUser,
+        editUser
     },
 }
 </script>

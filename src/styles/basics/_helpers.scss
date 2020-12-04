@@ -1,5 +1,22 @@
 /* helpers! */
-
+.darkMode {
+  background-color: #202c37 !important;
+  color: #fff !important;
+  > * {
+    background-color: #202c37 !important;
+    color: #fff !important;
+  }
+  button {
+    color: #fff !important;
+  }
+  span{
+    color: rgb(210, 210, 210) !important;
+    font-weight: bold !important;
+  }
+  i{
+    color: rgb(61, 61, 61) !important;
+  }
+}
 /* Flex Helpers! */
 
 .flex {
@@ -79,9 +96,32 @@
 .editable {
   border: 1px solid transparent;
   display: inline-block;
-
 }
 .editable:hover {
   border: 1px dashed black !important;
   width: fit-content;
+}
+
+.ratio-square {
+  @include aspect-ratio(1, 1);
+}
+//search input-list:
+.board-search {
+  .search-input {
+    &::placeholder {
+      color: rgb(61, 61, 61);
+      font-size: 0.9rem;
+      padding-left: 25px;
+    }
+    padding-left: 5px;
+
+    width: 210px;
+    height: 32px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }

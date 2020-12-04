@@ -3,7 +3,7 @@
     <h3 class="title-members">{{ firstTitle }}</h3>
     <ul class="clean-list first members-list">
       <li class="member flex align-center" v-for="member in members" :key="member._id">
-        <avatar :user="member" />
+        <avatar :user="member" :size="20"/>
 
         <span class="member-name">{{ member.fullName }}</span>
         <i
@@ -19,7 +19,7 @@
         v-for="aMember in allMembers"
         :key="aMember._id"
       >
-        <avatar :user="aMember" />
+        <avatar :user="aMember" :size="20"/>
         <span class="member-name">{{ aMember.fullName }}</span>
         <i
           @click.stop="emitAddMember(aMember)"
@@ -47,6 +47,9 @@ export default {
     emitRemoveMember(member) {
       this.$emit('removeMember', member)
     },
+  },
+  created() {
+    console.log(this.members);
   },
   components: {
     Avatar,

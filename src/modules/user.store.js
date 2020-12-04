@@ -10,10 +10,10 @@ export const userStore = {
   },
   getters: {
     users(state) {
-      return state.users
+      return JSON.parse(JSON.stringify(state.users))
     },
     user(state) {
-      return state.loggedInUser
+      return JSON.parse(JSON.stringify(state.loggedInUser))
     },
     guestUser() {
       return {
@@ -47,31 +47,59 @@ export const userStore = {
   },
   actions: {
     async loadUsers({ commit }) {
-      const users = await userService.getUsers()
-      commit({ type: 'setUsers', users })
+      try {
+
+        const users = await userService.getUsers()
+        commit({ type: 'setUsers', users })
+      } catch (err) {
+        console.log('ERROR:cant find users');
+        throw err
+
+      }
     },
     async loadUser({ commit }, { userId }) {
-      // commit({ type: 'toggleIsLoading' })
-      const user = await userService.getById(userId)
-      commit({ type: 'setUser', user })
-      // setTimeout(() => {
-      // commit({ type: 'toggleIsLoading' })
-      // }, 2000)
+      console.log('userId:', userId)
+      try {
+        const user = await userService.getById(userId)
+        console.log('try');
+        commit({ type: 'setUser', user })
+      } catch (err) {
+        console.log('ERROR:cant find user');
+        throw err
+      }
+
     },
     async removeUser({ commit }, { userId }) {
-      await userService.remove(userId)
-      commit({ type: 'removeUser', userId })
+      try {
+
+        await userService.remove(userId)
+        commit({ type: 'removeUser', userId })
+      } catch (err) {
+        console.log('ERROR: cant remove user');
+        throw err
+      }
     },
-    async upadteUser({ commit }, { user }) {
+    async updateUser({ commit }, { user }) {
       console.log('user store:', user)
-      const savedUser = await userService.save(user)
-      commit({ type: 'updateUser', user: savedUser })
-      return savedUser
+      try {
+        const savedUser = await userService.save(user)
+        commit({ type: 'updateUser', user: savedUser })
+        return savedUser
+      } catch (err) {
+        console.log('ERROR:cant updated user!');
+        throw err
+      }
     },
     async addUser({ commit }, { user }) {
-      const savedUser = await userService.save(user)
-      commit({ type: 'addUser', user: savedUser })
-      return savedUser
+      try {
+        const savedUser = await userService.save(user)
+        commit({ type: 'addUser', user: savedUser })
+        return savedUser
+      } catch (err) {
+        console.log('ERROR:cant add user');
+        throw err
+      }
+
     },
     async login(context, { userCred }) {
       try {
@@ -89,23 +117,42 @@ export const userStore = {
           context.commit({ type: 'setUser', user })
           return user
         }
-      } catch {
-        console.log('catching the error yo')
+      } catch (err) {
+        console.log('ERROR:cant do login')
       }
     },
     async logout(context) {
-      await userService.logout()
-      context.commit({ type: 'setUsers', users: [] })
-      context.commit({ type: 'setUser', user: null })
+      try {
+        await userService.logout()
+        context.commit({ type: 'setUsers', users: [] })
+        context.commit({ type: 'setUser', user: null })
+      } catch (err) {
+        console.log('ERROR:cant logout');
+        throw err
+      }
     },
     async signup(context, { userCred }) {
       console.log('store got the user cred', userCred)
-      const user = await userService.signup(userCred)
-      context.commit({ type: 'setUser', user })
-      return user
-    }
+      try {
+
+        const user = await userService.signup(userCred)
+        context.commit({ type: 'setUser', user })
+        return user
+      } catch (err) {
+        console.log('CANT SIGN UP ');
+        throw err
+
+      }
+    },
     // async uploadUserImg(context, { img }) {
     //   console.log('the image',img, context, 'context')
     // }
+    async sendNotif(context, { notif }) {
+      console.log('notif in store:', notif);
+      await userService.sendNotif(notif)
+
+      // context.commit({ type: 'setUser', user })
+
+    }
   }
 }

@@ -1,6 +1,7 @@
 .task-activities {
   overflow: auto;
-  max-height: 90vh;
+  width: 540px;
+  max-height: 550px;
   > *:not(:last-child) {
     margin-bottom: 1rem;
     border-bottom: 1px solid gray;
@@ -9,6 +10,7 @@
   }
   .activity {
     padding: 14px;
+    margin-right: 3px;
     border: 1px solid #e6e9ef;
     border-radius: 5px;
     margin-bottom: 5px;
