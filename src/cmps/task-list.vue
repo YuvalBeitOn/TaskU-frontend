@@ -74,7 +74,6 @@ export default {
     },
     methods: {
         addEmptyTask(groupId) {
-            // console.log(groupId, this.groupId)
             if (this.groupId !== groupId) {
                 return
             }

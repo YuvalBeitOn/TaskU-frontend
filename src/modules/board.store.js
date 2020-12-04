@@ -1,4 +1,7 @@
 import { boardService } from '@/services/board.service.js'
+
+import _ from 'lodash'
+
 export const boardStore = {
   state: {
     boards: [],
@@ -73,6 +76,26 @@ export const boardStore = {
       const isDarkMode = state.darkMode
       return  {darkMode:isDarkMode   , '':!isDarkMode }
      
+    },
+    tasksByStatues(state){
+       let statuesMap =state.currBoard.statuses.reduce((acc,status)=>{
+        acc[_.camelCase(status.txt)] = {id:status.id,color:status.color,txt:status.txt,tasks:[]}
+        return acc
+      },{})
+      const boardGroups = state.currBoard.groups
+      boardGroups.forEach(group=>{
+        group.tasks.forEach(task=>{
+         var newStatus = _.camelCase(task.status.txt)
+         for(let key in statuesMap){
+           if(key === newStatus){
+             const taskDetails = {...task,groupName:group.name,groupId:group.id}
+             statuesMap[key].tasks.push(taskDetails)
+           }
+         }
+        })
+      })
+      console.log('statuesMap:', statuesMap)
+      return statuesMap 
     }
 
   },
