@@ -66,9 +66,10 @@ function getEmptyNotif() {
   return {
     id: utilService.makeId(),
     txt: '',
+    type: '',
     byUser: null,
-    toUser: null,
-    isRead: null,
+    toUserId: null,
+    isRead: false,
     createdAt: Date.now()
   }
 }

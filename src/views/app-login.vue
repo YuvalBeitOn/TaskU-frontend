@@ -54,6 +54,11 @@ export default {
       }
     }
   },
+  computed: {
+    defaultBoardId() {
+      return this.$store.getters.defaultBoardId
+    }
+  },
   created() {},
   methods: {
     async submitLogin() {
@@ -62,14 +67,18 @@ export default {
         type: 'login',
         userCred
       })
-      // this.$store.dispatch({ type: 'loadBoards' })
+      await this.$store.dispatch({ type: 'loadBoards' })
       console.log('user after login:', user)
+      // this.$store.dispatch({
+      //   type: 'createPrivateSocket',
+      //   userId: user._id
+      // })
       this.loginCredentials = {
         email: null,
         password: null,
         isAdmin: false
       }
-      this.$router.push('/board')
+      this.$router.push(`/board/${this.defaultBoardId}`)
     }
   }
 }

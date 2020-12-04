@@ -8,7 +8,7 @@
       </div>
       <div class="nav-icon-container notifs" v-tooltip.right="'Notfications'">
         <i class="nav-icon far fa-bell" @click="toggleNotifsModal"></i>
-        <notifications-modal v-show="isNotifsModalShown"/>
+        <notifications-modal v-if="isNotifsModalShown"/>
       </div>
       <div class="nav-icon-container" v-tooltip.right="'Inbox'">
         <i class="nav-icon far fa-inbox-in"></i>

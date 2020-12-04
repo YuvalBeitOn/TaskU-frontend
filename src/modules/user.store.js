@@ -10,10 +10,10 @@ export const userStore = {
   },
   getters: {
     users(state) {
-      return state.users
+      return JSON.parse(JSON.stringify(state.users))
     },
     user(state) {
-      return state.loggedInUser
+      return JSON.parse(JSON.stringify(state.loggedInUser))
     },
     guestUser() {
       return {
@@ -62,9 +62,10 @@ export const userStore = {
       await userService.remove(userId)
       commit({ type: 'removeUser', userId })
     },
-    async upadteUser({ commit }, { user }) {
+    async updateUser({ commit }, { user }) {
       console.log('user store:', user)
       const savedUser = await userService.save(user)
+      console.log();
       commit({ type: 'updateUser', user: savedUser })
       return savedUser
     },
@@ -107,9 +108,9 @@ export const userStore = {
     // async uploadUserImg(context, { img }) {
     //   console.log('the image',img, context, 'context')
     // }
-    async sendNotif(context, {notif}) {
+    async sendNotif(context, { notif }) {
       console.log('notif in store:', notif);
-        await userService.sendNotif(notif)
+      await userService.sendNotif(notif)
 
       // context.commit({ type: 'setUser', user })
 

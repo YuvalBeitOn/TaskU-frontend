@@ -1,0 +1,48 @@
+.notif-preview {
+  padding: 14px;
+  font-size: 14px;
+  border: 1px solid #e6e9ef;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  background-color: #e5f4ff;
+  &:hover {
+    background-color: #d2eaff;
+  }
+  > *:not(:last-child) {
+    position: relative;
+    text-align: left;
+  }
+  .notif-container {
+    .user-img {
+      margin-right: 5px;
+    }
+    .notif-details {
+        >* {
+            padding: 3px;
+        }
+      .user-mail {
+        font-weight: bold;
+      }
+      .point {
+        background-color: #323338;
+        margin: 0 6px;
+        height: 3px;
+        width: 3px;
+        border-radius: 50%;
+      }
+      .notif-board-name {
+          font-weight: bold;
+      }
+    }
+  }
+  .notif-btns {
+      padding-left: 15px;
+      border-left: 0.3px solid rgb(180, 179, 179);
+    .notif-btn {
+      font-size: 15px;
+      background-color: transparent;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

@@ -89,7 +89,6 @@ const { boardId } = this.$route.params;
     this.msg.from = this.$store.getters.user.fullName 
     console.log('this.msg.from:', this.msg.from)
     this.updateTopic();
-    socketService.setup();
     socketService.emit('chat topic', this.topic)
     socketService.on('history msg',msgs=>this.msgs = msgs)
     socketService.on('chat addMsg', this.addMsg)

@@ -162,6 +162,18 @@ export default {
   methods: {
     updateTaskDate() {
       const date = moment(this.taskCopy.dueDate).format('ll')
+      if (date === 'Invalid date') return
+      this.boardMembers.forEach(member => {
+        let newNotif = userService.getEmptyNotif()
+        newNotif.txt = `Upadte task due date to "${date}"`
+        newNotif.type = 'all'
+        newNotif.byUser = {
+          'name:': this.user.fullName,
+          mail: this.user.email
+        }
+        newNotif.toUserId = member._id
+        this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
+      })
       const txt = `Task due ${this.taskCopy.txt} date was changed to ${date}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
@@ -178,8 +190,9 @@ export default {
       const txt = `Member ${member.fullName} was added to task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       let newNotif = userService.getEmptyNotif()
-      newNotif.txt = `${this.user.fullName} assinged you to "${this.taskCopy.txt}"`
-      newNotif.byUser = { 'name:': this.user.fullName }
+      newNotif.txt = `assigned you to "${this.taskCopy.txt}"`
+      newNotif.type = 'assigned'
+      newNotif.byUser = { 'name:': this.user.fullName, mail: this.user.email }
       newNotif.toUserId = member._id
       this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       // newNotif.byUser.imgUrl = ''
@@ -199,6 +212,12 @@ export default {
       const idx = this.taskCopy.members.findIndex(
         tMember => tMember._id === member._id
       )
+      let newNotif = userService.getEmptyNotif()
+      newNotif.txt = `took you off from task "${this.taskCopy.txt}"`
+      newNotif.type = 'all'
+      newNotif.byUser = { 'name:': this.user.fullName, mail: this.user.email }
+      newNotif.toUserId = member._id
+      this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       const txt = `Member ${member.fullName} was removed from task`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
@@ -227,6 +246,17 @@ export default {
       ev.target.blur()
       if (ev.target.innerText === this.taskCopy.txt) return
       else {
+        this.boardMembers.forEach(member => {
+          let newNotif = userService.getEmptyNotif()
+          newNotif.txt = `Upadte task content to "${ev.target.innerText}"`
+          newNotif.type = 'all'
+          newNotif.byUser = {
+            'name:': this.user.fullName,
+            mail: this.user.email
+          }
+          newNotif.toUserId = member._id
+          this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
+        })
         const prevTxt = this.taskCopy.txt
         this.taskCopy.txt = ev.target.innerText
         const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
@@ -259,12 +289,22 @@ export default {
       }
     },
     updateTaskPriority(opt) {
+      this.boardMembers.forEach(member => {
+        let newNotif = userService.getEmptyNotif()
+        newNotif.txt = `Upadte task priority to "${opt.txt}"`
+        newNotif.type = 'all'
+        newNotif.byUser = {
+          'name:': this.user.fullName,
+          mail: this.user.email
+        }
+        newNotif.toUserId = member._id
+        this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
+      })
       const txt = `Task priority was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
-      // const prevPrior = this.taskCopy.priority.txt
       this.taskCopy.priority.txt = opt.txt
-      this.taskCopy.priority.color = opt.color      
+      this.taskCopy.priority.color = opt.color
       eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
         message: 'Task priority updated',
@@ -275,9 +315,20 @@ export default {
       this.isPriorsShowen = false
     },
     updateTaskStatus(opt) {
+      this.boardMembers.forEach(member => {
+        let newNotif = userService.getEmptyNotif()
+        newNotif.txt = `Upadte task status to "${opt.txt}"`
+        newNotif.type = 'all'
+        newNotif.byUser = {
+          'name:': this.user.fullName,
+          mail: this.user.email
+        }
+        newNotif.toUserId = member._id
+        this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
+      })
       const txt = `Task status was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
-      newActivity.taskId = this.taskCopy.id 
+      newActivity.taskId = this.taskCopy.id
       // const prevStatus = this.taskCopy.status.txt
       this.taskCopy.status.txt = opt.txt
       this.taskCopy.status.color = opt.color
@@ -297,11 +348,11 @@ export default {
   },
   created() {
     eventBus.$on('updateTaskPreview', this.updateComponentTask)
-    eventBus.$on('updateTaskPreviewDestory', (task)=>{
-      this.taskCopy=task
+    eventBus.$on('updateTaskPreviewDestory', task => {
+      this.taskCopy = task
       this.updateTask()
-      console.log('im updated!!!');
-      console.log('this.taskCopy',this.taskCopy);
+      console.log('im updated!!!')
+      console.log('this.taskCopy', this.taskCopy)
     })
     this.taskCopy = this.task
   }

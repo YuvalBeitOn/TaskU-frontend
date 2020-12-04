@@ -1,33 +1,6 @@
 .board-app {
   background-color: #f7f7f7;
-  .expand-list-btn {
-    border: 1px solid #e6e9ef;
-    border-radius: 20px;
-    background-color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    width: 26px;
-    height: 26px;
-    padding: 3px 9px;
-    position: absolute;
-    right: -13px;
-    top: 10px;
-    font-size: rem(12px);
-    &.notExpanded {
-      position: absolute;
-    }
-    &:hover {
-      padding: 0px 15px;
-      background-color: $clr1;
-      color: white;
-      justify-content: flex-end;
-    }
-    .expand-icon {
-      font-size: 11px;
-    }
-  }
+
 
   .board-control {
     border-bottom: 1px solid rgba(165, 165, 165, 0.714);
