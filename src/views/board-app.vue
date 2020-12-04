@@ -72,12 +72,11 @@ import { eventBus } from '@/services/event-bus.service'
 import chatApp from '@/cmps/board-chat'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
-// import taskDetails from '../views/task-details'
 import { boardService } from '@/services/board.service'
 import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
 import boardHeader from '../cmps/board-header.vue'
-import { socketService } from '@/services/socket.service.js'
+// import { socketService } from '@/services/socket.service.js'
 
 export default {
   name: 'board-app',
@@ -381,21 +380,21 @@ export default {
     }
   },
   created() {
-    console.log('boardapp creation')
-    socketService.on('updated board', board => {
-      this.$store.commit({
-        type: 'setBoard',
-        board
-      })
-      this.forceRerender()
-    })
-    socketService.on('load boards', boards => {
-      console.log('boards length', boards.length)
-      this.$store.commit({
-        type: 'setBoards',
-        boards
-      })
-    })
+    // console.log('boardapp creation')
+    // socketService.on('updated board', board => {
+    //   this.$store.commit({
+    //     type: 'setBoard',
+    //     board
+    //   })
+    //   this.forceRerender()
+    // })
+    // socketService.on('load boards', boards => {
+    //   console.log('boards length', boards.length)
+    //   this.$store.commit({
+    //     type: 'setBoards',
+    //     boards
+    //   })
+    // })
     eventBus.$on('updateBoardActivity', this.updateBoardActivity)
     this.$store.dispatch({ type: 'loadUsers' })
     this.loadBoards()
