@@ -24,23 +24,24 @@
 <script>
 import { imgUpload } from '@/services/img-upload.service'
 export default {
-  data() {
-    return {
-      isLoading: false,
-      imgUrl: null
-    }
-  },
-  computed() {},
-  methods: {
+    data(){
+        return {
+            isLoading:false,
+            imgUrl:null
+        }
+    },
+
+    methods:{
     async onUploadImg(ev) {
       this.isLoading = true
       const res = await imgUpload(ev)
       this.imgUrl = res.url
       this.$emit('sendImgUrl', this.imgUrl)
       this.isLoading = false
-    }
-  },
-  created() {}
+    },
+    },
+  
+
 }
 </script>
 

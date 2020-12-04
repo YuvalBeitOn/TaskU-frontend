@@ -116,7 +116,12 @@ export default {
     return {
       taskCopy: null,
       isStatusesShowen: false,
+<<<<<<< HEAD
       isPriorsShowen: false
+=======
+      isPriorsShowen: false,
+      activity: null,
+>>>>>>> 16823dda8757a265286ca1058b09791a401434fe
     }
   },
   props: {
@@ -126,8 +131,7 @@ export default {
     priorities: Array,
     groupId: String,
     boardMembers: [Array, Object],
-    activity: Object,
-    user: Object
+    user: Object,
   },
 
   computed: {
@@ -147,8 +151,8 @@ export default {
       const boardMembers = this.boardMembers
       const taskMembers = this.taskCopy.members
       if (taskMembers) {
-        const filteredBoardMembers = boardMembers.filter(bMember => {
-          return taskMembers.every(tMember => {
+        const filteredBoardMembers = boardMembers.filter((bMember) => {
+          return taskMembers.every((tMember) => {
             return tMember._id !== bMember._id
           })
         })
@@ -156,7 +160,7 @@ export default {
       } else {
         return boardMembers
       }
-    }
+    },
   },
 
   methods: {
@@ -177,11 +181,11 @@ export default {
       const txt = `Task due ${this.taskCopy.txt} date was changed to ${date}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
-      eventBus.$emit('updateBoardActivity', newActivity)
+      this.activity = newActivity
       this.$notify({
         message: 'Task due date updated',
         position: 'bottom-left',
-        duration: 2000
+        duration: 2000,
       })
       this.updateTask()
     },
@@ -200,17 +204,18 @@ export default {
       console.log('member:', member)
       newActivity.taskId = this.taskCopy.id
       this.taskCopy.members.unshift(member)
-      eventBus.$emit('updateBoardActivity', newActivity)
+      this.activity = newActivity
+
       this.$notify({
         message: 'Member assinged to task',
         position: 'bottom-left',
-        duration: 2000
+        duration: 2000,
       })
       this.updateTask()
     },
     removeTaskMember(member) {
       const idx = this.taskCopy.members.findIndex(
-        tMember => tMember._id === member._id
+        (tMember) => tMember._id === member._id
       )
       let newNotif = userService.getEmptyNotif()
       newNotif.txt = `took you off from task "${this.taskCopy.txt}"`
@@ -222,11 +227,12 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
       this.taskCopy.members.splice(idx, 1)
-      eventBus.$emit('updateBoardActivity', newActivity)
+      this.activity = newActivity
+
       this.$notify({
         message: 'Member removed from task',
         position: 'bottom-left',
-        duration: 2000
+        duration: 2000,
       })
       this.updateTask()
     },
@@ -262,17 +268,19 @@ export default {
         const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
         let newActivity = boardService.getEmptyActivity(txt, this.user)
         newActivity.taskId = this.taskCopy.id
-        eventBus.$emit('updateBoardActivity', newActivity)
+        this.activity = newActivity
+
         this.$notify({
           message: 'Task txt updated',
           position: 'bottom-left',
-          duration: 2000
+          duration: 2000,
         })
         this.updateTask()
       }
     },
     updateTask() {
-      this.$emit('updateTask', this.taskCopy)
+      console.log('//////////////this.activity:////////', this.activity)
+      this.$emit('updateTask', this.taskCopy, this.activity)
     },
     sendToTaskDetails() {
       if (this.$route.params.taskId === this.task.id) {
@@ -285,7 +293,6 @@ export default {
     updateComponentTask(task) {
       if (this.taskCopy.id === this.$route.params.taskId) {
         this.taskCopy = task
-        // this.updateTask()
       }
     },
     updateTaskPriority(opt) {
@@ -303,13 +310,20 @@ export default {
       const txt = `Task priority was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
+<<<<<<< HEAD
       this.taskCopy.priority.txt = opt.txt
       this.taskCopy.priority.color = opt.color
       eventBus.$emit('updateBoardActivity', newActivity)
+=======
+      this.activity = newActivity
+
+      this.taskCopy.priority.txt = opt.txt
+      this.taskCopy.priority.color = opt.color
+>>>>>>> 16823dda8757a265286ca1058b09791a401434fe
       this.$notify({
         message: 'Task priority updated',
         position: 'bottom-left',
-        duration: 2000
+        duration: 2000,
       })
       this.updateTask()
       this.isPriorsShowen = false
@@ -329,14 +343,18 @@ export default {
       const txt = `Task status was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
+<<<<<<< HEAD
       // const prevStatus = this.taskCopy.status.txt
+=======
+      this.activity = newActivity
+
+>>>>>>> 16823dda8757a265286ca1058b09791a401434fe
       this.taskCopy.status.txt = opt.txt
       this.taskCopy.status.color = opt.color
-      eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
         message: 'Task status updated',
         position: 'bottom-left',
-        duration: 2000
+        duration: 2000,
       })
       this.updateTask()
       this.isPriorsShowen = false
@@ -344,17 +362,25 @@ export default {
     closePopups() {
       this.isStatusesShowen = false
       this.isPriorsShowen = false
-    }
+    },
   },
   created() {
     eventBus.$on('updateTaskPreview', this.updateComponentTask)
+<<<<<<< HEAD
     eventBus.$on('updateTaskPreviewDestory', task => {
       this.taskCopy = task
       this.updateTask()
       console.log('im updated!!!')
       console.log('this.taskCopy', this.taskCopy)
+=======
+    eventBus.$on('updateTaskPreviewDestory', (task) => {
+      this.taskCopy = task
+      this.activity = null
+      this.updateTask()
+      console.log('im updated!!!')
+>>>>>>> 16823dda8757a265286ca1058b09791a401434fe
     })
     this.taskCopy = this.task
-  }
+  },
 }
 </script>

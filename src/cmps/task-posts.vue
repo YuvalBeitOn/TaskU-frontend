@@ -68,7 +68,9 @@ export default {
   },
   created() {
     this.copiedPosts = JSON.parse(JSON.stringify(this.posts))
-    console.log(this.logged)
+    // console.log(this.logged)
+    console.log('type of:',typeof this.task);
+    console.log('type of posts:',typeof this.posts);
   },
   methods: {
     imgUrl(url) {
@@ -90,8 +92,7 @@ export default {
       const txt = `${this.user.fullName} added new post on task:${this.task.txt} `
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.task.id
-      this.$emit('updateBoardActivity', newActivity)
-      this.$emit('updatePosts', this.copiedPosts)
+      this.$emit('updatePosts', this.copiedPosts,newActivity)
       this.newPost = ''
       this.$notify({
         message: 'New post published',

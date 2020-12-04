@@ -1,5 +1,5 @@
 <template>
-  <ul v-if="activities.length" class="task-activities">
+  <ul v-if="activities && activities.length" class="task-activities">
     <li
       class="activity flex space-between align-center"
       v-for="activity in activities"

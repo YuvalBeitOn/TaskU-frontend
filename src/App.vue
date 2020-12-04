@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <main class="main-container flex">
+    <main :class="['main-container flex' ,darkMode]">
       <nav-menu @logout="logout" v-if="isNavShowen" />
-      <router-view class="grow" />
+      <router-view :class="['grow',darkMode]" />
     </main>
   </div>
 </template>
@@ -11,6 +11,9 @@
 import navMenu from '@/cmps/nav-menu'
 export default {
   computed: {
+    darkMode(){
+     return this.$store.getters.getDarkModeToggle
+    },
     isNavShowen() {
       return this.$route.path === '/login' ||
         this.$route.path === '/signup' ||

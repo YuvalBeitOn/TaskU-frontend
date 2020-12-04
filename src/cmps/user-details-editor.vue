@@ -1,6 +1,6 @@
 
       <template>
-  <section class="user-editor flex justify-center">
+  <section  class="user-editor flex justify-center">
     <form class="form-editor flex column" @submit="saveDetails">
       <label for="">Email:</label>
       <el-input
@@ -19,7 +19,7 @@
 
       <el-input
         placeholder="Phone"
-        v-model.number="userToEdit.phone"
+        v-model.trim="userToEdit.phone"
       ></el-input>
       <label for="">Address:</label>
 
@@ -71,7 +71,9 @@ console.log(url,'im url');
     },
 
   },
+  
   created() {
+     
     this.userToEdit = JSON.parse(JSON.stringify(this.user))
   },
   components:{

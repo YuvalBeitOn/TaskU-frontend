@@ -4,7 +4,8 @@ export const boardStore = {
     boards: [],
     currBoard: null,
     searchBoard: null,
-    filterBy: { status: 'All', priority: 'All', person: 'All', searchTerm: '' }
+    filterBy: { status: 'All', priority: 'All', person: 'All', searchTerm: '' },
+    darkMode:false
   },
   getters: {
     boards(state) {
@@ -77,9 +78,18 @@ export const boardStore = {
     },
     boardActivities(state) {
       return state.currBoard.activities
+    },
+    getDarkModeToggle(state){
+      const isDarkMode = state.darkMode
+      return  {darkMode:isDarkMode   , '':!isDarkMode }
+     
     }
+
   },
   mutations: {
+    darkMode(state,{darkMode}){
+      return state.darkMode = darkMode
+    },
     setBoards(state, { boards }) {
       // const miniBoards = boards.map(board => {
       //   console.log('im in map')
@@ -106,18 +116,25 @@ export const boardStore = {
     async loadBoards({ commit, rootGetters }) {
       commit({ type: 'setBoards', boards: null })
       const userId = rootGetters.user._id
-      console.log('UserId from board store @Boards loading:', userId)
-      const boards = await boardService.query(userId)
-      console.log('store finished with serve loading boards')
-      commit({ type: 'setBoards', boards })
+      try {
+        console.log('UserId from board store @Boards loading:', userId)
+        const boards = await boardService.query(userId)
+        commit({ type: 'setBoards', boards })
+      } catch (err) {
+        console.log('ERROR: cant loads boards',err);
+        throw err
+      }
     },
     async loadBoard({ commit }, { boardId }) {
       commit({ type: 'setBoard', board: null })
-      // try {
+      try {
       const board = await boardService.getById(boardId)
-      console.log('after i  got board:', boardId)
       commit({ type: 'setBoard', board })
-      console.log('after set board')
+      } catch (err){
+        console.log('no loaded');
+        console.log('ERROR: cant load board',err);
+        throw err
+      }
     },
     async removeBoard({ commit, state }, { boardId }) {
       if (state.boards.length <= 1) return
@@ -125,7 +142,7 @@ export const boardStore = {
         await boardService.remove(boardId)
         commit({ type: 'removeBoard', boardId })
       } catch (err) {
-        console.log('error', err)
+        console.log('ERROR: cant remove board', err)
         throw err
       }
     },
@@ -136,14 +153,19 @@ export const boardStore = {
       if (userId !== guestUser._id && !board._id) {
         board.members.push(guestUser)
       }
-      const savedBoard = await boardService.save(board)
-      if (board._id) {
-        commit({ type: 'setBoard', board: savedBoard })
-      } else {
-        console.log('im in the else')
-        await dispatch({ type: 'loadBoards' })
+      try{
+        const savedBoard = await boardService.save(board)
+        if (board._id) {
+          commit({ type: 'setBoard', board: savedBoard })
+        } else {
+          console.log('im in the else')
+          await dispatch({ type: 'loadBoards' })
+        }
+        return savedBoard._id
+      } catch (err){
+        console.log('ERROR: cant save/update board');
+        throw err
       }
-      return savedBoard._id
     }
   }
 }
