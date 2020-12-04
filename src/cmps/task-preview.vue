@@ -116,7 +116,9 @@ export default {
     return {
       taskCopy: null,
       isStatusesShowen: false,
-      isPriorsShowen: false
+      isPriorsShowen: false,
+      activity: null,
+
     }
   },
   props: {
@@ -126,7 +128,6 @@ export default {
     priorities: Array,
     groupId: String,
     boardMembers: [Array, Object],
-    activity: Object,
     user: Object
   },
   computed: {
@@ -176,7 +177,7 @@ export default {
       const txt = `Task due ${this.taskCopy.txt} date was changed to ${date}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
-      eventBus.$emit('updateBoardActivity', newActivity)
+      this.activity = newActivity
       this.$notify({
         message: 'Task due date updated',
         position: 'bottom-left',
@@ -199,7 +200,7 @@ export default {
       console.log('member:', member)
       newActivity.taskId = this.taskCopy.id
       this.taskCopy.members.unshift(member)
-      eventBus.$emit('updateBoardActivity', newActivity)
+      this.activity = newActivity
       this.$notify({
         message: 'Member assinged to task',
         position: 'bottom-left',
@@ -221,7 +222,7 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
       this.taskCopy.members.splice(idx, 1)
-      eventBus.$emit('updateBoardActivity', newActivity)
+      this.activity = newActivity
       this.$notify({
         message: 'Member removed from task',
         position: 'bottom-left',
@@ -261,7 +262,7 @@ export default {
         const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
         let newActivity = boardService.getEmptyActivity(txt, this.user)
         newActivity.taskId = this.taskCopy.id
-        eventBus.$emit('updateBoardActivity', newActivity)
+        this.activity = newActivity
         this.$notify({
           message: 'Task txt updated',
           position: 'bottom-left',
@@ -271,7 +272,8 @@ export default {
       }
     },
     updateTask() {
-      this.$emit('updateTask', this.taskCopy)
+      console.log('//////////////this.activity:////////', this.activity)
+      this.$emit('updateTask', this.taskCopy, this.activity)
     },
     sendToTaskDetails() {
       if (this.$route.params.taskId === this.task.id) {
@@ -304,7 +306,7 @@ export default {
       newActivity.taskId = this.taskCopy.id
       this.taskCopy.priority.txt = opt.txt
       this.taskCopy.priority.color = opt.color
-      eventBus.$emit('updateBoardActivity', newActivity)
+      this.activity = newActivity
       this.$notify({
         message: 'Task priority updated',
         position: 'bottom-left',
@@ -328,10 +330,10 @@ export default {
       const txt = `Task status was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
+      this.activity = newActivity
       // const prevStatus = this.taskCopy.status.txt
       this.taskCopy.status.txt = opt.txt
       this.taskCopy.status.color = opt.color
-      eventBus.$emit('updateBoardActivity', newActivity)
       this.$notify({
         message: 'Task status updated',
         position: 'bottom-left',
@@ -347,13 +349,15 @@ export default {
   },
   created() {
     eventBus.$on('updateTaskPreview', this.updateComponentTask)
-    eventBus.$on('updateTaskPreviewDestory', task => {
+    eventBus.$on('updateTaskPreviewDestory', (task) => {
       this.taskCopy = task
+      this.activity = null
       this.updateTask()
       console.log('im updated!!!')
-      console.log('this.taskCopy', this.taskCopy)
     })
     this.taskCopy = this.task
   }
 }
 </script>
+
+   
