@@ -153,7 +153,7 @@ export default {
         },
     updateTask(newTask,activity) {
       console.log('activity:', activity)
-          if(activity){
+        if(activity){
         this.board.activities.unshift(activity)
         console.log('this.board.activities://///////*********', this.board.activities)
       }

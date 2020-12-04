@@ -16,7 +16,7 @@
         <el-tab-pane label="Task Posts">
           <task-posts
             v-if="posts"
-            @updateBoardActivity="updateBoardActivity"
+           
             @updatePosts="updatePosts"
             :task="task"
             :posts="posts"
@@ -108,9 +108,7 @@ export default {
     forceRerender() {
       this.componentKey += 1
     },
-    updateBoardActivity(activity) {
-      eventBus.$emit('updateBoardActivity', activity)
-    },
+
   },
   computed: {
     board() {

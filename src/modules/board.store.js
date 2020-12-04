@@ -46,16 +46,6 @@ export const boardStore = {
           })
         })
       }
-      // if (filterBy.person !== 'All') {
-      //   filteredBoard.groups.forEach(group => {
-      //     group.tasks = group.tasks.filter(task => {
-      //       task.members = task.members.filter(member => {
-      //         console.log(member._id, filterBy.person)
-      //         return member._id === filterBy.person
-      //       })
-      //     })
-      //   })
-      // }
       if (filterBy.searchTerm !== '') {
         filteredBoard.groups.forEach(group => {
           group.tasks = group.tasks.filter(task => {
