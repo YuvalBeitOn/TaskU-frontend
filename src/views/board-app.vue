@@ -32,8 +32,8 @@
         @addMember="addBoardMember"
         :forceRerender="forceRerender"
       />
-      <group-list
-        v-if="board"
+      <group-list 
+        v-if="board && !isTrilo"
         :key="componentKey"
         :groups="board.groups"
         :boardName="board.name"
@@ -43,6 +43,7 @@
         @duplicateGroup="duplicateGroup"
         @forceRender="forceRerender"
       />
+      <trilo-display v-if="isTrilo"> </trilo-display>
     </div>
     <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
 
@@ -78,6 +79,7 @@ import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
 import boardHeader from '../cmps/board-header.vue'
 import { socketService } from '@/services/socket.service.js'
+import triloDisplay from '@/cmps/trilo/trilo-mode'
 
 export default {
   name: 'board-app',
@@ -89,7 +91,8 @@ export default {
       isMembersShowen: false,
       currTaskDetails: null,
       isTaskDetailsHover: false,
-      componentKey: 0
+      componentKey: 0,
+      isTrilo:true
     }
   },
   computed: {
@@ -398,7 +401,8 @@ export default {
     // taskDetails,
     boardSearch,
     chatApp,
-    boardHeader
+    boardHeader,
+    triloDisplay
   }
 }
 </script>
