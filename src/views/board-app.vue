@@ -88,7 +88,8 @@ export default {
       isMembersShowen: false,
       currTaskDetails: null,
       isTaskDetailsHover: false,
-      componentKey: 0
+      componentKey: 0,
+      displayMode:null
     }
   },
   computed: {
