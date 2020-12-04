@@ -80,6 +80,7 @@ import boardHeader from '../cmps/board-header.vue'
 import { socketService } from '@/services/socket.service.js'
 import trelloDisplay from '@/cmps/Trello/trello-mode'
 
+
 export default {
   name: 'board-app',
   data() {
