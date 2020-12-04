@@ -1,5 +1,5 @@
 <template>
-  <li
+<li
     v-if="taskCopy"
     class="task-preview flex space-between align-center width100"
   >
@@ -8,7 +8,6 @@
       <button class="btn-close" @click="deleteTask">
         <i class="task-icon btn-trash fa-icon far fa-trash-alt"></i>
       </button>
-
       <div class="task-txt">
         <span
           class="editable"

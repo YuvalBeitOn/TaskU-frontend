@@ -1,5 +1,5 @@
 .notif-preview {
-  padding: 14px;
+  // padding: 14px;
   font-size: 14px;
   border: 1px solid #e6e9ef;
   border-radius: 5px;
@@ -13,6 +13,8 @@
     text-align: left;
   }
   .notif-container {
+    padding: 14px;
+
     .user-img {
       margin-right: 5px;
     }
@@ -36,7 +38,7 @@
     }
   }
   .notif-btns {
-      padding-left: 15px;
+      padding: 14px;
       border-left: 0.3px solid rgb(180, 179, 179);
     .notif-btn {
       font-size: 15px;
