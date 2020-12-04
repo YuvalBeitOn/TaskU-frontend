@@ -68,7 +68,7 @@
   </div>
 </template>
 <script>
-import { eventBus } from '@/services/event-bus.service'
+// import { eventBus } from '@/services/event-bus.service'
 import chatApp from '@/cmps/board-chat'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
@@ -277,9 +277,7 @@ export default {
         })
       }
 
-      // .then((some) => {
-
-      // })
+  
     },
     async loadBoard() {
       try {
@@ -347,15 +345,6 @@ export default {
       })
       this.forceRerender()
     },
-    updateBoardActivity(activity) {
-      this.board.activities.unshift(activity)
-      console.log('this.board.activities:', this.board.activities)
-      this.$store.dispatch({
-        type: 'saveBoard',
-        board: this.board
-      })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
-    },
     updateGroups(groups) {
       this.board.groups = groups
       const txt = `${this.user.fullName} updated the groups`
@@ -396,7 +385,6 @@ export default {
         boards
       })
     })
-    eventBus.$on('updateBoardActivity', this.updateBoardActivity)
     this.$store.dispatch({ type: 'loadUsers' })
     this.loadBoards()
     this.loadBoard()
