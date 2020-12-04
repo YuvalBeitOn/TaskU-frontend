@@ -97,6 +97,7 @@ export default {
     activiitesLength() {
       const boardActiviites = this.$store.getters.boardActivities
       if (!boardActiviites.length || boardActiviites.length <= 0) return '0'
+      console.log('boardActiviites.length:', boardActiviites.length)
       return boardActiviites.length
     },
     membersLegnth() {
