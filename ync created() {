@@ -1,0 +1,604 @@
+[33mcommit d57fa765d56b533c3512d083469b44843d44ed51[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m)[m
+Merge: cdd3a6b 16823dd
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Fri Dec 4 15:41:48 2020 +0200
+
+    jj
+
+[33mcommit cdd3a6b9b73b76c83b51876bcc62c82e5ae71484[m
+Merge: 2c1d081 be36bda
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Fri Dec 4 15:23:13 2020 +0200
+
+    ff
+
+[33mcommit 16823dda8757a265286ca1058b09791a401434fe[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Fri Dec 4 03:15:35 2020 +0200
+
+    add alert to delte board
+
+[33mcommit 6c2c2284f88183350349432f91d9429b62adf458[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Fri Dec 4 02:47:20 2020 +0200
+
+    add dark mode fix chat app and add try catch to store
+
+[33mcommit 1bb1eb6cdebbd50d6c3d0c9da5fa5b20b5d87860[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Thu Dec 3 18:37:41 2020 +0200
+
+    update user id
+
+[33mcommit 09180734454d256fb2efcf2598477b257b712e8f[m
+Merge: 8c6b7c6 be36bda
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Thu Dec 3 18:36:55 2020 +0200
+
+    im the men
+
+[33mcommit 8c6b7c65b1f7e59bcc6ec33b467dc2faf2ad3ffd[m
+Merge: 8dba43a d9269b0
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Thu Dec 3 18:04:05 2020 +0200
+
+    i am fix bugs right knowgit status
+
+[33mcommit 8dba43a2d17e04d4f31b8929985517cf26273950[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Thu Dec 3 18:00:54 2020 +0200
+
+    la
+
+[33mcommit d9269b08e4598552a1fb5cc4a9da98870dc182db[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Thu Dec 3 17:57:27 2020 +0200
+
+    lalalalal
+
+[33mcommit 7d8fc5a5fba4b4ab4e91d70f5fe656f0f44501be[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Thu Dec 3 17:56:48 2020 +0200
+
+    commit fix activites
+
+[33mcommit 2c1d0810c8705a2489b6a7b39c9f3c982aae07b0[m
+Merge: a91d7de 1a1bebb
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Thu Dec 3 16:51:43 2020 +0200
+
+    jjj
+
+[33mcommit be36bdaa29d4d217def6c7711c1c27bc055e713b[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Thu Dec 3 16:50:54 2020 +0200
+
+    BugsFixed
+
+[33mcommit 40d256d19520b5f43c52b7ca55622e558b9e301c[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Thu Dec 3 15:39:47 2020 +0200
+
+    Async bug fix
+
+[33mcommit 99eda3c5aedff87179985df7639320b679935fee[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Thu Dec 3 14:23:44 2020 +0200
+
+    bugs
+
+[33mcommit 4b9c3d8891b6b5f583c6d4252eeb0d695ff29198[m
+Merge: c6b36e4 1a1bebb
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Thu Dec 3 11:40:58 2020 +0200
+
+    updatebugs
+
+[33mcommit c6b36e46a21a74aabd4ac69e6d38e3d5ecbd4da0[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Thu Dec 3 11:19:10 2020 +0200
+
+    FixBug
+
+[33mcommit a91d7de09912dbc57b6089ac7224de3e39dfd34b[m
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Thu Dec 3 11:04:40 2020 +0200
+
+    ddd
+
+[33mcommit 1a1bebbbd3cfc7bb64d6a57cf23e04ec2722345d[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Thu Dec 3 10:28:27 2020 +0200
+
+    fix fix
+
+[33mcommit 569658e91b1584258ac9417d2e30b950dfaea71d[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Thu Dec 3 10:21:56 2020 +0200
+
+    lala
+
+[33mcommit 11628617902267e582bb6a88670f1fa459760c8f[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Thu Dec 3 02:26:59 2020 +0200
+
+    fix the changes
+
+[33mcommit 5c7515725b37b0a70ef1463998ea84216819fbd4[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Thu Dec 3 02:18:01 2020 +0200
+
+    add activities board and memebres list and router view
+
+[33mcommit 361d99bdabafd96b94413d6376e93ffc539808eb[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 23:16:44 2020 +0200
+
+    before tatata
+
+[33mcommit 1cedbf1da469ccc704749027a8371007f2ed275f[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 21:52:28 2020 +0200
+
+    before change new task activity
+
+[33mcommit c104d865bdb318b03ae0c61e200dcbd679ab1018[m
+Merge: 49923d8 3a76473
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 18:00:01 2020 +0200
+
+    fufuf
+
+[33mcommit 49923d820cb558d6034297d3190b364f9716ed5c[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 17:38:24 2020 +0200
+
+    comit guy
+
+[33mcommit 3a764733a70babd82373345a9ad4dd0a8f386f80[m
+Merge: 8e5f50d 2b7eb39
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Wed Dec 2 15:27:11 2020 +0200
+
+    Merge branch 'develop' of https://github.com/YuvalBeitOn/TaskU-frontend into develop
+
+[33mcommit 8e5f50d825489b670c488449a1eade215accd6ad[m
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Wed Dec 2 15:27:05 2020 +0200
+
+    fff
+
+[33mcommit 2b7eb39494b223b10f52416190670b6bc8697911[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 15:25:51 2020 +0200
+
+    lalla apchi
+
+[33mcommit fcf3d922f5e4c8e0dadfb0ab32158b1caf550d47[m
+Merge: a4fa01d c1f15a6
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 15:24:19 2020 +0200
+
+    add members
+
+[33mcommit a4fa01d5b7a085900fbe61459fd308727224d168[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 15:21:09 2020 +0200
+
+    fix memebres
+
+[33mcommit 114f228516e052dcac722e6b83a96a0517d9d101[m
+Merge: cef7e79 c1f15a6
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Wed Dec 2 13:26:05 2020 +0200
+
+    Ok
+
+[33mcommit c1f15a643cec73941d7e541c71ca8e074aeacc18[m
+Merge: 1817442 4fdbac1
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Wed Dec 2 13:24:27 2020 +0200
+
+    fkfk
+
+[33mcommit 18174420a7bfe94954107f938cfc0f249ce60e07[m
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Wed Dec 2 13:12:26 2020 +0200
+
+    Fff
+
+[33mcommit cef7e79f97da37b26bb7286b57644e9ac5ca0410[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Wed Dec 2 13:12:12 2020 +0200
+
+    Draggable fix
+
+[33mcommit 4fdbac1b3f30075caa592190519fa7a31ad63e97[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 03:11:49 2020 +0200
+
+    fix fix fix
+
+[33mcommit 822b79cf8ac672fc0b8734e49866fb3841981e94[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 03:07:22 2020 +0200
+
+    lla
+
+[33mcommit 22622350bfe78e59e283ec89472b0d8c01c99bfa[m
+Merge: fae6c79 a9d3a9a
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 02:53:13 2020 +0200
+
+    inon
+
+[33mcommit fae6c79cfba01862f746f8289e8da140cd79a5b8[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 02:52:00 2020 +0200
+
+    guuyyyyyyyyyyy
+
+[33mcommit a9d3a9ab95a8113224444a318659d7bbc8e3ef36[m
+Merge: 98be948 2cc2e69
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Wed Dec 2 02:46:59 2020 +0200
+
+    merges
+
+[33mcommit 98be948d413b2c355e503a769f3ba9f6fa4772d1[m
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Wed Dec 2 01:42:04 2020 +0200
+
+    uiui
+
+[33mcommit 2cc2e696135adce20f55e2ecb13113bb0a9fb29b[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 01:38:53 2020 +0200
+
+    add design
+
+[33mcommit 8be2d2352b5ef2af34569c72828373fcbb3f7bfd[m
+Merge: 31a7738 3189759
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 00:05:51 2020 +0200
+
+    merge files
+
+[33mcommit 31897598d4fc089e867572c90df67c90c8e347ed[m
+Merge: 420bce6 a771142
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Wed Dec 2 00:04:56 2020 +0200
+
+    gut socket
+
+[33mcommit 31a7738d3ac89bbf38bba404be3334c1ee658f89[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 23:41:36 2020 +0200
+
+    add avater
+
+[33mcommit 4cbfe328ce9c1e86f923499634d0285406373d50[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 23:40:08 2020 +0200
+
+    fix the file
+
+[33mcommit 420bce61e8301acfaa562a7eb66a42c7984673ce[m
+Merge: 64475fc 03c2923
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 23:39:02 2020 +0200
+
+    add socket and chat to website
+
+[33mcommit a7711420a87cae90525d0dc046ffc5278968aaa1[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Tue Dec 1 20:50:52 2020 +0200
+
+    updatebugmiddle
+
+[33mcommit 64475fc1a5bc2bbff814dc63d54f3b5649aa8018[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 19:04:35 2020 +0200
+
+    lala
+
+[33mcommit 03c29239b9650361b813c4e002056db5d316cd76[m
+Merge: c719a5a 64fcb39
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Tue Dec 1 19:04:31 2020 +0200
+
+    updatebugmiddle
+
+[33mcommit ba5e1b6cd5c3019577c3a0eb68acfc8ccd9bb3cf[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 19:03:55 2020 +0200
+
+    lalal
+
+[33mcommit ad73d0aa3411f2d0e8e1808130484deda63cb2dc[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 18:59:01 2020 +0200
+
+    fixfix
+
+[33mcommit c719a5adc280a8c3aa915eea1f5d400fbd26ffa4[m
+Merge: e952b84 cdd04fa
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Tue Dec 1 18:55:07 2020 +0200
+
+    FixBug
+
+[33mcommit 64fcb39588972fef2ed0f1821e8a40dac9ddf434[m
+Merge: 1d09411 5d9e6af
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 18:10:17 2020 +0200
+
+    fixfix
+
+[33mcommit 1d09411cdc57da9c484b9427d3a03013b7094be4[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 18:09:44 2020 +0200
+
+    guy edit
+
+[33mcommit 5d9e6af55ade5d811844d151614596a41f1de326[m
+Merge: 065487b cdd04fa
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Tue Dec 1 18:05:19 2020 +0200
+
+    Merge branch 'develop' of https://github.com/YuvalBeitOn/TaskU-frontend into develop
+
+[33mcommit 065487b39d1cc193561dd70a274c1a9440962f36[m
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Tue Dec 1 18:05:16 2020 +0200
+
+    kk
+
+[33mcommit e952b843259cff653114c2ed71f1dcee56911f11[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Tue Dec 1 17:54:16 2020 +0200
+
+    d
+    Bugs fixings
+
+[33mcommit cdd04fa66f9dc2b706a7b69d38d3747e4ae9bc10[m
+Merge: f3714be 1dbc517
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 17:46:47 2020 +0200
+
+    fixfix
+
+[33mcommit f3714be8fd2cbd43fc18f70568bb26f5842917ce[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 17:45:54 2020 +0200
+
+    fixfix
+
+[33mcommit 5cfa526904c175d0ba374857f9f5c1c0e8b5374c[m
+Merge: 4c16787 b97558b
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 13:04:41 2020 +0200
+
+    pull
+
+[33mcommit 1dbc517b4a73ed9a3e6fbdd1f937b20a50d401b2[m
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Tue Dec 1 13:04:10 2020 +0200
+
+    ooo
+
+[33mcommit b97558bcb85f97535e90f8c1be8fab9b6f937e8a[m
+Merge: e3626c1 739fba7
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Tue Dec 1 12:47:18 2020 +0200
+
+    Merge branch 'develop' of https://github.com/YuvalBeitOn/TaskU-frontend into develop
+
+[33mcommit e3626c126351ad1dc66a640ed6789010222f4480[m
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Tue Dec 1 12:47:14 2020 +0200
+
+    login signup
+
+[33mcommit 4c167872b37d06a87e254f8f0b7c7cc77dfe8cfa[m
+Merge: 3d4a591 739fba7
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 12:32:10 2020 +0200
+
+    fixfix
+
+[33mcommit 3d4a5912b89ff0a70f7578945d7333d719410122[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 12:31:20 2020 +0200
+
+    add fiiiiiiix
+
+[33mcommit 739fba7e3ec2bf9933645dac65060be37afcc486[m
+Merge: 66cc083 3bca7df
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Tue Dec 1 12:30:43 2020 +0200
+
+    lala
+
+[33mcommit 66cc08339b173d87abb51519b47bd753f662fb0f[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Tue Dec 1 12:28:44 2020 +0200
+
+    wiringup
+
+[33mcommit 3bca7dfc3316d5aca6e37e5eb8c5f84884b88024[m
+Merge: b4cf319 9473b4a
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Tue Dec 1 11:34:51 2020 +0200
+
+    Merge branch 'develop' of https://github.com/YuvalBeitOn/TaskU-frontend into develop
+
+[33mcommit b4cf319edcfa19c645a730a0d5997dbe7bda4115[m
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Tue Dec 1 11:34:46 2020 +0200
+
+    kdk
+
+[33mcommit 9473b4a7f4df93c77dcc743b3f57e95a9bd08b29[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Tue Dec 1 10:18:32 2020 +0200
+
+    GuestUpdate
+
+[33mcommit 49f9c3a722f77c48cddda28a9f4e5e6d31aef06d[m
+Merge: 0c25d68 e4cfbce
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 09:43:44 2020 +0200
+
+    fixfix
+
+[33mcommit 0c25d68f95a17200dad8f734c9659213e58785ac[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 09:29:19 2020 +0200
+
+    fix
+
+[33mcommit e4cfbce0e8cd10ca3cdfe66f871acbed5814d30b[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 09:25:54 2020 +0200
+
+    fix things and user
+
+[33mcommit 855e743a2b9fb26ad6c899c28e305226cc3767bf[m
+Merge: f55f851 b4a245f
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 01:56:27 2020 +0200
+
+    fixfix
+
+[33mcommit f55f8519e664e8e58f99553f4f3158b640e512df[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 01:51:55 2020 +0200
+
+    orel gay
+
+[33mcommit 88b0f8c37506d49fe4a65a56187b4cb7939aa1dd[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 01:44:16 2020 +0200
+
+    fixfix
+
+[33mcommit c8cdf15004893631dd7886c4bb4e56b0f17285a7[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 01:30:53 2020 +0200
+
+    fixing add group
+
+[33mcommit 6dc8fe5ba4b06efccb26afbd4cc634d8db8b885c[m
+Merge: e133211 82dbb56
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 01:14:06 2020 +0200
+
+    fixxxxxxxxxxxx
+
+[33mcommit e133211315cdd8c170c06c5d8847cae90d0a529e[m
+Merge: c606341 9f13f00
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 01:05:34 2020 +0200
+
+    lalalalalalalala
+
+[33mcommit 82dbb568d91b601d54ec40de512c5c320a797126[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Tue Dec 1 00:58:13 2020 +0200
+
+    add board activity and event bus and popup
+
+[33mcommit 9f13f00a25b67884b8b4d44bb8927e72287afc06[m
+Merge: 31c4e39 33844a1
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Tue Dec 1 00:53:48 2020 +0200
+
+    lkk
+
+[33mcommit b4a245fe53a31ed10fd984047237ad4014125f80[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Tue Dec 1 00:52:17 2020 +0200
+
+    BackEnd-WiringUP
+
+[33mcommit 31c4e3965244f451a7516b92630126b556b98c5b[m
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Tue Dec 1 00:51:15 2020 +0200
+
+    css
+
+[33mcommit 7d9aa5d6df5643b00226d7ff997bf8989e98f82f[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Mon Nov 30 22:42:38 2020 +0200
+
+    add a popup of swal to add board
+
+[33mcommit 2072bbb710db5b97df445f0740accbdbecdacef6[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Mon Nov 30 22:22:32 2020 +0200
+
+    first commit
+
+[33mcommit c6063415867e4eeb3c0c258fdcdf09e8298d779f[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Mon Nov 30 22:21:52 2020 +0200
+
+    add many changes and fix things connect chat and design and socket io
+
+[33mcommit f410f0eee5e758482601dfc79b85b73f7a8ad29d[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Mon Nov 30 17:41:53 2020 +0200
+
+    Testing
+
+[33mcommit 33844a17e6715c219ea2a41f0b668534c554b72f[m
+Merge: 5beb926 1d54358
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Mon Nov 30 17:36:59 2020 +0200
+
+    filterfix
+
+[33mcommit 5beb92629ac9d3b53c6c949c8b50df2ce6e1788c[m
+Author: Orel Vaizman <orelvaizman@h-MacBook-Pro-sl-Orel.local>
+Date:   Mon Nov 30 17:31:28 2020 +0200
+
+    UpdatungBackend
+
+[33mcommit 1d54358a4b4ce789eef9826c965295b942e3e94e[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Mon Nov 30 17:11:29 2020 +0200
+
+    add tool tips
+
+[33mcommit 0328917b305108431cf020bd03729dd610be9f74[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Mon Nov 30 17:08:55 2020 +0200
+
+    fixfix
+
+[33mcommit a5e99ba5ed5a32e1c5ad2d0163ffc63ebadeb277[m
+Merge: 2f5c1e1 3e00e26
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Mon Nov 30 17:08:23 2020 +0200
+
+    Merge branch 'main' of https://github.com/YuvalBeitOn/TaskU-frontend into main
+
+[33mcommit 2f5c1e1d65dcad5cf31fb3f6e64f7cac99429b7f[m
+Author: Guy Indepurker <guy235@gmail.com>
+Date:   Mon Nov 30 17:07:32 2020 +0200
+
+    add tool tip to taske delete and date
+
+[33mcommit 3e00e267c743d6930ed27946787ea066ca8bedf2[m
+Merge: 490ec20 7fbbe2e
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Mon Nov 30 17:06:36 2020 +0200
+
+    Merge branch 'main' of https://github.com/YuvalBeitOn/TaskU-frontend into main
+
+[33mcommit 490ec201d0339bedaf5870500c61f358c16b20c9[m
+Author: Yuval Beit On <yuvalbeiton@gmail.com>
+Date:   Mon Nov 30 17:06:31 2020 +0200
+
+    css is amazing
