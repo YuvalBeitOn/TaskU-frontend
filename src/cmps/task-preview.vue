@@ -129,7 +129,6 @@ export default {
     activity: Object,
     user: Object
   },
-
   computed: {
     postsLegnth() {
       return this.task.posts.length > 0 ? false : true
