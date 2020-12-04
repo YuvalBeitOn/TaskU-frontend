@@ -25,7 +25,7 @@
             <board-search @searchBoard="setSearch" slot="search" />
         </board-list>
 
-        <div class="board-app-container width100">
+        <div :class="['board-app-container width100',darkMode]">
             <board-header
                 :updateBoardName="updateBoardName"
                 :updateBoardDesc="updateBoardDesc"
@@ -55,7 +55,7 @@
       @mouseover.native="isTaskDetailsHover = true"
       @mouseleave.native="isTaskDetailsHover = false"
     /> -->
-        <router-view class="grow" />
+        <router-view :class="['grow',darkMode]" />
 
         <div
             v-tooltip.top="'Chat Board'"
@@ -97,6 +97,9 @@ export default {
     },
     computed: {
         // NOT  REMOVE THIS FUNC !!!!!!!!!!
+            darkMode(){
+     return this.$store.getters.getDarkModeToggle
+    },
         btnClassExpend() {
             return this.isListExpanded
                 ? 'expend-btn fas fa-chevron-left'
@@ -216,7 +219,7 @@ export default {
             let newActivity = boardService.getEmptyActivity(txt, this.user)
             this.board.activities.push(newActivity)
             this.$store.dispatch({ type: 'removeBoard', boardId })
-            this.$store.dispatch({ type: 'loadAllBoards' })
+            this.$store.dispatch({ type: 'loadAllBoards',boards:this.boards })
             this.$notify({
                 message: 'Board deleted',
                 position: 'bottom-left',
@@ -244,7 +247,7 @@ export default {
                     )
                     this.board.activities.push(newActivity)
                     this.$store.dispatch({ type: 'saveBoard', board })
-                    this.$store.dispatch({ type: 'loadAllBoards' })
+                    this.$store.dispatch({ type: 'loadAllBoards',boards:this.boards })
                     this.$message({
                         type: 'success',
                         message: 'Your Board:' + value + ' add ',
@@ -257,11 +260,16 @@ export default {
                     })
                 })
         },
-        loadBoard() {
-            this.$store.dispatch({
-                type: 'loadBoard',
+       async loadBoard() {
+           try{
+
+               await  this.$store.dispatch({
+                   type: 'loadBoard',
                 boardId: this.$route.params.boardId,
             })
+           } catch (e){
+               console.log('Erororor!!');
+           }
         },
         addGroup() {
             const newGroup = boardService.getEmptyGroup()
@@ -354,7 +362,7 @@ export default {
             this.forceRerender()
         },
     },
-    async created() {
+    created() {
         console.log('boardapp creation')
         socketService.setup()
         socketService.on('updated board', (board) => {
@@ -364,14 +372,18 @@ export default {
             })
             this.forceRerender()
         })
-        socketService.on('load boards', () => {
-            console.log('im here hunny')
-            this.loadBoards()
+        socketService.on('load boards', (boards) => {
+            console.log('boards length' ,boards.length)
+                 this.$store.commit({
+                type: 'setBoards',
+                boards,
+            })
+            
         })
         eventBus.$on('updateBoardActivity', this.updateBoardActivity)
         this.$store.dispatch({ type: 'loadUsers' })
         this.loadBoards()
-        this.loadBoard()
+            this.loadBoard()
     },
     destroyed() {
         this.$store.dispatch({ type: 'turnOffSocket' })

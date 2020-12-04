@@ -1,6 +1,5 @@
 <template>
   <section class="task-posts relative">
-    {{typeof posts }} {{posts}}
     <form @submit.prevent="addPost">
       <textarea
         class="el-input-text-editor"

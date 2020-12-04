@@ -1,5 +1,13 @@
 <template>
   <div v-if="board" class="board-info flex justify-center align-center">
+    <div class="btn-dark-mode">
+      <el-switch v-tooltip.top="darkMode?'Light Mode':'Dark Mode'" @change="darkModeToggle" v-model="darkMode"
+      inactive-color="#202c37"
+      active-color="#DCDFE6"
+      >
+
+</el-switch>
+    </div>
     <div class="first-btn-memebrs-container">
       <members :hiddenBadge="membersLegnth" :size="25" toolTipTxt="Board Members" classIcon="icon-nav-hader" :members="board.members">
       <add-members slot="add-members"
@@ -16,7 +24,7 @@
     </div>
 
   <div class="btn-activity-container">
-      <button v-tooltip.top="'contect with your memebres'" class="btn-close btn-second " @click="toggleMembersList">Board Members List <span v-if="board.members.length" class="blue">{{board.members.length}}</span></button>
+      <button v-tooltip.top="'Contact with your memebres'" class="btn-close btn-second " @click="toggleMembersList">Board Members List <span v-if="board.members.length" class="blue">{{board.members.length}}</span></button>
     <members-list @close="toggleMembersList" :members="board.members" v-if="isMembersShown" />
     </div>
     
@@ -37,10 +45,12 @@ export default {
   },
   data() {
     return {
-      isMembersShown:false
+      isMembersShown:false,
+      darkMode:false
     }
   },
   computed: {
+
     activiitesLength(){
      const boardActiviites = this.$store.getters.boardActivities
      if(!boardActiviites.length ||boardActiviites.length <= 0  ) return '0'
@@ -61,6 +71,9 @@ export default {
     }
   },
   methods: {
+    darkModeToggle(){
+     this.$store.commit({type:'darkMode',darkMode:this.darkMode})
+    },
     boardActivities(){
  this.$router.push(`/board/${this.$route.params.boardId}/activities`)
 
