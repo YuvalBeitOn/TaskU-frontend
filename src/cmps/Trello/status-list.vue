@@ -1,0 +1,29 @@
+<template>
+  <section class="status-list flex row wrap">
+ 
+      <status-preview v-for="status in statuses" :key="status.id" :status="status" />
+
+  </section>
+</template>
+
+<script>
+import statusPreview from './status-preview.vue'
+export default {
+
+props:{
+    statuses:Object
+},
+components:{
+  statusPreview
+}
+}
+</script>
+
+<style>
+.status-list{
+height: 100%;
+padding: 0px 4px;
+width: 220px;
+box-sizing: content-box;
+}
+</style>
