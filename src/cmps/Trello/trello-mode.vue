@@ -1,13 +1,14 @@
 <template>
   <section class="trilo flex wrap align-center">
-      <status-list :statues="tasksByStatues" />
+      <status-list :statuses="tasksByStatues" />
      
   </section>
 </template>
 
 <script>
-import statusList from '@/cmps/trilo/statuses-list'
+import statusList from './status-list'
 export default {
+    name:'Trello-mode',
 computed:{
     tasksByStatues(){
         return this.$store.getters.tasksByStatues

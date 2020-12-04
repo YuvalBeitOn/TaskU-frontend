@@ -43,7 +43,7 @@
         @duplicateGroup="duplicateGroup"
         @forceRender="forceRerender"
       />
-      <trilo-display v-if="isTrilo"> </trilo-display>
+      <trello-display v-if="isTrilo"> </trello-display>
     </div>
     <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
 
@@ -79,7 +79,7 @@ import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
 import boardHeader from '../cmps/board-header.vue'
 import { socketService } from '@/services/socket.service.js'
-import triloDisplay from '@/cmps/trilo/trilo-mode'
+import trelloDisplay from '@/cmps/Trello/trello-mode'
 
 export default {
   name: 'board-app',
@@ -402,7 +402,7 @@ export default {
     boardSearch,
     chatApp,
     boardHeader,
-    triloDisplay
+    trelloDisplay
   }
 }
 </script>

@@ -89,7 +89,7 @@ export const boardStore = {
     },
     tasksByStatues(state){
        let statuesMap =state.currBoard.statuses.reduce((acc,status)=>{
-        acc[_.camelCase(status.txt)] = {statusId:status.id,color:status.color,statusTxt:status.txt,tasks:[]}
+        acc[_.camelCase(status.txt)] = {id:status.id,color:status.color,txt:status.txt,tasks:[]}
         return acc
       },{})
       const boardGroups = state.currBoard.groups
