@@ -45,7 +45,7 @@
               class="top-left"
               slot="add-members"
               firstTitle="Task members"
-              secondTitle="Invite Board members"
+              secondTitle="Board members"
               :members="taskCopy.members"
               :allMembers="filteredBoardMembers"
               @addMember="addTaskMember"

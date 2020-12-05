@@ -28,6 +28,7 @@
     >
       {{ board.description }}
     </h3>
+    <h5 class="board-creator">By: {{board.creator.fullName}}</h5>
     <div class="display-mode">
       <el-select
         @change="setDisplayMode"

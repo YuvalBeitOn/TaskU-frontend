@@ -52,7 +52,6 @@ export default {
   computed: {
     dateForDisplay() {
       return moment(this.notif.createdAt)
-        .startOf('day')
         .fromNow()
     },
     isRead() {

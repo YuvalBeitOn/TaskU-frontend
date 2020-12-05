@@ -277,10 +277,6 @@ export default {
         let newActivity = boardService.getEmptyActivity(txt, this.user)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'saveBoard', board })
-        this.$store.dispatch({
-          type: 'loadAllBoards',
-          boards: this.boards
-        })
         this.$message({
           type: 'success',
           duration:2500,
@@ -345,7 +341,7 @@ export default {
         group => group.id === updatedGroup.id
       )
       this.board.groups.splice(idx, 1, updatedGroup)
-      const txt = `${this.user.fullName} updated group ${updatedGroup.txt}`
+      const txt = `${this.user.fullName} updated group ${updatedGroup.name}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({

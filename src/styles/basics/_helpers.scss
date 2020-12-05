@@ -109,10 +109,13 @@
   @include aspect-ratio(1, 1);
 }
 //avatar imgs:
+.vue-avatar--wrapper{
+  border: 1px solid white;
+
+}
 .img-avatar{
   border-radius: 50%;
-  border: 1px solid white;
-  object-fit: cover;
+  border: 2px solid rgb(240, 240, 240);
   height: rem(35px);
   width: rem(35px);
 }

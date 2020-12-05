@@ -4,7 +4,7 @@
   box-shadow: 0 0 1px black;
   padding: 5px 10px;
   z-index: 1500;
-  width: 226px;
+  width: 200px;
   margin-top: -5px;
   border-radius: 4px;
   max-height: 400px;
@@ -118,16 +118,7 @@
 .members-actions {
   position: relative;
 }
+.member-show{
+  margin-left: -8px;
+}
 
-// .member-show {
-//   position: absolute;
-//   &.member-0 {
-//     right: 0;
-//   }
-//   &.member-1 {
-//     right: 30px;
-//   }
-//   &.member-2 {
-//     right: 40px;
-//   }
-// }

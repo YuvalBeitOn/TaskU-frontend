@@ -8,7 +8,7 @@
   }
 
   .board-name {
-    font-size: 28px;
+    font-size: 32px;
     font-family: 'roboto-regular', 'Ariel';
     margin-bottom: 0.3rem;
     max-width: 500px;
@@ -16,12 +16,15 @@
     height: 35px;
   }
   .board-descriotion {
-    font-size: 14px;
+    font-size: 16px;
     color: #676879;
-    margin-bottom: rem(16px);
+    // margin-bottom: rem(5px);
     max-width: 500px;
     overflow: hidden;
     height: 25px;
+  }
+  .board-creator{
+    margin-bottom: rem(10px);
   }
   .board-info {
     position: absolute;
@@ -29,6 +32,7 @@
     right: 0;
     padding-right: 50px;
     padding-top: 30px;
+    
     @include for-wide-layout {
       padding-right: 1.5rem;
     }
@@ -37,6 +41,7 @@
       &:hover {
         cursor: pointer;
       }
+      margin: 0 1rem;
     }
     .btn-activity-container {
       margin-left: 15px;
