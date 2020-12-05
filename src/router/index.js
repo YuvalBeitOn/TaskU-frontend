@@ -7,7 +7,7 @@ import appLogin from '@/views/app-login'
 import appSignup from '@/views/app-signup'
 import taskDetails from '@/views/task-details'
 import boardActivities from '@/views/board-activities'
-
+import dashboard from '@/views/dashboard'
 Vue.use(VueRouter)
 
 const routes = [
@@ -52,7 +52,11 @@ const routes = [
     name: 'userDetails',
     component: userDetails,
    
-  }
+  },
+  {
+    path: "/dashboard",
+    component: dashboard,
+  },
 ]
 
 

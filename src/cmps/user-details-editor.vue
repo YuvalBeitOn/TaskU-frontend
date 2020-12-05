@@ -33,7 +33,11 @@
         placeholder="Company name"
         v-model.trim="userToEdit.companyName"
       ></el-input>
-<upload-img @sendImgUrl="imgUrl" />
+<upload-img @sendImgUrl="imgUrl">
+        <img class="img-uploaded" v-if="userToEdit.imgUrl" :src="userToEdit.imgUrl" alt="image" />
+</upload-img>
+
+
     
       <button type="submit" style="color: white">Save Changes</button>
     </form>
@@ -62,7 +66,9 @@ console.log(url,'im url');
     saveDetails() {
       const copyUser = JSON.parse(JSON.stringify(this.userToEdit))
       console.log('copyUser:', copyUser)
-      this.$store.dispatch({ type: 'upadteUser', user: copyUser })
+      this.$store.dispatch({ type: 'updateUser', user: copyUser })
+      this.$emit('loadUser' ,copyUser._id)
+
        this.$notify({
         message: 'The Details updated',
         position: 'bottom-left',

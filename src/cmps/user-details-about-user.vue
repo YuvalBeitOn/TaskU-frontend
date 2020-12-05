@@ -37,6 +37,7 @@
       </h3>
     </div>
     <pre>
+      {{user}}
     </pre>
   </section>
 </template>

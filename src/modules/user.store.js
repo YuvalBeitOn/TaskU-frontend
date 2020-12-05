@@ -29,6 +29,7 @@ export const userStore = {
       state.users = users
     },
     setUser(state, { user }) {
+      console.log('user:', user)
       state.loggedInUser = user
     },
     updateUser(state, { user }) {
@@ -134,7 +135,6 @@ export const userStore = {
     async signup(context, { userCred }) {
       console.log('store got the user cred', userCred)
       try {
-
         const user = await userService.signup(userCred)
         context.commit({ type: 'setUser', user })
         return user
