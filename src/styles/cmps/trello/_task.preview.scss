@@ -1,0 +1,29 @@
+.task-preview-card {
+  height: 110px;
+  width: 195px;
+  border-radius: 4px;
+  background: #ffffff;
+  position: relative;
+  padding: 8px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.29);
+  font-size: 13px;
+  font-weight: 400;
+  color: #333333;
+  cursor: pointer;
+  margin: 5px 8px;
+  .details-btn {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    bottom: 5px;
+    right: 11px;
+    &:hover {
+      scale: (1.05);
+    }
+    .details-icon {
+      color: rgba(48, 48, 48, 0.822);
+      font-size: 1rem;
+    }
+  }
+}

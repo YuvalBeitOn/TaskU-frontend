@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <nav class="nav-menu flex column space-between relative">
         <div class="top-nav">
             <div class="nav-logo">
@@ -17,6 +18,23 @@
                 <i class="nav-icon far fa-inbox-in"></i>
             </div>
         </div>
+=======
+  <nav class="nav-menu flex column space-between relative">
+    <div class="top-nav">
+      <div class="nav-logo">
+        <router-link class="nav-link flex justify-center" to="/">
+          <img src="img/icons/logo_icon.png" alt="TaskU" />
+        </router-link>
+      </div>
+      <div class="nav-icon-container notifs" v-tooltip.right="'Notfications'">
+        <i class="nav-icon far fa-bell" @click="toggleNotifsModal"></i>
+        <notifications-modal v-if="isNotifsModalShown" />
+      </div>
+      <div class="nav-icon-container" v-tooltip.right="'Inbox'">
+        <i class="nav-icon far fa-inbox-in"></i>
+      </div>
+    </div>
+>>>>>>> d845ea1e1bf1ca5d1a61a69ea90b863a5ef7aa06
 
         <div class="user-greeting" v-if="user">Hello {{ user.fullName }}</div>
         <div class="bottom-nav">
@@ -62,6 +80,7 @@
 import NotificationsModal from './notifications-modal.vue'
 import popupMenu from './popup-menu.vue'
 export default {
+<<<<<<< HEAD
     components: { popupMenu, NotificationsModal },
     name: 'nav-menu',
     data() {
@@ -81,6 +100,53 @@ export default {
                 },
             ],
         }
+=======
+  components: { popupMenu, NotificationsModal },
+  name: 'nav-menu',
+  data() {
+    return {
+      isUserModalShown: false,
+      isNotifsModalShown: false,
+      darkMode: false,
+      popupOptions: [
+        {
+          txt: 'My Profile',
+          func: this.goToUserProfile,
+          iconStr: 'user-circle'
+        },
+        {
+          txt: 'Log out',
+          func: this.logOut,
+          iconStr: 'sign-out'
+        },
+        {
+          txt: 'Dark mode',
+          func: this.darkModeToggle,
+          iconStr: 'adjust'
+        }
+      ]
+    }
+  },
+
+  computed: {
+    user() {
+      return this.$store.getters.user
+    }
+  },
+  methods: {
+    darkModeToggle() {
+      console.log(this.darkMode)
+      this.darkMode = !this.darkMode;
+      this.$store.commit({ type: 'darkMode', darkMode: this.darkMode })
+    },
+    toggleNotifsModal() {
+      this.isNotifsModalShown = !this.isNotifsModalShown
+    },
+    goToUserProfile() {
+      if (this.user) this.$router.push(`/user/${this.user._id}`)
+      else this.$router.push('/signup')
+      this.isUserModalShown = false
+>>>>>>> d845ea1e1bf1ca5d1a61a69ea90b863a5ef7aa06
     },
     computed: {
         user() {
