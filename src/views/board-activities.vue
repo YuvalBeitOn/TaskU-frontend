@@ -1,20 +1,18 @@
 <template>
-  <section v-if="boardActivitesToShow" class="board-activities">
+  <section v-if="boardActiviitesToShow" class="board-activities">
     <side-bar @closeBtn="closeBtn">
-      <main class="main-container flex column wrap ">
-        <div class="header-activites">
-      <h2 class="title">Board Activities</h2>
-      <h4>{{boardActivitesTitle}}</h4>
-      </div>
-        <div class="filter-container flex space-between">
-        <search-activity @searchBoard="setSearch" />
+      <main class="flex column wrap">
+        <div class="board-activities-header">
+          <h2 class="title">Board activities</h2>
+          <h3 class="activities-title">{{ boardActiviitesTitle }}</h3>
         </div>
-      <div class="activity-contianer">
-
-<activites-board :activities="boardActivitesToShow" />
+        <div class="activity-contianer">
+          <div class="filter">
+            <search-activity @searchBoard="setSearch" />
+          </div>
+          <activites-board :activities="boardActiviitesToShow" />
         </div>
-
-</main>
+      </main>
     </side-bar>
   </section>
 </template>
