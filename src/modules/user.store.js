@@ -113,7 +113,8 @@ export const userStore = {
           return user
         }
       } catch (err) {
-        console.log('ERROR:cant do login')
+        console.log('USER STORE ERROR TYPE:', err.response.status)
+        throw err
       }
     },
     async logout(context) {

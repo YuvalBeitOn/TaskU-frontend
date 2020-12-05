@@ -2,7 +2,7 @@
     <nav class="nav-menu flex column space-between relative">
         <div class="top-nav">
             <div class="nav-logo">
-                <router-link class="nav-link flex justify-center" to="/">
+                <router-link class="nav-link flex justify-center" :to="'/board/'+defaultBoardId">
                     <img src="img/icons/logo_icon.png" alt="TaskU" />
                 </router-link>
             </div>
@@ -92,6 +92,9 @@ export default {
     computed: {
         user() {
             return this.$store.getters.user
+        },
+        defaultBoardId() {
+            return this.$store.getters.defaultBoardId
         },
     },
     methods: {

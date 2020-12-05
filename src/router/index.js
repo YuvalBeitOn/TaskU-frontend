@@ -54,7 +54,7 @@ const routes = [
   },
   {
     path: '/calender/:userId?',
-    name: 'userDetails',
+    name: 'userCalender',
     component: userCalender
   }
 ]
