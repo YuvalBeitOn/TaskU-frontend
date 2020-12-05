@@ -140,7 +140,7 @@ export default {
     duplicateGroup(group) {
       group.id = utilService.makeId()
       this.board.groups.push(group)
-      const txt = `${this.user.fullName} duplicated group the group ${group.txt} `
+      const txt = `${this.user.fullName} duplicated group the group ${group.name} `
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
@@ -274,17 +274,15 @@ export default {
         let newActivity = boardService.getEmptyActivity(txt, this.user)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'saveBoard', board })
-        this.$store.dispatch({
-          type: 'loadAllBoards',
-          boards: this.boards
-        })
         this.$message({
           type: 'success',
+          duration:2500,
           message: 'Your Board:' + res.value + ' add '
         })
       } catch (err) {
         this.$message({
           type: 'info',
+          duration:2500,
           message: 'Your action  canceled'
         })
       }
@@ -338,7 +336,7 @@ export default {
         group => group.id === updatedGroup.id
       )
       this.board.groups.splice(idx, 1, updatedGroup)
-      const txt = `${this.user.fullName} updated group ${updatedGroup.txt}`
+      const txt = `${this.user.fullName} updated group ${updatedGroup.name}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({
@@ -369,6 +367,7 @@ export default {
       this.forceRerender()
     }
   },
+  
   watch: {
     '$route.params.boardId'() {
       this.loadBoard()
@@ -413,3 +412,4 @@ export default {
   }
 }
 </script>
+

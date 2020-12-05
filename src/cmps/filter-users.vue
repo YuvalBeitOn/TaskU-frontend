@@ -10,7 +10,7 @@
       type="submit"
     >
       <div class="user-avatar">
-             <avatar :user="user" />
+             <avatar className="img-profile-preview" :size="25" :user="user" />
 
       </div>
       <span v-if="user.fullName" class="filter-txt user-filter">{{ user.fullName }}</span>

@@ -40,7 +40,7 @@
             v-if="isPopupShowen"
             :menuItems="popupOptions"
             :offsetY="popupY"
-            @closePopup="togglePopup"
+            @closePopup="isPopupShowen=false"
         />
     </section>
 </template>
@@ -78,6 +78,7 @@ export default {
         },
         removeCurrBoard() {
             this.$emit('removeBoard', this.currBoardId)
+            
         },
         addBoard() {
             this.$emit('addNewBoard')

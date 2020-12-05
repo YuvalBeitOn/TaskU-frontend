@@ -35,7 +35,7 @@
     <div class="task-details flex">
       <div class="headers flex">
         <span class="members-preview relative task-item">
-          <members
+          <members className="img-profile-preview"
             :hiddenBadge="membersLegnth"
             toolTipTxt="Task Members"
             classIcon="task-icon"
@@ -45,7 +45,7 @@
               class="top-left"
               slot="add-members"
               firstTitle="Task members"
-              secondTitle="Invite Board members"
+              secondTitle="Board members"
               :members="taskCopy.members"
               :allMembers="filteredBoardMembers"
               @addMember="addTaskMember"

@@ -9,7 +9,7 @@
           :key="member._id"
         >
           <div class="user-container flex align-center">
-            <avatar class="user-avatar" :user="member" :size="25" />
+            <avatar class="user-avatar" :user="member"  />
             <span class="member-name">{{ member.fullName }}</span>
           </div>
           <button @click.stop="goToUserDetails(member._id)" class="member-list-btn">

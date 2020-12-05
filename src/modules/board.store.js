@@ -16,10 +16,21 @@ export const boardStore = {
       return state.displayMode
     },
     boards(state) {
+      console.log('state.searchBoard:', state.searchBoard)
+
       if (!state.searchBoard) return state.boards
-      return state.boards.filter(board =>
-        board.name.toLowerCase().includes(state.searchBoard.toLowerCase())
-      )
+      console.log('state.searchBoard:', state.searchBoard)
+      if (state.searchBoard && state.boards !== null) {
+        console.log(state.boards)
+        const filteredBoard = state.boards.filter(board => {
+          console.log('state.searchBoard filter:', state.searchBoard)
+          return board.name
+            .toLowerCase()
+            .includes(state.searchBoard.toLowerCase())
+        })
+        console.log(filteredBoard)
+        return filteredBoard
+      }
     },
     board(state) {
       const filterBy = state.filterBy
@@ -68,7 +79,7 @@ export const boardStore = {
       return filteredBoard
     },
     defaultBoardId(state) {
-      return state.boards[0]._id;
+      return state.boards[0]._id
     },
     filterBy(state) {
       return JSON.parse(JSON.stringify(state.filterBy))
@@ -79,11 +90,15 @@ export const boardStore = {
     getDarkModeToggle(state) {
       const isDarkMode = state.darkMode
       return { darkMode: isDarkMode, '': !isDarkMode }
-
     },
     tasksByStatues(state) {
       let statuesMap = state.currBoard.statuses.reduce((acc, status) => {
-        acc[_.camelCase(status.txt)] = { id: status.id, color: status.color, txt: status.txt, tasks: [] }
+        acc[_.camelCase(status.txt)] = {
+          id: status.id,
+          color: status.color,
+          txt: status.txt,
+          tasks: []
+        }
         return acc
       }, {})
       const boardGroups = state.currBoard.groups
@@ -92,7 +107,11 @@ export const boardStore = {
           var newStatus = _.camelCase(task.status.txt)
           for (let key in statuesMap) {
             if (key === newStatus) {
-              const taskDetails = { ...task, groupName: group.name, groupId: group.id }
+              const taskDetails = {
+                ...task,
+                groupName: group.name,
+                groupId: group.id
+              }
               statuesMap[key].tasks.push(taskDetails)
             }
           }
@@ -127,6 +146,7 @@ export const boardStore = {
     },
     setSearch(state, { searchBoard }) {
       state.searchBoard = searchBoard
+      console.log('state.searchBoard mutation:', state.searchBoard)
     },
     setFilterBy(state, { filterBy }) {
       state.filterBy = filterBy
@@ -134,13 +154,12 @@ export const boardStore = {
   },
   actions: {
     async loadBoards({ commit, rootGetters }) {
-      commit({ type: 'setBoards', boards: null })
       const userId = rootGetters.user._id
       try {
         const boards = await boardService.query(userId)
         commit({ type: 'setBoards', boards })
       } catch (err) {
-        console.log('ERROR: cant loads boards', err);
+        console.log('ERROR: cant loads boards', err)
         throw err
       }
     },
@@ -150,8 +169,8 @@ export const boardStore = {
         const board = await boardService.getById(boardId)
         commit({ type: 'setBoard', board })
       } catch (err) {
-        console.log('no loaded');
-        console.log('ERROR: cant load board', err);
+        console.log('no loaded')
+        console.log('ERROR: cant load board', err)
         throw err
       }
     },
@@ -182,7 +201,7 @@ export const boardStore = {
         }
         return savedBoard._id
       } catch (err) {
-        console.log('ERROR: cant save/update board');
+        console.log('ERROR: cant save/update board')
         throw err
       }
     }

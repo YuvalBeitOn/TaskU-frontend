@@ -33,6 +33,7 @@ export const userStore = {
       state.users = users
     },
     setUser(state, { user }) {
+      console.log('user:', user)
       state.loggedInUser = user
     },
     updateUser(state, { user }) {

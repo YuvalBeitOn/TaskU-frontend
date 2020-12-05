@@ -32,11 +32,6 @@ export default {
       type: 'deletePrivateSocket'
     })
   },
-  // async created() {
-  //   await this.$store.dispatch({
-  //     type: 'setupSockets'
-  //   })
-  // },
 
   components: {
     navMenu

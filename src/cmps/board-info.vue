@@ -3,7 +3,7 @@
     <div class="btn-members-container">
       <members
         :hiddenBadge="membersLegnth"
-        :size="25"
+        :size="35"
         toolTipTxt="Board Members"
         classIcon="icon-nav-hader"
         :members="board.members"
@@ -14,13 +14,13 @@
           @removeMember="emitRemoveMember"
           @addMember="emitAddMember"
           firstTitle="Board Members"
-          secondTitle="Invite Friends"
+          secondTitle="Site Users"
           :members="board.members"
           :allMembers="filteredUsers"
         />
       </members>
     </div>
-    <div class="btn-activity-container">
+    <!-- <div class="btn-activity-container">
       <button
         v-tooltip.top="'contect with your memberes'"
         class="btn-close btn-second btn-activity"
@@ -37,7 +37,7 @@
         :members="board.members"
         v-if="isMembersShown"
       />
-    </div>
+    </div> -->
 
     <div class="btn-booard-activity-container">
       <button
@@ -55,7 +55,7 @@
 <script>
 import members from './members'
 import addMembers from './add-members'
-import membersList from './members-list'
+// import membersList from './members-list'
 export default {
   props: {
     board: Object
@@ -104,7 +104,7 @@ export default {
   components: {
     addMembers,
     members,
-    membersList
+    // membersList
   }
 }
 </script>
