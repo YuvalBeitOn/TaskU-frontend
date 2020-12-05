@@ -23,6 +23,7 @@
     </board-list>
 
     <div :class="['board-app-container width100', darkMode]">
+      <button @click="displayMode = !displayMode"></button>
       <board-header
         :updateBoardName="updateBoardName"
         :updateBoardDesc="updateBoardDesc"
@@ -32,8 +33,8 @@
         @addMember="addBoardMember"
         :forceRerender="forceRerender"
       />
-      <group-list 
-        v-if="board && !isTrilo"
+      <group-list
+        v-if="board && !displayMode"
         :key="componentKey"
         :groups="board.groups"
         :boardName="board.name"
@@ -43,7 +44,7 @@
         @duplicateGroup="duplicateGroup"
         @forceRender="forceRerender"
       />
-      <trello-display v-if="isTrilo"> </trello-display>
+      <trello-mode v-if="displayMode"> </trello-mode>
     </div>
     <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
 
@@ -69,7 +70,7 @@
   </div>
 </template>
 <script>
-// import { eventBus } from '@/services/event-bus.service'
+import { eventBus } from '@/services/event-bus.service'
 import chatApp from '@/cmps/board-chat'
 import groupList from '@/cmps/group-list'
 import boardList from '@/cmps/board-list.vue'
@@ -78,8 +79,7 @@ import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
 import boardHeader from '../cmps/board-header.vue'
 import { socketService } from '@/services/socket.service.js'
-import trelloDisplay from '@/cmps/Trello/trello-mode'
-
+import trelloMode from '@/cmps/Trello/trello-mode'
 
 export default {
   name: 'board-app',
@@ -92,7 +92,7 @@ export default {
       currTaskDetails: null,
       isTaskDetailsHover: false,
       componentKey: 0,
-      isTrilo:true
+      displayMode: true
     }
   },
   computed: {
@@ -279,8 +279,6 @@ export default {
           message: 'Your action  canceled'
         })
       }
-
-  
     },
     async loadBoard() {
       try {
@@ -391,6 +389,7 @@ export default {
     this.$store.dispatch({ type: 'loadUsers' })
     this.loadBoards()
     this.loadBoard()
+    eventBus.$on('updateGroup', this.updateGroup)
   },
   destroyed() {
     this.$store.dispatch({ type: 'turnOffSocket' })
@@ -402,7 +401,8 @@ export default {
     boardSearch,
     chatApp,
     boardHeader,
-    trelloDisplay
+    trelloMode
+    
   }
 }
 </script>

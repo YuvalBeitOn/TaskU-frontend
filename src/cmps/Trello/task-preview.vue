@@ -1,33 +1,45 @@
 <template>
-  <section class="task-preview-card flex column align-center">
-    <div class="task-preivew-header flex space-between">
-
-      {{task.txt}}
+  <section class="task-preview-card flex column">
+    <div
+      class="task-preivew-header flex space-between relative"
+    >
+      <span>{{ task.txt }}</span>
+      <avatar :user="user" :size="20" />
     </div>
+    <button class="details-btn" @click.stop="openTaskDetails"><i class="fas fa-file-alt details-icon"></i></button>
+    <task-details :task="task" :group="group" v-if="isTaskDetailsShown" :isTaskDetailsShown="isTaskDetailsShown" />
   </section>
 </template>
 
 <script>
+import Avatar from '@/cmps/user-avatar.vue'
+import taskDetails from './task-details'
 
 export default {
-  name:'task-preview',
-props:{
-   task:Object 
-}
+  name: 'task-preview',
+  components: {
+    Avatar,
+    taskDetails
+  },
+  props: {
+    task: Object,
+    group: Object
+  },
+  data() {
+    return {
+      isTaskDetailsShown: false
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user
+    }
+  },
+  methods: {
+    openTaskDetails() {
+      console.log('here');
+      this.isTaskDetailsShown = true
+    }
+  }
 }
 </script>
-
-<style lang="scss">
-.task-preview-card{
-      height: 100%;
-    border-radius: 4px;
-    background: #ffffff;
-    position: relative;
-    padding: 8px;
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.29);
-    font-size: 13px;
-    font-weight: 400;
-    color: #333333;
-    cursor: pointer;
-}
-</style>

@@ -8,7 +8,7 @@
           :username="user.fullName"
         ></avatar>
         </template>
-        <img v-else :src="user.imgUrl" :width="`${size}px`" :height="`${size}px`" class="profile-img" />
+        <img v-else :src="user.imgUrl" :class="['ratio-square-profile img-avatar ',className]" />
   </section>
 </template>
 
@@ -21,7 +21,11 @@ export default {
     user:Object,
     size:{
       type:Number,
-      default:30
+      default:35
+    },
+    className:{
+      type:String,
+      default:''
     }
   },
 components:{

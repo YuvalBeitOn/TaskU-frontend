@@ -1,30 +1,42 @@
 <template>
   <section class="members">
     <h3 class="title-members">{{ firstTitle }}</h3>
-    <ul class="clean-list first members-list">
+    <ul class="clean-list first add-members-list">
       <li class="member flex align-center" v-for="member in members" :key="member._id">
-        <avatar :user="member" :size="20"/>
+        <div @click.stop="goToUserDetails(member._id)" class="user-dateils-container flex align-center">
+        <avatar :user="member" />
 
         <span class="member-name">{{ member.fullName }}</span>
+        </div>
+        <div class="action-container flex align-center">
+
         <i
           @click.stop="emitRemoveMember(member)"
           class="action-icon fas fa-minus"
         ></i>
+        </div>
       </li>
     </ul>
     <h3 class="title-members">{{ secondTitle }}</h3>
-    <ul class="members-list clean-list">
+    <ul class="add-members-list clean-list">
       <li
         class="member flex align-center"
         v-for="aMember in allMembers"
         :key="aMember._id"
       >
-        <avatar :user="aMember" :size="20"/>
+              <div @click.stop="goToUserDetails(aMember._id)" class="user-dateils-container flex align-center">
+
+        <avatar :user="aMember" />
         <span class="member-name">{{ aMember.fullName }}</span>
+        </div>
+        <div class="action-container flex align-center">
+
         <i
           @click.stop="emitAddMember(aMember)"
           class="action-icon fas fa-plus"
         ></i>
+        </div>
+
       </li>
     </ul>
   </section>
@@ -41,6 +53,10 @@ export default {
     secondTitle: String,
   },
   methods: {
+       goToUserDetails(id) {
+       console.log('id:', id)
+      this.$router.push(`/user/${id}`)
+    },
     emitAddMember(member) {
       this.$emit('addMember', member)
     },
@@ -58,3 +74,4 @@ export default {
 </script>
 
 <style></style>
+

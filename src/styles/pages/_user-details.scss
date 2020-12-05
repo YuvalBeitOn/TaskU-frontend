@@ -4,14 +4,16 @@
     // margin-bottom: rem(50px);
     min-height: rem(200px);
     background-color: $clr1;
-    .img-profile {
+    .img-profile-container {
       margin-bottom: rem(30px);
+      margin-top: rem(10px);
       .profile-img {
         border: 3px solid white;
         border-radius: 50%;
       }
     }
     .mail {
+      margin: rem(21px) 0;
       color: white;
       font-size: rem(25px);
     }

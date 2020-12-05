@@ -36,9 +36,7 @@
         <strong class="title-details">Company name:</strong>{{ companyName }}
       </h3>
     </div>
-    <pre>
-      {{user}}
-    </pre>
+   
   </section>
 </template>
       

@@ -18,6 +18,7 @@
   </section>
 </template>
 
+
 <script>
 import notifsFilters from './notifs-filters'
 import notifPreview from './notif-preview'

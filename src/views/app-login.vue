@@ -62,6 +62,7 @@ export default {
   created() {},
   methods: {
     async submitLogin() {
+      
       const userCred = JSON.parse(JSON.stringify(this.loginCredentials))
       let user = await this.$store.dispatch({
         type: 'login',
