@@ -7,7 +7,7 @@
             class="header-user-profile flex column justify-center align-center"
         >
             <div class="img-profile-container flex align-center">
-                <avatar :user="user" :size="120" className="img-profile" />
+                <avatar :user="loggedInUser" :size="120" className="img-profile" />
             </div>
 
             <h3 class="mail">{{ user.email }}</h3>
