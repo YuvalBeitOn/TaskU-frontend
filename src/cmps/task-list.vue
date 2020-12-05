@@ -132,7 +132,7 @@ export default {
       const group = this.getGroupById()
       const taskIdx = group.tasks.findIndex(task => task.id === taskId)
       group.tasks.splice(taskIdx, 1)
-      const txt = `${this.user.fullName} remove a task from ${group.txt}`
+      const txt = `${this.user.fullName} remove a task from ${group.name}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.groupId = this.groupId
       this.board.activities.unshift(newActivity)
