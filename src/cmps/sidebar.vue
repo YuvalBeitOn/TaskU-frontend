@@ -4,7 +4,9 @@
       <i @click.stop="closeBtn" class="cls-icon fas fa-times"></i>
     </button>
     <div>
-      <slot>No have content yet....</slot>
+      <slot>No have content yet....
+        
+      </slot>
     </div>
   </section>
 </template>
