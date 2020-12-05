@@ -25,8 +25,8 @@
             <board-search @searchBoard="setSearch" slot="search" />
         </board-list>
 
-<<<<<<< HEAD
         <div :class="['board-app-container width100', darkMode]">
+            <button @click="displayMode = !displayMode"></button>
             <board-header
                 :updateBoardName="updateBoardName"
                 :updateBoardDesc="updateBoardDesc"
@@ -37,7 +37,7 @@
                 :forceRerender="forceRerender"
             />
             <group-list
-                v-if="board"
+                v-if="board && !displayMode"
                 :key="componentKey"
                 :groups="board.groups"
                 :boardName="board.name"
@@ -47,35 +47,9 @@
                 @duplicateGroup="duplicateGroup"
                 @forceRender="forceRerender"
             />
+            <trello-mode v-if="displayMode"> </trello-mode>
         </div>
         <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
-=======
-    <div :class="['board-app-container width100', darkMode]">
-      <button @click="displayMode = !displayMode"></button>
-      <board-header
-        :updateBoardName="updateBoardName"
-        :updateBoardDesc="updateBoardDesc"
-        :board="board"
-        :addGroup="addGroup"
-        @removeMember="removeBoardMember"
-        @addMember="addBoardMember"
-        :forceRerender="forceRerender"
-      />
-      <group-list
-        v-if="board && !displayMode"
-        :key="componentKey"
-        :groups="board.groups"
-        :boardName="board.name"
-        @deleteGroup="deleteGroup"
-        @updateGroup="updateGroup"
-        @updateGroups="updateGroups"
-        @duplicateGroup="duplicateGroup"
-        @forceRender="forceRerender"
-      />
-      <trello-mode v-if="displayMode"> </trello-mode>
-    </div>
-    <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
->>>>>>> d845ea1e1bf1ca5d1a61a69ea90b863a5ef7aa06
 
         <!-- <task-details
       v-if="this.$route.params.taskId"
@@ -111,7 +85,6 @@ import { socketService } from '@/services/socket.service.js'
 import trelloMode from '@/cmps/Trello/trello-mode'
 
 export default {
-<<<<<<< HEAD
     name: 'board-app',
     data() {
         return {
@@ -122,49 +95,8 @@ export default {
             currTaskDetails: null,
             isTaskDetailsHover: false,
             componentKey: 0,
-            displayMode: null,
+            displayMode: true,
         }
-=======
-  name: 'board-app',
-  data() {
-    return {
-      isChatingBtnShown: true,
-      isChating: false,
-      isListExpanded: true,
-      isMembersShowen: false,
-      currTaskDetails: null,
-      isTaskDetailsHover: false,
-      componentKey: 0,
-      displayMode: true
-    }
-  },
-  computed: {
-    // NOT  REMOVE THIS FUNC !!!!!!!!!!
-    darkMode() {
-      return this.$store.getters.getDarkModeToggle
-    },
-    btnClassExpend() {
-      return this.isListExpanded
-        ? 'expend-btn fas fa-chevron-left'
-        : 'expend-btn fas fa-chevron-right'
-    },
-    chatControl() {
-      return this.isChatingBtnShown ? 'Hide Chat' : 'Show Chat'
-    },
-    user() {
-      return this.$store.getters.user
-    },
-    board() {
-      return this.$store.getters.board
-    },
-    boards() {
-      return this.$store.getters.boards
-    }
-  },
-  methods: {
-    toogleChatBtn() {
-      this.isChatingBtnShown = !this.isChatingBtnShown
->>>>>>> d845ea1e1bf1ca5d1a61a69ea90b863a5ef7aa06
     },
     computed: {
         // NOT  REMOVE THIS FUNC !!!!!!!!!!
@@ -458,26 +390,17 @@ export default {
             })
             this.forceRerender()
         })
-<<<<<<< HEAD
         socketService.on('load boards', (boards) => {
             console.log('boards length', boards.length)
             this.$store.commit({
                 type: 'setBoards',
                 boards,
             })
-=======
-      }
-    },
-    async loadBoard() {
-      try {
-        await this.$store.dispatch({
-          type: 'loadBoard',
-          boardId: this.$route.params.boardId
->>>>>>> d845ea1e1bf1ca5d1a61a69ea90b863a5ef7aa06
         })
         this.$store.dispatch({ type: 'loadUsers' })
         this.loadBoards()
         this.loadBoard()
+        eventBus.$on('updateGroup', this.updateGroup)
     },
     destroyed() {
         this.$store.dispatch({ type: 'turnOffSocket' })
@@ -489,67 +412,7 @@ export default {
         boardSearch,
         chatApp,
         boardHeader,
+        trelloMode,
     },
-<<<<<<< HEAD
-=======
-    updateGroups(groups) {
-      this.board.groups = groups
-      const txt = `${this.user.fullName} updated the groups`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
-      this.board.activities.push(newActivity)
-      this.$store.dispatch({
-        type: 'saveBoard',
-        board: this.board
-      })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
-      this.$notify({
-        message: 'Groups updated',
-        position: 'bottom-left',
-        duration: 2000
-      })
-      this.forceRerender()
-    }
-  },
-  watch: {
-    '$route.params.boardId'() {
-      this.loadBoard()
-      this.forceRerender()
-    }
-  },
-  created() {
-    console.log('boardapp creation')
-    socketService.on('updated board', board => {
-      this.$store.commit({
-        type: 'setBoard',
-        board
-      })
-      this.forceRerender()
-    })
-    socketService.on('load boards', boards => {
-      console.log('boards length', boards.length)
-      this.$store.commit({
-        type: 'setBoards',
-        boards
-      })
-    })
-    this.$store.dispatch({ type: 'loadUsers' })
-    this.loadBoards()
-    this.loadBoard()
-    eventBus.$on('updateGroup', this.updateGroup)
-  },
-  destroyed() {
-    this.$store.dispatch({ type: 'turnOffSocket' })
-  },
-  components: {
-    groupList,
-    boardList,
-    // taskDetails,
-    boardSearch,
-    chatApp,
-    boardHeader,
-    trelloMode
-    
-  }
->>>>>>> d845ea1e1bf1ca5d1a61a69ea90b863a5ef7aa06
 }
 </script>
