@@ -27,11 +27,11 @@ export default {
       this.$store.dispatch('logout')
     }
   },
-  async created() {
-    await this.$store.dispatch({
-      type: 'setupSockets'
-    })
-  },
+  // async created() {
+  //   await this.$store.dispatch({
+  //     type: 'setupSockets'
+  //   })
+  // },
 
   components: {
     navMenu

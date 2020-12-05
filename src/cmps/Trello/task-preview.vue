@@ -14,6 +14,7 @@
       </div>
       <avatar :user="user" :size="20" />
     </div>
+    <button class="delete-btn"  @click="deleteTask"><i class="fas fa-trash delete-icon "></i></button>
     <button class="details-btn" @click.stop="openTaskDetails">
       <i class="fas fa-file-alt details-icon"></i>
     </button>
@@ -51,6 +52,9 @@ export default {
     }
   },
   methods: {
+    deleteTask() {
+      this.$emit('deleteTask', this.taskCopy)
+    },
     updateTaskTxt(ev) {
       ev.target.blur()
       if (ev.target.innerText === this.taskCopy.txt) return

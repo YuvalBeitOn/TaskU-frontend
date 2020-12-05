@@ -25,12 +25,24 @@
     position: absolute;
     bottom: 5px;
     right: 11px;
+    .details-icon {
+      color: rgba(48, 48, 48, 0.7);
+      font-size: 1rem;
+    }
     &:hover {
       scale: (1.05);
     }
-    .details-icon {
+  }
+  .delete-btn {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    bottom: 43px;
+    right: 10px;
+    .delete-icon {
       color: rgba(48, 48, 48, 0.7);
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
   }
 }

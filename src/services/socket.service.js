@@ -5,16 +5,18 @@ const BASE_URL = process.env.NODE_ENV === 'production'
 var socket;
 
 export const socketService = {
-    setup,
+    // setup,
     terminate,
     on,
     off,
     emit    
 }
 
-function setup() {
-    socket = io(BASE_URL);
-}
+socket = io(BASE_URL);
+
+// function setup() {
+//     socket = io(BASE_URL);
+// }
 
 function terminate() {
     socket = null;

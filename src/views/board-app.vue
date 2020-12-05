@@ -79,7 +79,7 @@ import { boardService } from '@/services/board.service'
 import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
 import boardHeader from '../cmps/board-header.vue'
-import { socketService } from '@/services/socket.service.js'
+// import { socketService } from '@/services/socket.service.js'
 import trelloMode from '@/cmps/Trello/trello-mode'
 
 export default {
@@ -384,20 +384,19 @@ export default {
   },
   created() {
     console.log('boardapp creation')
-    socketService.on('updated board', board => {
-      this.$store.commit({
-        type: 'setBoard',
-        board
-      })
-      this.forceRerender()
-    })
-    socketService.on('load boards', boards => {
-      console.log('boards length', boards.length)
-      this.$store.commit({
-        type: 'setBoards',
-        boards
-      })
-    })
+    // socketService.on('updated board', board => {
+    //   this.$store.commit({
+    //     type: 'setBoard',
+    //     board
+    //   })
+    // })
+    // socketService.on('load boards', boards => {
+    //   console.log('boards length', boards.length)
+    //   this.$store.commit({
+    //     type: 'setBoards',
+    //     boards
+    //   })
+    // })
     this.$store.dispatch({ type: 'loadUsers' })
     this.loadBoards()
     this.loadBoard()

@@ -78,9 +78,13 @@ export default {
                     userCred,
                 })
                 if (user) {
+                          this.$store.dispatch({
+              type: 'createPrivateSocket',
+              userId: user._id
+            })
                     this.$refs.loginBtn.disabled = true
-                    this.$refs.emailInput.disabled = true
-                    this.$refs.passwordInput.disabled = true
+                    // this.$refs.emailInput.disabled = true
+                    // this.$refs.passwordInput.disabled = true
                     await this.$store.dispatch({ type: 'loadBoards' })
                     console.log('user after login:', user)
                     this.$message({
@@ -92,20 +96,17 @@ export default {
                     this.$router.push(`/board/${this.defaultBoardId}`)
                 }
             } catch (err) {
-                if (err.response.status === 401) {
-                    this.$message({
-                        durtion: 2000,
-                        showClose: true,
-                        type: 'error',
-                        offset: 335,
-                        message: 'Incorrect email or password.',
-                    })
-                }
+                // if (err.response.status === 401) {
+                //     this.$message({
+                //         durtion: 2000,
+                //         showClose: true,
+                //         type: 'error',
+                //         offset: 335,
+                //         message: 'Incorrect email or password.',
+                //     })
+                // }
             }
-            // this.$store.dispatch({
-            //   type: 'createPrivateSocket',
-            //   userId: user._id
-            // })
+      
             this.loginCredentials = {
                 email: null,
                 password: null,
