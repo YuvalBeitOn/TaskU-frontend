@@ -92,7 +92,8 @@ export default {
       currTaskDetails: null,
       isTaskDetailsHover: false,
       componentKey: 0,
-      displayMode: true
+      displayMode: false,
+      socketBoardId:null
     }
   },
   computed: {
@@ -271,11 +272,13 @@ export default {
         this.$store.dispatch({ type: 'loadAllBoards', boards: this.boards })
         this.$message({
           type: 'success',
+          duration:2500,
           message: 'Your Board:' + res.value + ' add '
         })
       } catch (err) {
         this.$message({
           type: 'info',
+          duration:2500,
           message: 'Your action  canceled'
         })
       }
@@ -364,6 +367,7 @@ export default {
       this.forceRerender()
     }
   },
+  
   watch: {
     '$route.params.boardId'() {
       this.loadBoard()
@@ -406,3 +410,6 @@ export default {
   }
 }
 </script>
+
+ this.updateTopic();
+socketService.emit('chat topic', this.topic)

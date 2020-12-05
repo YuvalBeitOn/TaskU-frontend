@@ -12,10 +12,21 @@ export const boardStore = {
   },
   getters: {
     boards(state) {
+      console.log('state.searchBoard:', state.searchBoard)
+
       if (!state.searchBoard) return state.boards
-      return state.boards.filter(board =>
-        board.name.toLowerCase().includes(state.searchBoard.toLowerCase())
-      )
+      console.log('state.searchBoard:', state.searchBoard)
+      if (state.searchBoard && state.boards !== null) {
+        console.log(state.boards)
+        const filteredBoard = state.boards.filter(board => {
+          console.log('state.searchBoard filter:', state.searchBoard)
+          return board.name
+            .toLowerCase()
+            .includes(state.searchBoard.toLowerCase())
+        })
+        console.log(filteredBoard)
+        return filteredBoard
+      }
     },
     board(state) {
       const filterBy = state.filterBy
@@ -127,6 +138,7 @@ export const boardStore = {
     },
     setSearch(state, { searchBoard }) {
       state.searchBoard = searchBoard
+      console.log('state.searchBoard mutation:', state.searchBoard)
     },
     setFilterBy(state, { filterBy }) {
       state.filterBy = filterBy
