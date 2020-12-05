@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <main :class="['main-container flex' ,darkMode]">
+    <main :class="['main-container flex', darkMode]">
       <nav-menu @logout="logout" v-if="isNavShowen" />
-      <router-view :class="['grow',darkMode]" />
+      <router-view :class="['grow', darkMode]" />
     </main>
   </div>
 </template>
@@ -11,8 +11,8 @@
 import navMenu from '@/cmps/nav-menu'
 export default {
   computed: {
-    darkMode(){
-     return this.$store.getters.getDarkModeToggle
+    darkMode() {
+      return this.$store.getters.getDarkModeToggle
     },
     isNavShowen() {
       return this.$route.path === '/login' ||
@@ -26,6 +26,11 @@ export default {
     logout() {
       this.$store.dispatch('logout')
     }
+  },
+  destroyed() {
+       this.$store.dispatch({
+      type: 'deletePrivateSocket'
+    })
   },
   // async created() {
   //   await this.$store.dispatch({

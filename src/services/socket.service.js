@@ -2,10 +2,10 @@ import io from 'socket.io-client';
 const BASE_URL = process.env.NODE_ENV === 'production'
     ? '/'
     : '//localhost:3030' 
+
 var socket;
 
 export const socketService = {
-    // setup,
     terminate,
     on,
     off,
@@ -13,10 +13,6 @@ export const socketService = {
 }
 
 socket = io(BASE_URL);
-
-// function setup() {
-//     socket = io(BASE_URL);
-// }
 
 function terminate() {
     socket = null;

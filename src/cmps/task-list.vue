@@ -86,7 +86,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       this.$notify({
         message: 'New task added',
@@ -117,7 +116,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       this.txt = ''
       this.isAddBtnShowen = false
@@ -140,7 +138,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Task removed',
         position: 'bottom-left',
@@ -160,7 +157,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       this.$emit('forceRender')
     },
@@ -171,7 +167,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       this.$emit('forceRender')
     }

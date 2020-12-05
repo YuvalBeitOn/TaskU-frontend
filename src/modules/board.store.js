@@ -1,5 +1,4 @@
 import { boardService } from '@/services/board.service.js'
-
 import _ from 'lodash'
 
 export const boardStore = {
@@ -8,9 +7,9 @@ export const boardStore = {
     currBoard: null,
     searchBoard: null,
     filterBy: { status: 'All', priority: 'All', person: 'All', searchTerm: '' },
-    darkMode:false,
+    darkMode: false,
     displayMode: 'Board'
-    
+
   },
   getters: {
     displayMode(state) {
@@ -77,42 +76,47 @@ export const boardStore = {
     boardActivities(state) {
       return state.currBoard.activities
     },
-    getDarkModeToggle(state){
+    getDarkModeToggle(state) {
       const isDarkMode = state.darkMode
-      return  {darkMode:isDarkMode   , '':!isDarkMode }
-     
+      return { darkMode: isDarkMode, '': !isDarkMode }
+
     },
-    tasksByStatues(state){
-       let statuesMap =state.currBoard.statuses.reduce((acc,status)=>{
-        acc[_.camelCase(status.txt)] = {id:status.id,color:status.color,txt:status.txt,tasks:[]}
+    tasksByStatues(state) {
+      let statuesMap = state.currBoard.statuses.reduce((acc, status) => {
+        acc[_.camelCase(status.txt)] = { id: status.id, color: status.color, txt: status.txt, tasks: [] }
         return acc
-      },{})
+      }, {})
       const boardGroups = state.currBoard.groups
-      boardGroups.forEach(group=>{
-        group.tasks.forEach(task=>{
-         var newStatus = _.camelCase(task.status.txt)
-         for(let key in statuesMap){
-           if(key === newStatus){
-             const taskDetails = {...task,groupName:group.name,groupId:group.id}
-             statuesMap[key].tasks.push(taskDetails)
-           }
-         }
+      boardGroups.forEach(group => {
+        group.tasks.forEach(task => {
+          var newStatus = _.camelCase(task.status.txt)
+          for (let key in statuesMap) {
+            if (key === newStatus) {
+              const taskDetails = { ...task, groupName: group.name, groupId: group.id }
+              statuesMap[key].tasks.push(taskDetails)
+            }
+          }
         })
       })
-      return statuesMap 
+      return statuesMap
     }
-
   },
   mutations: {
-    setDisplayMode(state, {displayMode}) {
-      return state.displayMode = displayMode
-
+    setBoardById(state, { board }) {
+      const boardIdx = state.boards.findIndex(currBoard => currBoard._id === board._id)
+      state.boards.splice(boardIdx, 1, board)
+      if (board._id === state.currBoard._id) {
+        console.log('replacing curr board');
+        state.currBoard = board;
+      }
     },
-    darkMode(state,{darkMode}){
-      return state.darkMode = darkMode
+    setDisplayMode(state, { displayMode }) {
+      state.displayMode = displayMode
+    },
+    darkMode(state, { darkMode }) {
+      state.darkMode = darkMode
     },
     setBoards(state, { boards }) {
-
       state.boards = boards
     },
     setBoard(state, { board }) {
@@ -136,18 +140,18 @@ export const boardStore = {
         const boards = await boardService.query(userId)
         commit({ type: 'setBoards', boards })
       } catch (err) {
-        console.log('ERROR: cant loads boards',err);
+        console.log('ERROR: cant loads boards', err);
         throw err
       }
     },
     async loadBoard({ commit }, { boardId }) {
       commit({ type: 'setBoard', board: null })
       try {
-      const board = await boardService.getById(boardId)
-      commit({ type: 'setBoard', board })
-      } catch (err){
+        const board = await boardService.getById(boardId)
+        commit({ type: 'setBoard', board })
+      } catch (err) {
         console.log('no loaded');
-        console.log('ERROR: cant load board',err);
+        console.log('ERROR: cant load board', err);
         throw err
       }
     },
@@ -168,7 +172,7 @@ export const boardStore = {
       if (userId !== guestUser._id && !board._id) {
         board.members.push(guestUser)
       }
-      try{
+      try {
         const savedBoard = await boardService.save(board)
         if (board._id) {
           commit({ type: 'setBoard', board: savedBoard })
@@ -177,7 +181,7 @@ export const boardStore = {
           await dispatch({ type: 'loadBoards' })
         }
         return savedBoard._id
-      } catch (err){
+      } catch (err) {
         console.log('ERROR: cant save/update board');
         throw err
       }

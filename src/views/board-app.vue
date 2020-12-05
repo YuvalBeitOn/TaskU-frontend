@@ -174,8 +174,7 @@ export default {
         let newActivity = boardService.getEmptyActivity(txt, this.user)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'saveBoard', board: this.board })
-        this.$store.dispatch({ type: 'updateBoard', board: this.board })
-        this.$notify({
+          this.$notify({
           message: 'Board description updated',
           position: 'bottom-left',
           duration: 2000
@@ -193,7 +192,6 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'New member added to board',
         position: 'bottom-left',
@@ -209,7 +207,6 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Member removed from board',
         position: 'bottom-left',
@@ -312,7 +309,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'New group added',
         position: 'bottom-left',
@@ -330,7 +326,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Group deleted',
         position: 'bottom-left',
@@ -350,7 +345,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Group updated',
         position: 'bottom-left',
@@ -367,7 +361,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Groups updated',
         position: 'bottom-left',
@@ -384,6 +377,9 @@ export default {
   },
   created() {
     console.log('boardapp creation')
+    this.$store.dispatch({
+      type: 'createPrivateSocket'
+    })
     // socketService.on('updated board', board => {
     //   this.$store.commit({
     //     type: 'setBoard',
@@ -401,9 +397,11 @@ export default {
     this.loadBoards()
     this.loadBoard()
     eventBus.$on('updateGroup', this.updateGroup)
+    eventBus.$on('forceRerender', this.forceRerender)
   },
   destroyed() {
-    this.$store.dispatch({ type: 'turnOffSocket' })
+    console.log('BoardApp destroyed runing')
+    // this.$store.dispatch({ type: 'turnOffSocket' })
   },
   components: {
     groupList,
