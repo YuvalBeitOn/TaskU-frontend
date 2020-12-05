@@ -140,7 +140,7 @@ export default {
     duplicateGroup(group) {
       group.id = utilService.makeId()
       this.board.groups.push(group)
-      const txt = `${this.user.fullName} duplicated group the group ${group.txt} `
+      const txt = `${this.user.fullName} duplicated group the group ${group.name} `
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })

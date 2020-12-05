@@ -77,7 +77,7 @@ export default {
       }
       const newTask = boardService.getEmptyTask()
       const group = this.getGroupById()
-      const txt = `${this.user.fullName} add new task in ${group.txt}`
+      const txt = `${this.user.fullName} add new task in ${group.name}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.groupId = groupId
       this.board.activities.unshift(newActivity)
