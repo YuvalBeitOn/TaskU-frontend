@@ -1,13 +1,28 @@
 <template>
   <section class="task-preview-card flex column">
-    <div
-      class="task-preivew-header flex space-between relative"
-    >
-      <span>{{ task.txt }}</span>
+    <div class="task-preivew-header flex space-between relative">
+      <!-- <span>{{ task.txt }}</span> -->
+      <div class="task-txt">
+        <span
+          class="editable txt-edit"
+          spellcheck="false"
+          @blur="updateTaskTxt"
+          @keydown.enter="updateTaskTxt"
+          contenteditable
+          >{{ taskCopy.txt }}</span
+        >
+      </div>
       <avatar :user="user" :size="20" />
     </div>
-    <button class="details-btn" @click.stop="openTaskDetails"><i class="fas fa-file-alt details-icon"></i></button>
-    <task-details :task="task" :group="group" v-if="isTaskDetailsShown" :isTaskDetailsShown="isTaskDetailsShown" />
+    <button class="details-btn" @click.stop="openTaskDetails">
+      <i class="fas fa-file-alt details-icon"></i>
+    </button>
+    <task-details
+      :task="taskCopy"
+      :group="group"
+      v-if="isTaskDetailsShown"
+      :isTaskDetailsShown="isTaskDetailsShown"
+    />
   </section>
 </template>
 
@@ -36,10 +51,25 @@ export default {
     }
   },
   methods: {
+    updateTaskTxt(ev) {
+      ev.target.blur()
+      if (ev.target.innerText === this.taskCopy.txt) return
+      else {
+        this.taskCopy.txt = ev.target.innerText
+        this.$notify({
+          message: 'Task txt updated',
+          position: 'bottom-left',
+          duration: 2000
+        })
+        this.$emit('updateTask', this.taskCopy)
+      }
+    },
     openTaskDetails() {
-      console.log('here');
       this.isTaskDetailsShown = true
     }
+  },
+  created() {
+    this.taskCopy = this.task
   }
 }
 </script>

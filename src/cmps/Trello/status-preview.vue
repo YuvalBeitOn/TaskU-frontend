@@ -3,12 +3,17 @@
     :style="`background-color:${status.color}`"
     class="status-preview flex align-center"
   >
-    <span class="status-title">{{ status.txt || 'No label' }}</span>
+    <span class="status-title"
+      >{{ status.txt || 'No label' }}
+      <span v-if="status.tasks">/ {{ status.tasks.length }}</span></span
+    >
+
     <task-preview
       v-for="task in status.tasks"
       :key="task.id"
       :task="task"
       :group="group"
+      @updateTask="updateTask"
     />
     <form class="add-task-form flex align-center" @submit.prevent="addTask">
       <input
@@ -19,7 +24,9 @@
         @click="focusInput"
         @blur="unFocusInput"
       />
-      <button class="add-btn" v-if="isAddBtnShown" ><span>+</span></button>
+      <button type="submit" class="add-btn" v-if="isAddBtnShown">
+        <span>+</span>
+      </button>
     </form>
   </section>
 </template>
@@ -32,12 +39,12 @@ import { boardService } from '../../services/board.service'
 export default {
   name: 'statues-preview',
   props: {
-    status: Object
+    status: Object,
+    group: Object
   },
   data() {
     return {
       txt: '',
-      group: null,
       isAddBtnShown: false
     }
   },
@@ -47,6 +54,15 @@ export default {
     }
   },
   methods: {
+    updateTask(updatedTask) {
+      console.log('taskkkkkkk:', updatedTask)
+      const group = this.board.groups.find(group => group.id === updatedTask.groupId)
+      const taskIdx = group.tasks.findIndex(
+        currTask => currTask.id === updatedTask.id
+      )
+      group.tasks.splice(taskIdx, 1, updatedTask)
+      eventBus.$emit('updateGroup', group)
+    },
     focusInput() {
       this.isAddBtnShown = true
     },
@@ -64,19 +80,11 @@ export default {
       this.txt = ''
     }
   },
+  created() {
+    this.groupCopy = this.group
+  },
   components: {
     taskPreview
-  },
-  created() {
-    let newGroup = boardService.getEmptyGroup()
-    delete newGroup.tasks
-    newGroup.tasks = []
-    this.group = newGroup
-    this.board.groups.unshift(this.group)
-    this.$store.dispatch({
-      type: 'saveBoard',
-      board: this.board
-    })
   }
 }
 </script>

@@ -45,7 +45,6 @@ methods:{
       this.$router.push(`/board/${this.$route.params.boardId}`)
   },
   setSearch(searchKeys){
-    console.log('searchKeys:', searchKeys)
     this.filterBy = searchKeys
   }
 },

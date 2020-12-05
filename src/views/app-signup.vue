@@ -82,7 +82,6 @@ export default {
                 fullName: null,
                 isAdmin: false,
             }
-            console.log(user)
             const board = boardService.getEmptyBoard()
             board.creator = user
             board.members.push(user)

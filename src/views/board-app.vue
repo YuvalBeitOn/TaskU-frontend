@@ -23,7 +23,6 @@
     </board-list>
 
     <div :class="['board-app-container width100', darkMode]">
-      <button @click="displayMode = !displayMode"></button>
       <board-header
         :updateBoardName="updateBoardName"
         :updateBoardDesc="updateBoardDesc"
@@ -31,10 +30,12 @@
         :addGroup="addGroup"
         @removeMember="removeBoardMember"
         @addMember="addBoardMember"
+        :displayMode="displayMode"
         :forceRerender="forceRerender"
+        @setDisplayMode="setDisplayMode"
       />
       <group-list
-        v-if="board && !displayMode"
+        v-if="board && displayMode === 'Board'"
         :key="componentKey"
         :groups="board.groups"
         :boardName="board.name"
@@ -44,7 +45,7 @@
         @duplicateGroup="duplicateGroup"
         @forceRender="forceRerender"
       />
-      <trello-mode v-if="displayMode"> </trello-mode>
+      <trello-mode v-else></trello-mode>
     </div>
     <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
 
@@ -91,14 +92,16 @@ export default {
       isMembersShowen: false,
       currTaskDetails: null,
       isTaskDetailsHover: false,
-      componentKey: 0,
-      displayMode: true
+      componentKey: 0
     }
   },
   computed: {
     // NOT  REMOVE THIS FUNC !!!!!!!!!!
     darkMode() {
       return this.$store.getters.getDarkModeToggle
+    },
+    displayMode() {
+      return this.$store.getters.displayMode
     },
     btnClassExpend() {
       return this.isListExpanded
@@ -119,6 +122,9 @@ export default {
     }
   },
   methods: {
+    setDisplayMode(displayMode) {
+      this.$store.commit({type: 'setDisplayMode', displayMode})
+    },
     toogleChatBtn() {
       this.isChatingBtnShown = !this.isChatingBtnShown
     },
@@ -181,7 +187,6 @@ export default {
       this.componentKey += 1
     },
     addBoardMember(user) {
-      console.log('user:', user)
       this.board.members.unshift(user)
       const txt = `${this.user.fullName} add ${user.fullName} to Board`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
@@ -371,7 +376,6 @@ export default {
     }
   },
   created() {
-    console.log('boardapp creation')
     socketService.on('updated board', board => {
       this.$store.commit({
         type: 'setBoard',
@@ -380,7 +384,6 @@ export default {
       this.forceRerender()
     })
     socketService.on('load boards', boards => {
-      console.log('boards length', boards.length)
       this.$store.commit({
         type: 'setBoards',
         boards
@@ -402,7 +405,6 @@ export default {
     chatApp,
     boardHeader,
     trelloMode
-    
   }
 }
 </script>

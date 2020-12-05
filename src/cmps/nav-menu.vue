@@ -88,7 +88,6 @@ export default {
   },
   methods: {
     darkModeToggle() {
-      console.log(this.darkMode)
       this.darkMode = !this.darkMode;
       this.$store.commit({ type: 'darkMode', darkMode: this.darkMode })
     },
@@ -107,7 +106,6 @@ export default {
       this.isUserModalShown = !this.isUserModalShown
     },
     onLogout() {
-      console.log('logging out')
       this.$store.dispatch({
         type: 'logout'
       })

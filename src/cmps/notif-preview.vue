@@ -70,7 +70,6 @@ export default {
       this.$emit('deleteNotif', this.notifCopy)
     },
     toggleIsRead() {
-      console.log('hereeeeeeeee');
       this.notifCopy.isRead = !this.notifCopy.isRead
       this.$emit('updateNotif', this.notifCopy)
     }

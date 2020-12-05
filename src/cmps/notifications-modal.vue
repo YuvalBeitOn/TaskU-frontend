@@ -84,7 +84,6 @@ export default {
     }
   },
   destroyed() {
-    console.log('notifs-modal destroyed')
     this.updateNotifs()
   },
   created() {

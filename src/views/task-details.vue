@@ -50,9 +50,7 @@ export default {
   },
   created() {
     const taskInfo = this.getTaskInfoById()
-    console.log('taskInfo.task:', taskInfo.task)
     this.task = taskInfo.task
-    console.log(' this.task:', this.task)
     this.groupId = taskInfo.groupId
   },
   methods: {
@@ -118,10 +116,7 @@ export default {
       return this.$store.getters.user
     },
     posts() {
-      console.log('postlist////', this.task.posts)
-      console.log('//// orelll posts: type of', typeof this.task.posts)
       return this.task.posts
-      // return false
     },
     taskActivities() {
       let taskActivities = []
@@ -140,15 +135,10 @@ export default {
       const taskInfo = this.getTaskInfoById()
       this.groupId = taskInfo.groupId
       this.task = JSON.parse(JSON.stringify(taskInfo.task))
-      console.log(this.task, 'my task - task details')
     },
   },
   destroyed() {
-    console.log('im destroy//////////')
-    // this.task
     console.log('this.task destory:', this.task)
-    // eventBus.$emit('updateTaskPreview', this.task)
-
     eventBus.$emit('updateTaskPreviewDestory', this.task)
   },
   components: {

@@ -88,12 +88,10 @@ computed:{
     updateTopic(){
 const { boardId } = this.$route.params;
     this.topic = boardId
-    console.log('topic IS:',this.topic);
     }
   },
   created(){
     this.msg.from = this.$store.getters.user.fullName 
-    console.log('this.msg.from:', this.msg.from)
     this.updateTopic();
     socketService.emit('chat topic', this.topic)
     socketService.on('history msg',msgs=>this.msgs = msgs)
@@ -102,7 +100,6 @@ const { boardId } = this.$route.params;
     socketService.on('isTyping',(boolen)=>this.isTypeing=boolen)
     socketService.on('msg',(msg)=>{
       this.msgTyping=msg
-      console.log( this.msgTyping,'typing userr');
       })
   },
     destroyed() {
@@ -112,7 +109,6 @@ const { boardId } = this.$route.params;
   },
   watch:{
      '$route.params.boardId'(){
-       console.log('TOPIC HAS CHANGED');
      this.updateTopic();
 
      }

@@ -57,11 +57,9 @@ export default {
   methods: {
     imgUrl(url){
       this.userToEdit.imgUrl=url
-console.log(url,'im url');
     },
     saveDetails() {
       const copyUser = JSON.parse(JSON.stringify(this.userToEdit))
-      console.log('copyUser:', copyUser)
       this.$store.dispatch({ type: 'upadteUser', user: copyUser })
        this.$notify({
         message: 'The Details updated',
