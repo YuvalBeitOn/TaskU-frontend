@@ -64,9 +64,6 @@ export default {
       this.$emit('removeMember', member)
     },
   },
-  created() {
-    console.log(this.members);
-  },
   components: {
     Avatar,
   },

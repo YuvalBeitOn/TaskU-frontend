@@ -13,7 +13,7 @@
                     v-for="group in clonedGroups"
                     :key="group._id"
                     :group="group"
-                    :deleteGroup="emitDelete"
+                    @deleteGroup="emitDelete"
                     @updateGroup="updateGroup"
                     @emitForceRender="emitForceRender"
                     @duplicateGroup="duplicateGroup"
@@ -37,7 +37,6 @@ export default {
         }
     },
     created() {
-        console.log('group list created')
         this.clonedGroups = JSON.parse(JSON.stringify(this.groups))
     },
     components: {

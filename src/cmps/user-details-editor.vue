@@ -55,17 +55,13 @@ export default {
     }
   },
   methods: {
-    imgUrl(url) {
-      this.userToEdit.imgUrl = url
-      console.log(url, 'im url')
+    imgUrl(url){
+      this.userToEdit.imgUrl=url
     },
     saveDetails() {
       const copyUser = JSON.parse(JSON.stringify(this.userToEdit))
-      console.log('copyUser:', copyUser)
       this.$store.dispatch({ type: 'updateUser', user: copyUser })
-      this.$emit('loadUser', copyUser._id)
-
-      this.$notify({
+       this.$notify({
         message: 'The Details updated',
         position: 'bottom-left',
         duration: 2000,

@@ -7,7 +7,8 @@ import appLogin from '@/views/app-login'
 import appSignup from '@/views/app-signup'
 import taskDetails from '@/views/task-details'
 import boardActivities from '@/views/board-activities'
-import dashboard from '@/views/dashboard'
+import userCalender from '@/views/user-calender'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -37,28 +38,26 @@ const routes = [
     component: boardApp,
     children: [
       {
-        path: "task/:taskId",
-        component: taskDetails,
+        path: 'task/:taskId',
+        component: taskDetails
       },
       {
-        path: "activities",
-        component: boardActivities,
-      },
-    ],
-   
+        path: 'activities',
+        component: boardActivities
+      }
+    ]
   },
   {
     path: '/user/:userId',
     name: 'userDetails',
-    component: userDetails,
-   
+    component: userDetails
   },
   {
-    path: "/dashboard",
-    component: dashboard,
-  },
+    path: '/calender/:userId?',
+    name: 'userCalender',
+    component: userCalender
+  }
 ]
-
 
 const router = new VueRouter({
   mode: 'hash',

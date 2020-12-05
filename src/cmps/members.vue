@@ -69,7 +69,6 @@ export default {
   },
   methods: {
     togglemembers() {
-      console.log('lololololo')
       this.isMembersShown = !this.isMembersShown
     },
   },

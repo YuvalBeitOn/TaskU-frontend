@@ -1,6 +1,6 @@
 <template>
-    <section class="app-login-container sign-up-container">
-        <div class="login-header">
+    <section class="app-signup-container sign-up-container">
+        <div class="signup-header">
             <router-link to="/"
                 ><img
                     class="logo2 flex end"
@@ -8,9 +8,9 @@
                     alt=""
             /></router-link>
         </div>
-        <section class="app-signup app-login flex column">
+        <section class="app-signup flex column">
             <div class="flex column justify-center">
-                <h1 class="login-title">
+                <h1 class="signup-title">
                     Sign <span class="thin-fonted">Up</span>
                 </h1>
                 <form
@@ -21,25 +21,28 @@
                         type="text"
                         v-model="signupCredentials.fullName"
                         placeholder="Full Name"
+                        required
                     />
                     <el-input
                         type="text"
                         v-model="signupCredentials.email"
                         placeholder="Email"
+                        required
                     />
 
                     <el-input
                         type="password"
                         v-model="signupCredentials.password"
                         placeholder="Password"
+                        required
                     />
 
-                    <button class="login-btn">Sign up</button>
+                    <button class="signup-btn" ref="signupBtn">Sign up</button>
                 </form>
                 <div class="signup-section flex align-center">
                     <span class="separator-line"></span>
                     <div
-                        class="login-subtitle flex align-center justify-center"
+                        class="signup-subtitle flex align-center justify-center"
                     >
                         Already have a user?
                         <router-link to="/login">
@@ -71,6 +74,8 @@ export default {
     computed: {},
     methods: {
         async submitSignup() {
+            const signupBtn = this.$refs.signupBtn
+            signupBtn.disabled = true
             const userCred = JSON.parse(JSON.stringify(this.signupCredentials))
             const user = await this.$store.dispatch({
                 type: 'signup',
@@ -82,7 +87,6 @@ export default {
                 fullName: null,
                 isAdmin: false,
             }
-            console.log(user)
             const board = boardService.getEmptyBoard()
             board.creator = user
             board.members.push(user)

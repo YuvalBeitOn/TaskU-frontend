@@ -28,15 +28,32 @@
     >
       {{ board.description }}
     </h3>
-    <!-- <h4 class="board-creator">By: {{ board.creator.fullName }}</h4> -->
-        <board-filter
-            v-if="board"
-            :statuses="board.statuses"
-            :priorities="board.priorities"
-            @addGroup="addGroup"
-            @forceRerender="forceRerender"
-        />
-    </header>
+    <div class="display-mode">
+      <el-select
+        @change="setDisplayMode"
+        :value="displayMode"
+        placeholder="Display"
+      >
+        <label>
+          <el-option class="opt" value="Board" placeholder="Board"
+            ><i class="far fa-bars menu-icon"><span class="inner-txt">Board</span></i></el-option
+          ></label
+        >
+        <label>
+          <el-option class="opt" value="Canvas" placeholder="Canvas"
+            ><i class="fal fa-chalkboard menu-icon"> <span class="inner-txt">Canvas</span></i></el-option
+          >
+        </label>
+      </el-select>
+    </div>
+    <board-filter
+      v-if="board"
+      :statuses="board.statuses"
+      :priorities="board.priorities"
+      @addGroup="addGroup"
+      @forceRerender="forceRerender"
+    />
+  </header>
 </template>
 
 <script>
@@ -44,34 +61,38 @@ import boardInfo from './board-info'
 import boardFilter from '@/cmps/board-filter.vue'
 
 export default {
-    props: {
-        updateBoardDesc: Function,
-        updateBoardName: Function,
-        board: Object,
-        addGroup: Function,
-        forceRerender: Function,
+  props: {
+    updateBoardDesc: Function,
+    updateBoardName: Function,
+    board: Object,
+    addGroup: Function,
+    forceRerender: Function
+  },
+  data() {
+    return {
+      isAllowed: true
+    }
+  },
+  computed: {
+    displayMode() {
+      return this.$store.getters.displayMode
+    }
+  },
+  methods: {
+    setDisplayMode(val) {
+      this.$emit('setDisplayMode', val)
     },
-    data() {
-        return {
-            isAllowed: true,
-        }
+    emitRemoveMember(member) {
+      this.$emit('removeMember', member)
     },
-    methods: {
-        // limitTextLength(ev) {
-        //   console.log(ev.target.innerText.length);
-        //   return ev.target.innerText.length <= 20 ? this.isAllowed = true : this.isAllowed =false
-        // },
-        emitRemoveMember(member) {
-            this.$emit('removeMember', member)
-        },
-        emitAddMember(member) {
-            this.$emit('addMember', member)
-        },
-    },
-    components: {
-        boardInfo,
-        boardFilter,
-    },
+    emitAddMember(member) {
+      this.$emit('addMember', member)
+    }
+  },
+  components: {
+    boardInfo,
+    boardFilter
+  }
 }
 </script>
 

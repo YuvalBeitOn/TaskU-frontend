@@ -18,7 +18,7 @@
   .board-descriotion {
     font-size: 14px;
     color: #676879;
-    margin-bottom: 1.2rem;
+    margin-bottom: rem(16px);
     max-width: 500px;
     overflow: hidden;
     height: 25px;
@@ -44,6 +44,33 @@
         width: 70px;
         height: 40px;
       }
+    }
+  }
+  .display-mode {
+    input {
+      width: 120px;
+      height: 28px;
+      font-size: 0.9rem;
+      .el-input__inner {
+        padding: 0;
+      }
+    }
+    .el-input__icon {
+      height: 100%;
+      text-align: center;
+      -webkit-transition: all 0.3s;
+      transition: all 0.3s;
+      line-height: 30px;
+    }
+  }
+}
+
+.opt {
+  .menu-icon {
+    font-size: 0.9rem;
+    .inner-txt {
+      font-family: 'roboto-light';
+      margin-left: 5px;
     }
   }
 }

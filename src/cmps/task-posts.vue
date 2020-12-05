@@ -68,9 +68,7 @@ export default {
   },
   created() {
     this.copiedPosts = JSON.parse(JSON.stringify(this.posts))
-    // console.log(this.logged)
-    console.log('type of:',typeof this.task);
-    console.log('type of posts:',typeof this.posts);
+  
   },
   methods: {
     imgUrl(url) {

@@ -89,6 +89,7 @@
           >
           </el-date-picker>
         </span>
+        <!-- <span class="right-square"><span class="right-line"></span></span> -->
       </div>
     </div>
     <div
@@ -232,7 +233,6 @@ export default {
       }
     },
     updateTask() {
-      console.log('//////////////this.activity:////////', this.activity)
       this.$emit('updateTask', this.taskCopy, this.activity)
     },
     sendToTaskDetails() {
@@ -291,7 +291,6 @@ export default {
       this.taskCopy = task
       this.activity = null
       this.updateTask()
-      console.log('im updated!!!')
     })
     this.taskCopy = this.task
   },

@@ -66,14 +66,10 @@ export default {
     created() {
         const { userId } = this.$route.params
         if (!this.loggedInUser) {
-            console.log('I am not even logged in')
             this.$router.push('/')
         } else if (this.loggedInUser._id === userId) {
-            console.log('I am the logged in user!')
             this.user = this.loggedInUser
         } else {
-            console.log(this.loggedInUser)
-            console.log('I am not the logged in user')
             const user = this.getUserById(userId)
             this.user = user
         }

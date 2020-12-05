@@ -35,7 +35,7 @@
 import taskPreview from './task-preview'
 import { boardService } from '@/services/board.service'
 import draggable from 'vuedraggable'
-import { eventBus } from '@/services/event-bus.service'
+// import { eventBus } from '@/services/event-bus.service'
 
 export default {
   name: 'task-list',
@@ -149,13 +149,9 @@ export default {
       this.$emit('forceRender')
     },
     updateTask(newTask, activity) {
-      console.log('activity:', activity)
       if (activity) {
         this.board.activities.unshift(activity)
-        console.log(
-          'this.board.activities://///////*********',
-          this.board.activities
-        )
+
       }
       const group = this.getGroupById()
       const taskIdx = group.tasks.findIndex(task => task.id === newTask.id)
@@ -182,7 +178,6 @@ export default {
   },
   created() {
     this.clonedTasks = JSON.parse(JSON.stringify(this.tasks))
-    eventBus.$on('addTask', txt => console.log('what?', txt))
   },
   components: {
     taskPreview,

@@ -118,7 +118,7 @@ export default {
                 },
                 {
                     txt: 'Delete',
-                    func: this.deleteGroup,
+                    func: this.emitDelete,
                     iconStr: 'trash',
                 },
                 {
@@ -169,8 +169,8 @@ export default {
         toggleGroupActions() {
             this.isActionsShowen = !this.isActionsShowen
         },
-        emitDelete(groupId) {
-            this.$emit('deleteGroup', groupId)
+        emitDelete() {
+            this.$emit('deleteGroup', this.groupCopy.id)
             this.isExpanded = false
         },
         toggleGroup() {

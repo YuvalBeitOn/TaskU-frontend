@@ -49,34 +49,30 @@ export const userStore = {
   actions: {
     async loadUsers({ commit }) {
       try {
-
         const users = await userService.getUsers()
         commit({ type: 'setUsers', users })
       } catch (err) {
-        console.log('ERROR:cant find users');
+        console.log('ERROR:cant find users')
         throw err
-
       }
     },
     async loadUser({ commit }, { userId }) {
       console.log('userId:', userId)
       try {
         const user = await userService.getById(userId)
-        console.log('try');
+        console.log('try')
         commit({ type: 'setUser', user })
       } catch (err) {
-        console.log('ERROR:cant find user');
+        console.log('ERROR:cant find user')
         throw err
       }
-
     },
     async removeUser({ commit }, { userId }) {
       try {
-
         await userService.remove(userId)
         commit({ type: 'removeUser', userId })
       } catch (err) {
-        console.log('ERROR: cant remove user');
+        console.log('ERROR: cant remove user')
         throw err
       }
     },
@@ -87,7 +83,7 @@ export const userStore = {
         commit({ type: 'updateUser', user: savedUser })
         return savedUser
       } catch (err) {
-        console.log('ERROR:cant updated user!');
+        console.log('ERROR:cant updated user!')
         throw err
       }
     },
@@ -97,10 +93,9 @@ export const userStore = {
         commit({ type: 'addUser', user: savedUser })
         return savedUser
       } catch (err) {
-        console.log('ERROR:cant add user');
+        console.log('ERROR:cant add user')
         throw err
       }
-
     },
     async login(context, { userCred }) {
       try {
@@ -119,7 +114,8 @@ export const userStore = {
           return user
         }
       } catch (err) {
-        console.log('ERROR:cant do login')
+        console.log('USER STORE ERROR TYPE:', err.response.status)
+        throw err
       }
     },
     async logout(context) {
@@ -128,7 +124,7 @@ export const userStore = {
         context.commit({ type: 'setUsers', users: [] })
         context.commit({ type: 'setUser', user: null })
       } catch (err) {
-        console.log('ERROR:cant logout');
+        console.log('ERROR:cant logout')
         throw err
       }
     },
@@ -139,20 +135,18 @@ export const userStore = {
         context.commit({ type: 'setUser', user })
         return user
       } catch (err) {
-        console.log('CANT SIGN UP ');
+        console.log('CANT SIGN UP ')
         throw err
-
       }
     },
     // async uploadUserImg(context, { img }) {
     //   console.log('the image',img, context, 'context')
     // }
     async sendNotif(context, { notif }) {
-      console.log('notif in store:', notif);
+      console.log('notif in store:', notif)
       await userService.sendNotif(notif)
 
       // context.commit({ type: 'setUser', user })
-
     }
   }
 }

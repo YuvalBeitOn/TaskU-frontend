@@ -68,7 +68,6 @@ export default {
   },
   created() {
     this.isShown = this.isTaskDetailsShown
-    console.log(this.task)
   }
 }
 </script>

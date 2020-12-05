@@ -31,7 +31,6 @@ function save(board) {
 }
 
 async function _add(board) {
-    console.log('BOARD SERVICE GOT THE BOARD!!!', board)
     return httpService.post(`board/`, board);
 }
 

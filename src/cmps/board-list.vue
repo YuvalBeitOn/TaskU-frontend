@@ -85,7 +85,6 @@ export default {
 
         togglePopup(ev, boardId) {
             this.popupY = ev.y
-            console.log(this.popupY)
             this.currBoardId = this.isPopupShowen ? '' : boardId
             this.isPopupShowen = !this.isPopupShowen
         },

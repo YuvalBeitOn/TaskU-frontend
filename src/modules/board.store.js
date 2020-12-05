@@ -8,9 +8,14 @@ export const boardStore = {
     currBoard: null,
     searchBoard: null,
     filterBy: { status: 'All', priority: 'All', person: 'All', searchTerm: '' },
-    darkMode: false
+    darkMode:false,
+    displayMode: 'Board'
+    
   },
   getters: {
+    displayMode(state) {
+      return state.displayMode
+    },
     boards(state) {
       console.log('state.searchBoard:', state.searchBoard)
 
@@ -113,22 +118,20 @@ export const boardStore = {
           }
         })
       })
-      console.log('statuesMap:', statuesMap)
-      return statuesMap
+      return statuesMap 
     }
   },
   mutations: {
-    darkMode(state, { darkMode }) {
-      return (state.darkMode = darkMode)
+    setDisplayMode(state, {displayMode}) {
+      return state.displayMode = displayMode
+
+    },
+    darkMode(state,{darkMode}){
+      return state.darkMode = darkMode
     },
     setBoards(state, { boards }) {
-      // const miniBoards = boards.map(board => {
-      //   console.log('im in map')
-      //   board = { _id: board._id, name: board.name }
-      //   return board
-      // })
+
       state.boards = boards
-      console.log('store board mutation BOARDS SET')
     },
     setBoard(state, { board }) {
       state.currBoard = board
@@ -149,7 +152,6 @@ export const boardStore = {
       commit({ type: 'setBoards', boards: null })
       const userId = rootGetters.user._id
       try {
-        console.log('UserId from board store @Boards loading:', userId)
         const boards = await boardService.query(userId)
         commit({ type: 'setBoards', boards })
       } catch (err) {

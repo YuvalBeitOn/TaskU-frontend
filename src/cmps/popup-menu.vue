@@ -33,9 +33,7 @@ export default {
     }
   },
   mounted() {
-    console.log('popupMenu created', this.offsetY)
     if (this.offsetY) {
-      console.log('$rEFS', this.$refs.popup)
       let elpopUp = this.$refs.popup
       elpopUp.style.left = '95%'
       elpopUp.style.top = `${this.offsetY}px`
