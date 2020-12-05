@@ -1,5 +1,5 @@
 <template>
-  <section class="status-list flex row wrap">
+  <section class="status-list flex">
  
       <status-preview v-for="status in statuses" :key="status.id" :status="status" />
 
@@ -18,12 +18,3 @@ components:{
 }
 }
 </script>
-
-<style>
-.status-list{
-height: 100%;
-padding: 0px 4px;
-width: 220px;
-box-sizing: content-box;
-}
-</style>

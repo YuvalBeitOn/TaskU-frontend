@@ -8,7 +8,7 @@
       </div>
       <div class="nav-icon-container notifs" v-tooltip.right="'Notfications'">
         <i class="nav-icon far fa-bell" @click="toggleNotifsModal"></i>
-        <notifications-modal v-if="isNotifsModalShown"/>
+        <notifications-modal v-if="isNotifsModalShown" />
       </div>
       <div class="nav-icon-container" v-tooltip.right="'Inbox'">
         <i class="nav-icon far fa-inbox-in"></i>
@@ -60,6 +60,7 @@ export default {
     return {
       isUserModalShown: false,
       isNotifsModalShown: false,
+      darkMode: false,
       popupOptions: [
         {
           txt: 'My Profile',
@@ -70,18 +71,29 @@ export default {
           txt: 'Log out',
           func: this.logOut,
           iconStr: 'sign-out'
+        },
+        {
+          txt: 'Dark mode',
+          func: this.darkModeToggle,
+          iconStr: 'adjust'
         }
       ]
     }
   },
+
   computed: {
     user() {
       return this.$store.getters.user
     }
   },
   methods: {
+    darkModeToggle() {
+      console.log(this.darkMode)
+      this.darkMode = !this.darkMode;
+      this.$store.commit({ type: 'darkMode', darkMode: this.darkMode })
+    },
     toggleNotifsModal() {
-      this.isNotifsModalShown = !this.isNotifsModalShown;
+      this.isNotifsModalShown = !this.isNotifsModalShown
     },
     goToUserProfile() {
       if (this.user) this.$router.push(`/user/${this.user._id}`)

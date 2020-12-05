@@ -15,15 +15,15 @@ function getEmptyBoard() {
         txt: ''
       },
       {
-        color: '#f6c27f',
+        color: 'rgb(253, 171, 61)',
         txt: 'Working on it'
       },
       {
-        color: '#d2505f',
+        color: 'rgb(226, 68, 92)',
         txt: 'Stuck'
       },
       {
-        color: '#5ac47d',
+        color: 'rgb(0, 200, 117)',
         txt: 'Done'
       }
     ],
@@ -37,7 +37,7 @@ function getEmptyBoard() {
         txt: 'Low'
       },
       {
-        color: '#c137c1ba',
+        color: 'rgb(162, 93, 220)',
         txt: 'Medium'
       },
       {
