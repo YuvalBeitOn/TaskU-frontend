@@ -2,7 +2,10 @@
   <nav class="nav-menu flex column space-between relative">
     <div class="top-nav">
       <div class="nav-logo">
-        <router-link class="nav-link flex justify-center" to="/">
+        <router-link
+          class="nav-link flex justify-center"
+          :to="'/board/' + defaultBoardId"
+        >
           <img src="img/icons/logo_icon.png" alt="TaskU" />
         </router-link>
       </div>
@@ -18,7 +21,9 @@
     <div class="user-greeting" v-if="user">Hello {{ user.fullName }}</div>
     <div class="bottom-nav">
       <div class="nav-icon-container" v-tooltip.right="'Calender'">
-        <i class="nav-icon fal fa-calendar-check"></i>
+        <router-link to="/calender">
+          <i class="nav-icon fal fa-calendar-check"></i>
+        </router-link>
       </div>
 
       <div class="nav-icon-container" v-tooltip.right="'Logout'">
@@ -80,20 +85,28 @@ export default {
       ]
     }
   },
-
   computed: {
     user() {
       return this.$store.getters.user
+    },
+    defaultBoardId() {
+      return this.boards && this.boards.length > 0
+        ? this.$store.getters.defaultBoardId
+        : ''
+    },
+    boards() {
+      return this.$store.getters.boards
     }
   },
   methods: {
     darkModeToggle() {
-      this.darkMode = !this.darkMode;
+      this.darkMode = !this.darkMode
       this.$store.commit({ type: 'darkMode', darkMode: this.darkMode })
     },
     toggleNotifsModal() {
       this.isNotifsModalShown = !this.isNotifsModalShown
     },
+
     goToUserProfile() {
       if (this.user) this.$router.push(`/user/${this.user._id}`)
       else this.$router.push('/signup')
@@ -106,6 +119,7 @@ export default {
       this.isUserModalShown = !this.isUserModalShown
     },
     onLogout() {
+      console.log('logging out')
       this.$store.dispatch({
         type: 'logout'
       })

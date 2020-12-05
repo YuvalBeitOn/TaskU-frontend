@@ -123,7 +123,7 @@ export default {
   },
   methods: {
     setDisplayMode(displayMode) {
-      this.$store.commit({type: 'setDisplayMode', displayMode})
+      this.$store.commit({ type: 'setDisplayMode', displayMode })
     },
     toogleChatBtn() {
       this.isChatingBtnShown = !this.isChatingBtnShown
@@ -187,6 +187,7 @@ export default {
       this.componentKey += 1
     },
     addBoardMember(user) {
+      console.log('user:', user)
       this.board.members.unshift(user)
       const txt = `${this.user.fullName} add ${user.fullName} to Board`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
@@ -234,7 +235,10 @@ export default {
         let newActivity = boardService.getEmptyActivity(txt, this.user)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'removeBoard', boardId })
-        this.$store.dispatch({ type: 'loadAllBoards', boards: this.boards })
+        this.$store.dispatch({
+          type: 'loadAllBoards',
+          boards: this.boards
+        })
         this.$notify({
           message: 'Board deleted',
           position: 'bottom-left',
@@ -273,7 +277,10 @@ export default {
         let newActivity = boardService.getEmptyActivity(txt, this.user)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'saveBoard', board })
-        this.$store.dispatch({ type: 'loadAllBoards', boards: this.boards })
+        this.$store.dispatch({
+          type: 'loadAllBoards',
+          boards: this.boards
+        })
         this.$message({
           type: 'success',
           message: 'Your Board:' + res.value + ' add '
@@ -376,6 +383,7 @@ export default {
     }
   },
   created() {
+    console.log('boardapp creation')
     socketService.on('updated board', board => {
       this.$store.commit({
         type: 'setBoard',
@@ -384,6 +392,7 @@ export default {
       this.forceRerender()
     })
     socketService.on('load boards', boards => {
+      console.log('boards length', boards.length)
       this.$store.commit({
         type: 'setBoards',
         boards
@@ -400,7 +409,6 @@ export default {
   components: {
     groupList,
     boardList,
-    // taskDetails,
     boardSearch,
     chatApp,
     boardHeader,
