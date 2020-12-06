@@ -6,8 +6,8 @@
     </header>
     <ul v-if="notifsToShow.length" class="notifs-list flex column">
       <notif-preview
-        v-for="(notif, idx) in notifsToShow"
-        :key="idx"
+        v-for="(notif) in notifsToShow"
+        :key="notif.id"
         :notif="notif"
         :user="user"
         :board="board"
@@ -21,7 +21,6 @@
 <script>
 import notifsFilters from './notifs-filters'
 import notifPreview from './notif-preview'
-import { eventBus } from '../services/event-bus.service'
 
 export default {
   components: {
@@ -39,19 +38,20 @@ export default {
       return this.$store.getters.board
     },
     notifsToShow() {
-      let notifs = this.$store.getters.user.notifications
-      switch (this.filterBy) {
-        case 'unread':
-          notifs = notifs.filter(notif => notif.isRead === false)
-          break
-        case 'assigned':
-          notifs = notifs.filter(notif => notif.type === 'assigned')
-          break
-        case 'mentions':
-          notifs = []
-          break
-      }
-      return notifs
+      return this.$store.getters.user.notifications
+      // let notifs = this.$store.getters.user.notifications
+      // switch (this.filterBy) {
+      //   case 'unread':
+      //     notifs = notifs.filter(notif => notif.isRead === false)
+      //     break
+      //   case 'assigned':
+      //     notifs = notifs.filter(notif => notif.type === 'assigned')
+      //     break
+      //   case 'mentions':
+      //     notifs = []
+      //     break
+      // }
+      // return notifs
     },
     user() {
       return this.$store.getters.user
@@ -84,7 +84,6 @@ export default {
         type: 'updateUser',
         user: this.user
       })
-      eventBus.$emit('forceRerender')
     }
   },
   destroyed() {

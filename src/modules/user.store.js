@@ -37,10 +37,9 @@ export const userStore = {
       state.loggedInUser = user
     },
     updateUser(state, { user }) {
-      const idx = state.users.findIndex(
-        loggedInUser => user._id === loggedInUser._id
-      )
+      const idx = state.users.findIndex(currUser => currUser._id === user._id)
       state.users.splice(idx, 1, user)
+      if (state.loggedInUser._id === user._id) state.loggedInUser = user
     },
     deleteUser(state, { userId }) {
       const idx = state.users.findIndex(user => user._id === userId)
@@ -85,6 +84,7 @@ export const userStore = {
       try {
         const savedUser = await userService.save(user)
         commit({ type: 'updateUser', user: savedUser })
+        console.log('user after update:', savedUser);
         return savedUser
       } catch (err) {
         console.log('ERROR:cant updated user!')
@@ -123,7 +123,7 @@ export const userStore = {
       }
     },
     async logout(context) {
-      context.dispatch({type:'deletePrivateSocket'})
+      context.dispatch({ type: 'deletePrivateSocket' })
       try {
         await userService.logout()
         context.commit({ type: 'setUsers', users: [] })

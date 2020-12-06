@@ -15,19 +15,15 @@ export const boardStore = {
       return state.displayMode
     },
     boards(state) {
-      console.log('state.searchBoard:', state.searchBoard)
-
       if (!state.searchBoard) return state.boards
       console.log('state.searchBoard:', state.searchBoard)
       if (state.searchBoard && state.boards !== null) {
         console.log(state.boards)
         const filteredBoard = state.boards.filter(board => {
-          console.log('state.searchBoard filter:', state.searchBoard)
           return board.name
             .toLowerCase()
             .includes(state.searchBoard.toLowerCase())
         })
-        console.log(filteredBoard)
         return filteredBoard
       }
     },
@@ -116,6 +112,7 @@ export const boardStore = {
           }
         })
       })
+      console.log('statuesMap:', statuesMap)
       return statuesMap
     }
   },
@@ -170,6 +167,7 @@ export const boardStore = {
     },
     async loadBoard({ commit }, { boardId }) {
       commit({ type: 'setBoard', board: null })
+      console.log('board: set board')
       try {
         const board = await boardService.getById(boardId)
         commit({ type: 'setBoard', board })
