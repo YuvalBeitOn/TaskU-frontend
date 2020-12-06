@@ -14,7 +14,7 @@
         </section>
         <el-tabs>
             <el-tab-pane label="User Details">
-                <about-user :user="loggedInUser" />
+                <about-user :user="user" />
             </el-tab-pane>
             <el-tab-pane v-if="userLogin" label="Edit Profile">
                 <edit-user  v-if="userLogin" :user="user" />

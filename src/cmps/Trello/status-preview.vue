@@ -4,7 +4,7 @@
     class="status-preview flex align-center"
   >
     <span class="status-title"
-      >{{ status.txt || 'No label' }}
+      >{{ status.txt || 'No label' }} || {{status.id}}
       <span v-if="status.tasks">/ {{ status.tasks.length }}</span></span
     >
 

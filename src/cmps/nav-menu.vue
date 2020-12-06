@@ -21,7 +21,7 @@
     </div>
 
     <div class="user-greeting" v-if="user">
-      <span class="inner-text">Hello {{ user.fullName }}</span>
+      <span class="inner-text">Hello {{ userFullName }}</span>
     </div>
     <div class="bottom-nav">
       <div class="nav-icon-container" v-tooltip.right="'Calender'">
@@ -90,6 +90,11 @@ export default {
     }
   },
   computed: {
+    userFullName(){
+      const userFullName = this.user.fullName;
+      const spaceIdx =  userFullName.indexOf(' ')
+      return (spaceIdx<0) ? userFullName : userFullName.substr(0,spaceIdx)
+    },
     numOfNotifs() {
       return this.$store.getters.user.notifications.length
     },

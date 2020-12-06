@@ -137,7 +137,7 @@ export default {
       return this.task.posts.length > 0 ? 'color: #0085ff;' : ''
     },
     membersLegnth() {
-      return this.task.members.length > 0 ? false : true
+      return this.task.members.length > 3 ? false : true
     },
     taskBgc() {
       return { backgroundColor: this.taskColor }
