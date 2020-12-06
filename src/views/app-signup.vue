@@ -1,6 +1,6 @@
 <template>
     <section class="app-signup-container sign-up-container">
-        <div class="signup-header">
+        <div class="signup-header login-header">
             <router-link to="/"
                 ><img
                     class="logo2 flex end"

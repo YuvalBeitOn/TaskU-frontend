@@ -10,7 +10,7 @@
     >
       <div v-for="(member, idx) in membersToshow" :key="member._id">
         <span :class="`member-show member-${idx}`">
-          <avatar :size="size" :user="member"
+          <avatar :className="className" :size="size" :user="member"
         /></span>
       </div>
     </div>
@@ -45,9 +45,13 @@ export default {
         default:false
     },
     classIcon:String,
+    className:{
+      type:String,
+      default:''
+    },
     size:{
         type:Number,
-        default:20
+        default:25
   },},
   data() {
     return {

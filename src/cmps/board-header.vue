@@ -19,7 +19,7 @@
       </h2>
     </div>
     <h3
-      class="board-descriotion editable"
+      class="board-description editable"
       spellcheck="false"
       v-if="board.description"
       @blur="updateBoardDesc"

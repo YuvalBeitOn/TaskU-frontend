@@ -108,6 +108,27 @@
 .ratio-square {
   @include aspect-ratio(1, 1);
 }
+//avatar imgs:
+.vue-avatar--wrapper{
+  border: 1px solid white;
+
+}
+.img-avatar{
+  border-radius: 50%;
+  border: 2px solid rgb(240, 240, 240);
+  height: rem(35px);
+  width: rem(35px);
+}
+.img-profile{
+  height: rem(200px);
+  width: rem(200px);
+}
+.img-profile-preview{
+  height: rem(25px);
+  width: rem(25px);
+}
+
+
 //search input-list:
 .board-search {
   .search-input {

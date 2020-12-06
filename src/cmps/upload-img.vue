@@ -3,12 +3,12 @@
     <div class="container-img flex column" v-if="!isLoading">
       <label class="label-img" for="imgUploader">
         <div
-          v-tooltip.top="'Upload Image'"
+          
           class="white btn-upload-container"
         >
           <slot name="btn-upload"
             >
-            <i class="fad fa-upload upload-icon"></i>
+            <i v-tooltip.top="'Upload Image'" class="fad fa-upload upload-icon"></i>
             </slot>
         </div>
         <input @change="onUploadImg" type="file" id="imgUploader" />
@@ -35,6 +35,7 @@ export default {
     async onUploadImg(ev) {
       this.isLoading = true
       const res = await imgUpload(ev)
+      console.log(res,'res in onUploadImg');
       this.imgUrl = res.url
       this.$emit('sendImgUrl', this.imgUrl)
       this.isLoading = false

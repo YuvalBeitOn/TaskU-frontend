@@ -9,7 +9,10 @@
     text-overflow: ellipsis;
     padding: 5px 8px;
   }
-
+  .user-avatar{
+    // margin: 0 3px;
+    margin-right: 5px;
+  }
   .filter-btn {
     font-family: 'roboto-light','Ariel';
     border: none;
@@ -36,7 +39,7 @@
       text-overflow: ellipsis;
       top: 4px;
       &.user-filter {
-        left: 20px;
+        left: 35px;
       }
     }
     .status-circle {

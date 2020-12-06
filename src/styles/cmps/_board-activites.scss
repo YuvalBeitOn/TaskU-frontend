@@ -1,11 +1,23 @@
-.board-activiites {
-  position: absolute;
-  height: 100%;
-  top: 0;
-  right: 0;
+.board-activities {
+  // position: absolute;
+  // height: 100%;
+  // top: 0;
+  // right: 0;
   z-index: 10;
   background-color: whitesmoke;
   padding: 0 20px;
+  .header-activites{
+    margin-top: 15px;
+    >*{
+      margin-bottom: rem(16px);
+    }
+    .title{
+      font-size: rem(32px);
+    }
+  }
+  .filter-container {
+    margin-bottom: rem(12px);
+  }
   .board-activity-title-container {
     margin-top: 30px;
     margin-bottom: 25px;

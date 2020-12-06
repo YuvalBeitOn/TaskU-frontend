@@ -1,5 +1,5 @@
 <template>
-  <section
+  <li
     :style="`background-color:${status.color}`"
     class="status-preview flex align-center"
   >
@@ -14,6 +14,7 @@
       :task="task"
       :group="group"
       @updateTask="updateTask"
+      @deleteTask="deleteTask"
     />
     <form class="add-task-form flex align-center" @submit.prevent="addTask">
       <input
@@ -28,7 +29,7 @@
         <span>+</span>
       </button>
     </form>
-  </section>
+  </li>
 </template>
 
 <script>
@@ -54,9 +55,16 @@ export default {
     }
   },
   methods: {
+    deleteTask(task) {
+      const group = this.board.groups.find(group => group.id === task.groupId)
+      const taskIdx = group.tasks.findIndex(currTask => currTask.id === task.id)
+      group.tasks.splice(taskIdx, 1)
+      eventBus.$emit('updateGroup', group)
+    },
     updateTask(updatedTask) {
-      console.log('taskkkkkkk:', updatedTask)
-      const group = this.board.groups.find(group => group.id === updatedTask.groupId)
+      const group = this.board.groups.find(
+        group => group.id === updatedTask.groupId
+      )
       const taskIdx = group.tasks.findIndex(
         currTask => currTask.id === updatedTask.id
       )

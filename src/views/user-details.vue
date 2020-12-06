@@ -6,18 +6,18 @@
         <section
             class="header-user-profile flex column justify-center align-center"
         >
-            <div class="img-profile">
-                <avatar :user="user" />
+            <div class="img-profile-container flex align-center">
+                <avatar :user="loggedInUser" :size="120" className="img-profile" />
             </div>
 
             <h3 class="mail">{{ user.email }}</h3>
         </section>
         <el-tabs>
             <el-tab-pane label="User Details">
-                <about-user :user="user" />
+                <about-user :user="loggedInUser" />
             </el-tab-pane>
             <el-tab-pane v-if="userLogin" label="Edit Profile">
-                <edit-user v-if="userLogin" :user="user" />
+                <edit-user  v-if="userLogin" :user="user" />
             </el-tab-pane>
         </el-tabs>
     </section>
@@ -58,10 +58,13 @@ export default {
             const user = this.users.find((user) => user._id === userId)
             return user
         },
+        // loadUser(userId){
+        // this.$store.dispatch({type:'loadUser',userId})
+
+        // }
     },
     created() {
         const { userId } = this.$route.params
-        this.$store.dispatch({type:'loadUser',userId:'12'})
         if (!this.loggedInUser) {
             this.$router.push('/')
         } else if (this.loggedInUser._id === userId) {

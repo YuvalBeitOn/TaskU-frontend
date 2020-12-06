@@ -76,8 +76,7 @@ export default {
           type: 'saveBoard',
           board: this.board,
         })
-        this.$store.dispatch({ type: 'updateBoard', board: this.board })
-        eventBus.$emit('updateTaskPreview', this.task)
+          eventBus.$emit('updateTaskPreview', this.task)
       }
     },
     updatePosts(posts, activity) {
@@ -89,7 +88,6 @@ export default {
         type: 'saveBoard',
         board: this.board,
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
 
       eventBus.$emit('updateTaskPreview', this.task)
     },

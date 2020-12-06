@@ -79,7 +79,7 @@ import { boardService } from '@/services/board.service'
 import boardSearch from '@/cmps/board-search'
 import { utilService } from '@/services/util.service'
 import boardHeader from '../cmps/board-header.vue'
-import { socketService } from '@/services/socket.service.js'
+// import { socketService } from '@/services/socket.service.js'
 import trelloMode from '@/cmps/Trello/trello-mode'
 
 export default {
@@ -140,7 +140,7 @@ export default {
     duplicateGroup(group) {
       group.id = utilService.makeId()
       this.board.groups.push(group)
-      const txt = `${this.user.fullName} duplicated group the group ${group.txt} `
+      const txt = `${this.user.fullName} duplicated group the group ${group.name} `
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
@@ -174,8 +174,7 @@ export default {
         let newActivity = boardService.getEmptyActivity(txt, this.user)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'saveBoard', board: this.board })
-        this.$store.dispatch({ type: 'updateBoard', board: this.board })
-        this.$notify({
+          this.$notify({
           message: 'Board description updated',
           position: 'bottom-left',
           duration: 2000
@@ -193,7 +192,6 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'New member added to board',
         position: 'bottom-left',
@@ -209,7 +207,6 @@ export default {
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Member removed from board',
         position: 'bottom-left',
@@ -277,17 +274,15 @@ export default {
         let newActivity = boardService.getEmptyActivity(txt, this.user)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'saveBoard', board })
-        this.$store.dispatch({
-          type: 'loadAllBoards',
-          boards: this.boards
-        })
         this.$message({
           type: 'success',
+          duration:2500,
           message: 'Your Board:' + res.value + ' add '
         })
       } catch (err) {
         this.$message({
           type: 'info',
+          duration:2500,
           message: 'Your action  canceled'
         })
       }
@@ -312,7 +307,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'New group added',
         position: 'bottom-left',
@@ -330,7 +324,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Group deleted',
         position: 'bottom-left',
@@ -343,14 +336,13 @@ export default {
         group => group.id === updatedGroup.id
       )
       this.board.groups.splice(idx, 1, updatedGroup)
-      const txt = `${this.user.fullName} updated group ${updatedGroup.txt}`
+      const txt = `${this.user.fullName} updated group ${updatedGroup.name}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Group updated',
         position: 'bottom-left',
@@ -367,7 +359,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-      this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.$notify({
         message: 'Groups updated',
         position: 'bottom-left',
@@ -376,6 +367,7 @@ export default {
       this.forceRerender()
     }
   },
+  
   watch: {
     '$route.params.boardId'() {
       this.loadBoard()
@@ -384,27 +376,31 @@ export default {
   },
   created() {
     console.log('boardapp creation')
-    socketService.on('updated board', board => {
-      this.$store.commit({
-        type: 'setBoard',
-        board
-      })
-      this.forceRerender()
+    this.$store.dispatch({
+      type: 'createPrivateSocket'
     })
-    socketService.on('load boards', boards => {
-      console.log('boards length', boards.length)
-      this.$store.commit({
-        type: 'setBoards',
-        boards
-      })
-    })
+    // socketService.on('updated board', board => {
+    //   this.$store.commit({
+    //     type: 'setBoard',
+    //     board
+    //   })
+    // })
+    // socketService.on('load boards', boards => {
+    //   console.log('boards length', boards.length)
+    //   this.$store.commit({
+    //     type: 'setBoards',
+    //     boards
+    //   })
+    // })
     this.$store.dispatch({ type: 'loadUsers' })
     this.loadBoards()
     this.loadBoard()
     eventBus.$on('updateGroup', this.updateGroup)
+    eventBus.$on('forceRerender', this.forceRerender)
   },
   destroyed() {
-    this.$store.dispatch({ type: 'turnOffSocket' })
+    console.log('BoardApp destroyed runing')
+    // this.$store.dispatch({ type: 'turnOffSocket' })
   },
   components: {
     groupList,
@@ -416,3 +412,4 @@ export default {
   }
 }
 </script>
+

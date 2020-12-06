@@ -66,6 +66,10 @@
     left: -65px;
     top: 50%;
     height: 25px;
+    .inner-text {
+      max-width: 8rem;
+      overflow: hidden;
+    }
   }
 
   .nav-icon {

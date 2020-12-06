@@ -4,8 +4,11 @@
   box-shadow: 0 0 1px black;
   padding: 5px 10px;
   z-index: 1500;
-  width: 180px;
+  width: 200px;
+  margin-top: -5px;
   border-radius: 4px;
+  max-height: 400px;
+  overflow-y: auto;
   &.top-right {
     right: 15px;
     right: 2px;
@@ -17,32 +20,56 @@
   }
   .member {
     position: relative;
-    padding-bottom: 0.2rem;
+    // padding-bottom: 0.2rem;
     height: fit-content;
+    margin-bottom: 3px;
+    width: 100%;
 
+    
+    .user-dateils-container{
+    padding: 5px;
+    border-radius: 5px;
+    transition: .3s;
+      width: inherit;
+
+      &:hover{
+        background-color: #f3f3f3;
+      }
+    }
+ 
     .member-name {
       margin: 0;
-      font-size: rem(13px);
-      font-weight: bold;
+      font-size: 1rem;
       text-align: left;
       padding-left: 5px;
+      text-align: left;
+    padding-left: 10px;
     }
-    .action-icon {
-      color: $clr1;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .action-container{
+      width: 25px;
+      height: 25px;
+      margin-left: 5px;
+      position: relative;
       cursor: pointer;
+      .action-icon {
+    transition: .3s;
+
+        color: $clr1;
+        position: absolute;
+        right: 3px;
+        top: 6px;
+        cursor: pointer;
+        &:hover{
+          color:$clr2;
+        }
+      }
+
     }
+    
   }
 
-  h3 {
-    font-size: rem(15px);
+  h3.title-members {
+    font-size: 1.1rem;
     margin: rem(10px) 0;
   }
 
@@ -62,7 +89,7 @@
 }
 
 .members-list {
-    max-height: 136px;
+    height: 100vh;
     overflow-y: auto;
   .member {
     width: 100%;
@@ -91,16 +118,7 @@
 .members-actions {
   position: relative;
 }
+.member-show{
+  margin-left: -8px;
+}
 
-// .member-show {
-//   position: absolute;
-//   &.member-0 {
-//     right: 0;
-//   }
-//   &.member-1 {
-//     right: 30px;
-//   }
-//   &.member-2 {
-//     right: 40px;
-//   }
-// }

@@ -130,9 +130,10 @@ button {
 .icon-nav-hader {
   font-size: rem(28px);
   cursor: pointer;
+  ///
 }
 .btn-second {
-  width: 125px;
+  width: fit-content;
   height: 40px;
   border: 1px solid #e6e9ef;
   border-color: #c5c7d0;
