@@ -117,6 +117,7 @@ export const boardStore = {
           }
         })
       })
+      console.log('statuesMap:', statuesMap)
       return statuesMap
     }
   },

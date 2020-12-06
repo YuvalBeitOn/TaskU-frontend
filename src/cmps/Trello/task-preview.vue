@@ -11,6 +11,7 @@
           contenteditable
           >{{ taskCopy.txt }}</span
         >
+        {{task.id}}
       </div>
       <avatar :user="user" :size="20" />
     </div>
