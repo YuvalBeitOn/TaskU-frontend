@@ -7,7 +7,7 @@
     <div class="notif-container flex align-center">
       <avatar class="user-img" :user="user" :size="50" />
       <div class="notif-details flex column">
-        <span class="user-mail">{{ notif.byUser.mail }}</span>
+        <span class="user-mail">{{ notif.byUser.email }}</span>
         <span class="notif-txt">{{ notif.txt }}</span>
         <div class="notif-footer flex align-center">
           <small class="notif-date">{{ dateForDisplay }} </small>

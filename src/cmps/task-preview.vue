@@ -166,10 +166,12 @@ export default {
         let newNotif = userService.getEmptyNotif()
         newNotif.txt = `Upadte task due date to "${date}"`
         newNotif.type = 'all'
-        newNotif.byUser = {
-          'name:': this.user.fullName,
-          mail: this.user.email
-        }
+        newNotif.byUser = this.user
+        // {
+        //   fullName: this.user.fullName,
+        //   mail: this.user.email,
+        //   imgUrl: this.user.imgUrl
+        // }
         newNotif.toUserId = member._id
         this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       })
@@ -190,7 +192,7 @@ export default {
       let newNotif = userService.getEmptyNotif()
       newNotif.txt = `assigned you to "${this.taskCopy.txt}"`
       newNotif.type = 'assigned'
-      newNotif.byUser = { 'name:': this.user.fullName, mail: this.user.email }
+      newNotif.byUser = this.user
       newNotif.toUserId = member._id
       this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       let newActivity = boardService.getEmptyActivity(txt, this.user)
@@ -208,7 +210,7 @@ export default {
       let newNotif = userService.getEmptyNotif()
       newNotif.txt = `${this.user.fullName} took you off from task "${this.taskCopy.txt}"`
       newNotif.type = 'all'
-      newNotif.byUser = { 'name:': this.user.fullName, mail: this.user.email }
+      newNotif.byUser = this.user
       newNotif.toUserId = member._id
       this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       const idx = this.taskCopy.members.findIndex(
@@ -246,10 +248,7 @@ export default {
           let newNotif = userService.getEmptyNotif()
           newNotif.txt = `Upadte task content to "${ev.target.innerText}"`
           newNotif.type = 'all'
-          newNotif.byUser = {
-            'name:': this.user.fullName,
-            mail: this.user.email
-          }
+          newNotif.byUser = this.user
           newNotif.toUserId = member._id
           this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
         })
@@ -289,10 +288,7 @@ export default {
         let newNotif = userService.getEmptyNotif()
         newNotif.txt = `Upadte task priority to "${opt.txt}"`
         newNotif.type = 'all'
-        newNotif.byUser = {
-          'name:': this.user.fullName,
-          mail: this.user.email
-        }
+        newNotif.byUser = this.user
         newNotif.toUserId = member._id
         this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       })
@@ -315,10 +311,7 @@ export default {
         let newNotif = userService.getEmptyNotif()
         newNotif.txt = `Upadte task status to "${opt.txt}"`
         newNotif.type = 'all'
-        newNotif.byUser = {
-          'name:': this.user.fullName,
-          mail: this.user.email
-        }
+        newNotif.byUser = this.user
         newNotif.toUserId = member._id
         this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       })
