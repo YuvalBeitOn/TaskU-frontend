@@ -1,6 +1,6 @@
 
       <template>
-  <section class="user-editor flex justify-center">
+  <section class="user-editor flex justify-center align-center">
     <form class="form-editor flex column" @submit="saveDetails">
       <label for="">Email:</label>
       <el-input
@@ -21,22 +21,20 @@
         v-model.trim="userToEdit.address"
       ></el-input>
       <label for="">Company name:</label>
-
       <el-input
         placeholder="Company name"
         v-model.trim="userToEdit.companyName"
       ></el-input>
-      <upload-img @sendImgUrl="imgUrl">
+      <button type="submit" style="color: white">Save Changes</button>
+    </form>
+       <upload-img @sendImgUrl="imgUrl" :isUserDetails="true">
         <img
-          class="img-uploaded"
+          class="img-uploaded-user-editor"
           v-if="userToEdit.imgUrl"
           :src="userToEdit.imgUrl"
           alt="image"
         />
       </upload-img>
-
-      <button type="submit" style="color: white">Save Changes</button>
-    </form>
   </section>
 </template>
       

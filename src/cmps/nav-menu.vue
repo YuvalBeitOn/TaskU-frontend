@@ -2,7 +2,8 @@
   <nav class="nav-menu flex column space-between relative">
     <div class="top-nav">
       <div class="nav-logo">
-        <router-link v-if="boards&&boards.length"
+        <router-link
+          v-if="boards && boards.length"
           class="nav-link flex justify-center"
           :to="'/board/' + defaultBoardId"
         >
@@ -11,6 +12,7 @@
       </div>
       <div class="nav-icon-container notifs" v-tooltip.right="'Notfications'">
         <i class="nav-icon far fa-bell" @click="toggleNotifsModal"></i>
+        <span class="notif-amount" v-if="numOfNotifs">{{ numOfNotifs }}</span>
         <notifications-modal v-if="isNotifsModalShown" />
       </div>
       <div class="nav-icon-container" v-tooltip.right="'Inbox'">
@@ -18,7 +20,9 @@
       </div>
     </div>
 
-    <div class="user-greeting" v-if="user"><span class="inner-text">Hello {{ user.fullName }}</span></div>
+    <div class="user-greeting" v-if="user">
+      <span class="inner-text">Hello {{ user.fullName }}</span>
+    </div>
     <div class="bottom-nav">
       <div class="nav-icon-container" v-tooltip.right="'Calender'">
         <router-link to="/calender">
@@ -49,8 +53,8 @@
     </div>
     <div
       class="back-drop-layer"
-      v-if="isUserModalShown"
-      @click.stop="isUserModalShown = false"
+      v-if="isUserModalShown || isNotifsModalShown"
+      @click.stop="closePopUps"
     ></div>
   </nav>
 </template>
@@ -86,17 +90,24 @@ export default {
     }
   },
   computed: {
+    numOfNotifs() {
+      return this.$store.getters.user.notifications.length
+    },
     user() {
       return this.$store.getters.user
     },
     defaultBoardId() {
-      return  this.$store.getters.defaultBoardId
+      return this.$store.getters.defaultBoardId
     },
     boards() {
       return this.$store.getters.boards
     }
   },
   methods: {
+    closePopUps() {
+      this.isUserModalShown = false
+      this.isNotifsModalShown = false
+    },
     darkModeToggle() {
       this.darkMode = !this.darkMode
       this.$store.commit({ type: 'darkMode', darkMode: this.darkMode })

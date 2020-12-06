@@ -72,8 +72,6 @@ export default {
         })
         if (user) {
           this.$refs.loginBtn.disabled = true
-          // this.$refs.emailInput.disabled = true
-          // this.$refs.passwordInput.disabled = true
           await this.$store.dispatch({ type: 'loadBoards' })
           console.log('user after login:', user)
           this.$message({

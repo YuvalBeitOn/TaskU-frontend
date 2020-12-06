@@ -14,7 +14,7 @@
         
         <template v-if="msgs">
           <div  class="chat-msg flex " v-for="(msg, idx) in msgs" :key="idx">
-            <div :class="msg.sender || ''">
+            <div  class="flex align-center"   :class="msg.sender || ''">
         <avatar :user="user" />
 
          
@@ -28,7 +28,7 @@
         <input
           type="text" @keydown.enter="sendMsg"
           v-model="msg.txt" 
-          placeholder="Write a massage..."
+          placeholder="Write a message..."
           name=""
           id=""
         /><i v-tooltip.top="'Send Msg'" @click="sendMsg" class="send-btn fas fa-paper-plane"></i>

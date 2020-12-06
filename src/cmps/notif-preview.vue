@@ -66,6 +66,7 @@ export default {
       this.isHovering = false;
     },
     deleteNotif() {
+      console.log('here');
       this.$emit('deleteNotif', this.notifCopy)
     },
     toggleIsRead() {

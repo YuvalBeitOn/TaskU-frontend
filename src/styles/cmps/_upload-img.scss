@@ -1,12 +1,20 @@
 .upload-image-container {
+  &.user-editor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   .label-img {
     height: 45px;
+    &.user-editor {
+      margin-bottom: 3rem;
+    }
   }
   .img-loader {
     width: 50px;
     height: 50px;
     margin: 5px;
-
   }
   .upload-icon {
     height: 32px;
@@ -16,9 +24,15 @@
     // position: absolute;
     // right: 5px;
     // bottom: 57px;
+    &.user-editor {
+      font-size: 40px;
+    }
   }
   .container-img {
     margin-bottom: 5px;
+    &.user-editor {
+      align-items: center;
+    }
 
     .btn-upload-container {
       cursor: pointer;
