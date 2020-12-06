@@ -88,4 +88,23 @@
       }
     }
   }
+
+  .social-logos {
+    padding: 0 1.5rem 0 1.5rem;
+  }
+
+  .social-option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid grey;
+    width: 120px;
+    border-radius: 54px;
+
+    img {
+      max-width: 20px;
+      max-height: 20px;
+      margin: 0.5rem;
+    }
+  }
 }

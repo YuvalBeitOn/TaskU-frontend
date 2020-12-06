@@ -21,18 +21,39 @@
                         type="text"
                         v-model="loginCredentials.email"
                         placeholder="Email"
-                        ref="emailInput"
+                        :disabled="isElementDisabled"
                     />
 
                     <el-input
                         type="password"
                         v-model="loginCredentials.password"
                         placeholder="Password"
-                        ref="passwordInput"
+                        :disabled="isElementDisabled"
                     />
 
-                    <button class="login-btn" ref="loginBtn">Login</button>
+                    <button class="login-btn" :disabled="isElementDisabled">
+                        Login
+                    </button>
                 </form>
+                <div class="social-login flex align-center">
+                    <span class="separator-line"></span>
+                    <div
+                        class="login-subtitle flex align-center justify-center"
+                    >
+                        Or Sign-in with
+                    </div>
+                    <span class="separator-line"></span>
+                </div>
+                <div class="social-logos flex space-between">
+                    <div class="social-option">
+                        <img src="@/assets/imgs/logo_google.png" />
+                        Google
+                    </div>
+                    <div class="social-option">
+                        <img src="@/assets/imgs/facebook_logo.png" />
+                        Facebook
+                    </div>
+                </div>
                 <div class="signup-section flex align-center">
                     <span class="separator-line"></span>
                     <div
@@ -46,12 +67,20 @@
                     </div>
                     <span class="separator-line"></span>
                 </div>
+                <!-- <googleLogin
+                    :params="googleSignInParams"
+                    :onSuccess="onGoogleSuccess"
+                    :onFailure="onGoogleFailure"
+                    >Login</googleLogin
+                > -->
             </div>
         </section>
     </section>
 </template>
 
 <script>
+// import googleLogin from 'vue-google-login'
+
 export default {
     name: 'app-login',
     data() {
@@ -60,6 +89,11 @@ export default {
                 email: null,
                 password: null,
                 isAdmin: false,
+            },
+            isElementDisabled: false,
+            googleSignInParams: {
+                clientId:
+                    '362174628097-alt6tonjakiq40pcm6i9rno28997rgfh.apps.googleusercontent.com',
             },
         }
     },
@@ -78,18 +112,19 @@ export default {
                     userCred,
                 })
                 if (user) {
-                    this.$refs.loginBtn.disabled = true
-                    this.$refs.emailInput.disabled = true
-                    this.$refs.passwordInput.disabled = true
+                    this.isElementDisabled = true
                     await this.$store.dispatch({ type: 'loadBoards' })
                     console.log('user after login:', user)
                     this.$message({
-                        duration: 1000,
+                        duration: 2000,
                         showClose: true,
                         type: 'success',
+                        offset: 335,
                         message: "You've sucessfully logged in!",
                     })
-                    this.$router.push(`/board/${this.defaultBoardId}`)
+                    setTimeout(() => {
+                        this.$router.push(`/board/${this.defaultBoardId}`)
+                    }, 2000)
                 }
             } catch (err) {
                 if (err.response.status === 401) {
@@ -112,6 +147,15 @@ export default {
                 isAdmin: false,
             }
         },
+        // onGoogleSuccess(obj) {
+        //     console.log(obj)
+        // },
+        // onGoogleFailure(googleUser) {
+        //     googleUser.getBasicProfile()
+        // },
     },
+    // components: {
+    //     googleLogin,
+    // },
 }
 </script>
