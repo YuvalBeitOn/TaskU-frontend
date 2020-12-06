@@ -145,6 +145,7 @@ export default {
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.$store.dispatch({ type: 'updateBoard', board: this.board })
+      this.forceRerender()
     },
 
     updateBoardName(ev) {
@@ -174,7 +175,7 @@ export default {
         let newActivity = boardService.getEmptyActivity(txt, this.user)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'saveBoard', board: this.board })
-          this.$notify({
+        this.$notify({
           message: 'Board description updated',
           position: 'bottom-left',
           duration: 2000
@@ -276,13 +277,13 @@ export default {
         this.$store.dispatch({ type: 'saveBoard', board })
         this.$message({
           type: 'success',
-          duration:2500,
+          duration: 2500,
           message: 'Your Board:' + res.value + ' add '
         })
       } catch (err) {
         this.$message({
           type: 'info',
-          duration:2500,
+          duration: 2500,
           message: 'Your action  canceled'
         })
       }
@@ -367,7 +368,7 @@ export default {
       this.forceRerender()
     }
   },
-  
+
   watch: {
     '$route.params.boardId'() {
       this.loadBoard()
@@ -379,19 +380,6 @@ export default {
     this.$store.dispatch({
       type: 'createPrivateSocket'
     })
-    // socketService.on('updated board', board => {
-    //   this.$store.commit({
-    //     type: 'setBoard',
-    //     board
-    //   })
-    // })
-    // socketService.on('load boards', boards => {
-    //   console.log('boards length', boards.length)
-    //   this.$store.commit({
-    //     type: 'setBoards',
-    //     boards
-    //   })
-    // })
     this.$store.dispatch({ type: 'loadUsers' })
     this.loadBoards()
     this.loadBoard()
@@ -400,7 +388,6 @@ export default {
   },
   destroyed() {
     console.log('BoardApp destroyed runing')
-    // this.$store.dispatch({ type: 'turnOffSocket' })
   },
   components: {
     groupList,
@@ -412,4 +399,3 @@ export default {
   }
 }
 </script>
-

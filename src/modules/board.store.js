@@ -166,6 +166,7 @@ export const boardStore = {
     },
     async loadBoard({ commit }, { boardId }) {
       commit({ type: 'setBoard', board: null })
+      console.log('board: set board')
       try {
         const board = await boardService.getById(boardId)
         commit({ type: 'setBoard', board })

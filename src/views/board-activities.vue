@@ -4,7 +4,7 @@
       <main class="main-container flex column wrap ">
         <div class="header-activites">
       <h2 class="title">Board Activities</h2>
-      <h4>{{boardActivitesTitle}}</h4>
+      <h4 class="activity-title">{{boardActivitesTitle}}</h4>
       </div>
         <div class="filter-container flex space-between">
         <search-activity @searchBoard="setSearch" />
