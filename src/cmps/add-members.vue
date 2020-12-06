@@ -4,7 +4,7 @@
     <ul class="clean-list first add-members-list">
       <li class="member flex align-center" v-for="member in members" :key="member._id">
         <div @click.stop="goToUserDetails(member._id)" class="user-dateils-container flex align-center">
-        <avatar :user="member" />
+        <avatar :user="member" :size="25" />
 
         <span class="member-name">{{ member.fullName }}</span>
         </div>
@@ -26,7 +26,7 @@
       >
               <div @click.stop="goToUserDetails(aMember._id)" class="user-dateils-container flex align-center">
 
-        <avatar :user="aMember" />
+        <avatar :user="aMember" :size="25" />
         <span class="member-name">{{ aMember.fullName }}</span>
         </div>
         <div class="action-container flex align-center">

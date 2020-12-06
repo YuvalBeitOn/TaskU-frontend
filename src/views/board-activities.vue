@@ -8,12 +8,10 @@
       </div>
         <div class="filter-container flex space-between">
         <search-activity @searchBoard="setSearch" />
-           <el-checkbox  label="Tasks"></el-checkbox>
-           <el-checkbox label="Groups"></el-checkbox>
         </div>
       <div class="activity-contianer">
 
-<activites-board  :activities="boardActivitesToShow" />
+<activites-board :activities="boardActivitesToShow" />
         </div>
 
 </main>
