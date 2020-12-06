@@ -2,20 +2,23 @@
   <section class="task-details-container">
     <section class="task-details flex column" v-if="isShown">
       <div class="details-header">
-        <h4>{{task.txt}}</h4>
+        <h4>{{ task.txt }}</h4>
         <span>In <i class="fal fa-arrow-right"></i> {{ board.name }}</span>
       </div>
       <div class="detail-container">
         <span><i class="fas fa-circle point-icon detail-icon"></i>Group</span>
         <span :style="groupColor" class="content group"
-          ><i class="fas fa-circle point-icon detail-icon" :style="groupColor"></i
+          ><i
+            class="fas fa-circle point-icon detail-icon"
+            :style="groupColor"
+          ></i
           >{{ group.name }}</span
         >
       </div>
 
       <div class="detail-container">
         <span><i class="far fa-user-circle  detail-icon"></i> Person</span>
-        <span class="content"><i class="fal fa-users"></i></span>
+        <span class="content" @click="addMembers"><i class="fal fa-users"></i></span>
       </div>
 
       <div class="detail-container">

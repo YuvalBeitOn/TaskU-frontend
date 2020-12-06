@@ -74,10 +74,10 @@
   margin-top: rem(20px);
   max-height: 600px;
   form {
-    > * {
+    align-items: start;
+    >* {
       text-align: center;
-
-      margin-bottom: rem(17px);
+      margin-bottom: rem(14px);
     }
   }
 }

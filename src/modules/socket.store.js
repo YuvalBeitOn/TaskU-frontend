@@ -1,35 +1,60 @@
-import { socketService } from '../services/socket.service.js'
+import { socketService } from '../services/socket.service'
+import store from '../store/index'
+import {eventBus} from '../services/event-bus.service'
+
+socketService.on('updated board', board => {
+    store.commit({
+        type: 'setBoard',
+        board
+    })
+})
+socketService.on('load boards', boards => {
+    console.log('boards length', boards.length)
+    store.commit({
+        type: 'setBoards',
+        boards
+    })
+})
+socketService.on('insertUserNotif', (notif) => {
+    console.log('SocketStore got ev insertUserNotif',);
+    store.commit({ type: 'insertUserNotif', notif })
+})
+
+socketService.on('update board', (board) => {
+    console.log('SocketStore got ev update board');
+    store.commit({ type: 'setBoardById', board })
+    eventBus.$emit('forceRerender')
+})
 
 export const socketStore = {
     state: {
-
     },
     getters: {
-
     },
     mutations: {
-
     },
     actions: {
-        setupSockets() {
-            socketService.setup()
-        },
+        // setupSockets() {
+        //     socketService.setup()
+        // },
         updateBoard(context, { board }) {
-            console.log('**************************UPDATE THE BOARD IS ON************');
             socketService.emit('update board', board)
         },
         loadAllBoards() {
-            console.log('**************************UPDATE THE BOARDsssss************');
-
             socketService.emit('load boards')
         },
         turnOffSocket() {
             console.log('turning off');
             socketService.terminate();
         },
-        createPrivateSocket(context, { userId }) {
+        createPrivateSocket(context) {
+            console.log('context:', context);
+            let userId = context.getters.user._id
             socketService.emit('createPrivateSocket', userId)
-
-        }
+        },
+        deletePrivateSocket(context) {
+            let userId = context.getters.user._id
+            socketService.emit('deletePrivateSocket', userId)
+        },
     }
 }

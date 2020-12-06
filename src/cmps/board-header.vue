@@ -19,7 +19,7 @@
       </h2>
     </div>
     <h3
-      class="board-descriotion editable"
+      class="board-description editable"
       spellcheck="false"
       v-if="board.description"
       @blur="updateBoardDesc"
@@ -28,7 +28,6 @@
     >
       {{ board.description }}
     </h3>
-    <h5 class="board-creator">By: {{board.creator.fullName}}</h5>
     <div class="display-mode">
       <el-select
         @change="setDisplayMode"

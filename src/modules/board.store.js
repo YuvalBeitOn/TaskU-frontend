@@ -1,5 +1,4 @@
 import { boardService } from '@/services/board.service.js'
-
 import _ from 'lodash'
 
 export const boardStore = {
@@ -8,9 +7,9 @@ export const boardStore = {
     currBoard: null,
     searchBoard: null,
     filterBy: { status: 'All', priority: 'All', person: 'All', searchTerm: '' },
-    darkMode:false,
+    darkMode: false,
     displayMode: 'Board'
-    
+
   },
   getters: {
     displayMode(state) {
@@ -118,19 +117,25 @@ export const boardStore = {
           }
         })
       })
-      return statuesMap 
+      return statuesMap
     }
   },
   mutations: {
-    setDisplayMode(state, {displayMode}) {
-      return state.displayMode = displayMode
-
+    setBoardById(state, { board }) {
+      const boardIdx = state.boards.findIndex(currBoard => currBoard._id === board._id)
+      state.boards.splice(boardIdx, 1, board)
+      if (board._id === state.currBoard._id) {
+        console.log('replacing curr board');
+        state.currBoard = board;
+      }
     },
-    darkMode(state,{darkMode}){
-      return state.darkMode = darkMode
+    setDisplayMode(state, { displayMode }) {
+      state.displayMode = displayMode
+    },
+    darkMode(state, { darkMode }) {
+      state.darkMode = darkMode
     },
     setBoards(state, { boards }) {
-
       state.boards = boards
     },
     setBoard(state, { board }) {

@@ -15,6 +15,6 @@ export const imgUpload = async ev => {
     const res = await Axios.post(UPLOAD_URL, FORM_DATA)
     return res.data
   } catch (err) {
-    console.error('ERROR!', err)
+    console.error('Failed to upload img ', err)
   }
 }

@@ -25,6 +25,10 @@ export const userStore = {
     }
   },
   mutations: {
+    insertUserNotif(state, { notif }) {
+      state.loggedInUser.notifications.unshift(notif)
+      console.log('Notif got here', notif);
+    },
     setUsers(state, { users }) {
       state.users = users
     },
@@ -119,6 +123,7 @@ export const userStore = {
       }
     },
     async logout(context) {
+      context.dispatch({type:'deletePrivateSocket'})
       try {
         await userService.logout()
         context.commit({ type: 'setUsers', users: [] })

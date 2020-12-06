@@ -2,7 +2,7 @@
   <nav class="nav-menu flex column space-between relative">
     <div class="top-nav">
       <div class="nav-logo">
-        <router-link
+        <router-link v-if="boards&&boards.length"
           class="nav-link flex justify-center"
           :to="'/board/' + defaultBoardId"
         >
@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="user-greeting" v-if="user">Hello {{ user.fullName }}</div>
+    <div class="user-greeting" v-if="user"><span class="inner-text">Hello {{ user.fullName }}</span></div>
     <div class="bottom-nav">
       <div class="nav-icon-container" v-tooltip.right="'Calender'">
         <router-link to="/calender">
@@ -90,9 +90,7 @@ export default {
       return this.$store.getters.user
     },
     defaultBoardId() {
-      return this.boards && this.boards.length > 0
-        ? this.$store.getters.defaultBoardId
-        : ''
+      return  this.$store.getters.defaultBoardId
     },
     boards() {
       return this.$store.getters.boards
