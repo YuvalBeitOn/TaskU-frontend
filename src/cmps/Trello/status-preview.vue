@@ -1,21 +1,24 @@
 <template>
-  <li
+  <ul 
     :style="`background-color:${status.color}`"
-    class="status-preview flex align-center"
+    class="status-preview flex align-center clean-list status-list"
   >
     <span class="status-title"
-      >{{ status.txt || 'No label' }} || {{status.id}}
+      >{{ status.txt || 'No label' }} 
       <span v-if="status.tasks">/ {{ status.tasks.length }}</span></span
     >
-
+<div class="tasks-preview-container align-center">
+   <draggable class="width100" :list="cloneTasks" group="tasks">
     <task-preview
-      v-for="task in status.tasks"
+      v-for="task in cloneTasks"
       :key="task.id"
       :task="task"
       :group="group"
       @updateTask="updateTask"
       @deleteTask="deleteTask"
     />
+    </draggable>
+    </div>
     <form class="add-task-form flex align-center" @submit.prevent="addTask">
       <input
         class="add-task-input"
@@ -29,13 +32,14 @@
         <span>+</span>
       </button>
     </form>
-  </li>
+  </ul>
 </template>
 
 <script>
 import taskPreview from './task-preview.vue'
 import { eventBus } from '@/services/event-bus.service'
 import { boardService } from '../../services/board.service'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'statues-preview',
@@ -46,7 +50,8 @@ export default {
   data() {
     return {
       txt: '',
-      isAddBtnShown: false
+      isAddBtnShown: false,
+      cloneTasks:null
     }
   },
   computed: {
@@ -90,9 +95,11 @@ export default {
   },
   created() {
     this.groupCopy = this.group
+    this.cloneTasks = this.status.tasks
   },
   components: {
-    taskPreview
+    taskPreview,
+    draggable
   }
 }
 </script>

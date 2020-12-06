@@ -113,7 +113,10 @@ export const boardStore = {
           }
         })
       })
+      const statusArray = [statuesMap]
       console.log('statuesMap:', statuesMap)
+      console.log('statusArray:', statusArray)
+      console.log('Object entries:',Object.entries(statuesMap));
       return statuesMap
     }
   },

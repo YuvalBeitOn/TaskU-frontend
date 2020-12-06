@@ -1,5 +1,5 @@
 <template>
-  <section class="task-preview-card flex column">
+  <li class="task-preview-card flex column">
     <div class="task-preivew-header flex space-between relative">
       <!-- <span>{{ task.txt }}</span> -->
       <div class="task-txt">
@@ -25,7 +25,7 @@
       v-if="isTaskDetailsShown"
       :isTaskDetailsShown="isTaskDetailsShown"
     />
-  </section>
+  </li>
 </template>
 
 <script>
