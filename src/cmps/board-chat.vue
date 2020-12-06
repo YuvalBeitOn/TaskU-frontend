@@ -30,7 +30,7 @@
                     type="text"
                     @keydown.enter="sendMsg"
                     v-model="msg.txt"
-                    placeholder="Write a massage..."
+                    placeholder="Write a message..."
                     name=""
                     id=""
                 /><i

@@ -9,7 +9,6 @@ export const boardStore = {
     filterBy: { status: 'All', priority: 'All', person: 'All', searchTerm: '' },
     darkMode: false,
     displayMode: 'Board'
-
   },
   getters: {
     displayMode(state) {
@@ -122,11 +121,13 @@ export const boardStore = {
   },
   mutations: {
     setBoardById(state, { board }) {
-      const boardIdx = state.boards.findIndex(currBoard => currBoard._id === board._id)
+      const boardIdx = state.boards.findIndex(
+        currBoard => currBoard._id === board._id
+      )
       state.boards.splice(boardIdx, 1, board)
       if (board._id === state.currBoard._id) {
-        console.log('replacing curr board');
-        state.currBoard = board;
+        console.log('replacing curr board')
+        state.currBoard = board
       }
     },
     setDisplayMode(state, { displayMode }) {
@@ -153,6 +154,10 @@ export const boardStore = {
     }
   },
   actions: {
+    async updateBoardById({ commit }, { boardId }) {
+      const board = await boardService.getById(boardId)
+      commit({ type: 'setBoardById', board })
+    },
     async loadBoards({ commit, rootGetters }) {
       const userId = rootGetters.user._id
       try {

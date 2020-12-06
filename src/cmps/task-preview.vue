@@ -35,7 +35,8 @@
     <div class="task-details flex">
       <div class="headers flex">
         <span class="members-preview relative task-item">
-          <members className="img-profile-preview"
+          <members
+            className="img-profile-preview"
             :hiddenBadge="membersLegnth"
             toolTipTxt="Task Members"
             classIcon="task-icon"
@@ -204,12 +205,12 @@ export default {
       this.updateTask()
     },
     removeTaskMember(member) {
-      // let newNotif = userService.getEmptyNotif()
-      // newNotif.txt = `${this.user.fullName} took you off from task "${this.taskCopy.txt}"`
-      // newNotif.type = 'all'
-      // newNotif.byUser = { 'name:': this.user.fullName, mail: this.user.email }
-      // newNotif.toUserId = member._id
-      // this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
+      let newNotif = userService.getEmptyNotif()
+      newNotif.txt = `${this.user.fullName} took you off from task "${this.taskCopy.txt}"`
+      newNotif.type = 'all'
+      newNotif.byUser = { 'name:': this.user.fullName, mail: this.user.email }
+      newNotif.toUserId = member._id
+      this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       const idx = this.taskCopy.members.findIndex(
         tMember => tMember._id === member._id
       )
@@ -241,17 +242,17 @@ export default {
       ev.target.blur()
       if (ev.target.innerText === this.taskCopy.txt) return
       else {
-        // this.taskCopy.members.forEach(member => {
-        //   let newNotif = userService.getEmptyNotif()
-        //   newNotif.txt = `Upadte task content to "${ev.target.innerText}"`
-        //   newNotif.type = 'all'
-        //   newNotif.byUser = {
-        //     'name:': this.user.fullName,
-        //     mail: this.user.email
-        //   }
-        //   newNotif.toUserId = member._id
-        //   this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
-        // })
+        this.taskCopy.members.forEach(member => {
+          let newNotif = userService.getEmptyNotif()
+          newNotif.txt = `Upadte task content to "${ev.target.innerText}"`
+          newNotif.type = 'all'
+          newNotif.byUser = {
+            'name:': this.user.fullName,
+            mail: this.user.email
+          }
+          newNotif.toUserId = member._id
+          this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
+        })
         const prevTxt = this.taskCopy.txt
         this.taskCopy.txt = ev.target.innerText
         const txt = `Task '${prevTxt}' was changed to '${ev.target.innerText}'`
@@ -284,11 +285,21 @@ export default {
       }
     },
     updateTaskPriority(opt) {
+      this.taskCopy.members.forEach(member => {
+        let newNotif = userService.getEmptyNotif()
+        newNotif.txt = `Upadte task priority to "${opt.txt}"`
+        newNotif.type = 'all'
+        newNotif.byUser = {
+          'name:': this.user.fullName,
+          mail: this.user.email
+        }
+        newNotif.toUserId = member._id
+        this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
+      })
       const txt = `Task priority was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id
       this.activity = newActivity
-
       this.taskCopy.priority.txt = opt.txt
       this.taskCopy.priority.color = opt.color
       this.$notify({
@@ -300,6 +311,17 @@ export default {
       this.isPriorsShowen = false
     },
     updateTaskStatus(opt) {
+      this.taskCopy.members.forEach(member => {
+        let newNotif = userService.getEmptyNotif()
+        newNotif.txt = `Upadte task status to "${opt.txt}"`
+        newNotif.type = 'all'
+        newNotif.byUser = {
+          'name:': this.user.fullName,
+          mail: this.user.email
+        }
+        newNotif.toUserId = member._id
+        this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
+      })
       const txt = `Task status was updated to ${opt.txt}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
       newActivity.taskId = this.taskCopy.id

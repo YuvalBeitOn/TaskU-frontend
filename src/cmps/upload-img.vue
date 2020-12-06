@@ -1,15 +1,28 @@
 <template>
-  <section class="upload-image-container">
-    <div class="container-img flex column" v-if="!isLoading">
-      <label class="label-img" for="imgUploader">
-        <div
-          
-          class="white btn-upload-container"
-        >
-          <slot name="btn-upload"
-            >
-            <i v-tooltip.top="'Upload Image'" class="fad fa-upload upload-icon"></i>
-            </slot>
+  <section
+    :class="{ 'upload-image-container': true, 'user-editor': isUserDetails }"
+  >
+    <div
+      :class="{
+        'container-img flex column': true,
+        'user-editor': isUserDetails
+      }"
+      v-if="!isLoading"
+    >
+      <label
+        :class="{ 'label-img': true, 'user-editor': isUserDetails }"
+        for="imgUploader"
+      >
+        <div class="white btn-upload-container">
+          <slot name="btn-upload">
+            <i
+              v-tooltip.top="'Upload Image'"
+              :class="{
+                'fad fa-upload upload-icon': true,
+                'user-editor': isUserDetails
+              }"
+            ></i>
+          </slot>
         </div>
         <input @change="onUploadImg" type="file" id="imgUploader" />
       </label>
@@ -24,25 +37,26 @@
 <script>
 import { imgUpload } from '@/services/img-upload.service'
 export default {
-    data(){
-        return {
-            isLoading:false,
-            imgUrl:null
-        }
-    },
+  props: {
+    isUserDetails: Boolean
+  },
+  data() {
+    return {
+      isLoading: false,
+      imgUrl: null
+    }
+  },
 
-    methods:{
+  methods: {
     async onUploadImg(ev) {
       this.isLoading = true
       const res = await imgUpload(ev)
-      console.log(res,'res in onUploadImg');
+      console.log(res, 'res in onUploadImg')
       this.imgUrl = res.url
       this.$emit('sendImgUrl', this.imgUrl)
       this.isLoading = false
-    },
-    },
-  
-
+    }
+  }
 }
 </script>
 
