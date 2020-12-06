@@ -1,42 +1,42 @@
 <template>
-  <section v-if="clonedTasks" class="task-list-container width100">
-    <ul class="task-list clean-list flex wrap align-center justify-center gap">
-      <draggable class="width100" :list="clonedTasks" @end="updateTasks">
-        <task-preview
-          v-for="task in clonedTasks"
-          :user="user"
-          :taskColor="taskColor"
-          :key="task.id"
-          :task="task"
-          :statuses="board.statuses"
-          :priorities="board.priorities"
-          :groupId="groupId"
-          @deleteTask="deleteTask"
-          @updateTask="updateTask"
-          :boardMembers="board.members"
-        />
-      </draggable>
-    </ul>
-    <form class="add-task-form flex" @submit.prevent="addTask">
-      <span class="task-color input-color" :style="taskBgc"></span>
-      <input
-        class="add-task-input"
-        @focus="showAddBtn"
-        v-model="txt"
-        type="text"
-        placeholder="+ Add Task"
-      />
-      <button v-show="isAddBtnShowen" type="submit">Add</button>
-    </form>
-  </section>
+    <section v-if="clonedTasks" class="task-list-container width100">
+        <ul
+            class="task-list clean-list flex wrap align-center justify-center gap"
+        >
+            <draggable class="width100" :list="clonedTasks" @end="updateTasks">
+                <task-preview
+                    v-for="task in clonedTasks"
+                    :user="user"
+                    :taskColor="taskColor"
+                    :key="task.id"
+                    :task="task"
+                    :statuses="board.statuses"
+                    :priorities="board.priorities"
+                    :groupId="groupId"
+                    @deleteTask="deleteTask"
+                    @updateTask="updateTask"
+                    :boardMembers="board.members"
+                />
+            </draggable>
+        </ul>
+        <form class="add-task-form flex" @submit.prevent="addTask">
+            <span class="task-color input-color" :style="taskBgc"></span>
+            <input
+                class="add-task-input"
+                @focus="showAddBtn"
+                v-model="txt"
+                type="text"
+                placeholder="+ Add Task"
+            />
+            <button v-show="isAddBtnShowen" type="submit">Add</button>
+        </form>
+    </section>
 </template>
-
 <script>
 import taskPreview from './task-preview'
 import { boardService } from '@/services/board.service'
 import draggable from 'vuedraggable'
 // import { eventBus } from '@/services/event-bus.service'
-
 export default {
   name: 'task-list',
   props: {
@@ -51,7 +51,6 @@ export default {
       clonedTasks: null
     }
   },
-
   computed: {
     board() {
       return this.$store.getters.board
@@ -86,7 +85,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-
       this.$notify({
         message: 'New task added',
         position: 'bottom-left',
@@ -116,7 +114,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-
       this.txt = ''
       this.isAddBtnShowen = false
       this.$notify({
@@ -147,9 +144,7 @@ export default {
     },
     updateTask(newTask, activity) {
       if (activity) {
-        this.board.activities.unshift(activity)
-
-      }
+        this.board.activities.unshift(activity)}
       const group = this.getGroupById()
       const taskIdx = group.tasks.findIndex(task => task.id === newTask.id)
       group.tasks.splice(taskIdx, 1, newTask)
@@ -157,7 +152,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-
       this.$emit('forceRender')
     },
     updateTasks() {
@@ -167,7 +161,6 @@ export default {
         type: 'saveBoard',
         board: this.board
       })
-
       this.$emit('forceRender')
     }
   },
