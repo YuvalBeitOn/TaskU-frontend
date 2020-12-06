@@ -22,12 +22,14 @@
                         v-model="signupCredentials.fullName"
                         placeholder="Full Name"
                         required
+                        :disabled="isElementDisabled"
                     />
                     <el-input
                         type="text"
                         v-model="signupCredentials.email"
                         placeholder="Email"
                         required
+                        :disabled="isElementDisabled"
                     />
 
                     <el-input
@@ -35,9 +37,12 @@
                         v-model="signupCredentials.password"
                         placeholder="Password"
                         required
+                        :disabled="isElementDisabled"
                     />
 
-                    <button class="signup-btn" ref="signupBtn">Sign up</button>
+                    <button class="signup-btn" :disabled="isElementDisabled">
+                        Sign up
+                    </button>
                 </form>
                 <div class="signup-section flex align-center">
                     <span class="separator-line"></span>
@@ -69,13 +74,13 @@ export default {
                 password: null,
                 isAdmin: false,
             },
+            isElementDisabled: false,
         }
     },
     computed: {},
     methods: {
         async submitSignup() {
-            const signupBtn = this.$refs.signupBtn
-            signupBtn.disabled = true
+            this.isElementDisabled = true
             const userCred = JSON.parse(JSON.stringify(this.signupCredentials))
             const user = await this.$store.dispatch({
                 type: 'signup',
@@ -94,7 +99,16 @@ export default {
                 type: 'saveBoard',
                 board,
             })
-            this.$router.push(`/board/${boardId}`)
+            this.$message({
+                duration: 2000,
+                showClose: true,
+                type: 'success',
+                offset: 335,
+                message: "You've sucessfully signed up!",
+            })
+            setTimeout(() => {
+                this.$router.push(`/board/${boardId}`)
+            }, 2000)
         },
     },
 }
