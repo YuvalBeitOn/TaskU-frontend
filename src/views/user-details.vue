@@ -17,7 +17,7 @@
                 <about-user :user="user" />
             </el-tab-pane>
             <el-tab-pane v-if="userLogin" label="Edit Profile">
-                <edit-user  v-if="userLogin" :user="user" />
+                <edit-user @loadUser="setLogingUser"  v-if="userLogin" :user="user" />
             </el-tab-pane>
         </el-tabs>
     </section>
@@ -59,10 +59,9 @@ export default {
             const user = this.users.find((user) => user._id === userId)
             return user
         },
-        // loadUser(userId){
-        // this.$store.dispatch({type:'loadUser',userId})
-
-        // }
+        setLogingUser(){
+        this.user = this.loggedInUser
+        }
     },
     created() {
         const { userId } = this.$route.params

@@ -139,6 +139,14 @@ export default {
       })
       this.$router.push('/')
     }
-  }
+  },
+  created(){
+      console.log('im created~!!')
+      console.log(this.boards.length)
+    if(this.boards.length===0) {
+      console.log('im created~2!!')
+  this.$store.dispatch({type: 'loadBoards'})}
+}
+
 }
 </script>

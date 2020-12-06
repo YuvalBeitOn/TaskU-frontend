@@ -60,7 +60,7 @@ export default {
       const copyUser = JSON.parse(JSON.stringify(this.userToEdit))
       const updatedUser = await this.$store.dispatch({ type: 'updateUser', user: copyUser })
       this.$store.commit({type: 'setUser', user:updatedUser})
-      // this.$emit('loadUser', copyUser._id)
+      this.$emit('loadUser')
        this.$notify({
         message: 'The Details updated',
         position: 'bottom-left',
