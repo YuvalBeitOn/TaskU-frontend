@@ -1,7 +1,7 @@
 .task-list-container {
   margin-bottom: rem(30px);
-  @include for-narrow-layout {
-    margin-top: 10px;
+  @include for-max-narrow-layout {
+    margin-top: 20px;
   }
   .task-list {
     @include for-max-narrow-layout {

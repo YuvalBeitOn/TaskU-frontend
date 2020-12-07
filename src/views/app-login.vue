@@ -111,6 +111,7 @@ export default {
             offset: 335,
             message: "You've sucessfully logged in!",
           })
+          
           setTimeout(() => {
             this.$router.push(`/board/${this.defaultBoardId}`)
           }, 2000)
