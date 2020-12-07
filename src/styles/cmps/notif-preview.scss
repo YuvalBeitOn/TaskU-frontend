@@ -5,6 +5,10 @@
   border-radius: 5px;
   margin-bottom: 5px;
   background-color: #e5f4ff;
+  @include for-max-narrow-layout {
+    display: unset;
+    position: relative;
+  }
   &:hover {
     background-color: #d2eaff;
   }
@@ -14,14 +18,26 @@
   }
   .notif-container {
     padding: 14px;
+    @include for-norml-layout {
+      padding: 5px;
+      position: relative;
+    }
 
     .user-img {
       margin-right: 5px;
+      @include for-norml-layout {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 3px 0;
+      }
     }
     .notif-details {
-        >* {
-            padding: 3px;
-        }
+      > * {
+        padding: 3px;
+      }
+      @include for-max-narrow-layout {
+        max-width: 170px;      }
       .user-mail {
         font-weight: bold;
       }
@@ -33,18 +49,37 @@
         border-radius: 50%;
       }
       .notif-board-name {
-          font-weight: bold;
+        font-weight: bold;
       }
     }
   }
   .notif-btns {
-      padding: 14px;
-      border-left: 0.3px solid rgb(180, 179, 179);
-    .notif-btn {
-      font-size: 15px;
-      background-color: transparent;
-      margin: 0;
-      padding: 0;
+    padding: 14px;
+    border-left: 0.3px solid rgb(180, 179, 179);
+    @include for-max-narrow-layout {
+      display: none;
+    }
+  }
+  .notif-btn {
+    font-size: 15px;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+  }
+  .btns-mobile {
+    display: none;
+    @include for-max-narrow-layout {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      .notif-btn {
+        font-size: 15px;
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
+        padding: 0 5px 3px 5px;
+      }
     }
   }
 }

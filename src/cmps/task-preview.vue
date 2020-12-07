@@ -90,7 +90,13 @@
           >
           </el-date-picker>
         </span>
-        <!-- <span class="right-square"><span class="right-line"></span></span> -->
+
+        <!-- <span
+          class="task-details-preview task-item"
+          v-tooltip.top="'Details'"
+          @change="openTaskDetails"
+        >Details
+        </span> -->
       </div>
     </div>
     <div
@@ -159,6 +165,9 @@ export default {
   },
 
   methods: {
+    openTaskDetails() {
+      return
+    },
     updateTaskDate() {
       const date = moment(this.taskCopy.dueDate).format('ll')
       if (date === 'Invalid date') return

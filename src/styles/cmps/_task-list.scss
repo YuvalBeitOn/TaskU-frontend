@@ -1,5 +1,8 @@
 .task-list-container {
   margin-bottom: rem(30px);
+  @include for-narrow-layout {
+    margin-top: 10px;
+  }
 
   form {
     .add-task-input {

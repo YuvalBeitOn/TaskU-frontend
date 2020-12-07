@@ -1,5 +1,6 @@
 <template>
   <section v-if="board" class="board-app flex">
+
     <board-list
       :expandList="expandList"
       :isExpanded="isListExpanded"
@@ -62,7 +63,7 @@
       v-show="isChatingBtnShown"
       class="chat-icon-btn-container flex align-center justify-center"
     >
-      <i @click="toggleChat" class="fas chat-icon fa-comments"></i>
+      <i @click="toggleChat" class="fas chat-icon fa-comments relative"></i>
     </div>
     <chat-app @closeChat="toggleChat" v-if="isChating" />
   </section>

@@ -12,6 +12,7 @@
   .activity {
     padding: 14px;
     margin-right: 3px;
+    position: relative;
     border: 1px solid #e6e9ef;
     border-radius: 5px;
     margin-bottom: 5px;
@@ -21,25 +22,42 @@
     }
     .activity-txt {
       max-width: 310px;
+      @include for-narrow-layout {
+        font-size: 0.8rem;
+        margin-top: 8px;
+      }
     }
     .activity-date {
-      font-family: 'roboto-medium','Ariel';
-    }
-    .user-avatar {
-      margin-right: 10px;
-      .profile-img {
-        width: 40px !important;
-        height: 40px !important;
-      }
-      .username {
+      font-family: 'roboto-medium', 'Ariel';
+      @include for-norml-layout {
         position: absolute;
-        font-size: 0.8rem;
-        z-index: 5;
-        background-color: rgb(255, 255, 255);
-        border-radius: 4px;
+        top: 0;
+        right: 0;
         padding: 5px;
-        border: 1px solid whitesmoke;
       }
+    }
+  }
+  .user-avatar {
+    margin-right: 10px;
+    @include for-norml-layout {
+      margin-right: 5px;
+    }
+    .profile-img {
+      width: 40px !important;
+      height: 40px !important;
+      @include for-norml-layout {
+        width: 25px !important;
+        height: 25px !important;
+      }
+    }
+    .username {
+      position: absolute;
+      font-size: 0.8rem;
+      z-index: 5;
+      background-color: rgb(255, 255, 255);
+      border-radius: 4px;
+      padding: 5px;
+      border: 1px solid whitesmoke;
     }
   }
 }
