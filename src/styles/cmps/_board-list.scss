@@ -10,13 +10,12 @@
     border: 1px solid #e6e9ef;
     border-radius: 20px;
     background-color: #ffffff;
-    display: flex!important;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     z-index: 100;
     width: 26px;
     height: 26px;
-    // padding: 3px 9px;
     position: absolute;
     right: -13px;
     top: 10px;
@@ -28,7 +27,6 @@
       padding: 0px 15px;
       background-color: $clr1;
       color: white;
-      // justify-content: flex-end;
     }
     .expand-icon {
       font-size: 11px;
@@ -42,13 +40,17 @@
     @include for-wide-layout {
       width: rem(200px);
     }
+    @include for-norml-layout {
+      width: rem(300px);
+      position: absolute;
+    }
     > * {
       display: block;
-   
     }
     .add-options {
       display: flex;
     }
+
   }
   .title-board-list {
     padding-top: rem(20px);
@@ -68,6 +70,9 @@
       transition-duration: 0.3s;
       @include for-wide-layout {
         width: 170px;
+      }
+      @include for-norml-layout {
+        width: 270px;
       }
       .item-txt {
         padding-left: 30px;
@@ -138,6 +143,9 @@
     @include for-wide-layout {
       width: 170px;
     }
+    @include for-norml-layout {
+      width: 270px;
+    }
     &:hover {
       background-color: #e6e9ef;
       border-radius: 4px;
@@ -160,6 +168,9 @@
     @include for-wide-layout {
       width: 170px;
     }
+    @include for-norml-layout {
+      width: 270px;
+    }
     &:hover {
       background-color: #e6e9ef;
       border-radius: 4px;
@@ -173,31 +184,36 @@
       position: absolute;
       font-size: 0.8rem;
       left: 10px;
-      top: 8.5px;
+      top: 9px;
     }
 
     &.icon-expanded {
       left: 22px;
     }
-  }
+  
   .search-input {
     &::placeholder {
       color: rgb(61, 61, 61);
       font-size: 0.9rem;
-      padding-left: 5px;
+      padding-left: 26px;
+      @include for-norml-layout {
+        padding-left: 0!important;
+      }
     }
-    
-    padding-left: 22px;
+    &:focus {
+    }
+    // padding-left: 22px;
     width: 210px;
     height: 32px;
     outline: none;
     border: none;
     background-color: transparent;
-    
+
     &:hover {
       cursor: pointer;
     }
   }
+}
 
   .separator-line {
     // margin: 0 auto;

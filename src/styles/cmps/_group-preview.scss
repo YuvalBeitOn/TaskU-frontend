@@ -11,11 +11,12 @@
     top: 8px;
     left: -10px;
     margin: 0;
-
+    @include for-narrow-layout {
+      top: 3px;
+    }
     .expand-arrow {
       color: white;
       font-size: 0.6rem;
-
     }
   }
   .group-control {
@@ -30,6 +31,9 @@
       .drag-icon {
         color: #8080809c;
         font-size: 0.9rem;
+      }
+      @include for-narrow-layout {
+        top: 3px;
       }
     }
   }
@@ -100,6 +104,9 @@
           margin-left: 18px;
         }
       }
+      @include for-narrow-layout {
+        display: none;
+      }
     }
     &.expanded {
       background-color: transparent;
@@ -117,6 +124,12 @@
         }
         @include for-wide-layout {
           width: 90px;
+        }
+        @include for-norml-layout {
+          &.t-status,
+          &.t-priority {
+            width: 60px;
+          }
         }
       }
     }

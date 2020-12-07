@@ -1,23 +1,22 @@
 .board-activities {
-  // position: absolute;
-  // height: 100%;
-  // top: 0;
-  // right: 0;
   z-index: 10;
   background-color: whitesmoke;
   padding: 0 20px;
   .header-activites{
     margin-top: 15px;
     margin-bottom: 25px;
-    // >*{
-    //   margin-bottom: rem(16px);
-    // }
     .title{
       font-size: 1.5rem;
       margin-bottom: 7px;
+      @include for-norml-layout {
+        font-size: 1.2rem;
+      }
     }
     .activity-title {
       font-size: 15px;
+      @include for-norml-layout {
+        font-size: 16px;
+      }
     }
   }
   .filter-container {

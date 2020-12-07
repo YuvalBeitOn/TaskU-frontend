@@ -42,12 +42,13 @@
     <div class="btn-booard-activity-container">
       <button
         v-tooltip.top="'Board activity'"
-        class="btn-close btn-second "
+        class="activity-btn btn-close btn-second "
         @click="boardActivities"
       >
         Activities /
         <span v-if="activiitesLength" class="blue">{{ activiitesLength }}</span>
       </button>
+      <i class="fas fa-chart-line activity-mobile" @click="boardActivities"><span class="activity-txt-mobile"> / {{ activiitesLength }}</span></i>
     </div>
   </div>
 </template>

@@ -33,7 +33,7 @@
                             elit. Nesciunt dolore modi numquam nostrum
                             voluptatem deleniti harum dicta odio.
                         </p>
-                        <button @click="onGetStarted" class="btn-app">
+                        <button @click="onGetStarted" class="btn-app main-btn">
                             {{ enteryButton }}
                         </button>
                     </div>
