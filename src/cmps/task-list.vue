@@ -3,7 +3,12 @@
         <ul
             class="task-list clean-list flex wrap align-center justify-center gap"
         >
-            <draggable class="width100" :list="clonedTasks" group="task" @change="updateTasks">
+            <draggable
+                class="width100"
+                :list="clonedTasks"
+                group="tasks"
+                @change="updateTasks"
+            >
                 <task-preview
                     v-for="task in clonedTasks"
                     :user="user"
@@ -157,7 +162,7 @@ export default {
             })
             this.$emit('forceRender')
         },
-        updateTasks() {
+        async updateTasks() {
             const group = this.getGroupById()
             group.tasks = this.clonedTasks
             this.$store.dispatch({

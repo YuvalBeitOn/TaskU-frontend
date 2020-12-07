@@ -24,8 +24,8 @@
       <span class="inner-text">Hello {{ userFullName }}</span>
     </div>
     <div class="bottom-nav">
-      <div class="nav-icon-container" v-tooltip.right="'Calender'">
-        <router-link to="/calender">
+      <div class="nav-icon-container" v-tooltip.right="'Calendar'">
+        <router-link to="/calendar">
           <i class="nav-icon fal fa-calendar-check"></i>
         </router-link>
       </div>
@@ -139,6 +139,14 @@ export default {
       })
       this.$router.push('/')
     }
-  }
+  },
+  created(){
+      console.log('im created~!!')
+      console.log(this.boards.length)
+    if(this.boards.length===0) {
+      console.log('im created~2!!')
+  this.$store.dispatch({type: 'loadBoards'})}
+}
+
 }
 </script>

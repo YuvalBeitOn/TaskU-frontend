@@ -1,0 +1,3591 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://localhost:8080/#/calendar -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if IE]><link rel="icon" type="image/png" href="/favicon.png"><![endif]-->
+    <link rel="stylesheet" href="./tasku-frontend_files/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous">
+    <link rel="stylesheet" href="./tasku-frontend_files/index.css">
+    <link rel="stylesheet" href="http://localhost:8080/">
+    <title>
+        tasku-frontend
+    </title>
+<link href="./tasku-frontend_files/app.js" rel="preload" as="script"><link href="./tasku-frontend_files/chunk-vendors.js" rel="preload" as="script"><link rel="icon" type="image/png" sizes="32x32" href="http://localhost:8080/img/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="http://localhost:8080/img/icons/favicon-16x16.png"><link rel="manifest" href="http://localhost:8080/manifest.json"><meta name="theme-color" content="#4DBA87"><meta name="apple-mobile-web-app-capable" content="no"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="tasku-frontend"><link rel="apple-touch-icon" href="http://localhost:8080/img/icons/apple-touch-icon-152x152.png"><link rel="mask-icon" href="http://localhost:8080/img/icons/safari-pinned-tab.svg" color="#4DBA87"><meta name="msapplication-TileImage" content="/img/icons/msapplication-icon-144x144.png"><meta name="msapplication-TileColor" content="#000000"><style type="text/css">/*!
+ * FullCalendar v3.10.1
+ * Docs & License: https://fullcalendar.io/
+ * (c) 2019 Adam Shaw
+ */
+.fc {
+  direction: ltr;
+  text-align: left; }
+
+.fc-rtl {
+  text-align: right; }
+
+body .fc {
+  /* extra precedence to overcome jqui */
+  font-size: 1em; }
+
+/* Colors
+--------------------------------------------------------------------------------------------------*/
+.fc-highlight {
+  /* when user is selecting cells */
+  background: #bce8f1;
+  opacity: .3; }
+
+.fc-bgevent {
+  /* default look for background events */
+  background: #8fdf82;
+  opacity: .3; }
+
+.fc-nonbusiness {
+  /* default look for non-business-hours areas */
+  /* will inherit .fc-bgevent's styles */
+  background: #d7d7d7; }
+
+/* Buttons (styled <button> tags, normalized to work cross-browser)
+--------------------------------------------------------------------------------------------------*/
+.fc button {
+  /* force height to include the border and padding */
+  box-sizing: border-box;
+  /* dimensions */
+  margin: 0;
+  height: 2.1em;
+  padding: 0 .6em;
+  /* text & cursor */
+  font-size: 1em;
+  /* normalize */
+  white-space: nowrap;
+  cursor: pointer; }
+
+/* Firefox has an annoying inner border */
+.fc button::-moz-focus-inner {
+  margin: 0;
+  padding: 0; }
+
+.fc-state-default {
+  /* non-theme */
+  border: 1px solid; }
+
+.fc-state-default.fc-corner-left {
+  /* non-theme */
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px; }
+
+.fc-state-default.fc-corner-right {
+  /* non-theme */
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px; }
+
+/* icons in buttons */
+.fc button .fc-icon {
+  /* non-theme */
+  position: relative;
+  top: -0.05em;
+  /* seems to be a good adjustment across browsers */
+  margin: 0 .2em;
+  vertical-align: middle; }
+
+/*
+  button states
+  borrowed from twitter bootstrap (http://twitter.github.com/bootstrap/)
+*/
+.fc-state-default {
+  background-color: #f5f5f5;
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  color: #333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); }
+
+.fc-state-hover,
+.fc-state-down,
+.fc-state-active,
+.fc-state-disabled {
+  color: #333333;
+  background-color: #e6e6e6; }
+
+.fc-state-hover {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+  transition: background-position 0.1s linear; }
+
+.fc-state-down,
+.fc-state-active {
+  background-color: #cccccc;
+  background-image: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); }
+
+.fc-state-disabled {
+  cursor: default;
+  background-image: none;
+  opacity: 0.65;
+  box-shadow: none; }
+
+/* Buttons Groups
+--------------------------------------------------------------------------------------------------*/
+.fc-button-group {
+  display: inline-block; }
+
+/*
+every button that is not first in a button group should scootch over one pixel and cover the
+previous button's border...
+*/
+.fc .fc-button-group > * {
+  /* extra precedence b/c buttons have margin set to zero */
+  float: left;
+  margin: 0 0 0 -1px; }
+
+.fc .fc-button-group > :first-child {
+  /* same */
+  margin-left: 0; }
+
+/* Popover
+--------------------------------------------------------------------------------------------------*/
+.fc-popover {
+  position: absolute;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); }
+
+.fc-popover .fc-header {
+  /* TODO: be more consistent with fc-head/fc-body */
+  padding: 2px 4px; }
+
+.fc-popover .fc-header .fc-title {
+  margin: 0 2px; }
+
+.fc-popover .fc-header .fc-close {
+  cursor: pointer; }
+
+.fc-ltr .fc-popover .fc-header .fc-title,
+.fc-rtl .fc-popover .fc-header .fc-close {
+  float: left; }
+
+.fc-rtl .fc-popover .fc-header .fc-title,
+.fc-ltr .fc-popover .fc-header .fc-close {
+  float: right; }
+
+/* Misc Reusable Components
+--------------------------------------------------------------------------------------------------*/
+.fc-divider {
+  border-style: solid;
+  border-width: 1px; }
+
+hr.fc-divider {
+  height: 0;
+  margin: 0;
+  padding: 0 0 2px;
+  /* height is unreliable across browsers, so use padding */
+  border-width: 1px 0; }
+
+.fc-clear {
+  clear: both; }
+
+.fc-bg,
+.fc-bgevent-skeleton,
+.fc-highlight-skeleton,
+.fc-helper-skeleton {
+  /* these element should always cling to top-left/right corners */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0; }
+
+.fc-bg {
+  bottom: 0;
+  /* strech bg to bottom edge */ }
+
+.fc-bg table {
+  height: 100%;
+  /* strech bg to bottom edge */ }
+
+/* Tables
+--------------------------------------------------------------------------------------------------*/
+.fc table {
+  width: 100%;
+  box-sizing: border-box;
+  /* fix scrollbar issue in firefox */
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 1em;
+  /* normalize cross-browser */ }
+
+.fc th {
+  text-align: center; }
+
+.fc th,
+.fc td {
+  border-style: solid;
+  border-width: 1px;
+  padding: 0;
+  vertical-align: top; }
+
+.fc td.fc-today {
+  border-style: double;
+  /* overcome neighboring borders */ }
+
+/* Internal Nav Links
+--------------------------------------------------------------------------------------------------*/
+a[data-goto] {
+  cursor: pointer; }
+
+a[data-goto]:hover {
+  text-decoration: underline; }
+
+/* Fake Table Rows
+--------------------------------------------------------------------------------------------------*/
+.fc .fc-row {
+  /* extra precedence to overcome themes w/ .ui-widget-content forcing a 1px border */
+  /* no visible border by default. but make available if need be (scrollbar width compensation) */
+  border-style: solid;
+  border-width: 0; }
+
+.fc-row table {
+  /* don't put left/right border on anything within a fake row.
+     the outer tbody will worry about this */
+  border-left: 0 hidden transparent;
+  border-right: 0 hidden transparent;
+  /* no bottom borders on rows */
+  border-bottom: 0 hidden transparent; }
+
+.fc-row:first-child table {
+  border-top: 0 hidden transparent;
+  /* no top border on first row */ }
+
+/* Day Row (used within the header and the DayGrid)
+--------------------------------------------------------------------------------------------------*/
+.fc-row {
+  position: relative; }
+
+.fc-row .fc-bg {
+  z-index: 1; }
+
+/* highlighting cells & background event skeleton */
+.fc-row .fc-bgevent-skeleton,
+.fc-row .fc-highlight-skeleton {
+  bottom: 0;
+  /* stretch skeleton to bottom of row */ }
+
+.fc-row .fc-bgevent-skeleton table,
+.fc-row .fc-highlight-skeleton table {
+  height: 100%;
+  /* stretch skeleton to bottom of row */ }
+
+.fc-row .fc-highlight-skeleton td,
+.fc-row .fc-bgevent-skeleton td {
+  border-color: transparent; }
+
+.fc-row .fc-bgevent-skeleton {
+  z-index: 2; }
+
+.fc-row .fc-highlight-skeleton {
+  z-index: 3; }
+
+/*
+row content (which contains day/week numbers and events) as well as "helper" (which contains
+temporary rendered events).
+*/
+.fc-row .fc-content-skeleton {
+  position: relative;
+  z-index: 4;
+  padding-bottom: 2px;
+  /* matches the space above the events */ }
+
+.fc-row .fc-helper-skeleton {
+  z-index: 5; }
+
+.fc .fc-row .fc-content-skeleton table,
+.fc .fc-row .fc-content-skeleton td,
+.fc .fc-row .fc-helper-skeleton td {
+  /* see-through to the background below */
+  /* extra precedence to prevent theme-provided backgrounds */
+  background: none;
+  /* in case <td>s are globally styled */
+  border-color: transparent; }
+
+.fc-row .fc-content-skeleton td,
+.fc-row .fc-helper-skeleton td {
+  /* don't put a border between events and/or the day number */
+  border-bottom: 0; }
+
+.fc-row .fc-content-skeleton tbody td,
+.fc-row .fc-helper-skeleton tbody td {
+  /* don't put a border between event cells */
+  border-top: 0; }
+
+/* Scrolling Container
+--------------------------------------------------------------------------------------------------*/
+.fc-scroller {
+  -webkit-overflow-scrolling: touch; }
+
+/* TODO: move to agenda/basic */
+.fc-scroller > .fc-day-grid,
+.fc-scroller > .fc-time-grid {
+  position: relative;
+  /* re-scope all positions */
+  width: 100%;
+  /* hack to force re-sizing this inner element when scrollbars appear/disappear */ }
+
+/* Global Event Styles
+--------------------------------------------------------------------------------------------------*/
+.fc-event {
+  position: relative;
+  /* for resize handle and other inner positioning */
+  display: block;
+  /* make the <a> tag block */
+  font-size: .85em;
+  line-height: 1.3;
+  border-radius: 3px;
+  border: 1px solid #3a87ad;
+  /* default BORDER color */ }
+
+.fc-event,
+.fc-event-dot {
+  background-color: #3a87ad;
+  /* default BACKGROUND color */ }
+
+.fc-event,
+.fc-event:hover {
+  color: #fff;
+  /* default TEXT color */
+  text-decoration: none;
+  /* if <a> has an href */ }
+
+.fc-event[href],
+.fc-event.fc-draggable {
+  cursor: pointer;
+  /* give events with links and draggable events a hand mouse pointer */ }
+
+.fc-not-allowed,
+.fc-not-allowed .fc-event {
+  /* to override an event's custom cursor */
+  cursor: not-allowed; }
+
+.fc-event .fc-bg {
+  /* the generic .fc-bg already does position */
+  z-index: 1;
+  background: #fff;
+  opacity: .25; }
+
+.fc-event .fc-content {
+  position: relative;
+  z-index: 2; }
+
+/* resizer (cursor AND touch devices) */
+.fc-event .fc-resizer {
+  position: absolute;
+  z-index: 4; }
+
+/* resizer (touch devices) */
+.fc-event .fc-resizer {
+  display: none; }
+
+.fc-event.fc-allow-mouse-resize .fc-resizer,
+.fc-event.fc-selected .fc-resizer {
+  /* only show when hovering or selected (with touch) */
+  display: block; }
+
+/* hit area */
+.fc-event.fc-selected .fc-resizer:before {
+  /* 40x40 touch area */
+  content: "";
+  position: absolute;
+  z-index: 9999;
+  /* user of this util can scope within a lower z-index */
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px; }
+
+/* Event Selection (only for touch devices)
+--------------------------------------------------------------------------------------------------*/
+.fc-event.fc-selected {
+  z-index: 9999 !important;
+  /* overcomes inline z-index */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
+
+.fc-event.fc-selected.fc-dragging {
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3); }
+
+/* Horizontal Events
+--------------------------------------------------------------------------------------------------*/
+/* bigger touch area when selected */
+.fc-h-event.fc-selected:before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  /* below resizers */
+  top: -10px;
+  bottom: -10px;
+  left: 0;
+  right: 0; }
+
+/* events that are continuing to/from another week. kill rounded corners and butt up against edge */
+.fc-ltr .fc-h-event.fc-not-start,
+.fc-rtl .fc-h-event.fc-not-end {
+  margin-left: 0;
+  border-left-width: 0;
+  padding-left: 1px;
+  /* replace the border with padding */
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0; }
+
+.fc-ltr .fc-h-event.fc-not-end,
+.fc-rtl .fc-h-event.fc-not-start {
+  margin-right: 0;
+  border-right-width: 0;
+  padding-right: 1px;
+  /* replace the border with padding */
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0; }
+
+/* resizer (cursor AND touch devices) */
+/* left resizer  */
+.fc-ltr .fc-h-event .fc-start-resizer,
+.fc-rtl .fc-h-event .fc-end-resizer {
+  cursor: w-resize;
+  left: -1px;
+  /* overcome border */ }
+
+/* right resizer */
+.fc-ltr .fc-h-event .fc-end-resizer,
+.fc-rtl .fc-h-event .fc-start-resizer {
+  cursor: e-resize;
+  right: -1px;
+  /* overcome border */ }
+
+/* resizer (mouse devices) */
+.fc-h-event.fc-allow-mouse-resize .fc-resizer {
+  width: 7px;
+  top: -1px;
+  /* overcome top border */
+  bottom: -1px;
+  /* overcome bottom border */ }
+
+/* resizer (touch devices) */
+.fc-h-event.fc-selected .fc-resizer {
+  /* 8x8 little dot */
+  border-radius: 4px;
+  border-width: 1px;
+  width: 6px;
+  height: 6px;
+  border-style: solid;
+  border-color: inherit;
+  background: #fff;
+  /* vertically center */
+  top: 50%;
+  margin-top: -4px; }
+
+/* left resizer  */
+.fc-ltr .fc-h-event.fc-selected .fc-start-resizer,
+.fc-rtl .fc-h-event.fc-selected .fc-end-resizer {
+  margin-left: -4px;
+  /* centers the 8x8 dot on the left edge */ }
+
+/* right resizer */
+.fc-ltr .fc-h-event.fc-selected .fc-end-resizer,
+.fc-rtl .fc-h-event.fc-selected .fc-start-resizer {
+  margin-right: -4px;
+  /* centers the 8x8 dot on the right edge */ }
+
+/* DayGrid events
+----------------------------------------------------------------------------------------------------
+We use the full "fc-day-grid-event" class instead of using descendants because the event won't
+be a descendant of the grid when it is being dragged.
+*/
+.fc-day-grid-event {
+  margin: 1px 2px 0;
+  /* spacing between events and edges */
+  padding: 0 1px; }
+
+tr:first-child > td > .fc-day-grid-event {
+  margin-top: 2px;
+  /* a little bit more space before the first event */ }
+
+.fc-day-grid-event.fc-selected:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  /* same z-index as fc-bg, behind text */
+  /* overcome the borders */
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  /* darkening effect */
+  background: #000;
+  opacity: .25; }
+
+.fc-day-grid-event .fc-content {
+  /* force events to be one-line tall */
+  white-space: nowrap;
+  overflow: hidden; }
+
+.fc-day-grid-event .fc-time {
+  font-weight: bold; }
+
+/* resizer (cursor devices) */
+/* left resizer  */
+.fc-ltr .fc-day-grid-event.fc-allow-mouse-resize .fc-start-resizer,
+.fc-rtl .fc-day-grid-event.fc-allow-mouse-resize .fc-end-resizer {
+  margin-left: -2px;
+  /* to the day cell's edge */ }
+
+/* right resizer */
+.fc-ltr .fc-day-grid-event.fc-allow-mouse-resize .fc-end-resizer,
+.fc-rtl .fc-day-grid-event.fc-allow-mouse-resize .fc-start-resizer {
+  margin-right: -2px;
+  /* to the day cell's edge */ }
+
+/* Event Limiting
+--------------------------------------------------------------------------------------------------*/
+/* "more" link that represents hidden events */
+a.fc-more {
+  margin: 1px 3px;
+  font-size: .85em;
+  cursor: pointer;
+  text-decoration: none; }
+
+a.fc-more:hover {
+  text-decoration: underline; }
+
+.fc-limited {
+  /* rows and cells that are hidden because of a "more" link */
+  display: none; }
+
+/* popover that appears when "more" link is clicked */
+.fc-day-grid .fc-row {
+  z-index: 1;
+  /* make the "more" popover one higher than this */ }
+
+.fc-more-popover {
+  z-index: 2;
+  width: 220px; }
+
+.fc-more-popover .fc-event-container {
+  padding: 10px; }
+
+/* Now Indicator
+--------------------------------------------------------------------------------------------------*/
+.fc-now-indicator {
+  position: absolute;
+  border: 0 solid red; }
+
+/* Utilities
+--------------------------------------------------------------------------------------------------*/
+.fc-unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+
+/*
+TODO: more distinction between this file and common.css
+*/
+/* Colors
+--------------------------------------------------------------------------------------------------*/
+.fc-unthemed th,
+.fc-unthemed td,
+.fc-unthemed thead,
+.fc-unthemed tbody,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-row,
+.fc-unthemed .fc-content,
+.fc-unthemed .fc-popover,
+.fc-unthemed .fc-list-view,
+.fc-unthemed .fc-list-heading td {
+  border-color: #ddd; }
+
+.fc-unthemed .fc-popover {
+  background-color: #fff; }
+
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-popover .fc-header,
+.fc-unthemed .fc-list-heading td {
+  background: #eee; }
+
+.fc-unthemed .fc-popover .fc-header .fc-close {
+  color: #666; }
+
+.fc-unthemed td.fc-today {
+  background: #fcf8e3; }
+
+.fc-unthemed .fc-disabled-day {
+  background: #d7d7d7;
+  opacity: .3; }
+
+/* Icons (inline elements with styled text that mock arrow icons)
+--------------------------------------------------------------------------------------------------*/
+.fc-icon {
+  display: inline-block;
+  height: 1em;
+  line-height: 1em;
+  font-size: 1em;
+  text-align: center;
+  overflow: hidden;
+  font-family: "Courier New", Courier, monospace;
+  /* don't allow browser text-selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+/*
+Acceptable font-family overrides for individual icons:
+  "Arial", sans-serif
+  "Times New Roman", serif
+
+NOTE: use percentage font sizes or else old IE chokes
+*/
+.fc-icon:after {
+  position: relative; }
+
+.fc-icon-left-single-arrow:after {
+  content: "\2039";
+  font-weight: bold;
+  font-size: 200%;
+  top: -7%; }
+
+.fc-icon-right-single-arrow:after {
+  content: "\203A";
+  font-weight: bold;
+  font-size: 200%;
+  top: -7%; }
+
+.fc-icon-left-double-arrow:after {
+  content: "\AB";
+  font-size: 160%;
+  top: -7%; }
+
+.fc-icon-right-double-arrow:after {
+  content: "\BB";
+  font-size: 160%;
+  top: -7%; }
+
+.fc-icon-left-triangle:after {
+  content: "\25C4";
+  font-size: 125%;
+  top: 3%; }
+
+.fc-icon-right-triangle:after {
+  content: "\25BA";
+  font-size: 125%;
+  top: 3%; }
+
+.fc-icon-down-triangle:after {
+  content: "\25BC";
+  font-size: 125%;
+  top: 2%; }
+
+.fc-icon-x:after {
+  content: "\D7";
+  font-size: 200%;
+  top: 6%; }
+
+/* Popover
+--------------------------------------------------------------------------------------------------*/
+.fc-unthemed .fc-popover {
+  border-width: 1px;
+  border-style: solid; }
+
+.fc-unthemed .fc-popover .fc-header .fc-close {
+  font-size: .9em;
+  margin-top: 2px; }
+
+/* List View
+--------------------------------------------------------------------------------------------------*/
+.fc-unthemed .fc-list-item:hover td {
+  background-color: #f5f5f5; }
+
+/* Colors
+--------------------------------------------------------------------------------------------------*/
+.ui-widget .fc-disabled-day {
+  background-image: none; }
+
+/* Popover
+--------------------------------------------------------------------------------------------------*/
+.fc-popover > .ui-widget-header + .ui-widget-content {
+  border-top: 0;
+  /* where they meet, let the header have the border */ }
+
+/* Global Event Styles
+--------------------------------------------------------------------------------------------------*/
+.ui-widget .fc-event {
+  /* overpower jqui's styles on <a> tags. TODO: more DRY */
+  color: #fff;
+  /* default TEXT color */
+  text-decoration: none;
+  /* if <a> has an href */
+  /* undo ui-widget-header bold */
+  font-weight: normal; }
+
+/* TimeGrid axis running down the side (for both the all-day area and the slot area)
+--------------------------------------------------------------------------------------------------*/
+.ui-widget td.fc-axis {
+  font-weight: normal;
+  /* overcome bold */ }
+
+/* TimeGrid Slats (lines that run horizontally)
+--------------------------------------------------------------------------------------------------*/
+.fc-time-grid .fc-slats .ui-widget-content {
+  background: none;
+  /* see through to fc-bg */ }
+
+.fc.fc-bootstrap3 a {
+  text-decoration: none; }
+
+.fc.fc-bootstrap3 a[data-goto]:hover {
+  text-decoration: underline; }
+
+.fc-bootstrap3 hr.fc-divider {
+  border-color: inherit; }
+
+.fc-bootstrap3 .fc-today.alert {
+  border-radius: 0; }
+
+/* Popover
+--------------------------------------------------------------------------------------------------*/
+.fc-bootstrap3 .fc-popover .panel-body {
+  padding: 0; }
+
+/* TimeGrid Slats (lines that run horizontally)
+--------------------------------------------------------------------------------------------------*/
+.fc-bootstrap3 .fc-time-grid .fc-slats table {
+  /* some themes have background color. see through to slats */
+  background: none; }
+
+.fc.fc-bootstrap4 a {
+  text-decoration: none; }
+
+.fc.fc-bootstrap4 a[data-goto]:hover {
+  text-decoration: underline; }
+
+.fc-bootstrap4 hr.fc-divider {
+  border-color: inherit; }
+
+.fc-bootstrap4 .fc-today.alert {
+  border-radius: 0; }
+
+.fc-bootstrap4 a.fc-event:not([href]):not([tabindex]) {
+  color: #fff; }
+
+.fc-bootstrap4 .fc-popover.card {
+  position: absolute; }
+
+/* Popover
+--------------------------------------------------------------------------------------------------*/
+.fc-bootstrap4 .fc-popover .card-body {
+  padding: 0; }
+
+/* TimeGrid Slats (lines that run horizontally)
+--------------------------------------------------------------------------------------------------*/
+.fc-bootstrap4 .fc-time-grid .fc-slats table {
+  /* some themes have background color. see through to slats */
+  background: none; }
+
+/* Toolbar
+--------------------------------------------------------------------------------------------------*/
+.fc-toolbar {
+  text-align: center; }
+
+.fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1em; }
+
+.fc-toolbar.fc-footer-toolbar {
+  margin-top: 1em; }
+
+.fc-toolbar .fc-left {
+  float: left; }
+
+.fc-toolbar .fc-right {
+  float: right; }
+
+.fc-toolbar .fc-center {
+  display: inline-block; }
+
+/* the things within each left/right/center section */
+.fc .fc-toolbar > * > * {
+  /* extra precedence to override button border margins */
+  float: left;
+  margin-left: .75em; }
+
+/* the first thing within each left/center/right section */
+.fc .fc-toolbar > * > :first-child {
+  /* extra precedence to override button border margins */
+  margin-left: 0; }
+
+/* title text */
+.fc-toolbar h2 {
+  margin: 0; }
+
+/* button layering (for border precedence) */
+.fc-toolbar button {
+  position: relative; }
+
+.fc-toolbar .fc-state-hover,
+.fc-toolbar .ui-state-hover {
+  z-index: 2; }
+
+.fc-toolbar .fc-state-down {
+  z-index: 3; }
+
+.fc-toolbar .fc-state-active,
+.fc-toolbar .ui-state-active {
+  z-index: 4; }
+
+.fc-toolbar button:focus {
+  z-index: 5; }
+
+/* View Structure
+--------------------------------------------------------------------------------------------------*/
+/* undo twitter bootstrap's box-sizing rules. normalizes positioning techniques */
+/* don't do this for the toolbar because we'll want bootstrap to style those buttons as some pt */
+.fc-view-container *,
+.fc-view-container *:before,
+.fc-view-container *:after {
+  box-sizing: content-box; }
+
+.fc-view,
+.fc-view > table {
+  /* so dragged elements can be above the view's main element */
+  position: relative;
+  z-index: 1; }
+
+/* BasicView
+--------------------------------------------------------------------------------------------------*/
+/* day row structure */
+.fc-basicWeek-view .fc-content-skeleton,
+.fc-basicDay-view .fc-content-skeleton {
+  /* there may be week numbers in these views, so no padding-top */
+  padding-bottom: 1em;
+  /* ensure a space at bottom of cell for user selecting/clicking */ }
+
+.fc-basic-view .fc-body .fc-row {
+  min-height: 4em;
+  /* ensure that all rows are at least this tall */ }
+
+/* a "rigid" row will take up a constant amount of height because content-skeleton is absolute */
+.fc-row.fc-rigid {
+  overflow: hidden; }
+
+.fc-row.fc-rigid .fc-content-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0; }
+
+/* week and day number styling */
+.fc-day-top.fc-other-month {
+  opacity: 0.3; }
+
+.fc-basic-view .fc-week-number,
+.fc-basic-view .fc-day-number {
+  padding: 2px; }
+
+.fc-basic-view th.fc-week-number,
+.fc-basic-view th.fc-day-number {
+  padding: 0 2px;
+  /* column headers can't have as much v space */ }
+
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+  float: right; }
+
+.fc-rtl .fc-basic-view .fc-day-top .fc-day-number {
+  float: left; }
+
+.fc-ltr .fc-basic-view .fc-day-top .fc-week-number {
+  float: left;
+  border-radius: 0 0 3px 0; }
+
+.fc-rtl .fc-basic-view .fc-day-top .fc-week-number {
+  float: right;
+  border-radius: 0 0 0 3px; }
+
+.fc-basic-view .fc-day-top .fc-week-number {
+  min-width: 1.5em;
+  text-align: center;
+  background-color: #f2f2f2;
+  color: #808080; }
+
+/* when week/day number have own column */
+.fc-basic-view td.fc-week-number {
+  text-align: center; }
+
+.fc-basic-view td.fc-week-number > * {
+  /* work around the way we do column resizing and ensure a minimum width */
+  display: inline-block;
+  min-width: 1.25em; }
+
+/* AgendaView all-day area
+--------------------------------------------------------------------------------------------------*/
+.fc-agenda-view .fc-day-grid {
+  position: relative;
+  z-index: 2;
+  /* so the "more.." popover will be over the time grid */ }
+
+.fc-agenda-view .fc-day-grid .fc-row {
+  min-height: 3em;
+  /* all-day section will never get shorter than this */ }
+
+.fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
+  padding-bottom: 1em;
+  /* give space underneath events for clicking/selecting days */ }
+
+/* TimeGrid axis running down the side (for both the all-day area and the slot area)
+--------------------------------------------------------------------------------------------------*/
+.fc .fc-axis {
+  /* .fc to overcome default cell styles */
+  vertical-align: middle;
+  padding: 0 4px;
+  white-space: nowrap; }
+
+.fc-ltr .fc-axis {
+  text-align: right; }
+
+.fc-rtl .fc-axis {
+  text-align: left; }
+
+/* TimeGrid Structure
+--------------------------------------------------------------------------------------------------*/
+.fc-time-grid-container,
+.fc-time-grid {
+  /* so slats/bg/content/etc positions get scoped within here */
+  position: relative;
+  z-index: 1; }
+
+.fc-time-grid {
+  min-height: 100%;
+  /* so if height setting is 'auto', .fc-bg stretches to fill height */ }
+
+.fc-time-grid table {
+  /* don't put outer borders on slats/bg/content/etc */
+  border: 0 hidden transparent; }
+
+.fc-time-grid > .fc-bg {
+  z-index: 1; }
+
+.fc-time-grid .fc-slats,
+.fc-time-grid > hr {
+  /* the <hr> AgendaView injects when grid is shorter than scroller */
+  position: relative;
+  z-index: 2; }
+
+.fc-time-grid .fc-content-col {
+  position: relative;
+  /* because now-indicator lives directly inside */ }
+
+.fc-time-grid .fc-content-skeleton {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  right: 0; }
+
+/* divs within a cell within the fc-content-skeleton */
+.fc-time-grid .fc-business-container {
+  position: relative;
+  z-index: 1; }
+
+.fc-time-grid .fc-bgevent-container {
+  position: relative;
+  z-index: 2; }
+
+.fc-time-grid .fc-highlight-container {
+  position: relative;
+  z-index: 3; }
+
+.fc-time-grid .fc-event-container {
+  position: relative;
+  z-index: 4; }
+
+.fc-time-grid .fc-now-indicator-line {
+  z-index: 5; }
+
+.fc-time-grid .fc-helper-container {
+  /* also is fc-event-container */
+  position: relative;
+  z-index: 6; }
+
+/* TimeGrid Slats (lines that run horizontally)
+--------------------------------------------------------------------------------------------------*/
+.fc-time-grid .fc-slats td {
+  height: 1.5em;
+  border-bottom: 0;
+  /* each cell is responsible for its top border */ }
+
+.fc-time-grid .fc-slats .fc-minor td {
+  border-top-style: dotted; }
+
+/* TimeGrid Highlighting Slots
+--------------------------------------------------------------------------------------------------*/
+.fc-time-grid .fc-highlight-container {
+  /* a div within a cell within the fc-highlight-skeleton */
+  position: relative;
+  /* scopes the left/right of the fc-highlight to be in the column */ }
+
+.fc-time-grid .fc-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* top and bottom will be in by JS */ }
+
+/* TimeGrid Event Containment
+--------------------------------------------------------------------------------------------------*/
+.fc-ltr .fc-time-grid .fc-event-container {
+  /* space on the sides of events for LTR (default) */
+  margin: 0 2.5% 0 2px; }
+
+.fc-rtl .fc-time-grid .fc-event-container {
+  /* space on the sides of events for RTL */
+  margin: 0 2px 0 2.5%; }
+
+.fc-time-grid .fc-event,
+.fc-time-grid .fc-bgevent {
+  position: absolute;
+  z-index: 1;
+  /* scope inner z-index's */ }
+
+.fc-time-grid .fc-bgevent {
+  /* background events always span full width */
+  left: 0;
+  right: 0; }
+
+/* Generic Vertical Event
+--------------------------------------------------------------------------------------------------*/
+.fc-v-event.fc-not-start {
+  /* events that are continuing from another day */
+  /* replace space made by the top border with padding */
+  border-top-width: 0;
+  padding-top: 1px;
+  /* remove top rounded corners */
+  border-top-left-radius: 0;
+  border-top-right-radius: 0; }
+
+.fc-v-event.fc-not-end {
+  /* replace space made by the top border with padding */
+  border-bottom-width: 0;
+  padding-bottom: 1px;
+  /* remove bottom rounded corners */
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0; }
+
+/* TimeGrid Event Styling
+----------------------------------------------------------------------------------------------------
+We use the full "fc-time-grid-event" class instead of using descendants because the event won't
+be a descendant of the grid when it is being dragged.
+*/
+.fc-time-grid-event {
+  overflow: hidden;
+  /* don't let the bg flow over rounded corners */ }
+
+.fc-time-grid-event.fc-selected {
+  /* need to allow touch resizers to extend outside event's bounding box */
+  /* common fc-selected styles hide the fc-bg, so don't need this anyway */
+  overflow: visible; }
+
+.fc-time-grid-event.fc-selected .fc-bg {
+  display: none;
+  /* hide semi-white background, to appear darker */ }
+
+.fc-time-grid-event .fc-content {
+  overflow: hidden;
+  /* for when .fc-selected */ }
+
+.fc-time-grid-event .fc-time,
+.fc-time-grid-event .fc-title {
+  padding: 0 1px; }
+
+.fc-time-grid-event .fc-time {
+  font-size: .85em;
+  white-space: nowrap; }
+
+/* short mode, where time and title are on the same line */
+.fc-time-grid-event.fc-short .fc-content {
+  /* don't wrap to second line (now that contents will be inline) */
+  white-space: nowrap; }
+
+.fc-time-grid-event.fc-short .fc-time,
+.fc-time-grid-event.fc-short .fc-title {
+  /* put the time and title on the same line */
+  display: inline-block;
+  vertical-align: top; }
+
+.fc-time-grid-event.fc-short .fc-time span {
+  display: none;
+  /* don't display the full time text... */ }
+
+.fc-time-grid-event.fc-short .fc-time:before {
+  content: attr(data-start);
+  /* ...instead, display only the start time */ }
+
+.fc-time-grid-event.fc-short .fc-time:after {
+  content: "\A0-\A0";
+  /* seperate with a dash, wrapped in nbsp's */ }
+
+.fc-time-grid-event.fc-short .fc-title {
+  font-size: .85em;
+  /* make the title text the same size as the time */
+  padding: 0;
+  /* undo padding from above */ }
+
+/* resizer (cursor device) */
+.fc-time-grid-event.fc-allow-mouse-resize .fc-resizer {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 8px;
+  overflow: hidden;
+  line-height: 8px;
+  font-size: 11px;
+  font-family: monospace;
+  text-align: center;
+  cursor: s-resize; }
+
+.fc-time-grid-event.fc-allow-mouse-resize .fc-resizer:after {
+  content: "="; }
+
+/* resizer (touch device) */
+.fc-time-grid-event.fc-selected .fc-resizer {
+  /* 10x10 dot */
+  border-radius: 5px;
+  border-width: 1px;
+  width: 8px;
+  height: 8px;
+  border-style: solid;
+  border-color: inherit;
+  background: #fff;
+  /* horizontally center */
+  left: 50%;
+  margin-left: -5px;
+  /* center on the bottom edge */
+  bottom: -5px; }
+
+/* Now Indicator
+--------------------------------------------------------------------------------------------------*/
+.fc-time-grid .fc-now-indicator-line {
+  border-top-width: 1px;
+  left: 0;
+  right: 0; }
+
+/* arrow on axis */
+.fc-time-grid .fc-now-indicator-arrow {
+  margin-top: -5px;
+  /* vertically center on top coordinate */ }
+
+.fc-ltr .fc-time-grid .fc-now-indicator-arrow {
+  left: 0;
+  /* triangle pointing right... */
+  border-width: 5px 0 5px 6px;
+  border-top-color: transparent;
+  border-bottom-color: transparent; }
+
+.fc-rtl .fc-time-grid .fc-now-indicator-arrow {
+  right: 0;
+  /* triangle pointing left... */
+  border-width: 5px 6px 5px 0;
+  border-top-color: transparent;
+  border-bottom-color: transparent; }
+
+/* List View
+--------------------------------------------------------------------------------------------------*/
+/* possibly reusable */
+.fc-event-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px; }
+
+/* view wrapper */
+.fc-rtl .fc-list-view {
+  direction: rtl;
+  /* unlike core views, leverage browser RTL */ }
+
+.fc-list-view {
+  border-width: 1px;
+  border-style: solid; }
+
+/* table resets */
+.fc .fc-list-table {
+  table-layout: auto;
+  /* for shrinkwrapping cell content */ }
+
+.fc-list-table td {
+  border-width: 1px 0 0;
+  padding: 8px 14px; }
+
+.fc-list-table tr:first-child td {
+  border-top-width: 0; }
+
+/* day headings with the list */
+.fc-list-heading {
+  border-bottom-width: 1px; }
+
+.fc-list-heading td {
+  font-weight: bold; }
+
+.fc-ltr .fc-list-heading-main {
+  float: left; }
+
+.fc-ltr .fc-list-heading-alt {
+  float: right; }
+
+.fc-rtl .fc-list-heading-main {
+  float: right; }
+
+.fc-rtl .fc-list-heading-alt {
+  float: left; }
+
+/* event list items */
+.fc-list-item.fc-has-url {
+  cursor: pointer;
+  /* whole row will be clickable */ }
+
+.fc-list-item-marker,
+.fc-list-item-time {
+  white-space: nowrap;
+  width: 1px; }
+
+/* make the dot closer to the event title */
+.fc-ltr .fc-list-item-marker {
+  padding-right: 0; }
+
+.fc-rtl .fc-list-item-marker {
+  padding-left: 0; }
+
+.fc-list-item-title a {
+  /* every event title cell has an <a> tag */
+  text-decoration: none;
+  color: inherit; }
+
+.fc-list-item-title a[href]:hover {
+  /* hover effect only on titles with hrefs */
+  text-decoration: underline; }
+
+/* message when no events */
+.fc-list-empty-wrap2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.fc-list-empty-wrap1 {
+  width: 100%;
+  height: 100%;
+  display: table; }
+
+.fc-list-empty {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center; }
+
+.fc-unthemed .fc-list-empty {
+  /* theme will provide own background */
+  background-color: #eee; }
+</style><style type="text/css">@charset "UTF-8";
+/* Media queries Breakpoint mixins */
+/* Media  Mixins */
+@font-face {
+  font-family: roboto-thin;
+  src: url(/fonts/Roboto-Thin.321de678.ttf); }
+
+@font-face {
+  font-family: roboto-light;
+  src: url(/fonts/Roboto-Light.88823c20.ttf); }
+
+@font-face {
+  font-family: roboto-medium;
+  src: url(/fonts/Roboto-Medium.58aef543.ttf); }
+
+@font-face {
+  font-family: roboto-regular;
+  src: url(/fonts/Roboto-Regular.11eabca2.ttf); }
+
+@font-face {
+  font-family: sofia-regular;
+  src: url(/fonts/SofiaProRegularAz.a7a07e7f.otf); }
+
+@font-face {
+  font-family: sofia-light;
+  src: url(/fonts/SofiaProLightAz.8de2d0df.otf); }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+
+html {
+  font-family: 'roboto-light', 'Ariel';
+  font-size: 16px;
+  color: #3d3d3d; }
+
+body {
+  height: 100vh; }
+
+#app {
+  height: 100%; }
+
+.main-container {
+  height: 100%; }
+
+img {
+  width: 100%; }
+
+[contenteditable]:focus {
+  outline: none;
+  border: 1px dashed black !important;
+  z-index: 55;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content; }
+
+a {
+  text-decoration: none;
+  color: #333333; }
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px; }
+
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px; }
+
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 48px; }
+
+::-webkit-scrollbar-thumb:hover {
+  background: #949494; }
+
+::-webkit-scrollbar-thumb:active {
+  background: #c4c4c4; }
+
+::-webkit-scrollbar-track {
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 43px; }
+
+::-webkit-scrollbar-track:hover {
+  background: #666666; }
+
+::-webkit-scrollbar-track:active {
+  background: #333333; }
+
+::-webkit-scrollbar-corner {
+  background: transparent; }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s; }
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0; }
+
+button {
+  outline: none;
+  cursor: pointer;
+  border-radius: 2px;
+  background-color: #0085ff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  transition-duration: 0.3s; }
+  button:hover {
+    background-color: #0071d9; }
+  button.white {
+    border: 1px solid #e6e9ef;
+    color: white;
+    padding: 8px 16px; }
+    button.white.hover {
+      background-color: #e6e9ef; }
+
+.btn-app {
+  display: flex;
+  align-items: center;
+  font-family: 'sofia-light', 'Ariel';
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 14px 28px;
+  font-size: 16px;
+  border-radius: 40px;
+  border: none;
+  font-weight: 400;
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-color: #ff0476;
+  color: #fff; }
+  .btn-app::after {
+    margin-left: 5px;
+    content: '❯'; }
+  .btn-app:hover {
+    background-color: #ff0a79dd; }
+
+.expend-btn-container {
+  margin-left: 15px;
+  position: relative; }
+  .expend-btn-container .expend-btn {
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    top: 15px;
+    left: -8px;
+    z-index: 5;
+    font-size: 0.9375rem;
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    border-radius: 50%;
+    background-color: #0185FF; }
+
+.btn-close {
+  padding: 0;
+  margin: 0;
+  margin-left: 8px;
+  background-color: transparent; }
+  .btn-close:hover {
+    background-color: transparent; }
+
+.task-icon {
+  transition-duration: 0.3s; }
+  .task-icon:hover {
+    color: #0185FF !important; }
+
+.chat-icon-btn-container {
+  cursor: pointer;
+  position: fixed;
+  bottom: 10px;
+  right: 8px;
+  background-image: linear-gradient(to left bottom, #2b2c5d, #313264, #36376b, #3c3d72, #424379);
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  box-shadow: 0 0 2px 0px black;
+  border: 1px solid #e6e9ef9e;
+  transition-duration: 0.3s; }
+  .chat-icon-btn-container .chat-icon {
+    cursor: pointer;
+    color: #e6e9ef;
+    font-size: 1.875rem; }
+  .chat-icon-btn-container:hover {
+    transform: scale(1.1); }
+
+.send-btn {
+  cursor: pointer;
+  color: #0185FF;
+  font-size: 20px;
+  position: absolute;
+  right: 8px; }
+
+.icon-nav-hader {
+  font-size: 1.75rem;
+  cursor: pointer; }
+
+.btn-second {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 40px;
+  border: 1px solid #e6e9ef;
+  border-color: #c5c7d0;
+  color: #323338;
+  background-color: transparent;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  min-height: 40px; }
+  .btn-second:hover {
+    background-color: #e6e9ee; }
+  .btn-second .blue {
+    color: #0685ff; }
+
+/* helpers! */
+.darkMode {
+  background-color: #202c37 !important;
+  color: #fff !important; }
+  .darkMode > * {
+    background-color: #202c37 !important;
+    color: #fff !important; }
+  .darkMode button {
+    color: #fff !important; }
+  .darkMode span {
+    color: #d2d2d2 !important;
+    font-weight: bold !important; }
+  .darkMode i {
+    color: #3d3d3d !important; }
+
+/* Flex Helpers! */
+.flex {
+  display: flex; }
+  .flex.space-around {
+    justify-content: space-around; }
+  .flex.space-between {
+    justify-content: space-between; }
+  .flex.align-center {
+    align-items: center; }
+  .flex.space-evenly {
+    align-items: center; }
+  .flex.end {
+    align-self: end; }
+  .flex.align-self-end {
+    align-self: flex-end; }
+  .flex.column {
+    flex-direction: column; }
+  .flex.wrap {
+    flex-wrap: wrap; }
+  .flex.justify-center {
+    justify-content: center; }
+  .flex > .grow {
+    flex-grow: 1; }
+
+.width100 {
+  width: 100%; }
+
+.relative {
+  position: relative; }
+
+/* Ul */
+.clean-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  -webkit-margin-before: 0;
+          margin-block-start: 0;
+  -webkit-margin-after: 0;
+          margin-block-end: 0;
+  -webkit-margin-start: 0;
+          margin-inline-start: 0;
+  -webkit-margin-end: 0;
+          margin-inline-end: 0;
+  -webkit-padding-start: 0;
+          padding-inline-start: 0; }
+
+.loader-app {
+  height: 90px;
+  width: 90px; }
+
+.back-drop-layer {
+  background-color: rgba(0, 255, 255, 0.221);
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2; }
+  .back-drop-layer.task-details {
+    background-color: rgba(0, 0, 0, 0.221); }
+
+.editable {
+  border: 1px solid transparent;
+  display: inline-block; }
+
+.editable:hover {
+  border: 1px dashed black !important;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content; }
+
+.ratio-square {
+  position: relative;
+  overflow: hidden; }
+  .ratio-square:before {
+    content: "";
+    display: block;
+    width: 100%;
+    padding-top: 100%; }
+  .ratio-square > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; }
+  .ratio-square > img {
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover; }
+
+.vue-avatar--wrapper {
+  border: 1px solid white; }
+
+.img-avatar {
+  border-radius: 50%;
+  border: 2px solid #f0f0f0;
+  height: 2.1875rem;
+  width: 2.1875rem; }
+
+.img-profile {
+  height: 12.5rem;
+  width: 12.5rem; }
+
+.img-profile-preview {
+  height: 1.5625rem;
+  width: 1.5625rem; }
+
+.board-search .search-input {
+  padding-left: 5px;
+  width: 210px;
+  height: 32px;
+  outline: none;
+  border: none;
+  background-color: transparent; }
+  .board-search .search-input::-moz-placeholder {
+    color: #3d3d3d;
+    font-size: 0.9rem;
+    padding-left: 25px; }
+  .board-search .search-input:-ms-input-placeholder {
+    color: #3d3d3d;
+    font-size: 0.9rem;
+    padding-left: 25px; }
+  .board-search .search-input::placeholder {
+    color: #3d3d3d;
+    font-size: 0.9rem;
+    padding-left: 25px; }
+  .board-search .search-input:hover {
+    cursor: pointer; }
+
+@media (max-width: 1300px) {
+  width: 1030px; }
+
+.tooltip {
+  display: block !important;
+  z-index: 10000; }
+  .tooltip .tooltip-inner {
+    background: black;
+    color: white;
+    border-radius: 5px;
+    padding: 8px 10px 8px; }
+  .tooltip .tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: 5px;
+    border-color: black;
+    z-index: 1; }
+  .tooltip[x-placement^="top"] {
+    margin-bottom: 5px; }
+    .tooltip[x-placement^="top"] .tooltip-arrow {
+      border-width: 5px 5px 0 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      bottom: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0; }
+  .tooltip[x-placement^="bottom"] {
+    margin-top: 5px; }
+    .tooltip[x-placement^="bottom"] .tooltip-arrow {
+      border-width: 0 5px 5px 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-top-color: transparent !important;
+      top: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0; }
+  .tooltip[x-placement^="right"] {
+    margin-left: 5px; }
+    .tooltip[x-placement^="right"] .tooltip-arrow {
+      border-width: 5px 5px 5px 0;
+      border-left-color: transparent !important;
+      border-top-color: transparent !important;
+      border-bottom-color: transparent !important;
+      left: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0; }
+  .tooltip[x-placement^="left"] {
+    margin-right: 5px; }
+    .tooltip[x-placement^="left"] .tooltip-arrow {
+      border-width: 5px 0 5px 5px;
+      border-top-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      right: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0; }
+  .tooltip.popover .popover-inner {
+    background: #f9f9f9;
+    color: black;
+    padding: 24px;
+    border-radius: 5px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1); }
+  .tooltip.popover .popover-arrow {
+    border-color: #f9f9f9; }
+  .tooltip[aria-hidden='true'] {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .15s, visibility .15s; }
+  .tooltip[aria-hidden='false'] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .15s; }
+
+.home-page {
+  font-family: 'sofia-regular','Ariel'; }
+  .home-page .nav-container {
+    width: 100%;
+    transition: 0.5s;
+    position: fixed;
+    top: 0;
+    padding: 15px 20px; }
+    .home-page .nav-container .logo1 {
+      width: 225px; }
+    .home-page .nav-container .nav-home-page {
+      width: -webkit-fit-content;
+      width: -moz-fit-content;
+      width: fit-content; }
+      .home-page .nav-container .nav-home-page .btn-nav {
+        color: white !important;
+        padding: 10px 20px; }
+      .home-page .nav-container .nav-home-page > *:not(:last-child) {
+        font-family: 'sofia-light','Ariel';
+        color: #3d3d3d;
+        transition: 0.5s;
+        text-transform: capitalize;
+        border-radius: 20px;
+        margin: 0.3125rem;
+        padding: 5px 12px;
+        display: inline-block; }
+        .home-page .nav-container .nav-home-page > *:not(:last-child):hover {
+          cursor: pointer;
+          color: #595ad4; }
+  .home-page .main-content.top-hero {
+    padding-top: 53px; }
+  .home-page .main-content .hero-homepage {
+    margin-top: -55px; }
+    .home-page .main-content .hero-homepage.hero-container {
+      background: rgba(255, 255, 255, 0.842);
+      height: 100%; }
+    .home-page .main-content .hero-homepage .main-hero-contant {
+      padding: 180px 150px 0 150px; }
+      .home-page .main-content .hero-homepage .main-hero-contant .content-container {
+        color: #3d3d3d;
+        flex-basis: 50%;
+        margin-top: 55px; }
+        .home-page .main-content .hero-homepage .main-hero-contant .content-container h1 {
+          font-family: 'sofia-regular','Ariel';
+          font-size: 2.5rem;
+          letter-spacing: 1px;
+          text-shadow: 0 2px 2px rgba(235, 235, 235, 0.91); }
+        .home-page .main-content .hero-homepage .main-hero-contant .content-container > * {
+          margin-bottom: 1.25rem; }
+        .home-page .main-content .hero-homepage .main-hero-contant .content-container p {
+          color: #3d3d3d;
+          width: 75ch; }
+      .home-page .main-content .hero-homepage .main-hero-contant .img-home-page {
+        height: 15.625rem; }
+
+.board-app {
+  background-color: #f7f7f7; }
+  .board-app .board-control {
+    border-bottom: 1px solid rgba(165, 165, 165, 0.714);
+    padding: 0.9375rem 1.875rem 0rem 1.25rem; }
+    .board-app .board-control .board-creator {
+      font-size: 0.8125rem; }
+  .board-app .board-up {
+    background-color: #f7f7f7;
+    padding: 30px 30px 0px 30px; }
+  .board-app .backdrop-layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 5;
+    background-color: black;
+    opacity: 0.4; }
+
+.user-details {
+  font-size: 13px; }
+  .user-details .user-avatar {
+    margin: 20px 0; }
+  .user-details .header-user-profile {
+    min-height: 12.5rem;
+    background-color: #0185FF; }
+    .user-details .header-user-profile .img-profile-container .profile-img {
+      border: 3px solid white;
+      border-radius: 50%; }
+    .user-details .header-user-profile .mail {
+      margin: 0 10px 0 0;
+      color: white;
+      font-size: 1.5625rem; }
+  .user-details .el-tabs__nav-scroll {
+    background-color: #f7f7f7;
+    padding: 0 42.5%; }
+
+.user-content {
+  height: 100%; }
+  .user-content > * {
+    margin: 1.875rem; }
+  .user-content .list-board-user {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 500px; }
+  .user-content .user-details-info h2 {
+    font-weight: 100; }
+  .user-content .user-details-info .title-details {
+    margin-right: 0.4375rem;
+    margin-left: 0.4375rem;
+    font-family: 'roboto-regular', 'Ariel'; }
+  .user-content .user-details-info h3 {
+    margin-bottom: 1.25rem; }
+  .user-content .user-details-info .icon-container {
+    position: relative;
+    color: #676879;
+    display: inline-block;
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 1px solid;
+    border-color: #c5c7d0;
+    text-align: center;
+    font-size: 18px; }
+    .user-content .user-details-info .icon-container .icon-user {
+      position: absolute;
+      top: 8px;
+      right: 5px;
+      left: 5px;
+      bottom: 5px; }
+
+.user-editor {
+  margin-top: 1.25rem;
+  max-height: 600px; }
+  .user-editor form {
+    margin-right: 100px;
+    align-items: start; }
+    .user-editor form input {
+      width: 300px; }
+    .user-editor form > * {
+      text-align: center;
+      margin-bottom: 0.875rem; }
+
+.task-details-section .el-tabs__item {
+  transition-duration: 0.4s; }
+
+.task-details-section .task-title-container {
+  margin-top: 35px; }
+  .task-details-section .task-title-container .task-title {
+    font-size: 1.375rem;
+    font-family: 'roboto-regular','Ariel';
+    overflow: hidden;
+    height: 30px;
+    max-width: 500px; }
+
+.task-details-section .task-post-txt {
+  font-weight: bold; }
+
+.task-details-section .posts-list {
+  height: 71vh;
+  overflow: auto; }
+
+.app-login-container .logo2,
+.app-signup-container .logo2 {
+  width: 180px;
+  height: 58px; }
+
+.app-login-container .login-header,
+.app-login-container .sigup-header,
+.app-signup-container .login-header,
+.app-signup-container .sigup-header {
+  width: 100%;
+  display: block;
+  padding-top: 10px;
+  padding-left: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  height: 65px;
+  background: #f7f7f7;
+  margin-bottom: 3rem; }
+
+.app-login-container .app-login,
+.app-login-container .app-signup,
+.app-signup-container .app-login,
+.app-signup-container .app-signup {
+  max-width: 500px;
+  margin: 0 auto; }
+  .app-login-container .app-login .login-title,
+  .app-login-container .app-login .signup-title,
+  .app-login-container .app-signup .login-title,
+  .app-login-container .app-signup .signup-title,
+  .app-signup-container .app-login .login-title,
+  .app-signup-container .app-login .signup-title,
+  .app-signup-container .app-signup .login-title,
+  .app-signup-container .app-signup .signup-title {
+    font-size: 2.5rem;
+    align-self: center;
+    font-family: 'roboto-regular', 'Ariel';
+    color: #333333;
+    font-size: 40px;
+    margin-bottom: 1.5rem; }
+    .app-login-container .app-login .login-title .thin-fonted,
+    .app-login-container .app-login .signup-title .thin-fonted,
+    .app-login-container .app-signup .login-title .thin-fonted,
+    .app-login-container .app-signup .signup-title .thin-fonted,
+    .app-signup-container .app-login .login-title .thin-fonted,
+    .app-signup-container .app-login .signup-title .thin-fonted,
+    .app-signup-container .app-signup .login-title .thin-fonted,
+    .app-signup-container .app-signup .signup-title .thin-fonted {
+      font-family: 'roboto-thin', 'Ariel'; }
+  .app-login-container .app-login form input,
+  .app-login-container .app-signup form input,
+  .app-signup-container .app-login form input,
+  .app-signup-container .app-signup form input {
+    margin-bottom: 10px; }
+  .app-login-container .app-login form .login-btn,
+  .app-login-container .app-login form .signup-btn,
+  .app-login-container .app-signup form .login-btn,
+  .app-login-container .app-signup form .signup-btn,
+  .app-signup-container .app-login form .login-btn,
+  .app-signup-container .app-login form .signup-btn,
+  .app-signup-container .app-signup form .login-btn,
+  .app-signup-container .app-signup form .signup-btn {
+    width: 320px;
+    height: 40px;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 28px;
+    border: none;
+    border-bottom: 2px solid #0d91ca;
+    background: #0fa2e2;
+    font-size: 18px;
+    border-radius: 15rem;
+    color: white;
+    margin-bottom: 4rem;
+    margin-top: 1rem; }
+    .app-login-container .app-login form .login-btn:disabled,
+    .app-login-container .app-login form .signup-btn:disabled,
+    .app-login-container .app-signup form .login-btn:disabled,
+    .app-login-container .app-signup form .signup-btn:disabled,
+    .app-signup-container .app-login form .login-btn:disabled,
+    .app-signup-container .app-login form .signup-btn:disabled,
+    .app-signup-container .app-signup form .login-btn:disabled,
+    .app-signup-container .app-signup form .signup-btn:disabled {
+      background: grey;
+      border-bottom: 2px solid grey; }
+  .app-login-container .app-login .separator-line,
+  .app-login-container .app-signup .separator-line,
+  .app-signup-container .app-login .separator-line,
+  .app-signup-container .app-signup .separator-line {
+    width: 250px;
+    border: 0.5px solid #c5c7d0;
+    margin: 16px;
+    height: 0; }
+  .app-login-container .app-login .login-subtitle,
+  .app-login-container .app-login .signup-subtitle,
+  .app-login-container .app-signup .login-subtitle,
+  .app-login-container .app-signup .signup-subtitle,
+  .app-signup-container .app-login .login-subtitle,
+  .app-signup-container .app-login .signup-subtitle,
+  .app-signup-container .app-signup .login-subtitle,
+  .app-signup-container .app-signup .signup-subtitle {
+    width: 450px;
+    font-size: 1.25rem;
+    font-size: 1rem; }
+    .app-login-container .app-login .login-subtitle span,
+    .app-login-container .app-login .signup-subtitle span,
+    .app-login-container .app-signup .login-subtitle span,
+    .app-login-container .app-signup .signup-subtitle span,
+    .app-signup-container .app-login .login-subtitle span,
+    .app-signup-container .app-login .signup-subtitle span,
+    .app-signup-container .app-signup .login-subtitle span,
+    .app-signup-container .app-signup .signup-subtitle span {
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 0.3125rem;
+      color: #0fa2e2; }
+
+.app-login-container .social-logos,
+.app-signup-container .social-logos {
+  padding: 0 1.5rem 0 1.5rem; }
+
+.app-login-container .social-option,
+.app-signup-container .social-option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid grey;
+  width: 120px;
+  border-radius: 54px; }
+  .app-login-container .social-option img,
+  .app-signup-container .social-option img {
+    max-width: 20px;
+    max-height: 20px;
+    margin: 0.5rem; }
+
+.nav-menu {
+  background-color: #292f4c;
+  height: 100%;
+  min-width: 4.0625rem;
+  max-width: 4.0625rem;
+  padding: 10px 0; }
+  .nav-menu .top-nav > *:not(:last-child) {
+    margin-bottom: 8px; }
+    .nav-menu .top-nav > *:not(:last-child) .notif-amount {
+      position: absolute;
+      color: #313131;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      right: -4px;
+      top: -2px; }
+  .nav-menu .bottom-nav > *:not(:last-child) {
+    margin-bottom: 8px; }
+  .nav-menu .user-profile {
+    display: flex;
+    justify-content: center;
+    position: relative; }
+    .nav-menu .user-profile:hover {
+      cursor: pointer; }
+    .nav-menu .user-profile .user-menu {
+      left: 55px;
+      bottom: 25px;
+      top: unset; }
+    .nav-menu .user-profile .user-img {
+      width: 35px;
+      border-radius: 50%;
+      border: 1px solid white; }
+  .nav-menu .nav-icon-container {
+    width: 50px;
+    height: 38px;
+    display: flex;
+    position: relative;
+    border-radius: 0 8px 8px 0;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 9px; }
+    .nav-menu .nav-icon-container:hover {
+      background-color: rgba(0, 0, 0, 0.6); }
+    .nav-menu .nav-icon-container:active {
+      background-color: rgba(255, 255, 255, 0.6); }
+  .nav-menu .nav-logo img {
+    width: 2.8125rem;
+    height: 2.8125rem; }
+  .nav-menu .user-greeting {
+    position: absolute;
+    z-index: 10;
+    transform: rotate(-90deg);
+    background-color: #00ca73;
+    color: #fefefe;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border-radius: 0 0 1.25rem 1.25rem;
+    width: 9.75rem;
+    text-align: center;
+    text-overflow: ellipsis;
+    cursor: default;
+    left: -65px;
+    top: 50%;
+    height: 25px; }
+    .nav-menu .user-greeting .inner-text {
+      max-width: 8rem;
+      overflow: hidden; }
+  .nav-menu .nav-icon {
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    font-size: 1.375rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .nav-menu .nav-icon.logout {
+      transform: rotate(180deg); }
+    .nav-menu .nav-icon.profile {
+      font-size: 1.875rem;
+      color: #f0284e;
+      border: 3px solid white;
+      border-radius: 50%;
+      background-color: white; }
+
+.board-list {
+  background-color: #f7f7f7;
+  border-top-left-radius: 0.9375rem;
+  padding-left: 0.9375rem;
+  z-index: 2;
+  width: 1.875rem;
+  border-right: 0.3px solid #dbdbdb;
+  transition: width 0.4s; }
+  .board-list .expand-list-btn {
+    border: 1px solid #e6e9ef;
+    border-radius: 20px;
+    background-color: #ffffff;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    right: -13px;
+    top: 10px;
+    font-size: 0.75rem; }
+    .board-list .expand-list-btn.notExpanded {
+      position: absolute; }
+    .board-list .expand-list-btn:hover {
+      padding: 0px 15px;
+      background-color: #0185FF;
+      color: white; }
+    .board-list .expand-list-btn .expand-icon {
+      font-size: 11px; }
+  .board-list > * {
+    display: none; }
+  .board-list.expanded {
+    width: 15.625rem; }
+    @media (max-width: 1300px) {
+      .board-list.expanded {
+        width: 12.5rem; } }
+    .board-list.expanded > * {
+      display: block; }
+    .board-list.expanded .add-options {
+      display: flex; }
+  .board-list .title-board-list {
+    padding-top: 1.25rem;
+    margin-bottom: 0.5rem; }
+  .board-list .boards-list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 82.5vh; }
+    .board-list .boards-list .board-item {
+      position: relative;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      font-family: Arial;
+      width: 210px;
+      transition-duration: 0.3s; }
+      @media (max-width: 1300px) {
+        .board-list .boards-list .board-item {
+          width: 170px; } }
+      .board-list .boards-list .board-item .item-txt {
+        padding-left: 30px; }
+      .board-list .boards-list .board-item .board-img {
+        position: absolute;
+        height: 12px;
+        width: 16px;
+        top: 8px;
+        left: 6px; }
+      .board-list .boards-list .board-item a {
+        font-size: 0.9rem;
+        font-family: Arial;
+        white-space: nowrap;
+        word-break: break-all;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+        padding: 5px 0px 5px 10px;
+        display: block;
+        text-transform: capitalize;
+        text-decoration: none; }
+      .board-list .boards-list .board-item .router-link-active {
+        border-radius: 5px;
+        background-color: rgba(136, 205, 237, 0.24);
+        color: #0185FF; }
+      .board-list .boards-list .board-item:hover {
+        background-color: #e6e9ef;
+        border-radius: 4px; }
+        .board-list .boards-list .board-item:hover > .minimenu-icon {
+          display: inline-block; }
+      .board-list .boards-list .board-item .trash-icon {
+        position: absolute;
+        color: #4d4d4d;
+        padding-top: 4px;
+        padding-left: 8px;
+        z-index: 5;
+        font-size: 0.9375rem; }
+      .board-list .boards-list .board-item .minimenu-icon {
+        display: none;
+        position: absolute;
+        cursor: pointer;
+        color: #4d4d4d;
+        z-index: 5;
+        font-size: 0.9375rem;
+        right: 7px;
+        top: 7px; }
+  .board-list .add-options {
+    position: relative;
+    margin: 0 auto;
+    width: 210px;
+    height: 32px;
+    font-family: Arial;
+    font-size: 0.9rem;
+    margin-right: 0.625rem; }
+    @media (max-width: 1300px) {
+      .board-list .add-options {
+        width: 170px; } }
+    .board-list .add-options:hover {
+      background-color: #e6e9ef;
+      border-radius: 4px;
+      cursor: pointer; }
+    .board-list .add-options .add-txt {
+      padding-left: 28px; }
+    .board-list .add-options .add-icon {
+      position: absolute;
+      left: 8px;
+      bottom: 10.5px;
+      font-size: 0.8rem; }
+  .board-list .input-container {
+    width: 210px;
+    height: 32px;
+    margin-right: 0.625rem; }
+    @media (max-width: 1300px) {
+      .board-list .input-container {
+        width: 170px; } }
+    .board-list .input-container:hover {
+      background-color: #e6e9ef;
+      border-radius: 4px;
+      cursor: pointer; }
+    .board-list .input-container.input-expanded {
+      border: 1px solid #0185FF;
+      border-radius: 4px; }
+    .board-list .input-container .search-icon {
+      position: absolute;
+      font-size: 0.8rem;
+      left: 10px;
+      top: 8.5px; }
+    .board-list .input-container.icon-expanded {
+      left: 22px; }
+  .board-list .search-input {
+    padding-left: 22px;
+    width: 210px;
+    height: 32px;
+    outline: none;
+    border: none;
+    background-color: transparent; }
+    .board-list .search-input::-moz-placeholder {
+      color: #3d3d3d;
+      font-size: 0.9rem;
+      padding-left: 5px; }
+    .board-list .search-input:-ms-input-placeholder {
+      color: #3d3d3d;
+      font-size: 0.9rem;
+      padding-left: 5px; }
+    .board-list .search-input::placeholder {
+      color: #3d3d3d;
+      font-size: 0.9rem;
+      padding-left: 5px; }
+    .board-list .search-input:hover {
+      cursor: pointer; }
+  .board-list .separator-line {
+    border-bottom: 0.3px solid #c5c7d0;
+    margin: 16px 16px 16px 0;
+    height: 0;
+    margin-bottom: 2rem; }
+
+.task-preview {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  background-color: #f1f1f1;
+  margin-bottom: 1px;
+  border-radius: 1px;
+  box-shadow: 0 3px 4px -5px #484444;
+  transition: background-color 0.3s;
+  text-align: center; }
+  .task-preview .status {
+    border-right: 1px solid white; }
+  .task-preview .status,
+  .task-preview .priority {
+    color: white;
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.5px;
+    font-family: Arial, Helvetica, sans-serif; }
+    .task-preview .status:hover,
+    .task-preview .priority:hover {
+      cursor: pointer; }
+  .task-preview .members-preview {
+    position: relative; }
+  .task-preview .task-color {
+    width: 7px;
+    margin-right: 1px;
+    height: 35px; }
+  .task-preview:hover {
+    background-color: #f3f3f3; }
+  .task-preview .task-item {
+    display: flex;
+    align-items: center;
+    width: 120px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer; }
+    .task-preview .task-item:hover {
+      box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3); }
+    @media (max-width: 1300px) {
+      .task-preview .task-item {
+        width: 90px;
+        font-size: 11px; } }
+  .task-preview .btn-close .btn-trash {
+    font-size: 13px;
+    margin: 0;
+    padding: 0; }
+  .task-preview .task-txt {
+    width: 100%;
+    height: 35px;
+    text-align: left;
+    padding-left: 10px;
+    display: flex;
+    align-items: center; }
+    .task-preview .task-txt span {
+      max-width: 400px;
+      padding: 3px;
+      line-height: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap; }
+      @media (max-width: 1300px) {
+        .task-preview .task-txt span {
+          max-width: 200px; } }
+  .task-preview .fa-icon {
+    font-size: 1.2rem;
+    color: #a8a8a8;
+    transition: 0.3s; }
+    .task-preview .fa-icon:hover {
+      color: #0085ff;
+      cursor: pointer; }
+  .task-preview .task-details .date-picker {
+    cursor: pointer;
+    width: 135px; }
+    @media (max-width: 1300px) {
+      .task-preview .task-details .date-picker {
+        width: 90px; } }
+    .task-preview .task-details .date-picker .el-input__prefix {
+      width: 135px;
+      border: none;
+      justify-content: left;
+      cursor: pointer; }
+    .task-preview .task-details .date-picker .el-input__inner {
+      cursor: pointer;
+      height: 35px;
+      border-radius: 0;
+      border: inherit; }
+      @media (max-width: 1300px) {
+        .task-preview .task-details .date-picker .el-input__inner {
+          font-size: 11px;
+          padding: 0 15px 0 15px; } }
+    .task-preview .task-details .date-picker .el-input__icon {
+      opacity: 0; }
+
+.group-container {
+  height: calc(100% - 160px);
+  padding: 3rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #f7f7f7; }
+  @media (max-width: 1300px) {
+    .group-container {
+      padding: 1.5rem; } }
+
+.group-preview-container .expand-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  padding: 3px;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  top: 8px;
+  left: -10px;
+  margin: 0; }
+  .group-preview-container .expand-btn .expand-arrow {
+    color: white;
+    font-size: 0.6rem; }
+
+.group-preview-container .group-control .drag-btn {
+  cursor: move;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  left: 12px;
+  top: 8px; }
+  .group-preview-container .group-control .drag-btn .drag-icon {
+    color: #8080809c;
+    font-size: 0.9rem; }
+
+.group-preview-container .group-preview {
+  background: #d3d3d347;
+  border-radius: 4px;
+  padding: 0 0 0 1rem;
+  flex-wrap: wrap;
+  min-height: 40px;
+  margin-bottom: 20px; }
+  .group-preview-container .group-preview .group-actions-container .expand-btn-container {
+    position: absolute;
+    top: 2px;
+    left: -10px; }
+  .group-preview-container .group-preview .fa-icon-act {
+    font-size: 0.6rem;
+    padding: 5px;
+    color: #ffffff;
+    position: absolute;
+    top: 0px;
+    left: 0px; }
+    .group-preview-container .group-preview .fa-icon-act:hover {
+      color: #4d4d4d; }
+  .group-preview-container .group-preview .progress-bar-section {
+    margin-top: -15px;
+    margin-bottom: 15px;
+    width: 100%;
+    justify-content: flex-end;
+    padding-right: 135px; }
+    @media (max-width: 1300px) {
+      .group-preview-container .group-preview .progress-bar-section {
+        padding-right: 90px; } }
+    .group-preview-container .group-preview .progress-bar-section .progressbar {
+      width: 116.5px;
+      margin-right: 7px; }
+      @media (max-width: 1300px) {
+        .group-preview-container .group-preview .progress-bar-section .progressbar {
+          width: 86.5px; } }
+      .group-preview-container .group-preview .progress-bar-section .progressbar .item-progressbar:hover {
+        transition-duration: 0.3s;
+        transform: scale(1.1); }
+    .group-preview-container .group-preview .progress-bar-section :last-child {
+      margin: 0; }
+  .group-preview-container .group-preview .group-headers {
+    padding-bottom: 1rem; }
+    .group-preview-container .group-preview .group-headers.group-name {
+      max-width: 220px;
+      overflow: hidden;
+      height: 20px;
+      font-family: 'roboto-light', 'Ariel';
+      font-size: 0.9375rem;
+      color: #11151b;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      transition: margin 0.3s; }
+      .group-preview-container .group-preview .group-headers.group-name.hovering {
+        margin-left: 18px; }
+  .group-preview-container .group-preview.expanded {
+    background-color: transparent; }
+  .group-preview-container .group-preview .headers {
+    font-size: 0.8125rem; }
+    .group-preview-container .group-preview .headers .list-title {
+      width: 120px;
+      text-align: center; }
+      .group-preview-container .group-preview .headers .list-title.date {
+        width: 135px; }
+        @media (max-width: 1300px) {
+          .group-preview-container .group-preview .headers .list-title.date {
+            width: 90px; } }
+      @media (max-width: 1300px) {
+        .group-preview-container .group-preview .headers .list-title {
+          width: 90px; } }
+
+@-webkit-keyframes expand-menu {
+  0% {
+    opacity: 0;
+    top: 5px; }
+  100% {
+    opacity: 1;
+    top: 15px; } }
+
+@keyframes expand-menu {
+  0% {
+    opacity: 0;
+    top: 5px; }
+  100% {
+    opacity: 1;
+    top: 15px; } }
+
+.popup-menu {
+  position: absolute;
+  background-color: white;
+  z-index: 5;
+  border-radius: 4px;
+  box-shadow: 0 4px 17px 6px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  width: 220px;
+  left: 0;
+  top: 30px; }
+  .popup-menu .menu-item {
+    padding: 4px 8px;
+    width: 100%;
+    cursor: pointer; }
+    .popup-menu .menu-item:hover {
+      background-color: #e6e9ef;
+      border-radius: 5px; }
+    .popup-menu .menu-item .menu-item-txt {
+      margin-left: 10px;
+      font-size: 0.9rem; }
+    .popup-menu .menu-item .menu-item-icon {
+      background-color: #706f6f;
+      border-radius: 50%;
+      color: white;
+      width: 20px;
+      height: 20px; }
+      .popup-menu .menu-item .menu-item-icon i {
+        font-size: 0.6rem;
+        padding: 5px;
+        color: #ffffff; }
+    .popup-menu .menu-item .el-divider--horizontal {
+      margin: 0; }
+
+.task-list-container {
+  margin-bottom: 1.875rem; }
+  .task-list-container form .add-task-input {
+    width: 100%;
+    height: 35px;
+    border-radius: 0;
+    border: 1px solid;
+    border-color: #e6e9ef;
+    background-color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    font-weight: 400;
+    padding-left: 10px;
+    text-align: left; }
+    .task-list-container form .add-task-input:hover {
+      border: 0.7px solid black;
+      transition: border .2s; }
+    .task-list-container form .add-task-input:focus {
+      border: 1px solid #0185FF; }
+  .task-list-container form:hover .input-color {
+    opacity: 1;
+    transition: opacity .2s; }
+  .task-list-container form button {
+    color: #fff;
+    border-color: #0085ff;
+    background-color: #0085ff;
+    outline: none;
+    border: 0;
+    padding: 0 12px;
+    border-right: 1px solid;
+    border-right-color: #ffffff;
+    margin: 0;
+    border-radius: 0; }
+  .task-list-container .task-color {
+    width: 7px;
+    height: 35px; }
+    .task-list-container .task-color.input-color {
+      opacity: 0.5;
+      transition: opacity .2s;
+      width: 6.8px; }
+
+.label-picker {
+  position: absolute;
+  width: 150px;
+  background-color: #fff;
+  box-shadow: 0 3px 10px -5px #484444;
+  border-radius: 4px;
+  z-index: 3;
+  top: 33px;
+  right: 12px;
+  padding: 5px 5px 0;
+  word-break: break-all;
+  transition: 0.3s; }
+  .label-picker > * {
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    margin-bottom: 5px;
+    border-radius: 1px;
+    cursor: pointer;
+    background-color: #a8a8a8;
+    color: #f1f1f1;
+    font-weight: 600;
+    text-shadow: -0.5px 0.5px 0 rgba(56, 56, 56, 0.438), 0.5px 0.5px 0 rgba(56, 56, 56, 0.438), 0.5px 0.5px 0 rgba(56, 56, 56, 0.438), 0.5px 0.5px 0 rgba(56, 56, 56, 0.438); }
+
+.board-filters {
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  padding: 0px 50px 10px 0; }
+  @media (max-width: 1300px) {
+    .board-filters {
+      padding: 8px 1.5rem; } }
+  .board-filters button {
+    height: 30px;
+    padding: 0 10px; }
+  .board-filters .filters {
+    font-size: 0.9rem;
+    position: absolute;
+    z-index: 6;
+    top: 41px;
+    right: 50px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: auto;
+    top: 45px;
+    box-shadow: 0 3px 10px -5px #484444; }
+    .board-filters .filters:hover {
+      opacity: 1;
+      transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; }
+    .board-filters .filters.expanded {
+      -webkit-animation: expand-menu 0.2s;
+              animation: expand-menu 0.2s; }
+  .board-filters .filters-btn {
+    font-family: 'roboto-light', 'Ariel';
+    font-size: 0.9rem;
+    position: relative;
+    height: 30px;
+    background-color: transparent;
+    padding: 0 15px; }
+    .board-filters .filters-btn:hover {
+      background-color: #e6e9ef;
+      border-radius: 4px; }
+    .board-filters .filters-btn .filter-icon {
+      font-size: 0.9rem; }
+  .board-filters .add-group-btn {
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    color: white;
+    font-family: 'roboto-regular', 'Ariel';
+    transition-duration: 0.3s;
+    margin-right: 10px; }
+    .board-filters .add-group-btn:hover {
+      background-color: #1574cb; }
+  .board-filters .input-container {
+    height: 30px;
+    padding-left: 10px;
+    position: relative;
+    margin-right: 4px; }
+    .board-filters .input-container:hover {
+      background-color: #e6e9ef;
+      border-radius: 4px; }
+    .board-filters .input-container .search-icon {
+      position: absolute;
+      left: 16px;
+      bottom: 8.5px;
+      font-size: 0.9rem; }
+      .board-filters .input-container .search-icon.icon-expanded {
+        left: 22px; }
+    .board-filters .input-container .search-input {
+      width: 80px;
+      height: 32px;
+      outline: none;
+      border: none;
+      text-align: center;
+      background-color: transparent;
+      transition: width 0.3s;
+      padding-left: 15px; }
+      .board-filters .input-container .search-input:focus {
+        width: 160px;
+        border: 1px solid #0185FF;
+        border-radius: 4px;
+        margin-right: 0;
+        padding-left: 25px;
+        text-align: left; }
+      .board-filters .input-container .search-input::-moz-placeholder {
+        font-family: 'roboto-light', 'Ariel';
+        font-size: 0.9rem;
+        color: #353535; }
+      .board-filters .input-container .search-input:-ms-input-placeholder {
+        font-family: 'roboto-light', 'Ariel';
+        font-size: 0.9rem;
+        color: #353535; }
+      .board-filters .input-container .search-input::placeholder {
+        font-family: 'roboto-light', 'Ariel';
+        font-size: 0.9rem;
+        color: #353535; }
+
+@keyframes expand-menu {
+  0% {
+    opacity: 0;
+    top: 20px; }
+  100% {
+    opacity: 1;
+    top: 40px; } }
+
+.task-posts .posts-list {
+  border-top: 1px solid #e9e8e6; }
+
+.task-posts form .text-edit-post {
+  font-family: Arial, Helvetica, sans-serif; }
+
+.task-posts form button {
+  color: white;
+  transition-duration: 0.3s;
+  position: absolute;
+  top: 90px;
+  right: 0;
+  padding: 8px 14px; }
+
+.task-posts form .el-input-text-editor {
+  font-family: Arial, Helvetica, sans-serif;
+  display: block;
+  resize: none;
+  padding: 5px 15px;
+  line-height: 1.5;
+  width: 100%;
+  font-size: inherit;
+  color: #606266;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px; }
+  .task-posts form .el-input-text-editor:focus {
+    outline: none !important;
+    border: 1.5px solid #0185FF; }
+
+.task-posts .task-post-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  border: 1px solid;
+  border-color: #e6e9ef;
+  width: 99%;
+  padding: 15px;
+  margin-top: 10px; }
+  .task-posts .task-post-card .by-user {
+    font-family: 'roboto-regular', 'Ariel';
+    margin-left: 3px; }
+
+.task-posts .task-post-container {
+  font-weight: bold; }
+  .task-posts .task-post-container .uploaded-img {
+    width: 100px; }
+
+.colors-container {
+  position: absolute;
+  left: 0;
+  z-index: 1500;
+  box-shadow: 0 3px 10px -5px #484444;
+  border: 1px solid;
+  border-color: #c5c7d0;
+  padding: 5px;
+  background-color: #ffffff;
+  width: 142px;
+  height: 115px;
+  top: 30px;
+  line-height: 0px;
+  border-radius: 4px; }
+  .colors-container .color {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    margin: 3px;
+    border-radius: 50%;
+    transition: all 0.3s;
+    -webkit-margin-start: 2px;
+            margin-inline-start: 2px; }
+    .colors-container .color:hover {
+      transform: scale(1.1); }
+
+.members {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 0 1px black;
+  padding: 5px 10px;
+  z-index: 1500;
+  width: 200px;
+  margin-top: -5px;
+  border-radius: 4px;
+  max-height: 400px;
+  overflow-y: auto; }
+  .members.top-right {
+    right: 15px;
+    right: 2px;
+    top: 30px; }
+  .members.top-left {
+    top: 3px;
+    left: 25px; }
+  .members .member {
+    position: relative;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    margin-bottom: 3px;
+    width: 100%; }
+    .members .member .user-dateils-container {
+      padding: 5px;
+      border-radius: 5px;
+      transition: .3s;
+      width: inherit; }
+      .members .member .user-dateils-container:hover {
+        background-color: #f3f3f3; }
+    .members .member .member-name {
+      margin: 0;
+      font-size: 1rem;
+      text-align: left;
+      padding-left: 5px;
+      text-align: left;
+      padding-left: 10px; }
+    .members .member .action-container {
+      width: 25px;
+      height: 25px;
+      margin-left: 5px;
+      position: relative;
+      cursor: pointer; }
+      .members .member .action-container .action-icon {
+        transition: .3s;
+        color: #0185FF;
+        position: absolute;
+        right: 3px;
+        top: 6px;
+        cursor: pointer; }
+        .members .member .action-container .action-icon:hover {
+          color: #0071d9; }
+  .members h3.title-members {
+    font-size: 1.1rem;
+    margin: 0.625rem 0; }
+  .members .first {
+    border-bottom: 1px solid lightgray; }
+    .members .first li:last-child {
+      margin-bottom: 5px; }
+
+.members-list-section .title-members {
+  padding-top: 30px;
+  margin-bottom: 20px; }
+
+.members-list {
+  height: 100vh;
+  overflow-y: auto; }
+  .members-list .member {
+    width: 100%;
+    display: flex; }
+    .members-list .member button {
+      align-self: flex-end; }
+    .members-list .member .user-container .user-avatar {
+      margin-right: 4px;
+      width: 25px;
+      height: 25px; }
+  .members-list .member-list-btn {
+    margin: 0;
+    height: 35px;
+    padding: 0 10px;
+    font-family: 'roboto-light';
+    border: 1px solid #e6e9ef;
+    color: #323338; }
+
+.members-actions {
+  position: relative; }
+
+.member-show {
+  margin-left: -8px; }
+
+.filter-form {
+  margin-right: 5px; }
+  .filter-form .filter-title {
+    font-size: 13px;
+    color: #808080;
+    margin: 3px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px 8px; }
+  .filter-form .user-avatar {
+    margin-right: 5px; }
+  .filter-form .filter-btn {
+    font-family: 'roboto-light','Ariel';
+    border: none;
+    width: 140px;
+    position: relative;
+    display: flex;
+    height: 32px;
+    background: #f5f5f5;
+    color: #333333;
+    border-bottom: 1px solid #e1e1e1;
+    margin: 3px;
+    align-items: center;
+    padding: 5px 8px;
+    transition: background-color 0.1s ease;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none; }
+    .filter-form .filter-btn:hover {
+      background-color: #e1e1e1; }
+    .filter-form .filter-btn .filter-txt {
+      position: absolute;
+      margin-left: 15px;
+      text-overflow: ellipsis;
+      top: 4px; }
+      .filter-form .filter-btn .filter-txt.user-filter {
+        left: 35px; }
+    .filter-form .filter-btn .status-circle {
+      position: absolute;
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border: 1px solid;
+      border-radius: 50%;
+      margin-right: 5px;
+      flex: 0 0 auto; }
+
+.task-activities {
+  overflow-y: overlay;
+  max-height: 84vh; }
+  .task-activities > *:not(:last-child) {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid gray;
+    position: relative;
+    text-align: left; }
+  .task-activities .activity {
+    padding: 14px;
+    margin-right: 3px;
+    border: 1px solid #e6e9ef;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #e5f4ff; }
+    .task-activities .activity > * {
+      margin-right: 8px; }
+    .task-activities .activity .activity-txt {
+      max-width: 310px; }
+    .task-activities .activity .activity-date {
+      font-family: 'roboto-medium','Ariel'; }
+    .task-activities .activity .user-avatar {
+      margin-right: 10px; }
+      .task-activities .activity .user-avatar .profile-img {
+        width: 40px !important;
+        height: 40px !important; }
+      .task-activities .activity .user-avatar .username {
+        position: absolute;
+        font-size: 0.8rem;
+        z-index: 5;
+        background-color: white;
+        border-radius: 4px;
+        padding: 5px;
+        border: 1px solid whitesmoke; }
+
+.board-header {
+  padding: 30px 50px;
+  height: 160px;
+  border-bottom: 0.3px solid #dddddd;
+  position: relative; }
+  @media (max-width: 1300px) {
+    .board-header {
+      padding: 1.5rem; } }
+  .board-header .board-name {
+    font-size: 30px;
+    font-family: 'roboto-regular', 'Ariel';
+    margin-bottom: 0.3rem;
+    max-width: 500px;
+    overflow: hidden; }
+  .board-header .board-description {
+    font-size: 15px;
+    color: #676879;
+    margin-bottom: 18px;
+    max-width: 500px;
+    overflow: hidden;
+    height: 25px; }
+  .board-header .board-creator {
+    margin-bottom: 0.625rem; }
+  .board-header .board-info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 50px;
+    padding-top: 30px; }
+    @media (max-width: 1300px) {
+      .board-header .board-info {
+        padding-right: 1.5rem; } }
+    .board-header .board-info .btn-members-container {
+      background-color: transparent;
+      margin: 0 1rem; }
+      .board-header .board-info .btn-members-container:hover {
+        cursor: pointer; }
+    .board-header .board-info .btn-activity-container {
+      margin-left: 15px; }
+      .board-header .board-info .btn-activity-container .btn-activity {
+        width: 70px;
+        height: 40px; }
+  .board-header .display-mode input {
+    width: 120px;
+    height: 28px;
+    font-size: 0.9rem; }
+    .board-header .display-mode input .el-input__inner {
+      padding: 0; }
+  .board-header .display-mode .el-input__icon {
+    height: 100%;
+    text-align: center;
+    transition: all 0.3s;
+    line-height: 30px; }
+
+.opt .menu-icon {
+  font-size: 0.9rem; }
+  .opt .menu-icon .inner-txt {
+    font-family: 'roboto-light';
+    margin-left: 5px; }
+
+.board-chat {
+  position: fixed;
+  bottom: 5rem;
+  right: 10px;
+  height: 420px;
+  width: 300px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; }
+  .board-chat .chat-container {
+    height: 100%; }
+    .board-chat .chat-container .header-chat {
+      box-shadow: 0px -1px 1px 0px #00000061;
+      padding: 15px;
+      background-color: #0185FF;
+      color: white;
+      text-align: center;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px; }
+      .board-chat .chat-container .header-chat button {
+        color: white; }
+        .board-chat .chat-container .header-chat button:hover {
+          transform: scale(1.1); }
+    .board-chat .chat-container .msg-container {
+      background-color: white;
+      box-shadow: 0px 1px 2px 0px #00000061;
+      padding: 5px;
+      overflow-y: auto;
+      overflow-x: hidden; }
+      .board-chat .chat-container .msg-container .chat-msg {
+        margin: 5px; }
+        .board-chat .chat-container .msg-container .chat-msg .user-sender {
+          direction: rtl;
+          width: 100%; }
+        .board-chat .chat-container .msg-container .chat-msg .from-msg {
+          margin: 0 5px;
+          text-transform: capitalize;
+          font-family: 'roboto-regular','Ariel'; }
+    .board-chat .chat-container .footer-chat {
+      background-color: #E5F4FF;
+      z-index: 5;
+      padding: 5px 5px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      box-shadow: 0px 1px 1px 0px #00000061; }
+      .board-chat .chat-container .footer-chat input {
+        border: none;
+        outline: 0;
+        font-size: 16px;
+        padding: 5px 5px;
+        background-color: transparent;
+        color: #3e3939;
+        margin-right: 25px; }
+
+.el-notification.left {
+  width: 240px;
+  left: 100px;
+  background: #323232;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+  border: none; }
+  .el-notification.left p {
+    color: #e4e3e3; }
+
+.notifications-modal {
+  border-radius: 5px;
+  box-shadow: -1px 10px 44px -20px rgba(0, 0, 0, 0.94);
+  position: absolute;
+  background-color: white;
+  z-index: 100;
+  width: 570px;
+  height: 600px;
+  left: 60px;
+  top: 0; }
+  .notifications-modal .header-notifs {
+    height: 110px;
+    padding: 10px;
+    position: relative;
+    border-bottom: 0.3px solid #d8d8d8;
+    margin-bottom: 5px; }
+    .notifications-modal .header-notifs .notifs-title {
+      font-size: 24px;
+      font-family: 'roboto-regular', 'Arial'; }
+  .notifications-modal .notifs-filters {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 10px); }
+    .notifications-modal .notifs-filters .tab-label {
+      position: relative;
+      height: 36px;
+      padding: 0 10px; }
+      .notifications-modal .notifs-filters .tab-label .filter-notif-btn {
+        font-family: 'roboto-light', 'Arial';
+        margin: 0;
+        background-color: transparent;
+        border-radius: 0; }
+        .notifications-modal .notifs-filters .tab-label .filter-notif-btn:hover {
+          font-weight: bold; }
+      .notifications-modal .notifs-filters .tab-label:hover .underline-active {
+        background-color: #0085ff;
+        transform: scaleX(1); }
+      .notifications-modal .notifs-filters .tab-label .underline-active {
+        position: absolute;
+        bottom: -1px;
+        height: 2px;
+        left: -2px;
+        right: -2px;
+        transform: scaleX(0);
+        transition: all 0.3s ease; }
+  .notifications-modal .notifs-list {
+    height: calc(100% - 110px);
+    overflow-y: auto; }
+    .notifications-modal .notifs-list .notif-preview {
+      margin: 2px 8px; }
+
+.upload-image-container.user-editor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+
+.upload-image-container .label-img {
+  height: 45px; }
+  .upload-image-container .label-img.user-editor {
+    margin-bottom: 3rem; }
+
+.upload-image-container .img-loader {
+  width: 50px;
+  height: 50px;
+  margin: 5px; }
+
+.upload-image-container .upload-icon {
+  height: 32px;
+  font-size: 25px;
+  padding-top: 7px;
+  color: #0085ff; }
+  .upload-image-container .upload-icon.user-editor {
+    font-size: 40px; }
+
+.upload-image-container .container-img {
+  margin-bottom: 5px; }
+  .upload-image-container .container-img.user-editor {
+    align-items: center; }
+  .upload-image-container .container-img .btn-upload-container {
+    cursor: pointer; }
+    .upload-image-container .container-img .btn-upload-container .upload-img {
+      font-size: 25px; }
+  .upload-image-container .container-img .img-uploaded {
+    max-height: 150px;
+    max-width: 150px; }
+
+.upload-image-container input[type='file'] {
+  opacity: 0;
+  width: 0;
+  height: 0; }
+
+.user-avatar {
+  display: inline-block; }
+
+.side-bar-board-app {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  background-color: whitesmoke;
+  width: 570px;
+  box-shadow: 0px 0px 10px 0px #999;
+  padding: 10px 20px;
+  transition-duration: 0.3s; }
+  .side-bar-board-app .animate-side-bar {
+    transition: .4s;
+    left: 100%;
+    transform: translate(-100%); }
+  .side-bar-board-app .cls-btn {
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 15px;
+    z-index: 11; }
+    .side-bar-board-app .cls-btn .cls-icon {
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #8f8f8f; }
+      .side-bar-board-app .cls-btn .cls-icon:hover {
+        background-color: transparent;
+        color: #3a3a3a; }
+
+.slide-leave-active,
+.slide-enter-active {
+  transition: 1s; }
+
+.slide-enter {
+  transform: translate(-100%, 0); }
+
+.slide-leave-to {
+  transform: translate(100%, 0); }
+
+.board-activities {
+  z-index: 10;
+  background-color: whitesmoke;
+  padding: 0 20px; }
+  .board-activities .header-activites {
+    margin-top: 15px;
+    margin-bottom: 25px; }
+    .board-activities .header-activites .title {
+      font-size: 1.5rem;
+      margin-bottom: 7px; }
+    .board-activities .header-activites .activity-title {
+      font-size: 15px; }
+  .board-activities .filter-container {
+    margin-bottom: 0.75rem; }
+    .board-activities .filter-container .search-icon {
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      font-size: 15px; }
+  .board-activities .board-activity-title-container {
+    margin-top: 30px;
+    margin-bottom: 25px; }
+    .board-activities .board-activity-title-container .title {
+      font-size: 1.375rem;
+      font-family: 'roboto-regular', 'Ariel';
+      overflow: hidden;
+      height: 30px;
+      max-width: 500px;
+      margin-bottom: 10px; }
+    .board-activities .board-activity-title-container .activities-title {
+      font-size: 1rem; }
+  .board-activities .cls-btn {
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 15px; }
+    .board-activities .cls-btn i {
+      cursor: pointer;
+      font-size: 1rem;
+      color: #8f8f8f; }
+      .board-activities .cls-btn i.hover {
+        color: #3a3a3a; }
+      .board-activities .cls-btn i .fas {
+        font-weight: 500; }
+
+.members {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 0 1px black;
+  padding: 5px 10px;
+  z-index: 1500;
+  width: 200px;
+  margin-top: -5px;
+  border-radius: 4px;
+  max-height: 400px;
+  overflow-y: auto; }
+  .members.top-right {
+    right: 15px;
+    right: 2px;
+    top: 30px; }
+  .members.top-left {
+    top: 3px;
+    left: 25px; }
+  .members .member {
+    position: relative;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    margin-bottom: 3px;
+    width: 100%; }
+    .members .member .user-dateils-container {
+      padding: 5px;
+      border-radius: 5px;
+      transition: .3s;
+      width: inherit; }
+      .members .member .user-dateils-container:hover {
+        background-color: #f3f3f3; }
+    .members .member .member-name {
+      margin: 0;
+      font-size: 1rem;
+      text-align: left;
+      padding-left: 5px;
+      text-align: left;
+      padding-left: 10px; }
+    .members .member .action-container {
+      width: 25px;
+      height: 25px;
+      margin-left: 5px;
+      position: relative;
+      cursor: pointer; }
+      .members .member .action-container .action-icon {
+        transition: .3s;
+        color: #0185FF;
+        position: absolute;
+        right: 3px;
+        top: 6px;
+        cursor: pointer; }
+        .members .member .action-container .action-icon:hover {
+          color: #0071d9; }
+  .members h3.title-members {
+    font-size: 1.1rem;
+    margin: 0.625rem 0; }
+  .members .first {
+    border-bottom: 1px solid lightgray; }
+    .members .first li:last-child {
+      margin-bottom: 5px; }
+
+.members-list-section .title-members {
+  padding-top: 30px;
+  margin-bottom: 20px; }
+
+.members-list {
+  height: 100vh;
+  overflow-y: auto; }
+  .members-list .member {
+    width: 100%;
+    display: flex; }
+    .members-list .member button {
+      align-self: flex-end; }
+    .members-list .member .user-container .user-avatar {
+      margin-right: 4px;
+      width: 25px;
+      height: 25px; }
+  .members-list .member-list-btn {
+    margin: 0;
+    height: 35px;
+    padding: 0 10px;
+    font-family: 'roboto-light';
+    border: 1px solid #e6e9ef;
+    color: #323338; }
+
+.members-actions {
+  position: relative; }
+
+.member-show {
+  margin-left: -8px; }
+
+.notif-preview {
+  font-size: 14px;
+  border: 1px solid #e6e9ef;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  background-color: #e5f4ff; }
+  .notif-preview:hover {
+    background-color: #d2eaff; }
+  .notif-preview > *:not(:last-child) {
+    position: relative;
+    text-align: left; }
+  .notif-preview .notif-container {
+    padding: 14px; }
+    .notif-preview .notif-container .user-img {
+      margin-right: 5px; }
+    .notif-preview .notif-container .notif-details > * {
+      padding: 3px; }
+    .notif-preview .notif-container .notif-details .user-mail {
+      font-weight: bold; }
+    .notif-preview .notif-container .notif-details .point {
+      background-color: #323338;
+      margin: 0 6px;
+      height: 3px;
+      width: 3px;
+      border-radius: 50%; }
+    .notif-preview .notif-container .notif-details .notif-board-name {
+      font-weight: bold; }
+  .notif-preview .notif-btns {
+    padding: 14px;
+    border-left: 0.3px solid #b4b3b3; }
+    .notif-preview .notif-btns .notif-btn {
+      font-size: 15px;
+      background-color: transparent;
+      margin: 0;
+      padding: 0; }
+
+.status-preview {
+  width: 210px;
+  border-radius: 5px;
+  vertical-align: top;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 5px; }
+  .status-preview .status-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 8px 0 8px 10px;
+    align-self: start; }
+  .status-preview .add-task-form {
+    width: 100%;
+    position: relative; }
+    .status-preview .add-task-form .add-btn {
+      position: absolute;
+      right: 7px;
+      border-radius: 0;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 26px;
+      width: 30px;
+      padding: 0;
+      top: 0; }
+      .status-preview .add-task-form .add-btn span {
+        font-size: 20px; }
+    .status-preview .add-task-form .add-task-input {
+      background-color: transparent;
+      width: 100%;
+      border: none;
+      outline: none;
+      margin-left: 8px;
+      padding: 5px 0 5px 10px;
+      margin-bottom: 10px; }
+      .status-preview .add-task-form .add-task-input::-moz-placeholder {
+        color: #2e2e2e; }
+      .status-preview .add-task-form .add-task-input:-ms-input-placeholder {
+        color: #2e2e2e; }
+      .status-preview .add-task-form .add-task-input::placeholder {
+        color: #2e2e2e; }
+      .status-preview .add-task-form .add-task-input:focus {
+        background-color: white;
+        border-radius: 4px;
+        width: 170px; }
+      .status-preview .add-task-form .add-task-input:hover {
+        cursor: pointer; }
+
+.task-preview-card {
+  height: 110px;
+  width: 195px;
+  border-radius: 4px;
+  background: #ffffff;
+  position: relative;
+  padding: 8px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.29);
+  font-size: 13px;
+  font-weight: 400;
+  color: #333333;
+  cursor: pointer;
+  margin: 5px 8px; }
+  .task-preview-card .task-txt .txt-edit {
+    width: 130px;
+    max-height: 80px;
+    overflow: hidden; }
+  .task-preview-card .details-btn {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    bottom: 5px;
+    right: 11px; }
+    .task-preview-card .details-btn .details-icon {
+      color: rgba(48, 48, 48, 0.7);
+      font-size: 1rem; }
+    .task-preview-card .details-btn:hover {
+      scale: 1.05; }
+  .task-preview-card .delete-btn {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    bottom: 43px;
+    right: 10px; }
+    .task-preview-card .delete-btn .delete-icon {
+      color: rgba(48, 48, 48, 0.7);
+      font-size: 1rem; }
+
+.trello {
+  max-height: calc(100% - 160px);
+  padding: 3rem;
+  overflow-y: auto;
+  overflow-x: auto;
+  background-color: #f7f7f7; }
+  @media (max-width: 1300px) {
+    .trello {
+      padding: 1.5rem; } }
+
+.task-details-container {
+  font-family: roboto-light;
+  font-size: 1rem; }
+  .task-details-container .details-header {
+    padding-top: 30px;
+    margin-bottom: 2rem; }
+    .task-details-container .details-header h4 {
+      font-size: 23px;
+      font-family: roboto-medium;
+      margin-bottom: 10px; }
+  .task-details-container .task-details {
+    z-index: 4;
+    position: fixed;
+    height: 400px;
+    border: 1px solid #cccccc;
+    overflow: visible;
+    outline: none;
+    padding: 0 64px 12px 64px;
+    width: 510px;
+    box-shadow: black 0px 6px 20px 0px;
+    display: flex;
+    background-color: white;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); }
+    .task-details-container .task-details .cls-btn {
+      position: absolute;
+      right: 0;
+      padding: 5px;
+      margin: 5px;
+      background-color: transparent;
+      font-weight: bold;
+      font-size: 15px; }
+    .task-details-container .task-details .detail-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px; }
+      .task-details-container .task-details .detail-container .detail-icon {
+        margin-right: 5px; }
+        .task-details-container .task-details .detail-container .detail-icon.point-icon {
+          font-size: 0.8rem; }
+      .task-details-container .task-details .detail-container .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        width: 235px;
+        background-color: #f5f6f8;
+        border-radius: 3px; }
+        .task-details-container .task-details .detail-container .content:hover {
+          background-color: #eff0f3; }
+        .task-details-container .task-details .detail-container .content.group {
+          background-color: transparent; }
+  .task-details-container .back-drop-layer-details {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.795); }
+</style><style type="text/css">.resize-observer[data-v-b329ee4c]{position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;border:none;background-color:transparent;pointer-events:none;display:block;overflow:hidden;opacity:0}.resize-observer[data-v-b329ee4c] object{display:block;position:absolute;top:0;left:0;height:100%;width:100%;overflow:hidden;pointer-events:none;z-index:-1}</style></head>
+
+<body>
+    <noscript>
+      <strong>We're sorry but tasku-frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"><main class="main-container flex"><nav class="nav-menu flex column space-between relative"><div class="top-nav"><div class="nav-logo"><a href="http://localhost:8080/#/board/5fcd1c9c1f42932de24b2025" class="nav-link flex justify-center"><img src="./tasku-frontend_files/logo_icon.png" alt="TaskU"></a></div><div class="nav-icon-container notifs has-tooltip" data-original-title="null"><i class="nav-icon far fa-bell"></i><span class="notif-amount">3</span><!----></div><div class="nav-icon-container has-tooltip" data-original-title="null"><i class="nav-icon far fa-inbox-in"></i></div></div><div class="user-greeting"><span class="inner-text">Hello Orel</span></div><div class="bottom-nav"><div class="nav-icon-container has-tooltip" data-original-title="null"><a href="http://localhost:8080/#/calendar" aria-current="page" class="router-link-exact-active router-link-active"><i class="nav-icon fal fa-calendar-check"></i></a></div><div class="nav-icon-container has-tooltip" data-original-title="null"><i class="nav-icon logout fad fa-sign-out"></i></div><div class="user-profile has-tooltip" data-original-title="null"><img src="./tasku-frontend_files/dapulse_default_photo.png" alt="" class="user-img"><!----></div></div><!----></nav><!----></main></div>
+<script type="text/javascript" src="./tasku-frontend_files/chunk-vendors.js"></script><script type="text/javascript" src="./tasku-frontend_files/app.js"></script>
+
+
+
+</body></html>

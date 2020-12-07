@@ -151,10 +151,6 @@ export const boardStore = {
     }
   },
   actions: {
-    async updateBoardById({ commit }, { boardId }) {
-      const board = await boardService.getById(boardId)
-      commit({ type: 'setBoardById', board })
-    },
     async loadBoards({ commit, rootGetters }) {
       const userId = rootGetters.user._id
       try {
