@@ -1,6 +1,5 @@
 <template>
   <section
-    @mouseover="expandList"
     :class="{
       'board-list flex column relative': true,
       expanded: isExpanded

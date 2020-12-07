@@ -2,13 +2,13 @@
     <section class="user-calendar">
         <h1>Hello {{ loggedinUser.fullName }}</h1>
         <!-- {{ boards }} -->
-        <full-calendar :events="events" @event-selected="eventSelected" />
+        <!-- <full-calendar :events="events" @event-selected="eventSelected" /> -->
     </section>
 </template>
 
 <script>
-import { FullCalendar } from 'vue-full-calendar'
-import 'fullcalendar/dist/fullcalendar.css'
+// import { FullCalendar } from 'vue-full-calendar'
+// import 'fullcalendar/dist/fullcalendar.css'
 import moment from 'moment'
 
 //ToBeChanged: Implementing a better UI library like Vuetify Calendar
@@ -52,7 +52,7 @@ export default {
         },
     },
     components: {
-        FullCalendar,
+        // FullCalendar,
     },
 }
 </script>
