@@ -1,11 +1,12 @@
 <template>
     <section v-if="clonedGroups.length" class="group-container">
         <ul
-            class="clean-list flex column align-center justify-center gap width100"
+            class="group-list clean-list flex column align-center justify-center gap width100"
         >
             <draggable
                 :list="clonedGroups"
-                @end="emitUpdateGroups"
+                group="groups"
+                @change="emitUpdateGroups"
                 animation="200"
                 handle=".drag-btn"
             >

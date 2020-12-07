@@ -27,6 +27,15 @@
         <i :class="isRead"></i>
       </button>
     </div>
+
+    <div class="btns-mobile">
+         <button class="notif-btn" @click="deleteNotif">
+        <i class="far fa-trash-alt"></i>
+      </button>
+      <button class="notif-btn" @click="toggleIsRead">
+        <i :class="isRead"></i>
+      </button>
+    </div>
   </li>
 </template>
 

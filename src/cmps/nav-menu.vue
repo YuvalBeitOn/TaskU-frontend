@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav-menu flex column space-between relative">
+  <nav class="nav-menu relative">
     <div class="top-nav">
       <div class="nav-logo">
         <router-link
@@ -15,17 +15,16 @@
         <span class="notif-amount" v-if="numOfNotifs">{{ numOfNotifs }}</span>
         <notifications-modal v-if="isNotifsModalShown" />
       </div>
-      <div class="nav-icon-container" v-tooltip.right="'Inbox'">
+      <div class="nav-icon-container inbox" v-tooltip.right="'Inbox'">
         <i class="nav-icon far fa-inbox-in"></i>
       </div>
     </div>
-
     <div class="user-greeting" v-if="user">
       <span class="inner-text">Hello {{ userFullName }}</span>
     </div>
     <div class="bottom-nav">
-      <div class="nav-icon-container" v-tooltip.right="'Calender'">
-        <router-link to="/calender">
+      <div class="nav-icon-container" v-tooltip.right="'Calendar'">
+        <router-link to="/calendar">
           <i class="nav-icon fal fa-calendar-check"></i>
         </router-link>
       </div>
@@ -39,11 +38,8 @@
         v-if="user"
         v-tooltip.right="'Profile'"
       >
-        <img
-          class="user-img"
-          src="https://cdn1.monday.com/dapulse_default_photo.png"
-          alt=""
-        />
+        <avatar class="user-img-nav" :user="user" />
+
         <popup-menu
           class="user-menu"
           v-if="isUserModalShown"
@@ -62,8 +58,9 @@
 <script>
 import NotificationsModal from './notifications-modal.vue'
 import popupMenu from './popup-menu.vue'
+import Avatar from './user-avatar'
 export default {
-  components: { popupMenu, NotificationsModal },
+  components: { popupMenu, NotificationsModal, Avatar },
   name: 'nav-menu',
   data() {
     return {
@@ -90,10 +87,10 @@ export default {
     }
   },
   computed: {
-    userFullName(){
-      const userFullName = this.user.fullName;
-      const spaceIdx =  userFullName.indexOf(' ')
-      return (spaceIdx<0) ? userFullName : userFullName.substr(0,spaceIdx)
+    userFullName() {
+      const userFullName = this.user.fullName
+      const spaceIdx = userFullName.indexOf(' ')
+      return spaceIdx < 0 ? userFullName : userFullName.substr(0, spaceIdx)
     },
     numOfNotifs() {
       return this.$store.getters.user.notifications.length

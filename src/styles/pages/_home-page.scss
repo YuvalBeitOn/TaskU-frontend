@@ -15,6 +15,7 @@ font-family: 'sofia-regular','Ariel';
         color: white !important;
         padding: 10px 20px;
       }
+    
       > *:not(:last-child) {
         font-family:  'sofia-light','Ariel';
         color: rgb(61, 61, 61);
@@ -33,6 +34,10 @@ font-family: 'sofia-regular','Ariel';
       }
     }
   .main-content {
+    .main-btn {
+      margin-top: 1rem;
+      margin-bottom: unset;
+    }
     &.top-hero {
       padding-top: 53px;
     }

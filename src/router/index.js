@@ -7,7 +7,7 @@ import appLogin from '@/views/app-login'
 import appSignup from '@/views/app-signup'
 import taskDetails from '@/views/task-details'
 import boardActivities from '@/views/board-activities'
-import userCalender from '@/views/user-calender'
+import userCalendar from '@/views/user-calendar'
 
 Vue.use(VueRouter)
 
@@ -53,9 +53,9 @@ const routes = [
     component: userDetails
   },
   {
-    path: '/calender/:userId?',
-    name: 'userCalender',
-    component: userCalender
+    path: '/calendar',
+    name: 'userCalendar',
+    component: userCalendar
   }
 ]
 

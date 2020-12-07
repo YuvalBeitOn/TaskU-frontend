@@ -1,86 +1,84 @@
-.board-chat{
-    position: fixed;
-    bottom: rem(80px);
-    right: 10px;
-    height: 420px;
-    width: 300px;
-    border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    .chat-container{
-        height: 100%;
-        
-        .header-chat{
-            box-shadow: 0px -1px 1px 0px #00000061;
-            padding: 15px;
-        background-color: $clr1;
+.board-chat {
+  position: absolute;
+  bottom: 50px;
+  right: 40px;
+  height: 420px;
+  width: 300px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  @include for-max-narrow-layout {
+    height: 300px;
+    width: 214px;
+  }
+  .chat-container {
+    height: 100%;
+
+    .header-chat {
+      box-shadow: 0px -1px 1px 0px #00000061;
+      padding: 15px;
+      background-color: $clr1;
+      color: white;
+      text-align: center;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      button {
         color: white;
-        text-align: center;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        button{
-            color:white;
-            
-            &:hover{
-                transform: scale(1.1);
-            }
+
+        &:hover {
+          transform: scale(1.1);
         }
-        }
-        .msg-container{
-        background-color: rgb(255, 255, 255);
-        box-shadow: 0px 1px 2px 0px #00000061;
-            padding: 5px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            .chat-msg{
-                margin: 5px;
-                .user-sender{
-                    direction: rtl;
-                    width: 100%;
-                    background-color: #E5F4FF;
-                    border-radius: 11px;
-                    padding-right: 8px;
-                }
-                .to-msg{
-                    width: 100%;
-                    margin: 5px;
-                    background-color: #E5F4FF;
-
-    border-radius: 11px;
-    padding-left: 8px;
-    padding-right: 8px;
-                }
-                }
-                .from-msg{
-                    margin:0 5px;
-                    text-transform: capitalize;
-                    font-family: 'roboto-regular','Ariel';
-                }
-            }
-        
-
-
-        }
-        .footer-chat{
-            background-color: $clr3;
-            z-index: 5;
-            padding: 5px 5px;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            box-shadow: 0px 1px 1px 0px #00000061;
-            input{
-                border: none;
-                outline: 0;
-                font-size: 16px;
-                padding:5px 5px;
-                background-color: transparent;
-                color: rgb(62, 57, 57);
-                margin-right: 25px;
-
-            }
-        }
-
+      }
     }
+    .msg-container {
+      background-color: rgb(255, 255, 255);
+      box-shadow: 0px 1px 2px 0px #00000061;
+      padding: 5px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      .chat-msg {
+        margin: 5px;
+ 
+        .user-sender{
+          direction: rtl;
+          width: 100%;
+          background-color: #E5F4FF;
+          border-radius: 11px;
+          padding-right: 8px;
+      }
+      .to-msg{
+          width: 100%;
+          margin: 5px;
+          background-color: #E5F4FF;
 
-
+border-radius: 11px;
+padding-left: 8px;
+padding-right: 8px;
+      }
+        .from-msg {
+          margin: 0 5px;
+          text-transform: capitalize;
+          font-family: 'roboto-regular', 'Ariel';
+        }
+      }
+    }
+    .footer-chat {
+      background-color: $clr3;
+      z-index: 5;
+      padding: 5px 5px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      box-shadow: 0px 1px 1px 0px #00000061;
+      input {
+        border: none;
+        outline: 0;
+        font-size: 16px;
+        padding: 5px 5px;
+        background-color: transparent;
+        color: rgb(62, 57, 57);
+        margin-right: 25px;
+      }
+    }
+  }
+}

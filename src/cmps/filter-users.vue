@@ -1,9 +1,9 @@
 <template>
   <section class="filter-form flex column">
     <h4 class="filter-title">{{ title }}</h4>
-    <button class="filter-btn" @click="updateFilter('All')">All</button>
+    <button class="filter-btn flex align-center" @click="updateFilter('All')">All</button>
     <button
-      class="filter-btn relative"
+      class="filter-btn relative flex align-center"
       @click="updateFilter(user._id)"
       v-for="user in users"
       :key="user._id"

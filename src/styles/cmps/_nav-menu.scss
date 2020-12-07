@@ -4,8 +4,46 @@
   min-width: rem(65px);
   max-width: rem(65px);
   padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @include for-norml-layout {
+    top: 0;
+    left: 0;
+    z-index: 222;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    height: 50px;
+    max-width: unset;
+    padding: 0;
+  }
+
+  .top-nav,
+  .bottom-nav {
+    @include for-norml-layout {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0;
+      flex-direction: row-reverse;
+      > * {
+        padding: 0 8px;
+      }
+    }
+  }
+  .bottom-nav {
+    @include for-norml-layout {
+      flex-direction: row;
+    }
+  }
   .top-nav > *:not(:last-child) {
     margin-bottom: 8px;
+    @include for-norml-layout {
+      margin-bottom: 0;
+      align-items: center;
+    }
     .notif-amount {
       position: absolute;
       color: #313131;
@@ -20,12 +58,26 @@
       font-size: 0.7rem;
       right: -4px;
       top: -2px;
+      @include for-norml-layout {
+        width: 13px;
+        height: 13px;
+      }
     }
   }
   .bottom-nav > *:not(:last-child) {
     margin-bottom: 8px;
+    @include for-norml-layout {
+      margin-bottom: 0;
+    }
   }
   .user-profile {
+    .profile-img {
+      @include for-norml-layout {
+        width: 25px !important;
+        height: 25px !important;
+        margin-right: 5px;
+      }
+    }
     display: flex;
     justify-content: center;
     position: relative;
@@ -36,11 +88,12 @@
       left: 55px;
       bottom: 25px;
       top: unset;
-    }
-    .user-img {
-      width: 35px;
-      border-radius: 50%;
-      border: 1px solid white;
+      @include for-norml-layout {
+        top: 30px;
+        height: 95px;
+        width: 150px;
+        left: 20px;
+      }
     }
   }
   .nav-icon-container {
@@ -58,12 +111,31 @@
     &:active {
       background-color: rgba(255, 255, 255, 0.6);
     }
+    @include for-norml-layout {
+      width: unset;
+      margin-bottom: 0;
+      height: unset;
+      &.calender,
+      &.inbox {
+        display: none;
+      }
+      &:hover {
+        background-color: transparent;
+      }
+      &:active {
+        background-color: transparent;
+      }
+    }
   }
 
   // The width should change to min-width because the boardAPP should push it aside
   .nav-logo img {
     width: rem(45px);
     height: rem(45px);
+    @include for-norml-layout {
+      height: unset;
+      width: 40px;
+    }
   }
   .user-greeting {
     position: absolute;
@@ -84,6 +156,9 @@
     .inner-text {
       max-width: 8rem;
       overflow: hidden;
+    }
+    @include for-norml-layout {
+      display: none;
     }
   }
 
@@ -107,5 +182,4 @@
       background-color: white;
     }
   }
-
 }

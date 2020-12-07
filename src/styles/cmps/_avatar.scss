@@ -1,7 +1,9 @@
-.user-avatar{
-    display: inline-block;
-//     border: 1px solid white;
-// border-radius: 50%;
-// box-shadow: 0 0 1px black;
-
+.user-avatar {
+  display: inline-block;
+  .profile-img {
+    @include for-max-narrow-layout {
+      width: 25px!important;
+      height: 25px!important;
+    }
+  }
 }

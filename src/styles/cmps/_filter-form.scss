@@ -9,12 +9,12 @@
     text-overflow: ellipsis;
     padding: 5px 8px;
   }
-  .user-avatar{
+  .user-avatar {
     // margin: 0 3px;
     margin-right: 5px;
   }
   .filter-btn {
-    font-family: 'roboto-light','Ariel';
+    font-family: 'roboto-light', 'Ariel';
     border: none;
     width: 140px;
     position: relative;
@@ -24,12 +24,16 @@
     color: #333333;
     border-bottom: 1px solid #e1e1e1;
     margin: 3px;
-    align-items: center;
+    // align-items: center;
     padding: 5px 8px;
     transition: background-color 0.1s ease;
     font-size: 13px;
     cursor: pointer;
     text-decoration: none;
+    @include for-max-narrow-layout {
+      width: 75px;
+      font-size: 12px;
+    }
     &:hover {
       background-color: #e1e1e1;
     }
@@ -40,6 +44,14 @@
       top: 4px;
       &.user-filter {
         left: 35px;
+        @include for-max-narrow-layout {
+          margin-left: 3px;
+          text-overflow: ellipsis;
+          max-width: 40px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
     .status-circle {

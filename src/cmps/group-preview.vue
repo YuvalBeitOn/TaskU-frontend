@@ -58,9 +58,9 @@
             <div v-if="isExpanded" class="flex space-between align-center">
                 <div class="group-headers headers flex">
                     <h4 class="list-title">Members</h4>
-                    <h4 class="list-title">Status</h4>
-                    <h4 class="list-title">Priority</h4>
-                    <h4 class="list-title date">Due Date</h4>
+                    <h4 class="list-title t-status">Status</h4>
+                    <h4 class="list-title t-priority">Priority</h4>
+                    <h4 class="list-title t-date">Due Date</h4>
                 </div>
             </div>
             <task-list

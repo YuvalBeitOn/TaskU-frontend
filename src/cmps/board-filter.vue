@@ -8,6 +8,7 @@
       >
         New Group
       </button>
+        <i  @click="addGroup" class="fal fa-plus-circle add-btn-narrow-mode"  v-tooltip.top="'Add New group'"></i>
       <span
         :class="{
           'input-container relative flex align-center justify-center': true

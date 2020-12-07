@@ -11,12 +11,33 @@
         >
           {{ task.txt }}
         </h2>
+        <div class="details-mobile flex">
+          <span
+            class="priority-details relative task-item"
+            :style="getStyleStr(task.priority.color)"
+            >{{ task.priority.txt }}
+            <!-- <label-picker
+            :opts="priorities"
+            type="priority"
+        /> -->
+          </span>
+
+          <span class="date-picker-details task-item">
+            <el-date-picker
+              v-tooltip.top="'Due Date'"
+              class="date-input"
+              v-model="task.dueDate"
+              type="date"
+              placeholder="Pick a date"
+            >
+            </el-date-picker>
+          </span>
+        </div>
       </div>
       <el-tabs>
         <el-tab-pane label="Task Posts">
           <task-posts
             v-if="posts"
-           
             @updatePosts="updatePosts"
             :task="task"
             :posts="posts"
@@ -45,7 +66,7 @@ export default {
       task: null,
       groupId: null,
       componentKey: 0,
-      newPost: null,
+      newPost: null
     }
   },
   created() {
@@ -54,12 +75,15 @@ export default {
     this.groupId = taskInfo.groupId
   },
   methods: {
+    getStyleStr(colorStr) {
+      return `backgroundColor:${colorStr}`
+    },
     closeBtn() {
       this.$router.push(`/board/${this.$route.params.boardId}`)
     },
     getTasksPath() {
       const groupIdx = this.board.groups.findIndex(
-        (group) => group.id === this.groupId
+        group => group.id === this.groupId
       )
       const tasks = this.board.groups[groupIdx].tasks
       return tasks
@@ -70,23 +94,23 @@ export default {
       else {
         this.task.txt = ev.target.innerText
         const tasks = this.getTasksPath()
-        const taskIdx = tasks.findIndex((task) => task.id === this.task.id)
+        const taskIdx = tasks.findIndex(task => task.id === this.task.id)
         tasks.splice(taskIdx, 1, this.task)
         this.$store.dispatch({
           type: 'saveBoard',
-          board: this.board,
+          board: this.board
         })
-          eventBus.$emit('updateTaskPreview', this.task)
+        eventBus.$emit('updateTaskPreview', this.task)
       }
     },
     updatePosts(posts, activity) {
       const tasks = this.getTasksPath()
-      const taskIdx = tasks.findIndex((task) => task.id === this.task.id)
+      const taskIdx = tasks.findIndex(task => task.id === this.task.id)
       tasks[taskIdx].posts = posts
       this.board.activities.unshift(activity)
       this.$store.dispatch({
         type: 'saveBoard',
-        board: this.board,
+        board: this.board
       })
 
       eventBus.$emit('updateTaskPreview', this.task)
@@ -94,17 +118,16 @@ export default {
     getTaskInfoById() {
       let taskInfo = {}
       const taskId = this.$route.params.taskId
-      const group = this.board.groups.find((group) =>
-        group.tasks.find((task) => task.id === taskId)
+      const group = this.board.groups.find(group =>
+        group.tasks.find(task => task.id === taskId)
       )
-      taskInfo.task = group.tasks.find((task) => task.id === taskId)
+      taskInfo.task = group.tasks.find(task => task.id === taskId)
       taskInfo.groupId = group.id
       return taskInfo
     },
     forceRerender() {
       this.componentKey += 1
-    },
-
+    }
   },
   computed: {
     board() {
@@ -122,18 +145,18 @@ export default {
         JSON.stringify(this.$store.getters.boardActivities)
       )
       const taskId = this.$route.params.taskId
-      boardActivities.forEach((activity) => {
+      boardActivities.forEach(activity => {
         if (activity.taskId === taskId) taskActivities.push(activity)
       })
       return taskActivities
-    },
+    }
   },
   watch: {
     '$route.params.taskId'() {
       const taskInfo = this.getTaskInfoById()
       this.groupId = taskInfo.groupId
       this.task = JSON.parse(JSON.stringify(taskInfo.task))
-    },
+    }
   },
   destroyed() {
     console.log('this.task destory:', this.task)
@@ -142,7 +165,7 @@ export default {
   components: {
     taskPosts,
     taskActivities,
-    sideBar,
-  },
+    sideBar
+  }
 }
 </script>

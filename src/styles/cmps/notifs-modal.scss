@@ -8,15 +8,28 @@
   height: 600px;
   left: 60px;
   top: 0;
+  @include for-norml-layout {
+    left: -220px;
+    width: 240px;
+    height: 320px;
+    top: 27px;
+  }
+
   .header-notifs {
     height: 110px;
     padding: 10px;
     position: relative;
     border-bottom: 0.3px solid rgb(216, 216, 216);
     margin-bottom: 5px;
+    @include for-norml-layout {
+      height: 40px;
+    }
     .notifs-title {
       font-size: 24px;
       font-family: 'roboto-regular', 'Arial';
+      @include for-norml-layout {
+        font-size: 18px;
+      }
     }
   }
   .notifs-filters {
@@ -26,8 +39,16 @@
     .tab-label {
       position: relative;
       height: 36px;
-      //   width: 85px;
       padding: 0 10px;
+      @include for-norml-layout {
+        padding: 0;
+        width: 100%;
+        &.unread,
+        &.mentions,
+        &.assigned {
+          display: none;
+        }
+      }
       .filter-notif-btn {
         font-family: 'roboto-light', 'Arial';
         margin: 0;
@@ -36,11 +57,20 @@
         &:hover {
           font-weight: bold;
         }
+        @include for-norml-layout {
+          width: 100%;
+          color: white;
+          font-size: 0.1px;
+        }
       }
       &:hover {
         .underline-active {
           background-color: #0085ff;
           transform: scaleX(1);
+          @include for-norml-layout {
+            background-color: transparent;
+            transform: unset;
+          }
         }
       }
       .underline-active {
