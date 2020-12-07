@@ -134,7 +134,11 @@ export const boardStore = {
       state.darkMode = darkMode
     },
     setBoards(state, { boards }) {
-      state.boards = boards
+           const miniBoards = boards.map(board => {
+        board = { _id: board._id, name: board.name }
+        return board
+      })
+      state.boards = miniBoards
     },
     setBoard(state, { board }) {
       state.currBoard = board
