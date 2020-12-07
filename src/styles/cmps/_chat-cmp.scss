@@ -39,10 +39,23 @@
       overflow-x: hidden;
       .chat-msg {
         margin: 5px;
-        .user-sender {
+ 
+        .user-sender{
           direction: rtl;
           width: 100%;
-        }
+          background-color: #E5F4FF;
+          border-radius: 11px;
+          padding-right: 8px;
+      }
+      .to-msg{
+          width: 100%;
+          margin: 5px;
+          background-color: #E5F4FF;
+
+border-radius: 11px;
+padding-left: 8px;
+padding-right: 8px;
+      }
         .from-msg {
           margin: 0 5px;
           text-transform: capitalize;

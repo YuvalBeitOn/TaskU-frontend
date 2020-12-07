@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     tasksByStatues() {
-      return this.$store.getters.tasksByStatues
+      return JSON.parse(JSON.stringify(this.$store.getters.tasksByStatues))
     },
     board() {
       return this.$store.getters.board
@@ -28,15 +28,7 @@ export default {
     statusList
   },
   created() {
-    // let newGroup = boardService.getEmptyGroup()
-    // delete newGroup.tasks
-    // newGroup.tasks = []
-    // this.group = newGroup
-    // this.board.groups.unshift(this.group)
-    // this.$store.dispatch({
-    //   type: 'saveBoard',
-    //   board: this.board
-    // })
+
     let group = this.board.groups[this.board.groups.length-1]
     this.group = group
   }

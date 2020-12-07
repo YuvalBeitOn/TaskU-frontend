@@ -9,7 +9,6 @@ export const boardStore = {
     filterBy: { status: 'All', priority: 'All', person: 'All', searchTerm: '' },
     darkMode: false,
     displayMode: 'Board'
-
   },
   getters: {
     displayMode(state) {
@@ -111,15 +110,19 @@ export const boardStore = {
           }
         })
       })
-      return statuesMap
+      const statusArray = Object.values(statuesMap)
+      return statusArray
     }
   },
   mutations: {
     setBoardById(state, { board }) {
-      const boardIdx = state.boards.findIndex(currBoard => currBoard._id === board._id)
+      const boardIdx = state.boards.findIndex(
+        currBoard => currBoard._id === board._id
+      )
       state.boards.splice(boardIdx, 1, board)
       if (board._id === state.currBoard._id) {
-        state.currBoard = board;
+        console.log('replacing curr board')
+        state.currBoard = board
       }
     },
     setDisplayMode(state, { displayMode }) {
@@ -129,7 +132,11 @@ export const boardStore = {
       state.darkMode = darkMode
     },
     setBoards(state, { boards }) {
-      state.boards = boards
+           const miniBoards = boards.map(board => {
+        board = { _id: board._id, name: board.name }
+        return board
+      })
+      state.boards = miniBoards
     },
     setBoard(state, { board }) {
       state.currBoard = board

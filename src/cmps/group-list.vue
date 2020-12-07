@@ -5,7 +5,8 @@
         >
             <draggable
                 :list="clonedGroups"
-                @end="emitUpdateGroups"
+                group="groups"
+                @change="emitUpdateGroups"
                 animation="200"
                 handle=".drag-btn"
             >

@@ -14,11 +14,11 @@
         
         <template v-if="msgs">
           <div  class="chat-msg flex " v-for="(msg, idx) in msgs" :key="idx">
-            <div  class="flex align-center"   :class="msg.sender || ''">
+            <div  class="flex align-center"   :class="['to-msg',msg.sender || '']">
         <avatar :user="user" />
 
          
-            <strong class="from-msg">{{ msg.from }}:</strong><span>{{ msg.txt }} </span> 
+            <strong class="from-msg"></strong><span>{{ msg.txt }} </span> 
 
           </div>
           </div>

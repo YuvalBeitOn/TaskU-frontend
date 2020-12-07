@@ -1,5 +1,5 @@
 <template>
-  <section
+  <li
     class="task-preview-card flex"
     @mouseover="showBtns"
     @mouseleave="hideBtns"
@@ -35,7 +35,7 @@
       v-if="isTaskDetailsShown"
       :isTaskDetailsShown="isTaskDetailsShown"
     />
-  </section>
+  </li>
 </template>
 
 <script>

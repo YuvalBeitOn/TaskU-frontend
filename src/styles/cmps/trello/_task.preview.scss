@@ -8,6 +8,9 @@
   font-size: 13px;
   font-weight: 400;
   color: #333333;
+  *:not(:last-child){
+    margin-bottom: 5px;
+  }
   cursor: pointer;
   margin: 5px 8px;
   .task-txt {

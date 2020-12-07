@@ -23,8 +23,8 @@
       <span class="inner-text">Hello {{ userFullName }}</span>
     </div>
     <div class="bottom-nav">
-      <div class="nav-icon-container calender" v-tooltip.right="'Calender'">
-        <router-link to="/calender">
+      <div class="nav-icon-container" v-tooltip.right="'Calendar'">
+        <router-link to="/calendar">
           <i class="nav-icon fal fa-calendar-check"></i>
         </router-link>
       </div>
