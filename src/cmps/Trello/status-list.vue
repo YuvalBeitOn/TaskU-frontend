@@ -1,6 +1,6 @@
 <template>
   <div class="status-list- flex ">
-   <!-- <draggable class="flex" :list="statuses" group="list"> -->
+   <draggable class="flex" :list="clonedStatuses" group="list">
 
     <status-preview
       v-for="status in clonedStatuses"
@@ -8,23 +8,23 @@
       :status="status"
       :group="group"
     />
-    <!-- </draggable> -->
+    </draggable>
 
   </div>
 </template>
 
 <script>
-// import draggable from 'vuedraggable'
+import draggable from 'vuedraggable'
 
 import statusPreview from './status-preview.vue'
 export default {
   props: {
-    statuses: Object,
+    statuses: Array,
     group: Object
   },
   data(){
     return {
-      cloneStatuses:null
+      clonedStatuses:null
     }
   },
   created(){
@@ -32,7 +32,7 @@ export default {
   },
   components: {
     statusPreview,
-    // draggable
+    draggable
 
   }
 }

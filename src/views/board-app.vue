@@ -45,7 +45,7 @@
         @duplicateGroup="duplicateGroup"
         @forceRender="forceRerender"
       />
-      <trello-mode v-else></trello-mode>
+      <trello-mode :key="componentKey" @forceRender="forceRerender" v-else></trello-mode>
     </div>
     <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
 
@@ -333,9 +333,11 @@ export default {
       this.forceRerender()
     },
     updateGroup(updatedGroup) {
+      console.log('updatedGroup:', updatedGroup)
       const idx = this.board.groups.findIndex(
         group => group.id === updatedGroup.id
       )
+      if(idx<0) return
       this.board.groups.splice(idx, 1, updatedGroup)
       const txt = `${this.user.fullName} updated group ${updatedGroup.name}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)

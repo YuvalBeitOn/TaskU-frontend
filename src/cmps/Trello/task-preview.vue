@@ -1,7 +1,6 @@
 <template>
   <li class="task-preview-card flex column">
     <div class="task-preivew-header flex space-between relative">
-      <!-- <span>{{ task.txt }}</span> -->
       <div class="task-txt">
         <span
           class="editable txt-edit"
@@ -11,7 +10,6 @@
           contenteditable
           >{{ taskCopy.txt }}</span
         >
-        {{task.id}}
       </div>
       <avatar :user="user" :size="20" />
     </div>
