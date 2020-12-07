@@ -1,5 +1,5 @@
 <template>
-  <section class="trello flex wrap align-center justify-center">
+  <section class="trello flex wrap align-center">
     <div class="status-container">
       <status-list :statuses="tasksByStatues" :group="group" />
     </div>

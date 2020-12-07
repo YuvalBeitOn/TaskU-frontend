@@ -5,7 +5,7 @@
         class="profile-img"
         backgroundColor="#0085ff"
         :size="size"
-        :username="user.fullName"
+        :username="user.fullName || user.mail"
       ></avatar>
     </template>
     <img

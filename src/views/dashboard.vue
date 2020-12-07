@@ -22,12 +22,9 @@ components:{LineChart,},
       }
     },
     mounted () {
-      // this.fillData()
 
-      console.log('created');
     },
     created(){
-      console.log('created');
       this.$store.dispatch({ type: 'loadBoards' })
 
     },
@@ -43,7 +40,6 @@ components:{LineChart,},
     },
     methods: {
       setBoard(board){
-        console.log('board:', board)
         this.$store.commit({type:'setBoard',board})
         this.fillData()
       },

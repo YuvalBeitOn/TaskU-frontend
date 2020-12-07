@@ -6,6 +6,9 @@
   width: rem(30px);
   border-right: 0.3px solid rgb(219, 219, 219);
   transition: width 0.4s;
+  @include for-max-narrow-layout {
+    width: rem(20px);
+  }
   .expand-list-btn {
     border: 1px solid #e6e9ef;
     border-radius: 20px;

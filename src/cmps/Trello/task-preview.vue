@@ -1,6 +1,10 @@
 <template>
-  <li class="task-preview-card flex column">
-    <div class="task-preivew-header flex space-between relative">
+  <li
+    class="task-preview-card flex"
+    @mouseover="showBtns"
+    @mouseleave="hideBtns"
+  >
+    <div class="task-preivew-header flex space-between relative width100">
       <div class="task-txt">
         <span
           class="editable txt-edit"
@@ -11,12 +15,20 @@
           >{{ taskCopy.txt }}</span
         >
       </div>
-      <avatar :user="user" :size="20" />
     </div>
-    <button class="delete-btn"  @click="deleteTask"><i class="fas fa-trash delete-icon "></i></button>
-    <button class="details-btn" @click.stop="openTaskDetails">
-      <i class="fas fa-file-alt details-icon"></i>
-    </button>
+    <div
+      class="btns-control flex column space-between align-center"
+      v-if="isHovering"
+     
+    >
+      <avatar :user="user" :size="20" />
+      <button class="delete-btn" @click="deleteTask">
+        <i class="fas fa-trash delete-icon "></i>
+      </button>
+      <button class="details-btn" @click.stop="openTaskDetails">
+        <i class="fas fa-file-alt details-icon"></i>
+      </button>
+    </div>
     <task-details
       :task="taskCopy"
       :group="group"
@@ -42,7 +54,8 @@ export default {
   },
   data() {
     return {
-      isTaskDetailsShown: false
+      isTaskDetailsShown: false,
+      isHovering: false
     }
   },
   computed: {
@@ -51,6 +64,12 @@ export default {
     }
   },
   methods: {
+    hideBtns() {
+      this.isHovering = false
+    },
+    showBtns() {
+      this.isHovering = true
+    },
     deleteTask() {
       this.$emit('deleteTask', this.taskCopy)
     },

@@ -27,13 +27,11 @@ export const userStore = {
   mutations: {
     insertUserNotif(state, { notif }) {
       state.loggedInUser.notifications.unshift(notif)
-      console.log('Notif got here', notif);
     },
     setUsers(state, { users }) {
       state.users = users
     },
     setUser(state, { user }) {
-      console.log('user:', user)
       state.loggedInUser = user
     },
     updateUser(state, { user }) {
@@ -60,10 +58,8 @@ export const userStore = {
       }
     },
     async loadUser({ commit }, { userId }) {
-      console.log('userId:', userId)
       try {
         const user = await userService.getById(userId)
-        console.log('try')
         commit({ type: 'setUser', user })
       } catch (err) {
         console.log('ERROR:cant find user')

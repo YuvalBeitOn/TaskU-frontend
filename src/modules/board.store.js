@@ -16,9 +16,7 @@ export const boardStore = {
     },
     boards(state) {
       if (!state.searchBoard) return state.boards
-      console.log('state.searchBoard:', state.searchBoard)
       if (state.searchBoard && state.boards !== null) {
-        console.log(state.boards)
         const filteredBoard = state.boards.filter(board => {
           return board.name
             .toLowerCase()
@@ -149,7 +147,6 @@ export const boardStore = {
     },
     setSearch(state, { searchBoard }) {
       state.searchBoard = searchBoard
-      console.log('state.searchBoard mutation:', state.searchBoard)
     },
     setFilterBy(state, { filterBy }) {
       state.filterBy = filterBy
@@ -200,7 +197,6 @@ export const boardStore = {
         if (board._id) {
           commit({ type: 'setBoard', board: savedBoard })
         } else {
-          console.log('im in the else')
           await dispatch({ type: 'loadBoards' })
         }
         return savedBoard._id

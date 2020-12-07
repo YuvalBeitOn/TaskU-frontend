@@ -73,6 +73,12 @@
         width: 60px;
       }
     }
+    @include for-max-narrow-layout {
+      &.status,
+      &.priority {
+        width: 55px;
+      }
+    }
   
   }
   .btn-close {
@@ -91,6 +97,7 @@
     align-items: center;
     @include for-max-narrow-layout {
       font-size: 14px;
+      padding-left: 2px;    
     }
     span {
       max-width: 400px;
@@ -101,6 +108,9 @@
       white-space: nowrap;
       @include for-wide-layout {
         max-width: 200px;
+      }
+      @include for-max-narrow-layout {
+        max-width: 125px;
       }
     }
   }

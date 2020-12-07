@@ -159,7 +159,6 @@ export default {
     }
   },
   destroyed() {
-    console.log('this.task destory:', this.task)
     eventBus.$emit('updateTaskPreviewDestory', this.task)
   },
   components: {
