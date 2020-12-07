@@ -38,10 +38,11 @@ export const userStore = {
     },
     guestUser() {
       return {
-        _id: '5fcd158fc62d98cb13fef265',
+        _id: '5fcea3050c2a8b5ad8140c62',
         email: 'guestUser@tasku.com',
         fullName: 'Guest',
-        isAdmin: false
+        isAdmin: false,
+        notifications: []
       }
     }
   },
