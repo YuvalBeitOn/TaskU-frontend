@@ -138,6 +138,7 @@ export const boardStore = {
         board = { _id: board._id, name: board.name }
         return board
       })
+      console.log('miniBoards:', miniBoards)
       state.boards = miniBoards
     },
     setBoard(state, { board }) {
