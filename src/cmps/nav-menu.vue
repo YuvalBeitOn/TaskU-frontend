@@ -12,7 +12,7 @@
       </div>
       <div class="nav-icon-container notifs" v-tooltip.right="'Notfications'">
         <i class="nav-icon far fa-bell" @click="toggleNotifsModal"></i>
-        <span class="notif-amount" v-if="numOfNotifs">{{ numOfNotifs }}</span>
+        <span class="notif-amount" v-if="user.notifications && numOfNotifs">{{ numOfNotifs }}</span>
         <notifications-modal v-if="isNotifsModalShown" />
       </div>
       <div class="nav-icon-container inbox" v-tooltip.right="'Inbox'">
@@ -137,7 +137,6 @@ export default {
     }
   },
   created(){
-     
     if(this.boards.length===0) {
   this.$store.dispatch({type: 'loadBoards'})}
 }

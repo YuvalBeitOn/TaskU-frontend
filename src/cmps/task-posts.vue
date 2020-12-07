@@ -1,42 +1,50 @@
 <template>
-  <section class="task-posts relative">
-    <form class="task-post-form relative" @submit.prevent="addPost">
-      <textarea
-        class="el-input-text-editor"
-        @keydown.enter.exact.prevent="addPost"
-        rows="3"
-        placeholder="Write a massge..."
-        v-model="newPost"
-      />
-      <upload-img @sendImgUrl="imgUrl" />
-      <button class="post-btn">Post</button>
-    </form>
-    <div class="posts-list flex column align-center">
-      <div class="task-post-card" v-for="post in copiedPosts" :key="post.id">
-        <div class="user-info-container flex space-between">
-          <div class="flex align-center">
-            <avatar :user="post.byUser" />
+    <section class="task-posts relative">
+        <form class="task-post-form relative" @submit.prevent="addPost">
+            <textarea
+                class="el-input-text-editor"
+                @keydown.enter.exact.prevent="addPost"
+                rows="3"
+                placeholder="Write a massge..."
+                v-model="newPost"
+            />
+            <upload-img @sendImgUrl="imgUrl" />
+            <button class="post-btn">Post</button>
+        </form>
+        <div class="posts-list flex column align-center">
+            <div
+                class="task-post-card"
+                v-for="post in copiedPosts"
+                :key="post.id"
+            >
+                <div class="user-info-container flex space-between">
+                    <div class="flex align-center">
+                        <avatar :user="post.byUser" />
 
-            <span class="by-user" v-if="post.byUser">{{
-              post.byUser.fullName
-            }}</span>
-          </div>
+                        <span class="by-user" v-if="post.byUser">{{
+                            post.byUser.fullName
+                        }}</span>
+                    </div>
 
-          <h5>
-            <i class="far fa-clock"></i>
-            {{ getTime(post.createdAt) }}
-          </h5>
+                    <h5>
+                        <i class="far fa-clock"></i>
+                        {{ getTime(post.createdAt) }}
+                    </h5>
+                </div>
+                <el-divider />
+                <div class="task-post-container flex space-between">
+                    <span>{{ post.txt }}</span>
+                    <!-- <div class="ratio-square"> -->
+                    <img
+                        class="uploaded-img"
+                        v-if="post.imgUrl"
+                        :src="post.imgUrl"
+                    />
+                    <!-- </div> -->
+                </div>
+            </div>
         </div>
-        <el-divider />
-        <div class="task-post-container flex space-between">
-          <span>{{ post.txt }}</span>
-          <!-- <div class="ratio-square"> -->
-          <img class="uploaded-img" v-if="post.imgUrl" :src="post.imgUrl" />
-          <!-- </div> -->
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 </template>
 <script>
 import { boardService } from '../services/board.service'
@@ -46,68 +54,70 @@ import uploadImg from './upload-img'
 import moment from 'moment'
 
 export default {
-  name: 'task-posts',
-  props: {
-    posts: {
-      type: Array
+    name: 'task-posts',
+    props: {
+        posts: {
+            type: Array,
+        },
+        task: Object,
     },
-    task: Object
-  },
-  computed: {
-    user() {
-      return this.$store.getters.user
-    }
-  },
-  data() {
-    return {
-      newPost: null,
-      copiedPosts: null,
-      componentKey: 0,
-      img: null
-    }
-  },
-  created() {
-    this.copiedPosts = JSON.parse(JSON.stringify(this.posts))
-  
-  },
-  methods: {
-    imgUrl(url) {
-      this.img = url
+    computed: {
+        user() {
+            return this.$store.getters.user
+        },
+        miniUser() {
+            return this.$store.getters.miniUser
+        },
     },
-    getTime(time) {
-      return moment(time).fromNow()
+    data() {
+        return {
+            newPost: null,
+            copiedPosts: null,
+            componentKey: 0,
+            img: null,
+        }
     },
-    addPost() {
-      if (!this.newPost) {
-        return
-      }
+    created() {
+        this.copiedPosts = JSON.parse(JSON.stringify(this.posts))
+    },
+    methods: {
+        imgUrl(url) {
+            this.img = url
+        },
+        getTime(time) {
+            return moment(time).fromNow()
+        },
+        addPost() {
+            if (!this.newPost) {
+                return
+            }
 
-      const post = boardService.getEmptyPost()
-      post.txt = this.newPost
-      post.byUser = this.user
-      post.imgUrl = this.img
-      this.copiedPosts.unshift(post)
-      const txt = `${this.user.fullName} added new post on task:${this.task.txt} `
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
-      newActivity.taskId = this.task.id
-      this.$emit('updatePosts', this.copiedPosts,newActivity)
-      this.newPost = ''
-      this.$notify({
-        message: 'New post published',
-        position: 'bottom-left',
-        duration: 2000
-      })
-    }
-  },
-  components: {
-    Avatar,
-    uploadImg
-  },
-  watch: {
-    '$route.params.taskId'() {
-      this.copiedPosts = this.posts
-    }
-  }
+            const post = boardService.getEmptyPost()
+            post.txt = this.newPost
+            post.byUser = this.user
+            post.imgUrl = this.img
+            this.copiedPosts.unshift(post)
+            const txt = `${this.user.fullName} added new post on task:${this.task.txt} `
+            let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
+            newActivity.taskId = this.task.id
+            this.$emit('updatePosts', this.copiedPosts, newActivity)
+            this.newPost = ''
+            this.$notify({
+                message: 'New post published',
+                position: 'bottom-left',
+                duration: 2000,
+            })
+        },
+    },
+    components: {
+        Avatar,
+        uploadImg,
+    },
+    watch: {
+        '$route.params.taskId'() {
+            this.copiedPosts = this.posts
+        },
+    },
 }
 </script>
 

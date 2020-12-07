@@ -29,6 +29,7 @@ export default {
         events() {
             const events = []
             const todayDate = moment().format('YYYY-MM-DD')
+            console.log(this.boards)
             this.boards.forEach((board) => {
                 board.groups.forEach((group) => {
                     group.tasks.forEach((task) => {

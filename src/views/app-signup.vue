@@ -93,8 +93,11 @@ export default {
                 isAdmin: false,
             }
             const board = boardService.getEmptyBoard()
-            board.creator = user
-            board.members.push(user)
+            let miniUser = JSON.parse(JSON.stringify(user))
+            delete miniUser.isAdmin;
+            delete miniUser.notifications;
+            board.creator = miniUser
+            board.members.push(miniUser)
             const boardId = await this.$store.dispatch({
                 type: 'saveBoard',
                 board,
