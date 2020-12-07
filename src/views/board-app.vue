@@ -1,6 +1,5 @@
 <template>
   <section v-if="board" class="board-app flex">
-
     <board-list
       :expandList="expandList"
       :isExpanded="isListExpanded"
@@ -46,7 +45,11 @@
         @duplicateGroup="duplicateGroup"
         @forceRender="forceRerender"
       />
-      <trello-mode :key="componentKey" @forceRender="forceRerender" v-else></trello-mode>
+      <trello-mode
+        :key="componentKey"
+        @forceRender="forceRerender"
+        v-else
+      ></trello-mode>
     </div>
     <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
 
@@ -220,6 +223,10 @@ export default {
     },
     async removeCurrBoard(boardId) {
       try {
+        const board = boardService.getById()
+        if (board.creator._id !== this.user_id) {
+          return
+        }
         await this.$confirm(
           'This will permanently delete the board. Continue?',
           'Warning',
@@ -247,10 +254,13 @@ export default {
           message: 'Delete completed'
         })
       } catch (err) {
-        this.$message({
-          type: 'info',
-          message: 'Delete canceled'
-        })
+          this.$message({
+            durtion: 2000,
+            showClose: true,
+            type: 'error',
+            offset: 335,
+            message: 'Only the creator can delete the board!'
+          })
       }
     },
     loadBoards() {
@@ -284,7 +294,7 @@ export default {
         this.$message({
           type: 'info',
           duration: 2500,
-          message: 'Your action  canceled'
+          message: 'Your action canceled'
         })
       }
     },
@@ -337,7 +347,7 @@ export default {
       const idx = this.board.groups.findIndex(
         group => group.id === updatedGroup.id
       )
-      if(idx<0) return
+      if (idx < 0) return
       this.board.groups.splice(idx, 1, updatedGroup)
       const txt = `${this.user.fullName} updated group ${updatedGroup.name}`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
@@ -387,8 +397,7 @@ export default {
     eventBus.$on('updateGroup', this.updateGroup)
     eventBus.$on('forceRerender', this.forceRerender)
   },
-  destroyed() {
-  },
+  destroyed() {},
   components: {
     groupList,
     boardList,

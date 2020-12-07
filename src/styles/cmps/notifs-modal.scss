@@ -9,9 +9,15 @@
   left: 60px;
   top: 0;
   @include for-norml-layout {
-    left: -220px;
-    width: 240px;
-    height: 320px;
+    left: -400px;
+    width: 420px;
+    height: 500px;
+    top: 27px;
+  }
+  @include for-max-narrow-layout {
+    left: -240px;
+    width: 260px;
+    height: 340px;
     top: 27px;
   }
 

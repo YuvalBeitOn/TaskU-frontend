@@ -49,8 +49,11 @@
     @include for-wide-layout {
       margin-top: 60px;
     }
+    @include for-norml-layout {
+      margin-top: 80px;
+    }
     @include for-narrow-layout {
-      margin-top: 10px;
+      margin-top: 70px;
     }
     .task-title {
       font-size: rem(22px);

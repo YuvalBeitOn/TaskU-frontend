@@ -3,6 +3,11 @@
   @include for-narrow-layout {
     margin-top: 10px;
   }
+  .task-list {
+    @include for-max-narrow-layout {
+      margin-top: 20px;
+    }
+  }
 
   form {
     .add-task-input {
@@ -19,8 +24,7 @@
       text-align: left;
       &:hover {
         border: 0.7px solid black;
-        transition: border .2s;
-
+        transition: border 0.2s;
       }
 
       &:focus {
@@ -30,8 +34,7 @@
     &:hover {
       .input-color {
         opacity: 1;
-        transition: opacity .2s;
-
+        transition: opacity 0.2s;
       }
     }
     button {
@@ -52,7 +55,7 @@
     height: 35px;
     &.input-color {
       opacity: 0.5;
-      transition: opacity .2s;
+      transition: opacity 0.2s;
       width: 6.8px;
     }
   }
