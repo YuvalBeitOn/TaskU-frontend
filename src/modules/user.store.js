@@ -131,7 +131,6 @@ export const userStore = {
       }
     },
     async signup(context, { userCred }) {
-      console.log('store got the user cred', userCred)
       try {
         const user = await userService.signup(userCred)
         context.commit({ type: 'setUser', user })
@@ -141,14 +140,11 @@ export const userStore = {
         throw err
       }
     },
-    // async uploadUserImg(context, { img }) {
-    //   console.log('the image',img, context, 'context')
-    // }
+
     async sendNotif(context, { notif }) {
       console.log('notif in store:', notif)
       await userService.sendNotif(notif)
 
-      // context.commit({ type: 'setUser', user })
     }
   }
 }

@@ -1,12 +1,13 @@
 <template>
-  <section class="notifications-modal">
+  <section :class="{ 'notifications-modal': true, 'expanded': isExpanded }">
+    <!-- <section class="notifications-modal"> -->
     <header class="header-notifs">
       <h3 class="notifs-title">Notifications</h3>
       <notifs-filters :setFilter="setFilter"></notifs-filters>
     </header>
     <ul v-if="notifsToShow.length" class="notifs-list flex column">
       <notif-preview
-        v-for="(notif) in notifsToShow"
+        v-for="notif in notifsToShow"
         :key="notif.id"
         :notif="notif"
         :user="user"
@@ -27,10 +28,14 @@ export default {
     notifsFilters,
     notifPreview
   },
+  props: {
+    isExpanded: Boolean
+  },
   data() {
     return {
       filterBy: null,
       notifsCopy: null
+      // expanded: null
     }
   },
   computed: {
@@ -38,20 +43,19 @@ export default {
       return this.$store.getters.board
     },
     notifsToShow() {
-      return this.$store.getters.user.notifications
-      // let notifs = this.$store.getters.user.notifications
-      // switch (this.filterBy) {
-      //   case 'unread':
-      //     notifs = notifs.filter(notif => notif.isRead === false)
-      //     break
-      //   case 'assigned':
-      //     notifs = notifs.filter(notif => notif.type === 'assigned')
-      //     break
-      //   case 'mentions':
-      //     notifs = []
-      //     break
-      // }
-      // return notifs
+      let notifs = this.$store.getters.user.notifications
+      switch (this.filterBy) {
+        case 'unread':
+          notifs = notifs.filter(notif => notif.isRead === false)
+          break
+        case 'assigned':
+          notifs = notifs.filter(notif => notif.type === 'assigned')
+          break
+        case 'mentions':
+          notifs = []
+          break
+      }
+      return notifs
     },
     user() {
       return this.$store.getters.user
@@ -88,6 +92,8 @@ export default {
   },
   created() {
     this.notifsCopy = this.$store.getters.user.notifications
+    console.log(this.isExpanded);
+    // this.expanded = this.isExpanded
   }
 }
 </script>

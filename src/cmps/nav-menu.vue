@@ -13,7 +13,7 @@
       <div class="nav-icon-container notifs" v-tooltip.right="'Notfications'">
         <i class="nav-icon far fa-bell" @click="toggleNotifsModal"></i>
         <span class="notif-amount" v-if="numOfNotifs">{{ numOfNotifs }}</span>
-        <notifications-modal v-if="isNotifsModalShown" />
+        <notifications-modal v-if="isNotifsModalShown" :isExpanded="isNotifsModalShown"/>
       </div>
       <div class="nav-icon-container inbox" v-tooltip.right="'Inbox'">
         <i class="nav-icon far fa-inbox-in"></i>

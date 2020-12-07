@@ -343,7 +343,6 @@ export default {
       this.forceRerender()
     },
     updateGroup(updatedGroup) {
-      console.log('updatedGroup:', updatedGroup)
       const idx = this.board.groups.findIndex(
         group => group.id === updatedGroup.id
       )
