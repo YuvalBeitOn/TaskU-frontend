@@ -188,7 +188,6 @@ export default {
       this.componentKey += 1
     },
     addBoardMember(user) {
-      console.log('user:', user)
       this.board.members.unshift(user)
       const txt = `${this.user.fullName} add ${user.fullName} to Board`
       let newActivity = boardService.getEmptyActivity(txt, this.user)
@@ -377,7 +376,6 @@ export default {
     }
   },
   created() {
-    console.log('boardapp creation')
     this.$store.dispatch({
       type: 'createPrivateSocket'
     })
@@ -388,7 +386,6 @@ export default {
     eventBus.$on('forceRerender', this.forceRerender)
   },
   destroyed() {
-    console.log('BoardApp destroyed runing')
   },
   components: {
     groupList,

@@ -130,7 +130,6 @@ export default {
       this.isUserModalShown = !this.isUserModalShown
     },
     onLogout() {
-      console.log('logging out')
       this.$store.dispatch({
         type: 'logout'
       })
@@ -138,10 +137,8 @@ export default {
     }
   },
   created(){
-      console.log('im created~!!')
-      console.log(this.boards.length)
+     
     if(this.boards.length===0) {
-      console.log('im created~2!!')
   this.$store.dispatch({type: 'loadBoards'})}
 }
 

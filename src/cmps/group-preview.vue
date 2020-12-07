@@ -158,7 +158,6 @@ export default {
             return `backgroundColor:${colorStr}`
         },
         duplicateGroup() {
-            console.log('here');
             this.$emit('duplicateGroup', this.groupCopy)
         },
         emitForceRender() {

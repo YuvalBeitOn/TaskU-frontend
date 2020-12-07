@@ -11,9 +11,9 @@
     height: 130px;
   }
   @include for-max-narrow-layout {
-    padding: 1rem 0 0.5rem 1rem;
+    padding: 1rem 0.5rem 0.5rem 1rem;
+    margin-right: 6px;
     height: 130px;
-    // margin-top: 10px;
   }
   .board-name {
     font-size: 30px;

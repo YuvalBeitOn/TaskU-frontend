@@ -5,7 +5,7 @@
     class="notif-preview flex align center space-between"
   >
     <div class="notif-container flex align-center">
-      <avatar class="user-img" :user="user" :size="50" />
+      <avatar class="user-img" :user="notif.byUser" :size="50" />
       <div class="notif-details flex column">
         <span class="user-mail">{{ notif.byUser.email }}</span>
         <span class="notif-txt">{{ notif.txt }}</span>
@@ -75,7 +75,6 @@ export default {
       this.isHovering = false;
     },
     deleteNotif() {
-      console.log('here');
       this.$emit('deleteNotif', this.notifCopy)
     },
     toggleIsRead() {

@@ -37,6 +37,7 @@
     @include for-norml-layout {
       flex-direction: row;
     }
+    
   }
   .top-nav > *:not(:last-child) {
     margin-bottom: 8px;

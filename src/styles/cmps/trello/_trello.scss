@@ -1,7 +1,7 @@
 .trello {
   max-height: calc(100% - 160px);
-  padding: 3rem;
-  overflow-y: auto;
+  padding: 30px 50px;
+    overflow-y: auto;
   overflow-x: auto;
   background-color: #f7f7f7;
   @include for-wide-layout {

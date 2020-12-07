@@ -68,10 +68,7 @@ export default {
       const idx = this.notifsCopy.findIndex(
         currNotif => currNotif.id === notif.id
       )
-      console.log(idx)
-      console.log(this.notifsCopy.length)
       this.notifsCopy.splice(idx, 1)
-      console.log(this.notifsCopy.length)
       this.updateNotifs()
     },
     setFilter(filterStr) {

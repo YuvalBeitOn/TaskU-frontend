@@ -4,8 +4,9 @@
     class="task-preview flex space-between align-center width100"
   >
     <div class="flex space-between align-center width100">
+      <!-- <div class="flex"> -->
       <span class="task-color" :style="taskBgc"></span>
-      <button class="btn-close" @click="deleteTask">
+      <button class="btn-close" @click.stop="deleteTask">
         <i class="task-icon btn-trash fa-icon far fa-trash-alt"></i>
       </button>
       <div class="task-txt">
@@ -18,6 +19,7 @@
           >{{ taskCopy.txt }}</span
         >
       </div>
+      <!-- </div> -->
       <el-badge
         :hidden="postsLegnth"
         :value="task.posts.length"
@@ -25,7 +27,7 @@
         type="primary"
       >
         <i
-          @click="sendToTaskDetails"
+          @click.stop="sendToTaskDetails"
           v-tooltip.top="'Task Details'"
           :style="postosColorBtn"
           class="task-icon far fa-comment fa-icon"
@@ -56,7 +58,7 @@
         </span>
 
         <span
-          @click="toggleStatuses"
+          @click.stop="toggleStatuses"
           class="status relative task-item"
           :style="getStyleStr(taskCopy.status.color)"
           >{{ taskCopy.status.txt }}
@@ -68,7 +70,7 @@
         /></span>
 
         <span
-          @click="togglePriors"
+          @click.stop="togglePriors"
           class="priority relative task-item"
           :style="getStyleStr(taskCopy.priority.color)"
           >{{ taskCopy.priority.txt }}
@@ -175,12 +177,10 @@ export default {
         let newNotif = userService.getEmptyNotif()
         newNotif.txt = `Upadte task due date to "${date}"`
         newNotif.type = 'all'
-        newNotif.byUser = this.user
-        // {
-        //   fullName: this.user.fullName,
-        //   mail: this.user.email,
-        //   imgUrl: this.user.imgUrl
-        // }
+        newNotif.byUser = {
+          mail: this.user.email,
+          imgUrl: this.user.imgUrl
+        }
         newNotif.toUserId = member._id
         this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       })
@@ -201,7 +201,10 @@ export default {
       let newNotif = userService.getEmptyNotif()
       newNotif.txt = `assigned you to "${this.taskCopy.txt}"`
       newNotif.type = 'assigned'
-      newNotif.byUser = this.user
+      newNotif.byUser = {
+        mail: this.user.email,
+        imgUrl: this.user.imgUrl
+      }
       newNotif.toUserId = member._id
       this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       let newActivity = boardService.getEmptyActivity(txt, this.user)
@@ -219,7 +222,10 @@ export default {
       let newNotif = userService.getEmptyNotif()
       newNotif.txt = `${this.user.fullName} took you off from task "${this.taskCopy.txt}"`
       newNotif.type = 'all'
-      newNotif.byUser = this.user
+      newNotif.byUser = {
+        mail: this.user.email,
+        imgUrl: this.user.imgUrl
+      }
       newNotif.toUserId = member._id
       this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       const idx = this.taskCopy.members.findIndex(
@@ -257,7 +263,10 @@ export default {
           let newNotif = userService.getEmptyNotif()
           newNotif.txt = `Upadte task content to "${ev.target.innerText}"`
           newNotif.type = 'all'
-          newNotif.byUser = this.user
+          newNotif.byUser = {
+            mail: this.user.email,
+            imgUrl: this.user.imgUrl
+          }
           newNotif.toUserId = member._id
           this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
         })
@@ -297,7 +306,10 @@ export default {
         let newNotif = userService.getEmptyNotif()
         newNotif.txt = `Upadte task priority to "${opt.txt}"`
         newNotif.type = 'all'
-        newNotif.byUser = this.user
+        newNotif.byUser = {
+          mail: this.user.email,
+          imgUrl: this.user.imgUrl
+        }
         newNotif.toUserId = member._id
         this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       })
@@ -320,7 +332,10 @@ export default {
         let newNotif = userService.getEmptyNotif()
         newNotif.txt = `Upadte task status to "${opt.txt}"`
         newNotif.type = 'all'
-        newNotif.byUser = this.user
+        newNotif.byUser = {
+          mail: this.user.email,
+          imgUrl: this.user.imgUrl
+        }
         newNotif.toUserId = member._id
         this.$store.dispatch({ type: 'sendNotif', notif: newNotif })
       })
