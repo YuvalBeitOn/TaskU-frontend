@@ -59,7 +59,7 @@ export default {
       return this.board.members.length > 3 ? false : true
     },
     filteredUsers() {
-      const users = this.$store.getters.users
+      const users = this.$store.getters.miniUsers
       const boardMembers = this.board.members
       const filteredUsers = users.filter(user => {
         return boardMembers.every(boardMember => {
