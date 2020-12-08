@@ -7,7 +7,7 @@
           class="nav-link flex justify-center"
           :to="'/board/' + defaultBoardId"
         >
-          <img src="img/icons/logo_icon.png" alt="TaskU" />
+          <img src="img/icons/logo_icon.png" alt="TaskU" v-tooltip.right="'TaskU'" />
         </router-link>
       </div>
       <div class="nav-icon-container notifs" v-tooltip.right="'Notfications'">
@@ -24,9 +24,9 @@
     </div>
     <div class="bottom-nav">
       <div class="nav-icon-container" v-tooltip.right="'Calendar'">
-        <router-link to="/calendar">
+        <!-- <router-link to="/calendar"> -->
           <i class="nav-icon fal fa-calendar-check"></i>
-        </router-link>
+        <!-- </router-link> -->
       </div>
 
       <div class="nav-icon-container" v-tooltip.right="'Logout'">
