@@ -18,7 +18,7 @@
 
       <div class="detail-container">
         <span><i class="far fa-user-circle  detail-icon"></i> Person</span>
-        <span class="content" @click="addMembers"><i class="fal fa-users"></i></span>
+        <span class="content"><i class="fal fa-users"></i></span>
       </div>
 
       <div class="detail-container">
@@ -28,9 +28,8 @@
 
       <div class="detail-container" v-if="task.dueDate">
         <span><i class="fal fa-calendar-day detail-icon"></i> Date</span>
-        <span class="content">{{ task.dueDate }}</span>
+        <span class="content">{{ getTime(task.dueDate) }}</span>
       </div>
-
       <button class="cls-btn" @click.stop="closeTaskDetails">X</button>
     </section>
     <div
@@ -42,6 +41,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   props: {
     task: Object,
@@ -65,6 +65,9 @@ export default {
     }
   },
   methods: {
+    getTime(time) {
+      return moment(time).format('LL')
+    },
     closeTaskDetails() {
       this.isShown = false
     }

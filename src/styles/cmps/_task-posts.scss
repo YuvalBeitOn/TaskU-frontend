@@ -51,9 +51,21 @@
       font-family: 'roboto-regular', 'Ariel';
       margin-left: 3px;
     }
+    .delete-post-btn {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background-color: transparent;
+      padding: 8px 10px;
+      font-size: 0.9rem;
+      &:hover {
+        transform: scale(1.08);
+      }
+    }
   }
   .task-post-container {
     font-weight: bold;
+    padding: 0 3px;
     .uploaded-img {
       width: 100px;
       // height: 100px;

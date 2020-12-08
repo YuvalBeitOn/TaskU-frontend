@@ -11,34 +11,13 @@
         >
           {{ task.txt }}
         </h2>
-        <div class="details-mobile flex">
-          <span
-            class="priority-details relative task-item"
-            :style="getStyleStr(task.priority.color)"
-            >{{ task.priority.txt }}
-            <!-- <label-picker
-            :opts="priorities"
-            type="priority"
-        /> -->
-          </span>
-
-          <span class="date-picker-details task-item">
-            <el-date-picker
-              v-tooltip.top="'Due Date'"
-              class="date-input"
-              v-model="task.dueDate"
-              type="date"
-              placeholder="Pick a date"
-            >
-            </el-date-picker>
-          </span>
-        </div>
       </div>
       <el-tabs>
         <el-tab-pane label="Task Posts">
           <task-posts
             v-if="posts"
             @updatePosts="updatePosts"
+            @deletePost="deletePost"
             :task="task"
             :posts="posts"
           />
@@ -75,6 +54,16 @@ export default {
     this.groupId = taskInfo.groupId
   },
   methods: {
+    deletePost(postId) {
+      console.log('here', postId)
+      const postIdx = this.task.posts.findIndex(post => post.id === postId)
+      this.task.posts.splice(postIdx, 1)
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+      eventBus.$emit('forceRerender')
+    },
     getStyleStr(colorStr) {
       return `backgroundColor:${colorStr}`
     },

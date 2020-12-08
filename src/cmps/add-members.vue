@@ -53,7 +53,6 @@ export default {
   },
   methods: {
        goToUserDetails(id) {
-      //  console.log('id:', id)
       this.$router.push(`/user/${id}`)
     },
     emitAddMember(member) {

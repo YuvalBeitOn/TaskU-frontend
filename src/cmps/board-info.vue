@@ -20,25 +20,6 @@
         />
       </members>
     </div>
-    <!-- <div class="btn-activity-container">
-      <button
-        v-tooltip.top="'contect with your memberes'"
-        class="btn-close btn-second btn-activity"
-        @click="toggleMembersList"
-      >
-        <i class="far fa-users"></i> /<span
-          v-if="board.members.length"
-          class="blue"
-          >{{ board.members.length }}</span
-        >
-      </button>
-      <members-list
-        @close="toggleMembersList"
-        :members="board.members"
-        v-if="isMembersShown"
-      />
-    </div> -->
-
     <div class="btn-booard-activity-container">
       <button
         v-tooltip.top="'Board activity'"
@@ -64,7 +45,8 @@ export default {
   data() {
     return {
       isMembersShown: false,
-      darkMode: false
+      darkMode: false,
+      isBoardActivityShowen: false
     }
   },
   computed: {
@@ -89,6 +71,7 @@ export default {
   },
   methods: {
     boardActivities() {
+      this.isBoardActivityShowen = true
       this.$router.push(`/board/${this.$route.params.boardId}/activities`)
     },
     emitRemoveMember(member) {

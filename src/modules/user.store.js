@@ -38,10 +38,12 @@ export const userStore = {
     },
     guestUser() {
       return {
-        _id: '5fcd158fc62d98cb13fef265',
+        _id: '5fcf43042225f532488c5ac0',
         email: 'guestUser@tasku.com',
+        password: 'guestpassword',
         fullName: 'Guest',
-        isAdmin: false
+        isAdmin: false,
+        notifications: []
       }
     }
   },
@@ -98,11 +100,9 @@ export const userStore = {
       }
     },
     async updateUser({ commit }, { user }) {
-      console.log('user store:', user)
       try {
         const savedUser = await userService.save(user)
         commit({ type: 'updateUser', user: savedUser })
-        console.log('user after update:', savedUser)
         return savedUser
       } catch (err) {
         console.log('ERROR:cant updated user!')
@@ -152,7 +152,6 @@ export const userStore = {
       }
     },
     async signup(context, { userCred }) {
-      console.log('store got the user cred', userCred)
       try {
         const user = await userService.signup(userCred)
         context.commit({ type: 'setUser', user })
@@ -162,14 +161,10 @@ export const userStore = {
         throw err
       }
     },
-    // async uploadUserImg(context, { img }) {
-    //   console.log('the image',img, context, 'context')
-    // }
+
     async sendNotif(context, { notif }) {
-      console.log('notif in store:', notif)
       await userService.sendNotif(notif)
 
-      // context.commit({ type: 'setUser', user })
     }
   }
 }

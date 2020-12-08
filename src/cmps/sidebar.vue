@@ -1,6 +1,6 @@
 <template>
 <section class="side-bar-nav">
-    <section class="side-bar-board-app animate-side-bar">
+    <section :class="{'side-bar-board-app':true, 'expanded': isExpanded}">
     <button class="cls-btn close-btn ">
       <i @click.stop="closeBtn" class="cls-icon fas fa-times"></i>
     </button>
@@ -18,6 +18,9 @@
 
 <script>
 export default {
+  props: {
+    isExpanded: Boolean
+  },
   methods: {
     closeBtn() {
       this.$emit('closeBtn')
