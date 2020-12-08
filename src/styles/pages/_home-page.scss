@@ -89,7 +89,7 @@ background-image: linear-gradient(135deg, rgba(248, 250, 240, 0.8) 0%, #d8e0e6 1
         .content-container {
           color: rgb(61, 61, 61);
           flex-basis: 50%;
-          // margin-top: 55px;
+          margin-top: rem(55px);
           h1 {
             font-family: open-sans-bold-strong;
             // font-family: 'sofia-regular','Ariel';
@@ -118,7 +118,7 @@ background-image: linear-gradient(135deg, rgba(248, 250, 240, 0.8) 0%, #d8e0e6 1
   }
   .second-section{
     margin: 250px 0;
-    
+
 
     .card-container{
       flex-basis:50% ;
@@ -126,12 +126,13 @@ background-image: linear-gradient(135deg, rgba(248, 250, 240, 0.8) 0%, #d8e0e6 1
   }
 }
 .img-second-section{
+
   z-index: 2;
   position: absolute;
-  bottom: 25px;
+  bottom: rem(90px);
   left: 0;
   width: 39%;
-  height: 250px;
+  height: rem(320px);
   background-color:transparent;
 }
 .img-bottom{
