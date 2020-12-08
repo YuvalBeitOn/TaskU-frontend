@@ -43,7 +43,8 @@
                     </div>
                     <div class="img-hero">
                         <img
-                            src="@/assets/imgs/svg/bgc-person-task.svg"
+                        src="@/assets/imgs/svg/bgc-2-preson.svg"
+                          
                             class="img-home-page"
                             alt=""
                             srcset=""
@@ -56,7 +57,7 @@
                 
         </main>
               <img
-                            src="@/assets/imgs/svg/bgc-2-preson.svg"
+                             src="@/assets/imgs/svg/bgc-person-task.svg"
                             class="img-right"
                             alt=""
                             
