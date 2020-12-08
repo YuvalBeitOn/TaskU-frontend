@@ -29,6 +29,10 @@
     &.expanded {
       animation: expand-menu 0.2s;
     }
+    @include for-max-narrow-layout {
+      max-height: 300px;
+      overflow-y: auto;
+    }
   }
   .filters-btn {
     font-family: 'roboto-light', 'Ariel';

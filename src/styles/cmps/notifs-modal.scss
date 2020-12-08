@@ -23,7 +23,7 @@
   @include for-max-narrow-layout {
     left: -240px;
     width: 260px;
-    height: 340px;
+    height: 276px;
     top: 27px;
   }
 
@@ -101,6 +101,9 @@
     overflow-y: auto;
     .notif-preview {
       margin: 2px 8px;
+    }
+    @include for-max-narrow-layout {
+      height: 225px;
     }
   }
 }
