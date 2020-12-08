@@ -4,8 +4,7 @@
             class="menu-item flex align-center"
             @click.stop="itemClicked(menuitem.func)"
             v-for="(menuitem, idx) in menuItems"
-            :key="idx"
-        >
+            :key="idx">
             <span class="menu-item-icon flex align-center justify-center"
                 ><i :class="getIconClass(idx)"> </i>
             </span>
