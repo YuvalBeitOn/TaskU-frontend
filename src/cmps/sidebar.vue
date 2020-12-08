@@ -25,10 +25,6 @@ export default {
     closeBtn() {
       this.$emit('closeBtn')
     }
-  },
-  created() {
-    console.log('side bar creation');
-    console.log(this.isExpanded);
   }
 }
 </script>

@@ -121,7 +121,6 @@ export const boardStore = {
       )
       state.boards.splice(boardIdx, 1, board)
       if (board._id === state.currBoard._id) {
-        console.log('replacing curr board')
         state.currBoard = board
       }
     },
@@ -136,7 +135,6 @@ export const boardStore = {
         board = { _id: board._id, name: board.name }
         return board
       })
-      console.log('miniBoards:', miniBoards)
       state.boards = miniBoards
     },
     setBoard(state, { board }) {

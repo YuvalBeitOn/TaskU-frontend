@@ -40,6 +40,7 @@ export const userStore = {
       return {
         _id: '5fcea3050c2a8b5ad8140c62',
         email: 'guestUser@tasku.com',
+        password: 'guestpassword',
         fullName: 'Guest',
         isAdmin: false,
         notifications: []
@@ -99,11 +100,9 @@ export const userStore = {
       }
     },
     async updateUser({ commit }, { user }) {
-      console.log('user store:', user)
       try {
         const savedUser = await userService.save(user)
         commit({ type: 'updateUser', user: savedUser })
-        console.log('user after update:', savedUser)
         return savedUser
       } catch (err) {
         console.log('ERROR:cant updated user!')
@@ -164,7 +163,6 @@ export const userStore = {
     },
 
     async sendNotif(context, { notif }) {
-      console.log('notif in store:', notif)
       await userService.sendNotif(notif)
 
     }

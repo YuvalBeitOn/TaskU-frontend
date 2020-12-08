@@ -8,9 +8,13 @@
         </div>
         <div class="filter-container flex space-between">
           <search-activity @searchBoard="setSearch" />
+          <button class="delete-all-btn" @click="deleteActivities">Delete All</button>
         </div>
         <div class="activity-contianer">
-          <activites-board :activities="boardActivitesToShow" />
+          <activites-board
+            :activities="boardActivitesToShow"
+            @deleteActivity="deleteActivity"
+          />
         </div>
       </main>
     </side-bar>
@@ -41,9 +45,29 @@ export default {
       return this.boardActivitesToShow.length
         ? this.boardActivitesToShow.length + ' Activities on the Board'
         : 'Not have  activities yet..'
+    },
+    board() {
+      return this.$store.getters.board
     }
   },
   methods: {
+    deleteActivity(activityId) {
+      const activityIdx = this.board.activities.findIndex(
+        activity => activity.id === activityId
+      )
+      this.board.activities.splice(activityIdx, 1)
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+    },
+    deleteActivities() {
+      this.board.activities = []
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+    },
     closeBtn() {
       this.$router.push(`/board/${this.$route.params.boardId}`)
     },

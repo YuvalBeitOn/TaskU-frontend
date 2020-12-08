@@ -78,7 +78,6 @@ export default {
         if (user) {
           this.isElementDisabled = true
           await this.$store.dispatch({ type: 'loadBoards' })
-          console.log('user after login:', user)
           this.$message({
             duration: 2000,
             showClose: true,

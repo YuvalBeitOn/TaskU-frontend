@@ -36,12 +36,21 @@
       >
         <label>
           <el-option class="opt" value="Board" placeholder="Board"
-            ><i class="far fa-bars menu-icon"><span class="inner-txt">Board</span></i></el-option
+            ><i class="far fa-bars menu-icon"
+              ><span class="inner-txt">Board</span></i
+            ></el-option
           ></label
         >
         <label>
-          <el-option class="opt" value="Canvas" placeholder="Canvas"
-            ><i class="fal fa-chalkboard menu-icon"> <span class="inner-txt">Canvas</span></i></el-option
+          <el-option
+            class="opt"
+            value="Canavan
+"
+            placeholder="Canavan
+"
+            ><i class="fal fa-chalkboard menu-icon">
+              <span class="inner-txt">Canavan </span></i
+            ></el-option
           >
         </label>
       </el-select>

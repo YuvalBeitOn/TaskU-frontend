@@ -17,6 +17,7 @@
           <task-posts
             v-if="posts"
             @updatePosts="updatePosts"
+            @deletePost="deletePost"
             :task="task"
             :posts="posts"
           />
@@ -53,6 +54,16 @@ export default {
     this.groupId = taskInfo.groupId
   },
   methods: {
+    deletePost(postId) {
+      console.log('here', postId)
+      const postIdx = this.task.posts.findIndex(post => post.id === postId)
+      this.task.posts.splice(postIdx, 1)
+      this.$store.dispatch({
+        type: 'saveBoard',
+        board: this.board
+      })
+      eventBus.$emit('forceRerender')
+    },
     getStyleStr(colorStr) {
       return `backgroundColor:${colorStr}`
     },

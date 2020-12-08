@@ -20,11 +20,25 @@
     > * {
       margin-right: 8px;
     }
+    .activity-details {
+      margin-left: 22px;
+
+    }
     .activity-txt {
       max-width: 310px;
       @include for-narrow-layout {
         font-size: 0.8rem;
         margin-top: 8px;
+      }
+    }
+    .delete-activity-btn {
+      padding: 0;
+      background-color: transparent;
+      position: absolute;
+      font-weight: bold;
+      font-size: 14px;
+      &:hover {
+        transform: scale(1.05);
       }
     }
     .activity-date {

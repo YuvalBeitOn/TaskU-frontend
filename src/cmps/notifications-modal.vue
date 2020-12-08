@@ -92,8 +92,6 @@ export default {
   },
   created() {
     this.notifsCopy = this.$store.getters.user.notifications
-    console.log(this.isExpanded);
-    // this.expanded = this.isExpanded
   }
 }
 </script>

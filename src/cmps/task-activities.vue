@@ -1,10 +1,19 @@
 <template>
   <ul v-if="activities && activities.length" class="task-activities">
     <li
-      class="activity flex space-between align-center"
+      class="activity flex space-between align-center relative"
+      @mouseover="setHoveredActivity(activity.id)"
+      @mouseleave="isActHovering = false"
       v-for="activity in activities"
       :key="activity.id"
     >
+      <button
+        class="delete-activity-btn"
+        @click="deleteActivity(activity.id)"
+        v-if="isActHovering && hoveredActId === activity.id"
+      >
+        X
+      </button>
       <section class="activity-details flex align-center">
         <div
           class="user-avatar"
@@ -12,18 +21,18 @@
           @mouseenter="isHovering = true"
           @mouseleave="isHovering = false"
         >
-           <avatar :user="activity.byUser" />
+          <avatar :user="activity.byUser" />
 
-          <transition name="fade">
+          <!-- <transition name="fade">
             <span class="username" v-show="isHovering">{{
               activity.byUser.fullName
             }}</span>
-          </transition>
+          </transition> -->
         </div>
-        <div class="activity-txt">{{ activity.txt }}</div>
+        <span class="activity-txt"> {{ activity.txt }}</span>
       </section>
       <div class="activity-date flex end">
-        <h6><i class="far fa-clock"></i> {{getTime(activity.createdAt)}}</h6>
+        <h6><i class="far fa-clock"></i> {{ getTime(activity.createdAt) }}</h6>
       </div>
     </li>
   </ul>
@@ -42,19 +51,27 @@ export default {
   },
   data() {
     return {
-      isHovering: false
+      isHovering: false,
+      isActHovering: false,
+      hoveredActId: null
     }
   },
-  methods:{
-    getTime(time){
-      return moment(time).fromNow(); 
+  methods: {
+    getTime(time) {
+      return moment(time).fromNow()
+    },
+    deleteActivity(activityId) {
+      this.$emit('deleteActivity', activityId)
+    },
+    setHoveredActivity(actId) {
+      this.isActHovering = true
+      this.hoveredActId = actId
     }
   },
   components: {
     Avatar
   },
-  created() {
-  }
+  created() {}
 }
 </script>
 
