@@ -132,12 +132,7 @@ export const boardStore = {
       state.darkMode = darkMode
     },
     setBoards(state, { boards }) {
-           const miniBoards = boards.map(board => {
-        board = { _id: board._id, name: board.name }
-        return board
-      })
-      console.log('miniBoards:', miniBoards)
-      state.boards = miniBoards
+      state.boards = boards
     },
     setBoard(state, { board }) {
       state.currBoard = board
