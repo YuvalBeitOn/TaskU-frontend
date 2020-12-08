@@ -73,6 +73,9 @@ export default {
         user() {
             return this.$store.getters.user
         },
+        miniUser(){
+            return this.$store.getters.miniUser
+        }
     },
     methods: {
         addEmptyTask(groupId) {
@@ -82,7 +85,7 @@ export default {
             const newTask = boardService.getEmptyTask()
             const group = this.getGroupById()
             const txt = `${this.user.fullName} add new task in ${group.name}`
-            let newActivity = boardService.getEmptyActivity(txt, this.user)
+            let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
             newActivity.groupId = groupId
             this.board.activities.unshift(newActivity)
             group.tasks.push(newTask)
@@ -110,7 +113,7 @@ export default {
             const newTask = boardService.getEmptyTask()
             newTask.txt = this.txt
             const txt = `Task '${newTask.txt}' added`
-            let newActivity = boardService.getEmptyActivity(txt, this.user)
+            let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
             newActivity.groupId = this.groupId
             this.board.activities.unshift(newActivity)
             const group = this.getGroupById()
@@ -133,7 +136,7 @@ export default {
             const taskIdx = group.tasks.findIndex((task) => task.id === taskId)
             group.tasks.splice(taskIdx, 1)
             const txt = `${this.user.fullName} remove a task from ${group.name}`
-            let newActivity = boardService.getEmptyActivity(txt, this.user)
+            let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
             newActivity.groupId = this.groupId
             this.board.activities.unshift(newActivity)
             this.$store.dispatch({

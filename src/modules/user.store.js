@@ -15,12 +15,34 @@ export const userStore = {
     user(state) {
       return JSON.parse(JSON.stringify(state.loggedInUser))
     },
+    miniUsers(state) {
+      let copiedUsers = JSON.parse(JSON.stringify(state.users)).map(user => {
+        return {
+          _id: user._id,
+          email: user.email,
+          fullName: user.fullName,
+          imgUrl: user.imgUrl
+        }
+      })
+      return copiedUsers
+    },
+    miniUser(state) {
+      let user = JSON.parse(JSON.stringify(state.loggedInUser))
+      user = {
+        _id: user._id,
+        email: user.email,
+        fullName: user.fullName,
+        imgUrl: user.imgUrl
+      }
+      return user
+    },
     guestUser() {
       return {
-        _id: '5fcd158fc62d98cb13fef265',
+        _id: '5fcea3050c2a8b5ad8140c62',
         email: 'guestUser@tasku.com',
         fullName: 'Guest',
-        isAdmin: false
+        isAdmin: false,
+        notifications: []
       }
     }
   },
@@ -31,7 +53,7 @@ export const userStore = {
     setUsers(state, { users }) {
       state.users = users
     },
-    
+
     setUser(state, { user }) {
       state.loggedInUser = user
     },
@@ -81,7 +103,7 @@ export const userStore = {
       try {
         const savedUser = await userService.save(user)
         commit({ type: 'updateUser', user: savedUser })
-        console.log('user after update:', savedUser);
+        console.log('user after update:', savedUser)
         return savedUser
       } catch (err) {
         console.log('ERROR:cant updated user!')
@@ -131,7 +153,6 @@ export const userStore = {
       }
     },
     async signup(context, { userCred }) {
-      console.log('store got the user cred', userCred)
       try {
         const user = await userService.signup(userCred)
         context.commit({ type: 'setUser', user })
@@ -141,14 +162,11 @@ export const userStore = {
         throw err
       }
     },
-    // async uploadUserImg(context, { img }) {
-    //   console.log('the image',img, context, 'context')
-    // }
+
     async sendNotif(context, { notif }) {
       console.log('notif in store:', notif)
       await userService.sendNotif(notif)
 
-      // context.commit({ type: 'setUser', user })
     }
   }
 }

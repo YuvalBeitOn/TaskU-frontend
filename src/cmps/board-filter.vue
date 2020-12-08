@@ -75,7 +75,7 @@ export default {
       return this.$store.getters.filterBy
     },
     users() {
-      return this.$store.getters.users
+      return this.$store.getters.miniUsers
     }
   },
   methods: {

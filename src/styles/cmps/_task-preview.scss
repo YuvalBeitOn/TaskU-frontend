@@ -107,7 +107,7 @@
       overflow: hidden;
       white-space: nowrap;
       @include for-wide-layout {
-        max-width: 200px;
+        max-width: 210px;
       }
       @include for-max-narrow-layout {
         max-width: 125px;

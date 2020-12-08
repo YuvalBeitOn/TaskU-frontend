@@ -46,7 +46,6 @@ export default {
     },
     methods: {
         duplicateGroup(group) {
-            // console.log('group in group list:', group);
             this.$emit('duplicateGroup', group)
         },
         emitDelete(groupId) {

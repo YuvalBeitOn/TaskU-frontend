@@ -50,7 +50,7 @@ export default {
             return this.$store.getters.user
         },
         users() {
-            return this.$store.getters.users
+            return this.$store.getters.miniUsers
         },
   
     },

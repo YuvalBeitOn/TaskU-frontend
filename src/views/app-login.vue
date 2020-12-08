@@ -28,47 +28,22 @@
 
           <button class="login-btn" :disabled="isElementDisabled">Login</button>
         </form>
-        <div class="social-login flex align-center">
-          <span class="separator-line"></span>
-          <div class="login-subtitle flex align-center justify-center">
-            Or Sign-in with
-          </div>
-          <span class="separator-line"></span>
-        </div>
-        <div class="social-logos flex space-between">
-          <div class="social-option">
-            <img src="@/assets/imgs/logo_google.png" />
-            Google
-          </div>
-          <div class="social-option">
-            <img src="@/assets/imgs/facebook_logo.png" />
-            Facebook
-          </div>
-        </div>
         <div class="signup-section flex align-center">
           <span class="separator-line"></span>
           <div class="login-subtitle flex align-center justify-center">
             Don't have a user yet?
-
             <router-link to="/signup">
               <span class="btn-content"> Signup</span>
             </router-link>
           </div>
           <span class="separator-line"></span>
         </div>
-        <!-- <googleLogin
-                    :params="googleSignInParams"
-                    :onSuccess="onGoogleSuccess"
-                    :onFailure="onGoogleFailure"
-                    >Login</googleLogin
-                > -->
       </div>
     </section>
   </section>
 </template>
 
 <script>
-// import googleLogin from 'vue-google-login'
 
 export default {
   name: 'app-login',
@@ -132,16 +107,7 @@ export default {
         password: null,
         isAdmin: false,
       }
-    },
-    // onGoogleSuccess(obj) {
-    //     console.log(obj)
-    // },
-    // onGoogleFailure(googleUser) {
-    //     googleUser.getBasicProfile()
-    // },
-  },
-  // components: {
-  //     googleLogin,
-  // },
+    }
+  }
 }
 </script>

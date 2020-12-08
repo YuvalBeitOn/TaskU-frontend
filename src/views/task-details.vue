@@ -11,28 +11,6 @@
         >
           {{ task.txt }}
         </h2>
-        <div class="details-mobile flex">
-          <span
-            class="priority-details relative task-item"
-            :style="getStyleStr(task.priority.color)"
-            >{{ task.priority.txt }}
-            <!-- <label-picker
-            :opts="priorities"
-            type="priority"
-        /> -->
-          </span>
-
-          <span class="date-picker-details task-item">
-            <el-date-picker
-              v-tooltip.top="'Due Date'"
-              class="date-input"
-              v-model="task.dueDate"
-              type="date"
-              placeholder="Pick a date"
-            >
-            </el-date-picker>
-          </span>
-        </div>
       </div>
       <el-tabs>
         <el-tab-pane label="Task Posts">

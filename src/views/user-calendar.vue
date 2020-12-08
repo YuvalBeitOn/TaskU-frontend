@@ -2,13 +2,13 @@
     <section class="user-calendar">
         <h1>Hello {{ loggedinUser.fullName }}</h1>
         <!-- {{ boards }} -->
-        <full-calendar :events="events" @event-selected="eventSelected" />
+        <!-- <full-calendar :events="events" @event-selected="eventSelected" /> -->
     </section>
 </template>
 
 <script>
-import { FullCalendar } from 'vue-full-calendar'
-import 'fullcalendar/dist/fullcalendar.css'
+// import { FullCalendar } from 'vue-full-calendar'
+// import 'fullcalendar/dist/fullcalendar.css'
 import moment from 'moment'
 
 //ToBeChanged: Implementing a better UI library like Vuetify Calendar
@@ -29,6 +29,7 @@ export default {
         events() {
             const events = []
             const todayDate = moment().format('YYYY-MM-DD')
+            console.log(this.boards)
             this.boards.forEach((board) => {
                 board.groups.forEach((group) => {
                     group.tasks.forEach((task) => {
@@ -51,7 +52,7 @@ export default {
         },
     },
     components: {
-        FullCalendar,
+        // FullCalendar,
     },
 }
 </script>

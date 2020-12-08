@@ -1,75 +1,79 @@
 <template>
-  <section v-if="board" class="board-app flex">
-
-    <board-list
-      :expandList="expandList"
-      :isExpanded="isListExpanded"
-      @removeBoard="removeCurrBoard"
-      @addNewBoard="addBoard"
-      :boards="boards"
-      title="Boards"
-    >
-      <button
-        slot="expand-btn"
-        @click="toggleExpandList"
-        :class="{
-          'expand-list-btn': true,
-          notExpanded: !isListExpanded
-        }"
-      >
-        <i :class="btnClassExpend" v-tooltip.right="'Expand/Hide List'"></i>
-      </button>
-
-      <board-search @searchBoard="setSearch" slot="search" />
-    </board-list>
-
-    <div :class="['board-app-container width100', darkMode]">
-      <board-header
-        :updateBoardName="updateBoardName"
-        :updateBoardDesc="updateBoardDesc"
-        :board="board"
-        :addGroup="addGroup"
-        @removeMember="removeBoardMember"
-        @addMember="addBoardMember"
-        :displayMode="displayMode"
-        :forceRerender="forceRerender"
-        @setDisplayMode="setDisplayMode"
-      />
-      <group-list
-        v-if="board && displayMode === 'Board'"
-        :key="componentKey"
-        :groups="board.groups"
-        :boardName="board.name"
-        @deleteGroup="deleteGroup"
-        @updateGroup="updateGroup"
-        @updateGroups="updateGroups"
-        @duplicateGroup="duplicateGroup"
-        @forceRender="forceRerender"
-      />
-      <trello-mode :key="componentKey" @forceRender="forceRerender" v-else></trello-mode>
-    </div>
-    <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
-
-    <!-- <task-details
+    <section v-if="board" class="board-app flex">
+        <board-list
+            :expandList="expandList"
+            :isExpanded="isListExpanded"
+            @removeBoard="removeCurrBoard"
+            @addNewBoard="addBoard"
+            :boards="boards"
+            title="Boards">
+            <button
+                slot="expand-btn"
+                @click="toggleExpandList"
+                :class="{
+                    'expand-list-btn': true,
+                    notExpanded: !isListExpanded,
+                }"
+            >
+                <i
+                    :class="btnClassExpend"
+                    v-tooltip.right="'Expand/Hide List'"
+                ></i>
+            </button>
+            <board-search @searchBoard="setSearch" slot="search" />
+        </board-list>
+        <div :class="['board-app-container width100', darkMode]">
+            <board-header
+                :updateBoardName="updateBoardName"
+                :updateBoardDesc="updateBoardDesc"
+                :board="board"
+                :addGroup="addGroup"
+                @removeMember="removeBoardMember"
+                @addMember="addBoardMember"
+                :displayMode="displayMode"
+                :forceRerender="forceRerender"
+                @setDisplayMode="setDisplayMode"
+            />
+            <group-list
+                v-if="board && displayMode === 'Board'"
+                :key="componentKey"
+                :groups="board.groups"
+                :boardName="board.name"
+                @deleteGroup="deleteGroup"
+                @updateGroup="updateGroup"
+                @updateGroups="updateGroups"
+                @duplicateGroup="duplicateGroup"
+                @forceRender="forceRerender"
+            />
+            <trello-mode
+                :key="componentKey"
+                @forceRender="forceRerender"
+                v-else
+            ></trello-mode>
+        </div>
+        <div v-if="isTaskDetailsHover" class="backdrop-layer"></div>
+        <!-- <task-details
       v-if="this.$route.params.taskId"
       @close="isTaskDetailsHover = false"
       @mouseover.native="isTaskDetailsHover = true"
       @mouseleave.native="isTaskDetailsHover = false"
     /> -->
-    <router-view :class="['grow', darkMode]" />
-
-    <div
-      v-tooltip.top="'Chat Board'"
-      v-show="isChatingBtnShown"
-      class="chat-icon-btn-container flex align-center justify-center"
-    >
-      <i @click="toggleChat" class="fas chat-icon fa-comments relative"></i>
+        <router-view :class="['grow', darkMode]" />
+        <div
+            v-tooltip.top="'Chat Board'"
+            v-show="isChatingBtnShown"
+            class="chat-icon-btn-container flex align-center justify-center"
+        >
+            <i
+                @click="toggleChat"
+                class="fas chat-icon fa-comments relative"
+            ></i>
+        </div>
+        <chat-app @closeChat="toggleChat" v-if="isChating" />
+    </section>
+    <div v-else class="flex justify-center align-center">
+        <img src="@/assets/imgs/loader.gif" class="loader-app" />
     </div>
-    <chat-app @closeChat="toggleChat" v-if="isChating" />
-  </section>
-  <div v-else class="flex justify-center align-center">
-    <img src="@/assets/imgs/loader.gif" class="loader-app" />
-  </div>
 </template>
 <script>
 import { eventBus } from '@/services/event-bus.service'
@@ -82,7 +86,6 @@ import { utilService } from '@/services/util.service'
 import boardHeader from '../cmps/board-header.vue'
 // import { socketService } from '@/services/socket.service.js'
 import trelloMode from '@/cmps/Trello/trello-mode'
-
 export default {
   name: 'board-app',
   data() {
@@ -115,6 +118,9 @@ export default {
     user() {
       return this.$store.getters.user
     },
+    miniUser(){
+      return this.$store.getters.miniUser
+    },
     board() {
       return this.$store.getters.board
     },
@@ -142,20 +148,19 @@ export default {
       group.id = utilService.makeId()
       this.board.groups.push(group)
       const txt = `${this.user.fullName} duplicated group the group ${group.name} `
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.$store.dispatch({ type: 'updateBoard', board: this.board })
       this.forceRerender()
     },
-
     updateBoardName(ev) {
       ev.target.blur()
       if (ev.target.innerText === this.board.name) return
       else {
         this.board.name = ev.target.innerText
         const txt = `${this.user.fullName} update Board name`
-        let newActivity = boardService.getEmptyActivity(txt, this.user)
+        let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'saveBoard', board: this.board })
         this.$store.dispatch({ type: 'updateBoard', board: this.board })
@@ -173,7 +178,7 @@ export default {
       else {
         this.board.description = ev.target.innerText
         const txt = `${this.user.fullName} update Board description`
-        let newActivity = boardService.getEmptyActivity(txt, this.user)
+        let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'saveBoard', board: this.board })
         this.$notify({
@@ -190,7 +195,7 @@ export default {
     addBoardMember(user) {
       this.board.members.unshift(user)
       const txt = `${this.user.fullName} add ${user.fullName} to Board`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.$notify({
@@ -205,7 +210,7 @@ export default {
       )
       this.board.members.splice(idx, 1)
       const txt = `${this.user.fullName} remove  ${member.fullName} from Board`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
       this.board.activities.push(newActivity)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
       this.$notify({
@@ -220,6 +225,10 @@ export default {
     },
     async removeCurrBoard(boardId) {
       try {
+        const board = boardService.getById()
+        if (board.creator._id !== this.user_id) {
+          return
+        }
         await this.$confirm(
           'This will permanently delete the board. Continue?',
           'Warning',
@@ -230,7 +239,7 @@ export default {
           }
         )
         const txt = `${this.user.fullName} remove Board`
-        let newActivity = boardService.getEmptyActivity(txt, this.user)
+        let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'removeBoard', boardId })
         this.$store.dispatch({
@@ -247,10 +256,13 @@ export default {
           message: 'Delete completed'
         })
       } catch (err) {
-        this.$message({
-          type: 'info',
-          message: 'Delete canceled'
-        })
+          this.$message({
+            durtion: 2000,
+            showClose: true,
+            type: 'error',
+            offset: 335,
+            message: 'Only the creator can delete the board!'
+          })
       }
     },
     loadBoards() {
@@ -269,10 +281,10 @@ export default {
         )
         const board = boardService.getEmptyBoard()
         board.name = res.value
-        board.creator = this.user
-        board.members.push(this.user)
-        const txt = `${this.user.fullName} create this Board`
-        let newActivity = boardService.getEmptyActivity(txt, this.user)
+        board.creator = this.miniUser
+        board.members.push(this.miniUser)
+        const txt = `${this.miniUser.fullName} create this Board`
+        let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
         this.board.activities.push(newActivity)
         this.$store.dispatch({ type: 'saveBoard', board })
         this.$message({
@@ -284,7 +296,7 @@ export default {
         this.$message({
           type: 'info',
           duration: 2500,
-          message: 'Your action  canceled'
+          message: 'Your action canceled'
         })
       }
     },
@@ -302,7 +314,7 @@ export default {
       const newGroup = boardService.getEmptyGroup()
       this.board.groups.push(newGroup)
       const txt = `${this.user.fullName} has added a new group!`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
       this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
@@ -319,7 +331,7 @@ export default {
       const idx = this.board.groups.findIndex(group => group.id === groupId)
       const txt = `${this.user.fullName} deleted group ${this.board.groups[idx].txt}`
       this.board.groups.splice(idx, 1)
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
       this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
@@ -333,14 +345,13 @@ export default {
       this.forceRerender()
     },
     updateGroup(updatedGroup) {
-      console.log('updatedGroup:', updatedGroup)
       const idx = this.board.groups.findIndex(
         group => group.id === updatedGroup.id
       )
-      if(idx<0) return
+      if (idx < 0) return
       this.board.groups.splice(idx, 1, updatedGroup)
       const txt = `${this.user.fullName} updated group ${updatedGroup.name}`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
       this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
@@ -356,7 +367,7 @@ export default {
     updateGroups(groups) {
       this.board.groups = groups
       const txt = `${this.user.fullName} updated the groups`
-      let newActivity = boardService.getEmptyActivity(txt, this.user)
+      let newActivity = boardService.getEmptyActivity(txt, this.miniUser)
       this.board.activities.push(newActivity)
       this.$store.dispatch({
         type: 'saveBoard',
@@ -370,7 +381,6 @@ export default {
       this.forceRerender()
     }
   },
-
   watch: {
     '$route.params.boardId'() {
       this.loadBoard()
@@ -387,8 +397,7 @@ export default {
     eventBus.$on('updateGroup', this.updateGroup)
     eventBus.$on('forceRerender', this.forceRerender)
   },
-  destroyed() {
-  },
+  destroyed() {},
   components: {
     groupList,
     boardList,

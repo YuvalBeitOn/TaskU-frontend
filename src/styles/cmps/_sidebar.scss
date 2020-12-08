@@ -12,12 +12,9 @@
   @include for-narrow-layout {
     width: 300px;
     padding: 10px;
-    margin-top: 50px;
   }
-  .animate-side-bar {
-    transition: 0.4s;
-    left: 100%;
-    transform: translate(-100%);
+  &.expanded {
+    animation: expand-side-bar 0.4s;
   }
   .cls-btn {
     border: none;
@@ -52,3 +49,15 @@
 .slide-leave-to {
   transform: translate(100%, 0);
 }
+
+@keyframes expand-side-bar {
+  0% {
+    opacity: 0;
+    width: 40px;
+  }
+  100% {
+    opacity: 1;
+    width: 570px;
+  }
+}
+

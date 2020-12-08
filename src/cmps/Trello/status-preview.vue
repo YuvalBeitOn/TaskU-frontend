@@ -31,7 +31,8 @@
         @blur="unFocusInput"
         @keypress.enter="addTask"
       />
-      <button @click="addTask" :style="`background-color:${status.color}`" class="add-btn" v-if="isAddBtnShown">
+      <!-- v-if="isAddBtnShown" -->
+      <button @click="addTask" :style="`background-color:${status.color}`" class="add-btn" >
         + Add
       </button>
     </div>

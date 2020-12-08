@@ -8,6 +8,7 @@
   @include for-max-narrow-layout {
     display: unset;
     position: relative;
+    // height: 75px;
   }
   &:hover {
     background-color: #d2eaff;
@@ -19,6 +20,7 @@
   .notif-container {
     padding: 14px;
     @include for-norml-layout {
+      width: 100%;
       padding: 5px;
       position: relative;
     }
@@ -37,7 +39,9 @@
         padding: 3px;
       }
       @include for-max-narrow-layout {
-        max-width: 170px;      }
+        max-width: 170px;
+        flex-direction: column;
+      }
       .user-mail {
         font-weight: bold;
       }
@@ -47,9 +51,18 @@
         height: 3px;
         width: 3px;
         border-radius: 50%;
+        @include for-max-narrow-layout {
+          display: none;
+        }
       }
       .notif-board-name {
         font-weight: bold;
+      }
+    }
+    .notif-footer {
+      @include for-max-narrow-layout {
+        align-items: unset;
+        flex-direction: column;
       }
     }
   }
@@ -71,7 +84,7 @@
     @include for-max-narrow-layout {
       display: block;
       position: absolute;
-      bottom: 0;
+      bottom: 5px;
       right: 0;
       .notif-btn {
         font-size: 15px;
