@@ -49,6 +49,13 @@
                             alt=""
                             srcset=""
                         />
+                        <img
+                        src="@/assets/imgs/svg/bottom-svg.svg"
+                          
+                            class="img-home-page"
+                            alt=""
+                            srcset=""
+                        />
                     </div>
 
                 </div>
