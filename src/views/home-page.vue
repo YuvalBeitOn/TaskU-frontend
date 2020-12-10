@@ -87,7 +87,7 @@
     <!-- benefits -->
     <section class="main-benefits ">
         <div class="hm-container benefits-content flex column wrap">
-      <div class="benefit-card flex space-between wrap">
+      <div class="benefit-card flex  wrap">
         <div class="benefit-img"><img src="@/assets/imgs/home-page/lalala.png" alt="" srcset=""></div>
         <div class="benefit-content  flex column align-center justify-center">
           <h2 class="benefit-title">Manage everything in one workspace</h2>
@@ -97,7 +97,7 @@
           </p>
         </div>
       </div>
-      <div class="benefit-card flex space-between wrap">
+      <div class="benefit-card flex  wrap">
         <div class="benefit-content flex column align-center justify-center">
           <h2 class="benefit-title">Set up in minutes</h2>
           <p class="benefit">
