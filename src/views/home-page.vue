@@ -2,11 +2,13 @@
   <section class="home-page flex column">
       <!-- nav menu -->
     <div  :class="['nav-container',scrollNav]">
-      <div class="container-nav hm-container  flex wrap align-center space-between">
+      <div class="container-nav hm-container  flex  align-center space-between">
         <div class="app-logo">
-          <img class="logo1" src="@/assets/imgs/logo1.png" alt="" />
+          <img class="logo1" src="@/assets/imgs/logo3.png" alt="" />
         </div>
-        <nav class="nav-home-page flex space-between align-center">
+        
+        <i @click="toggleNav" class="fas fa-bars hmburger"></i>
+        <nav :class="['nav-home-page flex space-between align-center',navMobile]">
           <router-link to="/">home</router-link>
           <router-link v-if="!loggedInUser" to="/login">login</router-link>
           <router-link v-if="!loggedInUser" to="/signup">sign up</router-link>
@@ -14,9 +16,15 @@
           <button @click="onGetStarted" class="btn-app btn-nav">
             Get Started
           </button>
+          <span v-show="isNavShown" @click="toggleNav">X</span>
         </nav>
       </div>
     </div>
+      <div
+      class="back-drop-layer"
+      v-if="isNavShown"
+      @click="isNavShown = false"
+    ></div>
     <!-- hero-section -->
     <section class="hero-homepage hero-container">
       <div class="main-hero hm-container flex space-between">
@@ -32,11 +40,13 @@
         </div>
         <div class="img-hero">
           <img
-            src="@/assets/imgs/svg/bgc-2-preson.svg"
+            src="@/assets/imgs/svg/hero-img.svg"
             class="img-home-page"
             alt=""
             srcset=""
           />
+      
+          
         </div>
       </div>
       <img class="svg-border" src="@/assets/imgs/svg/bottom-svg.svg" alt="" srcset="">
@@ -118,10 +128,14 @@ export default {
   name: 'home-page',
   data(){
       return{
-          scrollPosition:null
+          scrollPosition:null,
+          isNavShown:false
       }
   },
   computed: {
+navMobile(){
+  return this.isNavShown ? 'open-nav' : ''
+},
       scrollNav(){
           return this.scrollPosition > 50 ? 'change-color-nav' : ''
       },
@@ -136,6 +150,9 @@ export default {
     },
   },
   methods: {
+        toggleNav(){
+      this.isNavShown = !this.isNavShown
+    },
       hendaleScroll(){
           console.log('scroll me');
     this.scrollPosition = window.scrollY
