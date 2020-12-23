@@ -9,7 +9,7 @@
             /></router-link>
         </div>
         <section class="app-signup flex column">
-            <div class="flex column justify-center">
+            <div class="login-form flex column justify-center">
                 <h1 class="signup-title">
                     Sign <span class="thin-fonted">Up</span>
                 </h1>

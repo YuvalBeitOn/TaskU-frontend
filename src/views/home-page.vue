@@ -8,23 +8,17 @@
         </div>
         
         <i @click="toggleNav" class="fas fa-bars hmburger"></i>
-        <nav :class="['nav-home-page flex space-between align-center',navMobile]">
+        <nav @click.stop="isNavShown = false" :class="['nav-home-page flex space-between align-center',navMobile]">
           <router-link to="/">home</router-link>
           <router-link v-if="!loggedInUser" to="/login">login</router-link>
           <router-link v-if="!loggedInUser" to="/signup">sign up</router-link>
           <span v-if="loggedInUser" @click="onLogout">logout</span>
-          <button @click="onGetStarted" class="btn-app btn-nav">
+          <button @click="onGetStarted" :style="showBtnStarted" class="btn-app btn-nav">
             Get Started
           </button>
-          <span v-show="isNavShown" @click="toggleNav">X</span>
         </nav>
       </div>
     </div>
-      <div
-      class="back-drop-layer"
-      v-if="isNavShown"
-      @click="isNavShown = false"
-    ></div>
     <!-- hero-section -->
     <section class="hero-homepage hero-container">
       <div class="main-hero hm-container flex space-between">
@@ -148,6 +142,9 @@ navMobile(){
     enteryButton() {
       return this.loggedInUser ? 'Enter Workspace' : 'Try as a guest'
     },
+    showBtnStarted(){
+      return this.isNavShown && 'display:none;'
+    }
   },
   methods: {
         toggleNav(){
