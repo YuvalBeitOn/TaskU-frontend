@@ -13,26 +13,31 @@
 //         @content;
 //     }
 // }
-
 @mixin for-max-narrow-layout {
+// $break-max-narrow: 550px;
+
     @media (max-width: $break-max-narrow) {
         @content;
     }
 }
 
 @mixin for-narrow-layout {
+// $break-narrow: 750px;
+
     @media (max-width: $break-narrow) {
         @content;
     }
 }
 
 @mixin for-norml-layout {
+// $break-norml: 950px;
   @media (max-width: $break-norml) {
     @content;
   }
 }
 
 @mixin for-wide-layout {
+// $break-wide: 1300px;
   @media (max-width: $break-wide) {
     @content;
   }
