@@ -1,8 +1,8 @@
 <template>
     <section class="user-calendar">
         <h1>Hello {{ loggedinUser.fullName }}</h1>
-        <!-- {{ boards }} -->
-        <!-- <full-calendar :events="events" @event-selected="eventSelected" /> -->
+        {{ boards }}
+        <full-calendar :events="events" @event-selected="eventSelected" />
     </section>
 </template>
 

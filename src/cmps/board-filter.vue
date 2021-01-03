@@ -1,6 +1,10 @@
 <template>
   <!-- <section class="board-filter flex space-between"> -->
     <section class="board-filters flex">
+        
+      <button  v-tooltip.top="'Show static'"   class="add-group-btn"  @click="toggleDashboard">Dashboard</button>
+        <dashboard-modal @closeDashboard="isDashboardShown=false" v-if="isDashboardShown" />
+
       <button
         v-tooltip.top="'Add New group'"
         class="add-group-btn"
@@ -57,6 +61,7 @@
 <script>
 import filterForm from './filter-form'
 import filterUsers from './filter-users'
+import dashboardModal from './dashboard'
 
 export default {
   name: 'board-filter',
@@ -68,6 +73,8 @@ export default {
     return {
       isFilterShowen: false,
       newItem: null,
+      isDashboardShown:false,
+
     }
   },
   computed: {
@@ -79,6 +86,9 @@ export default {
     }
   },
   methods: {
+        toggleDashboard(){
+      this.isDashboardShown = !this.isDashboardShown
+    },
     // expandInput() {
     //   this.isInputExpanded = true
     //   this.$refs.searchInput.focus()
@@ -106,7 +116,9 @@ export default {
   },
   components: {
     filterForm,
-    filterUsers
+    filterUsers,
+    dashboardModal
   }
 }
 </script>
+        <i @click="toggleDashboard" class="nav-icon far fa-chart-line"></i>

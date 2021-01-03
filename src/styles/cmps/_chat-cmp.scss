@@ -1,7 +1,7 @@
 .board-chat {
   position: absolute;
   bottom: rem(10px);
-  right: 40px;
+  right: 15px;
   height: 420px;
   width: 300px;
   border-top-left-radius: 10px;
@@ -11,7 +11,6 @@
   @include for-max-narrow-layout {
     height: 300px;
     width: 214px;
-    right: 15px;
   }
   .chat-container {
     height: 100%;

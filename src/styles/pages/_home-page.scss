@@ -64,7 +64,7 @@ $hpclr2:#f2f6fc;
         border-radius: 10px;
         color: white;
 
-        @include for-normal-layout {
+      @include for-normal-layout {
           color: black;
         }
 
@@ -72,10 +72,6 @@ $hpclr2:#f2f6fc;
           color: #a1a1d2;
         }
 
-        &:active {
-          background-color: white;
-          box-shadow: 0px 0px 2px 0px black;
-        }
       }
     }
   }
@@ -214,26 +210,29 @@ $hpclr2:#f2f6fc;
 
     .benefit-card {
       width: 100%;
-      justify-content: space-evenly;
       margin: 10px;
 
       .benefit-img {
-        margin-right: 10px;
+      
+        width: 50%;
         
         @include for-normal-layout {
+          width: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
           order: 0;
-
-          img {
-            max-width: 100%;
-            margin-bottom: 19px;
-          }
         }
       }
 
       .benefit-content {
+        width: 50%;
+        padding: 20px;
+        @include for-normal-layout {
+          width: 100%;
+        padding: 10px;
+
+        }
         @include for-max-narrow-layout{
         text-align: center;
         }

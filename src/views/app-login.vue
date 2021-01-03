@@ -91,7 +91,7 @@ export default {
           }, 2000)
         }
       } catch (err) {
-        if (err.response.status === 401) {
+        
           this.$message({
             durtion: 2000,
             showClose: true,
@@ -99,7 +99,6 @@ export default {
             offset: 335,
             message: 'Incorrect email or password.',
           })
-        }
       }
       this.loginCredentials = {
         email: null,

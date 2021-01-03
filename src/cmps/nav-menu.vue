@@ -15,8 +15,9 @@
         <span class="notif-amount" v-if="user.notifications && numOfNotifs">{{ numOfNotifs }}</span>
         <notifications-modal v-if="isNotifsModalShown" />
       </div>
-      <div class="nav-icon-container inbox" v-tooltip.right="'Inbox'">
-        <i class="nav-icon far fa-inbox-in"></i>
+      <div class="nav-icon-container inbox" v-tooltip.right="'Dashboard'">
+        <i @click="toggleDashboard" class="nav-icon far fa-chart-line"></i>
+        <dashboard-modal @closeDashboard="isDashboardShown=false" v-if="isDashboardShown" />
       </div>
     </div>
     <div class="user-greeting" v-if="user">
@@ -49,21 +50,23 @@
     </div>
     <div
       class="back-drop-layer"
-      v-if="isUserModalShown || isNotifsModalShown"
+      v-if="isUserModalShown || isNotifsModalShown || isDashboardShown"
       @click.stop="closePopUps"
     ></div>
   </nav>
 </template>
 
 <script>
+import dashboardModal from './dashboard'
 import NotificationsModal from './notifications-modal.vue'
 import popupMenu from './popup-menu.vue'
 import Avatar from './user-avatar'
 export default {
-  components: { popupMenu, NotificationsModal, Avatar },
+  components: { popupMenu, NotificationsModal, Avatar,dashboardModal },
   name: 'nav-menu',
   data() {
     return {
+      isDashboardShown:false,
       isUserModalShown: false,
       isNotifsModalShown: false,
       darkMode: false,
@@ -106,7 +109,11 @@ export default {
     }
   },
   methods: {
+    toggleDashboard(){
+      this.isDashboardShown = !this.isDashboardShown
+    },
     closePopUps() {
+       this.isDashboardShown = false
       this.isUserModalShown = false
       this.isNotifsModalShown = false
     },

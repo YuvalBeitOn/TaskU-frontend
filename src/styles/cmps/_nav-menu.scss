@@ -116,8 +116,7 @@
       width: unset;
       margin-bottom: 0;
       height: unset;
-      &.calender,
-      &.inbox {
+      &.calender{
         display: none;
       }
       &:hover {
@@ -131,12 +130,9 @@
 
   // The width should change to min-width because the boardAPP should push it aside
   .nav-logo img {
-    width: rem(45px);
-    height: rem(45px);
-    @include for-normal-layout {
-      height: unset;
-      width: 40px;
-    }
+    max-width: rem(45px);
+    max-height: rem(45px);
+
   }
   .user-greeting {
     position: absolute;

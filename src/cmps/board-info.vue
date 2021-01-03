@@ -29,7 +29,7 @@
         Activities /
         <span v-if="activiitesLength" class="blue">{{ activiitesLength }}</span>
       </button>
-      <i class="fas fa-chart-line activity-mobile" @click="boardActivities"><span class="activity-txt-mobile"> / {{ activiitesLength }}</span></i>
+      <i class="fas fa-chart-line activity-mobile" @click="boardActivities"><span v-if="activiitesLength" class="activity-txt-mobile "> / <span class="blue">{{ activiitesLength }}</span></span></i>
     </div>
   </div>
 </template>
@@ -37,7 +37,6 @@
 <script>
 import members from './members'
 import addMembers from './add-members'
-// import membersList from './members-list'
 export default {
   props: {
     board: Object
@@ -88,7 +87,6 @@ export default {
   components: {
     addMembers,
     members,
-    // membersList
   }
 }
 </script>

@@ -7,8 +7,7 @@ import appLogin from '@/views/app-login'
 import appSignup from '@/views/app-signup'
 import taskDetails from '@/views/task-details'
 import boardActivities from '@/views/board-activities'
-// import userCalendar from '@/views/user-calendar'
-import calendar from '../views/calendar'
+import userCalendar from '@/views/user-calendar'
 
 Vue.use(VueRouter)
 
@@ -55,8 +54,8 @@ const routes = [
   },
   {
     path: '/calendar',
-    name: 'calendar',
-    component: calendar
+    name: 'userCalendar',
+    component: userCalendar
   }
 ]
 
