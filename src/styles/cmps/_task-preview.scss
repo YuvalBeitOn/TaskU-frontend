@@ -67,7 +67,7 @@
       width: 90px;
       font-size: 11px;
     }
-    @include for-norml-layout {
+    @include for-normal-layout {
       &.status,
       &.priority {
         width: 60px;

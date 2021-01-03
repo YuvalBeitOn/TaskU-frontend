@@ -8,13 +8,13 @@
     .title{
       font-size: 1.5rem;
       margin-bottom: 7px;
-      @include for-norml-layout {
+      @include for-normal-layout {
         font-size: 1.2rem;
       }
     }
     .activity-title {
       font-size: 15px;
-      @include for-norml-layout {
+      @include for-normal-layout {
         font-size: 16px;
       }
     }

@@ -43,7 +43,7 @@
     @include for-wide-layout {
       width: rem(200px);
     }
-    @include for-norml-layout {
+    @include for-normal-layout {
       width: rem(300px);
       position: absolute;
     }
@@ -74,7 +74,7 @@
       @include for-wide-layout {
         width: 170px;
       }
-      @include for-norml-layout {
+      @include for-normal-layout {
         width: 270px;
       }
       .item-txt {
@@ -146,7 +146,7 @@
     @include for-wide-layout {
       width: 170px;
     }
-    @include for-norml-layout {
+    @include for-normal-layout {
       width: 270px;
     }
     &:hover {
@@ -171,7 +171,7 @@
     @include for-wide-layout {
       width: 170px;
     }
-    @include for-norml-layout {
+    @include for-normal-layout {
       width: 270px;
     }
     &:hover {
@@ -199,7 +199,7 @@
       color: rgb(61, 61, 61);
       font-size: 0.9rem;
       padding-left: 26px;
-      @include for-norml-layout {
+      @include for-normal-layout {
         padding-left: 0!important;
       }
     }

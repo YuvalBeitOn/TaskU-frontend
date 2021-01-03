@@ -1,9 +1,5 @@
 <template>
-  <section
-    v-if="board 
-    "
-    class="dashboard"
-  >
+  <section v-if="board" class="dashboard">
     <i @click="closeDashboard" class="fas fa-times"></i>
     <section class="box-items-container flex wrap align-center justify-center">
       <box-item
@@ -29,7 +25,7 @@
     </section>
     <div style="width: 100%" class="charts flex align-center space-between">
       <chart :dataChart="taskByStatus" title="Status Popluer in task"></chart>
-      <chart :dataChart="memeberForTasks" title="Member tasks count"></chart>
+      <chart :dataChart="memberForTasks" title="Member tasks count"></chart>
     </div>
   </section>
 </template>
@@ -64,17 +60,17 @@ export default {
 
       return tasksStatuses
     },
-    memeberForTasks() {
+    memberForTasks() {
       const tasksMapStatus = [...this.$store.getters.tasksByStatues]
-      const membersTasks = []
+      const membersTask = []
       tasksMapStatus.forEach((status) => {
         status.tasks.forEach((task) => {
           task.members.forEach((member) => {
-            membersTasks.push(member.fullName)
+            membersTask.push(member.fullName)
           })
         })
       })
-      const membersCount = membersTasks.reduce((acc, member) => {
+      const membersCount = membersTask.reduce((acc, member) => {
         if (!acc[member]) acc[member] = { value: 0, label: member }
         acc[member].value++
         return acc

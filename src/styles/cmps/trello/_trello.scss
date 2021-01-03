@@ -1,10 +1,21 @@
 .trello {
   max-height: calc(100% - 160px);
   padding: 30px 50px;
-    overflow-y: auto;
+  overflow-y: auto;
   overflow-x: auto;
   background-color: #f7f7f7;
   @include for-wide-layout {
     padding: 1.5rem;
+  }
+  @include for-mobile-layout {
+    justify-content: center;
+  }
+
+  .status-list {
+    .drag-list {
+      @include for-mobile-layout {
+        flex-direction: column;
+      }
+    }
   }
 }

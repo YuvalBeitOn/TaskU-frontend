@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  @include for-norml-layout {
+  @include for-normal-layout {
     top: 0;
     left: 0;
     z-index: 222;
@@ -23,7 +23,7 @@
 
   .top-nav,
   .bottom-nav {
-    @include for-norml-layout {
+    @include for-normal-layout {
       display: flex;
       align-items: center;
       margin-bottom: 0;
@@ -34,14 +34,14 @@
     }
   }
   .bottom-nav {
-    @include for-norml-layout {
+    @include for-normal-layout {
       flex-direction: row;
     }
     
   }
   .top-nav > *:not(:last-child) {
     margin-bottom: 8px;
-    @include for-norml-layout {
+    @include for-normal-layout {
       margin-bottom: 0;
       align-items: center;
     }
@@ -59,7 +59,7 @@
       font-size: 0.7rem;
       right: -4px;
       top: -2px;
-      @include for-norml-layout {
+      @include for-normal-layout {
         width: 13px;
         height: 13px;
       }
@@ -67,13 +67,13 @@
   }
   .bottom-nav > *:not(:last-child) {
     margin-bottom: 8px;
-    @include for-norml-layout {
+    @include for-normal-layout {
       margin-bottom: 0;
     }
   }
   .user-profile {
     .profile-img {
-      @include for-norml-layout {
+      @include for-normal-layout {
         width: 25px !important;
         height: 25px !important;
         margin-right: 5px;
@@ -89,7 +89,7 @@
       left: 55px;
       bottom: 25px;
       top: unset;
-      @include for-norml-layout {
+      @include for-normal-layout {
         top: 30px;
         height: 95px;
         width: 150px;
@@ -112,7 +112,7 @@
     &:active {
       background-color: rgba(255, 255, 255, 0.6);
     }
-    @include for-norml-layout {
+    @include for-normal-layout {
       width: unset;
       margin-bottom: 0;
       height: unset;
@@ -154,7 +154,7 @@
       max-width: 8rem;
       overflow: hidden;
     }
-    @include for-norml-layout {
+    @include for-normal-layout {
       display: none;
     }
   }
