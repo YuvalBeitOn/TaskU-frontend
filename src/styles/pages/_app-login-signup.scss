@@ -1,14 +1,15 @@
 .app-login-container,
 .app-signup-container {
-  width: 100vw;
+  // width: 100vw;
   .logo2 {
     width: 180px;
     height: 58px;
   }
-.login-form{
-  width: 50%;
-    margin: 0 auto;
-}
+  .login-form {
+    width: 50%;
+    align-items: center;
+    // margin: 0 auto;
+  }
   .login-header,
   .sigup-header {
     width: 100%;
@@ -20,10 +21,10 @@
     height: 65px;
     background: #f7f7f7;
     margin-bottom: 3rem;
-    @include for-norml-layout{
+    @include for-normal-layout {
       position: sticky;
-top: 0;
-margin-top: -50px;
+      top: 0;
+      margin-top: -50px;
     }
   }
 
@@ -31,11 +32,11 @@ margin-top: -50px;
   .app-signup {
     min-width: 500px;
     max-width: 100%;
-    margin: 0 auto;
-      @include for-max-narrow-layout{
-        min-width: unset;
-      }
-    
+    align-items: center;
+    @include for-max-narrow-layout {
+      min-width: unset;
+    }
+
     .login-title,
     .signup-title {
       font-size: rem(40px);
@@ -52,7 +53,11 @@ margin-top: -50px;
 
     form {
       input {
-        margin-bottom: 10px
+        margin-bottom: 10px;
+        width: 320px;
+        @include for-mobile-layout {
+          width: 250px;
+        }
       }
       .login-btn,
       .signup-btn {
@@ -72,7 +77,7 @@ margin-top: -50px;
         color: white;
         margin-bottom: 4rem;
         margin-top: 1rem;
-        @include for-narrow-layout{
+        @include for-narrow-layout {
           width: 30%;
         }
         &:disabled {
@@ -82,25 +87,29 @@ margin-top: -50px;
       }
     }
 
-    input[type=file] {
-      // opacity: 0;
-    }
-
     .separator-line {
       width: 250px;
       border: 0.5px solid #c5c7d0;
       margin: 16px;
       height: 0;
-      @include for-narrow-layout{
+      @include for-narrow-layout {
         display: none;
       }
     }
 
     .login-subtitle,
     .signup-subtitle {
-      width: 450px;
+      width: 210px;
       font-size: rem(20px);
       font-size: 1rem;
+      @include for-max-narrow-layout {
+        flex-direction: column;
+        >* {
+          padding-bottom: 5px;
+        }
+      }
+      
+
 
       span {
         font-weight: bold;

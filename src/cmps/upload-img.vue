@@ -9,6 +9,9 @@
       }"
       v-if="!isLoading"
     >
+      <slot name="imgUrl">
+        <img class="img-uploaded" v-if="imgUrl" :src="imgUrl" alt="image" />
+      </slot>
       <label
         :class="{ 'label-img': true, 'user-editor': isUserDetails }"
         for="imgUploader"
@@ -26,9 +29,6 @@
         </div>
         <input @change="onUploadImg" type="file" id="imgUploader" />
       </label>
-      <slot name="imgUrl">
-        <img class="img-uploaded" v-if="imgUrl" :src="imgUrl" alt="image" />
-      </slot>
     </div>
     <img v-else src="@/assets/imgs/loader.gif" class="img-loader" />
   </section>

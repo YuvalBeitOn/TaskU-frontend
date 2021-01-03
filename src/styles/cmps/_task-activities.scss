@@ -43,7 +43,7 @@
     }
     .activity-date {
       font-family: 'roboto-medium', 'Ariel';
-      @include for-norml-layout {
+      @include for-normal-layout {
         position: absolute;
         top: 0;
         right: 0;
@@ -53,13 +53,13 @@
   }
   .user-avatar {
     margin-right: 10px;
-    @include for-norml-layout {
+    @include for-normal-layout {
       margin-right: 5px;
     }
     .profile-img {
       width: 40px !important;
       height: 40px !important;
-      @include for-norml-layout {
+      @include for-normal-layout {
         width: 25px !important;
         height: 25px !important;
       }

@@ -22,7 +22,7 @@ body {
 
 .main-container {
   height: 100%;
-  @include for-norml-layout {
+  @include for-normal-layout {
     margin-top: 50px;
   }
   // @include for-narrow-layout {

@@ -1,9 +1,9 @@
 .user-avatar {
   display: inline-block;
-  .profile-img {
-    @include for-max-narrow-layout {
-      width: 25px!important;
-      height: 25px!important;
-    }
-  }
+  // .profile-img {
+  //   @include for-max-narrow-layout {
+  //     width: 50px!important;
+  //     height: 50px!important;
+  //   }
+  // }
 }
