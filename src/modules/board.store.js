@@ -78,7 +78,7 @@ export const boardStore = {
       return JSON.parse(JSON.stringify(state.filterBy))
     },
     boardActivities(state) {
-      return state.currBoard.activities
+      return state.currBoard.activities 
     },
     getDarkModeToggle(state) {
       const isDarkMode = state.darkMode

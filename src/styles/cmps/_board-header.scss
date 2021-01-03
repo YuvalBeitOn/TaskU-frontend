@@ -77,7 +77,7 @@
         cursor: pointer;
       }
     }
-    .btn-activity-container {
+    .btn-booard-activity-container {
       margin-left: 15px;
       .btn-activity {
         width: 70px;
@@ -90,6 +90,9 @@
         display: block;
         font-size: 1.2rem;
         margin-left: 18px;
+        background-color: white;
+        box-shadow: 0 0 1px black;
+        padding: 5px;
         &:hover {
           cursor: pointer;
         }
@@ -101,9 +104,13 @@
       }
     }
     .activity-txt-mobile {
+      
       @include for-max-narrow-layout {
         font-size: 1.2rem;
         font-family: 'roboto-regular';
+      }
+      .blue{
+        color: #0685ff;
       }
     }
   }

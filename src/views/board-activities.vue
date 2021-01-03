@@ -11,7 +11,7 @@
           <button class="delete-all-btn" @click="deleteActivities">Delete All</button>
         </div>
         <div class="activity-contianer">
-          <activites-board
+          <activites-board v-if="boardActivitesToShow"
             :activities="boardActivitesToShow"
             @deleteActivity="deleteActivity"
           />
