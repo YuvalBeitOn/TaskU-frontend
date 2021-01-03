@@ -174,6 +174,7 @@ export default {
             return
         },
         updateTaskDate() {
+            console.log('this.taskCopy.dueDate:', this.taskCopy.dueDate);
             const date = moment(this.taskCopy.dueDate).format('ll')
             if (date === 'Invalid date') return
             this.taskCopy.members.forEach((member) => {
