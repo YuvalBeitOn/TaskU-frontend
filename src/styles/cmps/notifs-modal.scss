@@ -8,9 +8,9 @@
   height: 600px;
   left: 60px;
   top: 0;
-  &.expanded {
-    animation: expand-notifs 0.4s;
-  }
+  animation: expand-notifs 0.4s;
+  // &.expanded {
+  // }
   @include for-normal-layout {
     left: -400px;
     width: 420px;

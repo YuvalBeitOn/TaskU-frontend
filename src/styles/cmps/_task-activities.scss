@@ -1,7 +1,7 @@
 .task-activities {
   overflow-y: overlay;
   max-height: 84vh;
-  // width: 540px;
+  width: 540px;
 
   > *:not(:last-child) {
     margin-bottom: 1rem;
@@ -10,6 +10,7 @@
     text-align: left;
   }
   .activity {
+    // height: 65px;
     padding: 14px;
     margin-right: 3px;
     position: relative;
@@ -19,6 +20,7 @@
     background-color: #e5f4ff;
     > * {
       margin-right: 8px;
+      // height: 35px;
     }
     .activity-details {
       margin-left: 22px;
