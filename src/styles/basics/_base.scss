@@ -4,9 +4,8 @@
   padding: 0;
   user-select: none;
 }
-input,select,button{
+textarea,input,select,button,a{
   user-select: initial;
-
 }
 
 html {
@@ -20,7 +19,6 @@ body {
   background-color: linear-gradient(0deg, #c7e5f1, hsla(0, 0%, 100%, 0) 68%);
   &.mobile-screen{
     *{
-  
       touch-action: manipulation;
     }
   }

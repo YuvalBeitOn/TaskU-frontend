@@ -384,6 +384,9 @@ export default {
     }
   },
   created() {
+      if(window.outerWidth < 590){
+          this.isListExpanded = false
+      }
     this.$store.dispatch({
       type: 'createPrivateSocket'
     })
