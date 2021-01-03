@@ -89,7 +89,6 @@ import progressBar from '@/cmps/progress-bar'
 import taskList from './task-list.vue'
 import popupMenu from './popup-menu'
 import colorsMenu from './colors-menu'
-// import { eventBus } from '@/services/event-bus.service'
 import { boardService } from '../services/board.service'
 
 export default {
