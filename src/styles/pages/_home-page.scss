@@ -1,5 +1,5 @@
-$hpclr1:linear-gradient(135deg, #6273ff 0%, rgba(91, 218, 201, 0.8) 100%);
-$hpclr2:#f2f6fc;
+$hpclr1: linear-gradient(135deg, #6273ff 0%, rgba(91, 218, 201, 0.8) 100%);
+$hpclr2: #f2f6fc;
 
 .home-page {
   width: 100%;
@@ -76,7 +76,6 @@ $hpclr2:#f2f6fc;
         &:hover {
           color: #a1a1d2;
         }
-
       }
     }
   }
@@ -114,7 +113,7 @@ $hpclr2:#f2f6fc;
           width: 65ch;
           margin-bottom: 3rem;
           font-size: 1.15rem;
-          color: hsla(0, 0%, 100%, .5) !important;
+          color: hsla(0, 0%, 100%, 0.5) !important;
 
           @include for-max-narrow-layout {
             max-width: 20ch;
@@ -132,9 +131,7 @@ $hpclr2:#f2f6fc;
           display: none;
         }
       }
-
     }
-
   }
 
   .main-features {
@@ -150,15 +147,15 @@ $hpclr2:#f2f6fc;
         align-items: center;
         padding: 0 1rem;
 
-        >* {
+        > * {
           margin: 10px;
         }
       }
 
       .feature-box {
         padding: 0 rem(24px);
-        flex: 0 0 calc(100%/3);
-        max-width: calc(100%/3);
+        flex: 0 0 calc(100% / 3);
+        max-width: calc(100% / 3);
 
         @include for-narrow-layout {
           max-width: fit-content;
@@ -201,10 +198,8 @@ $hpclr2:#f2f6fc;
             }
           }
         }
-
       }
     }
-
   }
 
   .main-benefits {
@@ -221,7 +216,6 @@ $hpclr2:#f2f6fc;
       margin: 10px;
 
       .benefit-img {
-
         width: 50%;
         max-width: 100%;
 
@@ -241,7 +235,6 @@ $hpclr2:#f2f6fc;
         @include for-normal-layout {
           width: 100%;
           padding: 5px;
-
         }
 
         @include for-max-narrow-layout {
@@ -250,9 +243,8 @@ $hpclr2:#f2f6fc;
 
         margin-bottom: 19px;
 
-        >* {
+        > * {
           margin-bottom: 19px;
-
         }
 
         .benefit-title {
@@ -263,14 +255,8 @@ $hpclr2:#f2f6fc;
             font-size: 25px;
           }
         }
-
-
-
       }
-
-
     }
-
   }
 }
 
@@ -283,7 +269,6 @@ $hpclr2:#f2f6fc;
   left: 0;
   height: 2rem;
   width: 100%;
-
 }
 
 .hm-container {
@@ -292,7 +277,6 @@ $hpclr2:#f2f6fc;
 
   @include for-wide-layout {
     max-width: 850px;
-
   }
 
   @include for-narrow-layout {
@@ -302,17 +286,16 @@ $hpclr2:#f2f6fc;
   @include for-max-narrow-layout {
     padding: 0 10px;
   }
-
 }
 
 .change-color-nav {
   background-color: #212832;
 
   a {
-    color: hsla(0, 0%, 100%, .5);
+    color: hsla(0, 0%, 100%, 0.5);
 
     &:hover {
-      color: hsla(0, 0%, 100%, .75);
+      color: hsla(0, 0%, 100%, 0.75);
     }
   }
 }

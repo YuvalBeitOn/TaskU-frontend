@@ -7,7 +7,6 @@
 </template>
 
 <script>
-// import { boardService } from '../../services/board.service'
 import statusList from './status-list'
 export default {
   name: 'Trello-mode',
@@ -28,8 +27,7 @@ export default {
     statusList
   },
   created() {
-
-    let group = this.board.groups[this.board.groups.length-1]
+    let group = this.board.groups[this.board.groups.length - 1]
     this.group = group
   }
 }

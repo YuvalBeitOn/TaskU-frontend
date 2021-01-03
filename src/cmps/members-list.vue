@@ -9,10 +9,13 @@
           :key="member._id"
         >
           <div class="user-container flex align-center">
-            <avatar class="user-avatar" :user="member"  />
+            <avatar class="user-avatar" :user="member" />
             <span class="member-name">{{ member.fullName }}</span>
           </div>
-          <button @click.stop="goToUserDetails(member._id)" class="member-list-btn">
+          <button
+            @click.stop="goToUserDetails(member._id)"
+            class="member-list-btn"
+          >
             <span class="blue">Contact</span>
           </button>
         </li>

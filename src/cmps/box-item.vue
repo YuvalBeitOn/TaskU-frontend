@@ -14,10 +14,9 @@ export default {
   props: {
     title: String,
     value: [String, Number],
-    classIcon: String,
-  },
+    classIcon: String
+  }
 }
 </script>
 
-<style>
-</style>
+<style></style>

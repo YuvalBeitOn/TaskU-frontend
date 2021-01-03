@@ -1,7 +1,9 @@
 <template>
   <section class="filter-form flex column">
     <h4 class="filter-title">{{ title }}</h4>
-    <button class="filter-btn flex align-center" @click="updateFilter('All')">All</button>
+    <button class="filter-btn flex align-center" @click="updateFilter('All')">
+      All
+    </button>
     <button
       class="filter-btn relative flex align-center"
       @click="updateFilter(user._id)"
@@ -10,17 +12,17 @@
       type="submit"
     >
       <div class="user-avatar">
-             <avatar className="img-profile-preview" :size="25" :user="user" />
-
+        <avatar className="img-profile-preview" :size="25" :user="user" />
       </div>
-      <span v-if="user.fullName" class="filter-txt user-filter">{{ user.fullName }}</span>
+      <span v-if="user.fullName" class="filter-txt user-filter">{{
+        user.fullName
+      }}</span>
     </button>
   </section>
 </template>
 
 <script>
 import Avatar from '@/cmps/user-avatar.vue'
-
 
 export default {
   props: {

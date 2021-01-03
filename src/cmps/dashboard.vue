@@ -49,10 +49,10 @@ export default {
     },
     taskByStatus() {
       const tasksStatuses = [...this.$store.getters.tasksByStatues].map(
-        (status) => {
+        status => {
           const newStatus = {
             label: status.txt || 'need to review',
-            value: status.tasks.length,
+            value: status.tasks.length
           }
           return newStatus
         }
@@ -63,9 +63,9 @@ export default {
     memberForTasks() {
       const tasksMapStatus = [...this.$store.getters.tasksByStatues]
       const membersTask = []
-      tasksMapStatus.forEach((status) => {
-        status.tasks.forEach((task) => {
-          task.members.forEach((member) => {
+      tasksMapStatus.forEach(status => {
+        status.tasks.forEach(task => {
+          task.members.forEach(member => {
             membersTask.push(member.fullName)
           })
         })
@@ -81,7 +81,7 @@ export default {
     sumTasksGroups() {
       const board = JSON.parse(JSON.stringify(this.$store.getters.board))
       let numberTasks = []
-      board.groups.forEach((group) => {
+      board.groups.forEach(group => {
         const numbersTaskInGroup = group.tasks.length
         numberTasks.push(numbersTaskInGroup)
       })
@@ -92,16 +92,16 @@ export default {
       const numbersGroup = board.groups.length
       const resGroupTasksLength = {
         tasks: res,
-        groups: numbersGroup,
+        groups: numbersGroup
       }
       return resGroupTasksLength
-    },
+    }
   },
   methods: {
     closeDashboard() {
       console.log('close dashboard...')
       this.$emit('closeDashboard')
-    },
-  },
+    }
+  }
 }
 </script>

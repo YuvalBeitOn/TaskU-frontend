@@ -8,10 +8,13 @@
         </div>
         <div class="filter-container flex space-between">
           <search-activity @searchBoard="setSearch" />
-          <button class="delete-all-btn" @click="deleteActivities">Delete All</button>
+          <button class="delete-all-btn" @click="deleteActivities">
+            Delete All
+          </button>
         </div>
         <div class="activity-contianer">
-          <activites-board v-if="boardActivitesToShow"
+          <activites-board
+            v-if="boardActivitesToShow"
             :activities="boardActivitesToShow"
             @deleteActivity="deleteActivity"
           />

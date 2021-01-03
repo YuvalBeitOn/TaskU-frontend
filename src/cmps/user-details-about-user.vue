@@ -1,5 +1,4 @@
-
-      <template>
+<template>
   <section class="user-content flex justify-center">
     <div class="user-details-info flex column wrap">
       <h3>
@@ -32,19 +31,18 @@
         <div class="icon-container">
           <i class="icon-user far fa-building"></i>
         </div>
-        
+
         <strong class="title-details">Company name:</strong>{{ companyName }}
       </h3>
     </div>
-   
   </section>
 </template>
-      
-      <script>
+
+<script>
 export default {
   name: 'about-user',
   props: {
-    user: Object,
+    user: Object
   },
   computed: {
     Phone() {
@@ -59,12 +57,9 @@ export default {
       return this.user.companyName
         ? this.user.companyName
         : 'You didnt add a Company name yet'
-    },
-  },
+    }
+  }
 }
 </script>
-      
-      <style>
 
-
-</style>
+<style></style>

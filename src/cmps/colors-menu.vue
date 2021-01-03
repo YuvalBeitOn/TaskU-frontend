@@ -36,15 +36,15 @@ export default {
         '#0094fd',
         '#009986',
         '#3d3d3d',
-        '#567c8c',
-      ],
+        '#567c8c'
+      ]
     }
   },
   methods: {
     emitColor(color) {
       this.$emit('setColor', color)
-    },
-  },
+    }
+  }
 }
 </script>
 

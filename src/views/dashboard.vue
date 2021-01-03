@@ -13,33 +13,33 @@
 </template>
 
 <script>
-import LineChart from '@/cmps/chart';
+import LineChart from '@/cmps/chart'
 
 export default {
   components: { LineChart },
   data() {
     return {
-      datacollection: null,
-    };
+      datacollection: null
+    }
   },
   mounted() {},
   created() {
-    this.$store.dispatch({ type: 'loadBoards' });
+    this.$store.dispatch({ type: 'loadBoards' })
   },
   computed: {
     boards() {
-      return this.$store.getters.boards;
+      return this.$store.getters.boards
     },
     labels() {
-      const statuses = this.$store.getters.tasksByStatues;
-      const labels = Object.keys(statuses);
-      return labels;
-    },
+      const statuses = this.$store.getters.tasksByStatues
+      const labels = Object.keys(statuses)
+      return labels
+    }
   },
   methods: {
     setBoard(board) {
-      this.$store.commit({ type: 'setBoard', board });
-      this.fillData();
+      this.$store.commit({ type: 'setBoard', board })
+      this.fillData()
     },
     fillData() {
       this.datacollection = {
@@ -48,31 +48,31 @@ export default {
           {
             label: '',
             backgroundColor: 'black',
-            data: [this.getRandomInt(), this.getRandomInt()],
+            data: [this.getRandomInt(), this.getRandomInt()]
           },
           {
             label: 'workingOnIt',
             backgroundColor: 'green',
-            data: [this.getRandomInt(), this.getRandomInt()],
+            data: [this.getRandomInt(), this.getRandomInt()]
           },
           {
             label: '',
             backgroundColor: 'pink',
-            data: [this.getRandomInt(), this.getRandomInt()],
+            data: [this.getRandomInt(), this.getRandomInt()]
           },
           {
             label: 'done',
             backgroundColor: '#f87979',
-            data: [20, this.getRandomInt()],
-          },
-        ],
-      };
+            data: [20, this.getRandomInt()]
+          }
+        ]
+      }
     },
     getRandomInt() {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
-    },
-  },
-};
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5
+    }
+  }
+}
 </script>
 
 <style>

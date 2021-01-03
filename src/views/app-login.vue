@@ -44,7 +44,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'app-login',
   data() {
@@ -52,19 +51,19 @@ export default {
       loginCredentials: {
         email: null,
         password: null,
-        isAdmin: false,
+        isAdmin: false
       },
       isElementDisabled: false,
       googleSignInParams: {
         clientId:
-          '362174628097-alt6tonjakiq40pcm6i9rno28997rgfh.apps.googleusercontent.com',
-      },
+          '362174628097-alt6tonjakiq40pcm6i9rno28997rgfh.apps.googleusercontent.com'
+      }
     }
   },
   computed: {
     defaultBoardId() {
       return this.$store.getters.defaultBoardId
-    },
+    }
   },
   created() {},
   methods: {
@@ -73,7 +72,7 @@ export default {
       try {
         let user = await this.$store.dispatch({
           type: 'login',
-          userCred,
+          userCred
         })
         if (user) {
           this.isElementDisabled = true
@@ -83,32 +82,30 @@ export default {
             showClose: true,
             type: 'success',
             offset: 335,
-            message: "You've sucessfully logged in!",
+            message: "You've sucessfully logged in!"
           })
-          
+
           setTimeout(() => {
             this.$router.push(`/board/${this.defaultBoardId}`)
           }, 2000)
         }
       } catch (err) {
-        
-          this.$message({
-            durtion: 2000,
-            showClose: true,
-            type: 'error',
-            offset: 335,
-            message: 'Incorrect email or password.',
-          })
-      }
-      finally {
-          this.isElementDisabled = false
+        this.$message({
+          durtion: 2000,
+          showClose: true,
+          type: 'error',
+          offset: 335,
+          message: 'Incorrect email or password.'
+        })
+      } finally {
+        this.isElementDisabled = false
 
         this.loginCredentials = {
           email: null,
-        password: null,
-        isAdmin: false,
-      }
+          password: null,
+          isAdmin: false
         }
+      }
     }
   }
 }

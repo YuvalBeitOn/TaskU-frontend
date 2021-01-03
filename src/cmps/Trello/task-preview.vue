@@ -19,7 +19,6 @@
     <div
       class="btns-control flex column space-between align-center"
       v-if="isHovering"
-     
     >
       <avatar :user="user" :size="20" />
       <button class="delete-btn" @click="deleteTask">

@@ -10,9 +10,9 @@
 <script>
 import navMenu from '@/cmps/nav-menu'
 export default {
-  data(){
+  data() {
     return {
-      isMobile:false
+      isMobile: false
     }
   },
   computed: {
@@ -30,25 +30,23 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('logout')
-    },
-
-  },
-  created(){
-    if(window.outerWidth < 820){
-      this.isMobile = true
-     document.body.classList.add('mobile-screen')
-     console.log(document.body);
-
     }
-    console.log('ev:',window.outerWidth);
+  },
+  created() {
+    if (window.outerWidth < 820) {
+      this.isMobile = true
+      document.body.classList.add('mobile-screen')
+      console.log(document.body)
+    }
+    console.log('ev:', window.outerWidth)
   },
   destroyed() {
- if(this.isMobile){
-     document.body.classList.remove('mobile-screen')
-     this.isMobile=false
- }
+    if (this.isMobile) {
+      document.body.classList.remove('mobile-screen')
+      this.isMobile = false
+    }
 
-       this.$store.dispatch({
+    this.$store.dispatch({
       type: 'deletePrivateSocket'
     })
   },
