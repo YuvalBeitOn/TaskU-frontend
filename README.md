@@ -1,5 +1,7 @@
 # tasku
 
+Link to heroku: https://wearetasku.herokuapp.com/#/
+
 ## Project setup
 ```
 npm install
@@ -32,3 +34,4 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
