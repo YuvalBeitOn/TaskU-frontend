@@ -7,6 +7,9 @@
   flex-direction: column;
   margin: 0 5px;
   height: fit-content;
+  @include for-mobile-layout {
+    margin-bottom: 20px;
+  }
   .tasks-preview-container {
     max-height: 600px;
     overflow-y: auto;

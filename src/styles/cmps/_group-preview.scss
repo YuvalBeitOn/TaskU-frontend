@@ -133,7 +133,7 @@
         @include for-wide-layout {
           width: 90px;
         }
-        @include for-norml-layout {
+        @include for-normal-layout {
           &.t-status,
           &.t-priority {
             width: 60px;

@@ -1,18 +1,14 @@
 /* Media queries Breakpoint mixins */
 
 
+@mixin for-mobile-layout {
+  // $break-max-narrow: 400px;
+  
+      @media (max-width: $break-mobile) {
+          @content;
+      }
+  }
 
-// @mixin for-normal-layout {
-//     @media (max-width: $break-normal) {
-//         @content;
-//     }
-// }
-
-// @mixin for-normal-wide-layout {
-//     @media (max-width: $break-normal-wide) {
-//         @content;
-//     }
-// }
 @mixin for-max-narrow-layout {
 // $break-max-narrow: 550px;
 
@@ -29,9 +25,9 @@
     }
 }
 
-@mixin for-norml-layout {
+@mixin for-normal-layout {
 // $break-norml: 950px;
-  @media (max-width: $break-norml) {
+  @media (max-width: $break-normal) {
     @content;
   }
 }

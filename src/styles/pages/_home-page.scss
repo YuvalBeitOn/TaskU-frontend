@@ -24,7 +24,7 @@ $hpclr2:#f2f6fc;
       margin: rem(10px);
       cursor: pointer;
 
-      @include for-norml-layout {
+      @include for-normal-layout {
         display: block;
       }
     }
@@ -40,7 +40,7 @@ $hpclr2:#f2f6fc;
         width: 50%;
       }
 
-      @include for-norml-layout {
+      @include for-normal-layout {
         visibility: hidden;
         position: fixed;
         display: flex;
@@ -64,7 +64,7 @@ $hpclr2:#f2f6fc;
         border-radius: 10px;
         color: white;
 
-        @include for-norml-layout {
+        @include for-normal-layout {
           color: black;
         }
 
@@ -220,7 +220,7 @@ $hpclr2:#f2f6fc;
       .benefit-img {
         margin-right: 10px;
         
-        @include for-norml-layout {
+        @include for-normal-layout {
           display: flex;
           align-items: center;
           justify-content: center;

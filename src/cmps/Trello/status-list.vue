@@ -1,6 +1,6 @@
 <template>
-  <div class="status-list- flex ">
-   <draggable class="flex" :list="clonedStatuses" group="list">
+  <div class="status-list flex ">
+   <draggable class="drag-list flex" :list="clonedStatuses" group="list">
 
     <status-preview
       v-for="status in clonedStatuses"

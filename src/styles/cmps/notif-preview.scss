@@ -19,7 +19,7 @@
   }
   .notif-container {
     padding: 14px;
-    @include for-norml-layout {
+    @include for-normal-layout {
       width: 100%;
       padding: 5px;
       position: relative;
@@ -27,7 +27,7 @@
 
     .user-img {
       margin-right: 5px;
-      @include for-norml-layout {
+      @include for-normal-layout {
         position: absolute;
         top: 0;
         right: 0;
