@@ -13,7 +13,7 @@
           @submit.prevent="submitLogin"
         >
           <el-input
-            type="text"
+            type="email"
             v-model="loginCredentials.email"
             placeholder="Email"
             :disabled="isElementDisabled"
@@ -100,11 +100,15 @@ export default {
             message: 'Incorrect email or password.',
           })
       }
-      this.loginCredentials = {
-        email: null,
+      finally {
+          this.isElementDisabled = false
+
+        this.loginCredentials = {
+          email: null,
         password: null,
         isAdmin: false,
       }
+        }
     }
   }
 }

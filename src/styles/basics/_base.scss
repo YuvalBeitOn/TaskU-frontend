@@ -4,6 +4,10 @@
   padding: 0;
   user-select: none;
 }
+input,select,button{
+  user-select: initial;
+
+}
 
 html {
   font-family: 'roboto-light', 'Ariel';
@@ -14,8 +18,16 @@ html {
 body {
   height: 100vh;
   background-color: linear-gradient(0deg, #c7e5f1, hsla(0, 0%, 100%, 0) 68%);
+  &.mobile-screen{
+    *{
+  
+      touch-action: manipulation;
+    }
+  }
 }
-
+.el-scrollbar__bar {
+  opacity: 1!important;
+}
 #app {
   height: 100%;
 }
