@@ -8,6 +8,8 @@
   width: 220px;
   left: 0;
   top: 30px;
+  animation: expand-popup 0.5s;
+
   .menu-item {
     padding: 4px 8px;
     width: 100%;
@@ -35,5 +37,16 @@
     .el-divider--horizontal {
       margin: 0;
     }
+  }
+}
+
+@keyframes expand-popup {
+  0% {
+    opacity: 0;
+    // width: 30px;
+  }
+  100% {
+    opacity: 1;
+    // width: 220px;
   }
 }
