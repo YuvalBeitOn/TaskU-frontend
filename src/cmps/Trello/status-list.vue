@@ -28,7 +28,8 @@ export default {
     }
   },
   created(){
-    this.clonedStatuses = this.statuses
+    this.clonedStatuses = [...this.statuses]
+    console.log('this.clonedStatuses:', this.clonedStatuses)
   },
   components: {
     statusPreview,

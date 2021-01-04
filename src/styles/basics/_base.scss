@@ -2,10 +2,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  user-select: none;
+  // user-select: none;
 }
 textarea,input,select,button,a{
-  user-select: initial;
+  // user-select: initial;
 }
 
 html {

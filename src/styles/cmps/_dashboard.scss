@@ -1,4 +1,9 @@
 .dashboard{
+    .title-static{
+        text-align: center;
+        font-family: roboto-medium;
+        margin-bottom: 10px;
+    }
     .fa-times{
 cursor: pointer;
 font-size: 18px;
@@ -10,7 +15,7 @@ font-size: 18px;
     z-index: 9;
     background-color: white;
     padding: 20px;
-    height: 550px;
+    height: 590px;
     width: 900px;
     box-shadow: inset 0px 0 2px 0px black;
     

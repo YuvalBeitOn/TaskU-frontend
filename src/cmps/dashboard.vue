@@ -1,6 +1,7 @@
 <template>
   <section v-if="board" class="dashboard">
     <i @click="closeDashboard" class="fas fa-times"></i>
+    <h2 class="title-static">{{board.name}} Statics</h2>
     <section class="box-items-container flex wrap align-center justify-center">
       <box-item
         title="Activities"

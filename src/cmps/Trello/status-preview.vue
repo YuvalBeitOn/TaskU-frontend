@@ -53,18 +53,18 @@ import taskPreview from './task-preview.vue'
 import { eventBus } from '@/services/event-bus.service'
 import { boardService } from '../../services/board.service'
 import draggable from 'vuedraggable'
-
+import _ from 'lodash'
 export default {
   name: 'statues-preview',
   props: {
     status: Object,
-    group: Object
+    group: Object,
   },
   data() {
     return {
       txt: '',
       isAddBtnShown: false,
-      cloneTasks: null
+      cloneTasks: null,
     }
   },
   computed: {
@@ -73,33 +73,36 @@ export default {
     },
     onFocousBgc() {
       return this.isAddBtnShown ? 'background-color:white;' : ''
-    }
+    },
   },
   methods: {
     updateTaskStatus({ added }) {
       if (added) {
         const { newIndex } = added
         const idx = newIndex
-        const task = this.status.tasks[idx]
-        task.status.color = this.status.color
-        task.status.txt = this.status.txt
-        this.updateTask(task)
+        console.log('idx:', idx)
+        console.log('this.status:', this.status)
+        // task.status.color = this.status.color
+        // task.status.txt = this.status.txt
+        // this.updateTask(task)
       }
     },
     deleteTask(task) {
-      const group = this.board.groups.find(group => group.id === task.groupId)
-      const taskIdx = group.tasks.findIndex(currTask => currTask.id === task.id)
+      const group = this.board.groups.find((group) => group.id === task.groupId)
+      const taskIdx = group.tasks.findIndex(
+        (currTask) => currTask.id === task.id
+      )
       group.tasks.splice(taskIdx, 1)
       eventBus.$emit('updateGroup', group)
     },
     updateTask(updatedTask) {
+      console.log('updatedTask before:', updatedTask)
       const group = this.board.groups.find(
-        group => group.id === updatedTask.groupId
+        (group) => group.id === updatedTask.groupId
       )
-      const taskIdx = group.tasks.findIndex(
-        currTask => currTask.id === updatedTask.id
-      )
-      group.tasks.splice(taskIdx, 1, updatedTask)
+      const taskIdx = group.tasks.findIndex((currTask) => currTask.id === updatedTask.id)
+      const cleanTask = _.omit(updatedTask, ['groupId', 'groupName'])
+      group.tasks.splice(taskIdx, 1, cleanTask)
       eventBus.$emit('updateGroup', group)
     },
     focusInput() {
@@ -117,15 +120,16 @@ export default {
       eventBus.$emit('updateGroup', this.group)
       this.isAddBtnShown = false
       this.txt = ''
-    }
+    },
   },
   created() {
-    this.groupCopy = this.group
-    this.cloneTasks = this.status.tasks
+    console.log('this status prop',this.status);
+    this.groupCopy = {...this.group}
+    this.cloneTasks = [...this.status.tasks]
   },
   components: {
     taskPreview,
-    draggable
-  }
+    draggable,
+  },
 }
 </script>
