@@ -187,6 +187,7 @@ export const boardStore = {
         board.members.push(guestUser)
       }
       try {
+        console.log('saving!!!!')
         const savedBoard = await boardService.save(board)
         if (board._id) {
           commit({ type: 'setBoard', board: savedBoard })
