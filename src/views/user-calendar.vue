@@ -1,37 +1,28 @@
 <template>
-<<<<<<< HEAD
     <section class="user-calendar">
-        <h1>Hello {{ loggedinUser.fullName }}</h1>
+        <!-- <h1>Hello {{ loggedinUser.fullName }}</h1> -->
         <!-- {{ boards }} -->
-        <full-calendar :events="events" @event-selected="eventSelected" />
+        <!-- <full-calendar :events="events" @event-selected="eventSelected" /> -->
     </section>
-=======
-  <section class="user-calendar">
-    <h1>Hello {{ loggedinUser.fullName }}</h1>
-    {{ boards }}
-    <full-calendar :events="events" @event-selected="eventSelected" />
-  </section>
->>>>>>> 68b004c0804851a1835f964f801b7adbb7be1de4
 </template>
 
 <script>
-import { FullCalendar } from 'vue-full-calendar'
-import 'fullcalendar/dist/fullcalendar.css'
+// import { FullCalendar } from 'vue-full-calendar'
+// import 'fullcalendar/dist/fullcalendar.css'
 import moment from 'moment'
 
 //ToBeChanged: Implementing a better UI library like Vuetify Calendar
 
 export default {
-  methods: {
-    eventSelected(ev) {
-      this.$router.push(`/board/${ev.boardId}/task/${ev.taskId}`)
-    }
-  },
-  computed: {
-    loggedinUser() {
-      return this.$store.getters.user
+    methods: {
+        eventSelected(ev) {
+            this.$router.push(`/board/${ev.boardId}/task/${ev.taskId}`)
+        },
     },
-<<<<<<< HEAD
+    created(){
+      alert('Under construction! Sorry..')
+      this.$router.push('/')
+    },
     computed: {
         loggedinUser() {
             return this.$store.getters.user
@@ -64,37 +55,8 @@ export default {
         },
     },
     components: {
-        FullCalendar,
-=======
-    boards() {
-      return this.$store.getters.boards
->>>>>>> 68b004c0804851a1835f964f801b7adbb7be1de4
+        // FullCalendar,
     },
-    events() {
-      const events = []
-      const todayDate = moment().format('YYYY-MM-DD')
-      this.boards.forEach(board => {
-        board.groups.forEach(group => {
-          group.tasks.forEach(task => {
-            const event = {
-              title: 'Task Name: ' + task.txt,
-              color: task.status.color,
-              start:
-                task.dueDate == '' ? todayDate : task.dueDate.substring(0, 16),
-              allday: task.dueDate.length > 13 ? false : true,
-              boardId: board._id,
-              taskId: task.id
-            }
-            events.push(event)
-          })
-        })
-      })
-      return events
-    }
-  },
-  components: {
-    // FullCalendar,
-  }
 }
 </script>
 
