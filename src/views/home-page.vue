@@ -172,9 +172,7 @@ export default {
       this.isNavShown = !this.isNavShown
     },
     hendaleScroll() {
-      console.log('scroll me')
       this.scrollPosition = window.scrollY
-      console.log('this.scrollPosition:', this.scrollPosition)
     },
     async onGetStarted() {
       if (this.loggedInUser) {

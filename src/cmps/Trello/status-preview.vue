@@ -80,11 +80,10 @@ export default {
       if (added) {
         const { newIndex } = added
         const idx = newIndex
-        console.log('idx:', idx)
-        console.log('this.status:', this.status)
-        // task.status.color = this.status.color
-        // task.status.txt = this.status.txt
-        // this.updateTask(task)
+        const task = _.clone(this.status.tasks[idx])
+        task.status.color = this.status.color
+        task.status.txt = this.status.txt
+        this.updateTask(task)
       }
     },
     deleteTask(task) {
@@ -96,11 +95,12 @@ export default {
       eventBus.$emit('updateGroup', group)
     },
     updateTask(updatedTask) {
-      console.log('updatedTask before:', updatedTask)
       const group = this.board.groups.find(
         (group) => group.id === updatedTask.groupId
       )
-      const taskIdx = group.tasks.findIndex((currTask) => currTask.id === updatedTask.id)
+      const taskIdx = group.tasks.findIndex(
+        (currTask) => currTask.id === updatedTask.id
+      )
       const cleanTask = _.omit(updatedTask, ['groupId', 'groupName'])
       group.tasks.splice(taskIdx, 1, cleanTask)
       eventBus.$emit('updateGroup', group)
@@ -123,9 +123,8 @@ export default {
     },
   },
   created() {
-    console.log('this status prop',this.status);
-    this.groupCopy = {...this.group}
-    this.cloneTasks = [...this.status.tasks]
+    this.groupCopy = this.group
+    this.cloneTasks = this.status.tasks
   },
   components: {
     taskPreview,
