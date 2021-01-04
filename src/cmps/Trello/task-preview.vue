@@ -19,11 +19,10 @@
     <div
       class="btns-control flex column space-between align-center"
       v-if="isHovering"
-     
     >
       <avatar :user="user" :size="20" />
       <button class="delete-btn" @click="deleteTask">
-        <i class="fas fa-trash delete-icon "></i>
+        <i class="fas fa-trash delete-icon"></i>
       </button>
       <button class="details-btn" @click.stop="openTaskDetails">
         <i class="fas fa-file-alt details-icon"></i>
@@ -46,22 +45,22 @@ export default {
   name: 'task-preview',
   components: {
     Avatar,
-    taskDetails
+    taskDetails,
   },
   props: {
     task: Object,
-    group: Object
+    group: Object,
   },
   data() {
     return {
       isTaskDetailsShown: false,
-      isHovering: false
+      isHovering: false,
     }
   },
   computed: {
     user() {
       return this.$store.getters.user
-    }
+    },
   },
   methods: {
     hideBtns() {
@@ -81,17 +80,17 @@ export default {
         this.$notify({
           message: 'Task txt updated',
           position: 'bottom-left',
-          duration: 2000
+          duration: 2000,
         })
         this.$emit('updateTask', this.taskCopy)
       }
     },
     openTaskDetails() {
       this.isTaskDetailsShown = true
-    }
+    },
   },
   created() {
     this.taskCopy = this.task
-  }
+  },
 }
 </script>

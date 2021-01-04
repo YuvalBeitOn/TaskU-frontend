@@ -1,40 +1,49 @@
 <template>
-  <ul 
+  <ul
     :style="`background-color:${status.color}`"
     class="status-preview flex align-center clean-list status-list"
   >
     <span class="status-title"
-      >{{ status.txt || 'Need to review' }} 
+      >{{ status.txt || 'Need to review' }}
       <span v-if="status.tasks">/ {{ status.tasks.length }}</span></span
     >
-<div class="tasks-preview-container align-center">
-   <draggable class="width100 drag-canvan" :list="cloneTasks" group="tasks"  @change="updateTaskStatus" >
-    <task-preview
-      v-for="task in cloneTasks"
-      :key="task.id"
-      :task="task"
-      :group="group"
-      @updateTask="updateTask"
-      @deleteTask="deleteTask"
-    />
-    </draggable>
+    <div class="tasks-preview-container align-center">
+      <draggable
+        class="width100 drag-canvan"
+        :list="cloneTasks"
+        group="tasks"
+        @change="updateTaskStatus"
+      >
+        <task-preview
+          v-for="task in cloneTasks"
+          :key="task.id"
+          :task="task"
+          :group="group"
+          @updateTask="updateTask"
+          @deleteTask="deleteTask"
+        />
+      </draggable>
     </div>
     <div :style="onFocousBgc" class="input-container">
-
-    <div  class="add-task-form flex align-center space-between" >
-      <input
-        class="add-task-input"
-        v-model="txt"
-        type="text"
-        placeholder="+ Add Task"
-        @click="focusInput"
-        @blur="unFocusInput"
-        @keypress.enter="addTask"
-      />
-      <button @click="addTask" :style="`background-color:${status.color}`" class="add-btn" v-if="isAddBtnShown">
-        + Add
-      </button>
-    </div>
+      <div class="add-task-form flex align-center space-between">
+        <input
+          class="add-task-input"
+          v-model="txt"
+          type="text"
+          placeholder="+ Add Task"
+          @click="focusInput"
+          @blur="unFocusInput"
+          @keypress.enter="addTask"
+        />
+        <button
+          @click="addTask"
+          :style="`background-color:${status.color}`"
+          class="add-btn"
+          v-if="isAddBtnShown"
+        >
+          + Add
+        </button>
+      </div>
     </div>
   </ul>
 </template>
@@ -44,56 +53,56 @@ import taskPreview from './task-preview.vue'
 import { eventBus } from '@/services/event-bus.service'
 import { boardService } from '../../services/board.service'
 import draggable from 'vuedraggable'
-
+import _ from 'lodash'
 export default {
   name: 'statues-preview',
   props: {
     status: Object,
-    group: Object
+    group: Object,
   },
   data() {
     return {
       txt: '',
       isAddBtnShown: false,
-      cloneTasks:null
-      
+      cloneTasks: null,
     }
   },
   computed: {
     board() {
       return this.$store.getters.board
     },
-    onFocousBgc(){
+    onFocousBgc() {
       return this.isAddBtnShown ? 'background-color:white;' : ''
-    }
+    },
   },
   methods: {
- 
-    updateTaskStatus({added}){
-      if(added){
-      const {newIndex} = added
-      const idx = newIndex
-      const task = this.status.tasks[idx]
-      task.status.color = this.status.color
-      task.status.txt = this.status.txt
-      this.updateTask(task)
+    updateTaskStatus({ added }) {
+      if (added) {
+        const { newIndex } = added
+        const idx = newIndex
+        const task = _.clone(this.status.tasks[idx])
+        task.status.color = this.status.color
+        task.status.txt = this.status.txt
+        this.updateTask(task)
       }
-
     },
     deleteTask(task) {
-      const group = this.board.groups.find(group => group.id === task.groupId)
-      const taskIdx = group.tasks.findIndex(currTask => currTask.id === task.id)
+      const group = this.board.groups.find((group) => group.id === task.groupId)
+      const taskIdx = group.tasks.findIndex(
+        (currTask) => currTask.id === task.id
+      )
       group.tasks.splice(taskIdx, 1)
       eventBus.$emit('updateGroup', group)
     },
     updateTask(updatedTask) {
       const group = this.board.groups.find(
-        group => group.id === updatedTask.groupId
+        (group) => group.id === updatedTask.groupId
       )
       const taskIdx = group.tasks.findIndex(
-        currTask => currTask.id === updatedTask.id
+        (currTask) => currTask.id === updatedTask.id
       )
-      group.tasks.splice(taskIdx, 1, updatedTask)
+      const cleanTask = _.omit(updatedTask, ['groupId', 'groupName'])
+      group.tasks.splice(taskIdx, 1, cleanTask)
       eventBus.$emit('updateGroup', group)
     },
     focusInput() {
@@ -111,7 +120,7 @@ export default {
       eventBus.$emit('updateGroup', this.group)
       this.isAddBtnShown = false
       this.txt = ''
-    }
+    },
   },
   created() {
     this.groupCopy = this.group
@@ -119,7 +128,7 @@ export default {
   },
   components: {
     taskPreview,
-    draggable
-  }
+    draggable,
+  },
 }
 </script>

@@ -24,6 +24,10 @@
   &.space-around {
     justify-content: space-around;
   }
+  &.center-center{
+    justify-content: center;
+    align-items: center;
+  }
   &.space-between {
     justify-content: space-between;
   }
@@ -150,5 +154,17 @@
     &:hover {
       cursor: pointer;
     }
+  }
+}
+
+
+//KEYFRAMES
+
+@keyframes opacity-animate {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

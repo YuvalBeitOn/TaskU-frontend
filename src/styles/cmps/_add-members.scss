@@ -9,6 +9,8 @@
   border-radius: 4px;
   max-height: 400px;
   overflow-y: auto;
+  animation: expand-members 0.4s;
+
   @include for-mobile-layout {
     height: 320px;
   }
@@ -124,4 +126,16 @@
 }
 .member-show {
   margin-left: -8px;
+}
+
+
+@keyframes expand-members {
+  0% {
+    opacity: 0;
+    // width: 30px;
+  }
+  100% {
+    opacity: 1;
+    // width: 200px;
+  }
 }

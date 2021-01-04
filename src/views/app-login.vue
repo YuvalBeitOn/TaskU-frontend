@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <section class="app-login-container">
         <div class="login-header">
             <router-link to="/"
@@ -19,6 +20,23 @@
                 >
                     <!-- <el-input
             type="text"
+=======
+  <section class="app-login-container">
+    <div class="login-header">
+      <router-link to="/"
+        ><img class="logo2 flex end" src="@/assets/imgs/logo2.png" alt=""
+      /></router-link>
+    </div>
+    <section class="app-login flex column">
+      <div class="login-form flex column justify-center">
+        <h2 class="login-title">Log <span class="thin-fonted">In</span></h2>
+        <form
+          class="flex column justify-center align-center"
+          @submit.prevent="submitLogin"
+        >
+          <el-input
+            type="email"
+>>>>>>> 68b004c0804851a1835f964f801b7adbb7be1de4
             v-model="loginCredentials.email"
             placeholder="Email"
             :disabled="isElementDisabled"
@@ -65,6 +83,7 @@
 
 <script>
 export default {
+<<<<<<< HEAD
     name: "app-login",
     data() {
         return {
@@ -128,4 +147,70 @@ export default {
         },
     },
 };
+=======
+  name: 'app-login',
+  data() {
+    return {
+      loginCredentials: {
+        email: null,
+        password: null,
+        isAdmin: false
+      },
+      isElementDisabled: false,
+      googleSignInParams: {
+        clientId:
+          '362174628097-alt6tonjakiq40pcm6i9rno28997rgfh.apps.googleusercontent.com'
+      }
+    }
+  },
+  computed: {
+    defaultBoardId() {
+      return this.$store.getters.defaultBoardId
+    }
+  },
+  created() {},
+  methods: {
+    async submitLogin() {
+      const userCred = JSON.parse(JSON.stringify(this.loginCredentials))
+      try {
+        let user = await this.$store.dispatch({
+          type: 'login',
+          userCred
+        })
+        if (user) {
+          this.isElementDisabled = true
+          await this.$store.dispatch({ type: 'loadBoards' })
+          this.$message({
+            duration: 2000,
+            showClose: true,
+            type: 'success',
+            offset: 335,
+            message: "You've sucessfully logged in!"
+          })
+
+          setTimeout(() => {
+            this.$router.push(`/board/${this.defaultBoardId}`)
+          }, 2000)
+        }
+      } catch (err) {
+        this.$message({
+          durtion: 2000,
+          showClose: true,
+          type: 'error',
+          offset: 335,
+          message: 'Incorrect email or password.'
+        })
+      } finally {
+        this.isElementDisabled = false
+
+        this.loginCredentials = {
+          email: null,
+          password: null,
+          isAdmin: false
+        }
+      }
+    }
+  }
+}
+>>>>>>> 68b004c0804851a1835f964f801b7adbb7be1de4
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <section :class="{ 'notifications-modal': true, 'expanded': isExpanded }">
+  <section :class="{ 'notifications-modal': true, expanded: isExpanded }">
     <!-- <section class="notifications-modal"> -->
     <header class="header-notifs">
       <h3 class="notifs-title">Notifications</h3>

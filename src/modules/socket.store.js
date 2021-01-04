@@ -1,6 +1,6 @@
 import { socketService } from '../services/socket.service'
 import store from '../store/index'
-import {eventBus} from '../services/event-bus.service'
+import { eventBus } from '../services/event-bus.service'
 
 socketService.on('updated board', board => {
     store.commit({
